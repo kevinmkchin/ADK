@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "Util/MoreColors.h"
 
 struct FEngineConfig
 {
@@ -11,7 +12,8 @@ struct FEngineConfig
 	// Game window resolution
 	uint16_t DefaultWindowWidth;
 	uint16_t DefaultWindowHeight;
-
+	// Default window background color
+	sf::Color WindowBackgroundColor;
 
 	// Defaults
 	FEngineConfig();
@@ -23,6 +25,7 @@ FEngineConfig::FEngineConfig()
 	, bVSyncEnabled(false)
 	, DefaultWindowWidth(1280)
 	, DefaultWindowHeight(720)
+	, WindowBackgroundColor(MC_OLIVE)
 {
 }
 
@@ -35,6 +38,7 @@ public:
 	void Run();
 
 private:
+
 	// Process user inputs
 	void ProcessEvents();
 
@@ -106,7 +110,7 @@ void Engine::Update(float deltaTime)
 
 void Engine::Render()
 {
-	window.clear();
+	window.clear(EngineConfig.WindowBackgroundColor);
 
 
 
