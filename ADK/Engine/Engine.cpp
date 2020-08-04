@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 
-
 struct FEngineConfig
 {
 	// How often game logic is ticked/updated
@@ -40,45 +39,47 @@ private:
 	void ProcessEvents();
 
 	// Update game logic
-	void Update(float DeltaTime);
+	void Update(float deltaTime);
 
 	// Render game to screen
 	void Render();
 
 private:
-	const FEngineConfig EngineConfig;
+	FEngineConfig EngineConfig;
 
-	sf::RenderWindow Window;
+	sf::RenderWindow window;
 
 };
 
 Engine::Engine()
-	: Window(sf::VideoMode(EngineConfig.DefaultWindowWidth, EngineConfig.DefaultWindowHeight), "ADK Engine")
+	: window(sf::VideoMode(EngineConfig.DefaultWindowWidth, EngineConfig.DefaultWindowHeight), "ADK Engine")
 {
 }
 
 void Engine::Run()
 {
+	// Read DefaultGame.ini to set up EngineConfig
+
 	// Set V-Sync
-	Window.setVerticalSyncEnabled(EngineConfig.bVSyncEnabled);
+	window.setVerticalSyncEnabled(EngineConfig.bVSyncEnabled);
 
 	// Initialize framerate and update times
-	sf::Clock Clock;
-	sf::Time TimeSinceLastUpdate = sf::Time::Zero;
-	sf::Time TimePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
+	sf::Clock clock;
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	sf::Time timePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
 
 	// Game process loop
-	while (Window.isOpen())
+	while (window.isOpen())
 	{
 		ProcessEvents();
-		TimeSinceLastUpdate += Clock.restart();
-		while (TimeSinceLastUpdate > TimePerFrame) // Loop until timeSinceLastUpdate is below required timePerFrame
+		timeSinceLastUpdate += clock.restart();
+		while (timeSinceLastUpdate > timePerFrame) // Loop until timeSinceLastUpdate is below required timePerFrame
 		{
-			TimeSinceLastUpdate -= TimePerFrame;
+			timeSinceLastUpdate -= timePerFrame;
 
 			ProcessEvents();
 			
-			Update(TimePerFrame.asSeconds());
+			Update(timePerFrame.asSeconds());
 
 			if (EngineConfig.bCapFramerateToTicks) { Render(); }
 		}
@@ -88,35 +89,35 @@ void Engine::Run()
 
 void Engine::ProcessEvents()
 {
-	sf::Event Event;
-	while (Window.pollEvent(Event))
+	sf::Event event;
+	while (window.pollEvent(event))
 	{
-		if (Event.type == sf::Event::Closed)
+		if (event.type == sf::Event::Closed)
 		{
-			Window.close();
+			window.close();
 		}
 	}
 }
 
-void Engine::Update(float DeltaTime)
+void Engine::Update(float deltaTime)
 {
 
 }
 
 void Engine::Render()
 {
-	Window.clear();
+	window.clear();
 
 
 
-	Window.display();
+	window.display();
 }
 
 // --- MAIN ---
 int main()
 {
-	Engine Game;
-	Game.Run();
+	Engine game;
+	game.Run();
 
 	return 0;
 }

@@ -1,5 +1,8 @@
 Debug/
 Release/
 
+# Ignore the game specific classes
+Game/
+
 # Visual C++ cache files
 *.opendb
