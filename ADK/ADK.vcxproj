@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="Engine\InternalUtilities\AssetManager.h" />
     <ClInclude Include="Engine\InternalUtilities\TextureManager.h" />
+    <ClInclude Include="Engine\Util\MoreColors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

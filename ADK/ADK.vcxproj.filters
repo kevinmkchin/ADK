@@ -32,5 +32,8 @@
     <ClInclude Include="Engine\InternalUtilities\TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Util\MoreColors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
