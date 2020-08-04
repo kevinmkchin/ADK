@@ -1,0 +1,5 @@
+Debug/
+Release/
+
+# Visual C++ cache files
+*.opendb
