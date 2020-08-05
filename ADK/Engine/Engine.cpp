@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Util/MoreColors.h"
+#include "Scene.h"
 
 struct FEngineConfig
 {
@@ -53,6 +54,8 @@ private:
 
 	sf::RenderWindow window;
 
+	Scene ActiveScene;
+
 };
 
 Engine::Engine()
@@ -71,6 +74,25 @@ void Engine::Run()
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	sf::Time timePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
+
+	//testing
+	//AssetManager yea = AssetManager();
+	//yea.Load(Textures::Grass, "Assets/adk/t_missing.png");
+	//sf::Sprite player;
+	//player.setTexture(yea.Get(Textures::Grass));
+	//player.setPosition(640, 360);
+	//sf::View view;
+	//view.setCenter(sf::Vector2f(640.f, 360.f));
+	//view.setSize(sf::Vector2f(200.f, 200.f));
+	//view.zoom(1.f);
+	//window.setView(view);
+	//window.clear(MC_OLIVE);
+	//window.draw(player);
+	//window.display();
+	//testing end
+
+	//ActiveScene = MainMenuScene();
+	ActiveScene = Scene();
 
 	// Game process loop
 	while (window.isOpen())
@@ -105,14 +127,18 @@ void Engine::ProcessEvents()
 
 void Engine::Update(float deltaTime)
 {
-
+	ActiveScene.PreUpdate(deltaTime);
+	ActiveScene.Update(deltaTime);
+	ActiveScene.PostUpdate(deltaTime);
 }
 
 void Engine::Render()
 {
 	window.clear(EngineConfig.WindowBackgroundColor);
 
-
+	ActiveScene.PreRender(window);
+	ActiveScene.Render(window);
+	ActiveScene.PostRender(window);
 
 	window.display();
 }

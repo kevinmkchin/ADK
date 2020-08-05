@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\ADK",
-    "\\ADK\\Engine",
-    "\\ADK\\Engine\\InternalUtilities"
+    "\\ADK\\Engine"
   ],
-  "SelectedNode": "\\ADK\\Engine\\InternalUtilities\\TextureManager.h",
+  "SelectedNode": "\\ADK\\Engine\\Graphics",
   "PreviewInSolutionExplorer": false
 }
