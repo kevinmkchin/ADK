@@ -130,12 +130,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\Entities\Entity.cpp" />
     <ClCompile Include="Engine\InternalUtilities\AssetManager.cpp" />
+    <ClCompile Include="Engine\InternalUtilities\EntityList.cpp" />
     <ClCompile Include="Engine\InternalUtilities\TextureManager.cpp" />
+    <ClCompile Include="Engine\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Entities\Entity.h" />
     <ClInclude Include="Engine\InternalUtilities\AssetManager.h" />
+    <ClInclude Include="Engine\InternalUtilities\EntityList.h" />
     <ClInclude Include="Engine\InternalUtilities\TextureManager.h" />
+    <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Util\MoreColors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
