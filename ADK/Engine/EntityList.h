@@ -1,7 +1,7 @@
 #pragma once
 
 #include <list>
-#include "../Entities/Entity.h"
+#include "Entity.h"
 
 struct DepthComparator
 {

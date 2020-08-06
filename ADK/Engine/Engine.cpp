@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Util/MoreColors.h"
+#include "MoreColors.h"
 #include "Scene.h"
 
 struct FEngineConfig
