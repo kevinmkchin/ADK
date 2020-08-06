@@ -1,51 +1,86 @@
 #include <iostream>
 #include "Scene.h"
 
+FViewConfig::FViewConfig()
+	: CenterX(640.f)
+	, CenterY(360.f)
+	, SizeX(1280.f)
+	, SizeY(720.f)
+	, Rotation(0.f)
+	, Zoom(1.f)
+{
+}
+
 Scene::Scene()
 	: Entities(EntityList())
 {
+
+}
+
+void Scene::BeginScene(sf::RenderTarget& target)
+{	
+	InitializeSceneView(target);
+
 	//testing
 	Assets = AssetManager();
 	Assets.Load(Textures::Grass, "faea");
-	Entity* NewItem = new Entity(10,10);
-	NewItem->SetSpriteTexture(Assets.Get(Textures::Grass));
+	Assets.Load(Textures::Wall, "Assets/ajax.png");
+
+	Entity* NewItem = new Entity(30, 30);
+	NewItem->SetSpriteTexture(Assets.Get(Textures::Wall));
+	NewItem->SetDepth(2);
 	Entities.Add(NewItem);
 
+	NewItem = new Entity(10, 10);
+	NewItem->SetSpriteTexture(Assets.Get(Textures::Grass));
+	NewItem->SetDepth(2);
+	Entities.Add(NewItem);
+	//
+}
+
+void Scene::EndScene(sf::RenderTarget& target)
+{
+	// Reset to default view
+	target.setView(target.getDefaultView());
 }
 
 void Scene::PreUpdate(float deltaTime)
 {
-	std::cout << "Scene Pre Update" << std::endl;
+
 }
 
 void Scene::Update(float deltaTime)
 {
-	std::cout << "Scene Update" << std::endl;
 	Entities.Update(deltaTime);
 }
 
 void Scene::PostUpdate(float deltaTime)
 {
-	std::cout << "Scene Post Update" << std::endl;
+
 }
 
 void Scene::PreRender(sf::RenderTarget& target)
 {
-	std::cout << "Scene Pre Render" << std::endl;
+
 }
 
 void Scene::Render(sf::RenderTarget& target)
 {
-	std::cout << "Scene Render" << std::endl;
 	Entities.Render(target);
-
-	sf::Sprite fuck;
-	fuck.setTexture(Assets.Get(Textures::Grass));
-	fuck.setPosition(100, 100);
-	target.draw(fuck);
 }
 
 void Scene::PostRender(sf::RenderTarget& target)
 {
-	std::cout << "Scene Post Render" << std::endl;
+
+}
+
+void Scene::InitializeSceneView(sf::RenderTarget& target)
+{
+	// Initialize SceneView
+	SceneView.setCenter(sf::Vector2f(ViewConfig.CenterX, ViewConfig.CenterY));
+	SceneView.setSize(sf::Vector2f(ViewConfig.SizeX, ViewConfig.SizeY));
+	SceneView.setRotation(ViewConfig.Rotation);
+	SceneView.zoom(ViewConfig.Zoom);
+	// Set view
+	target.setView(SceneView);
 }

@@ -39,11 +39,6 @@ void Entity::Render(sf::RenderTarget& target)
 	{
 		target.draw(sprite);
 	}
-
-	sf::Sprite fuck;
-	fuck.setTexture(*sprite.getTexture());
-	fuck.setPosition(400, 400);
-	target.draw(fuck);
 }
 
 void Entity::DebugRender()

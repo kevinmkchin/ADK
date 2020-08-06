@@ -4,29 +4,55 @@
 #include "InternalUtilities/EntityList.h"
 #include "InternalUtilities/AssetManager.h"
 
+// Struct for Scene View properties
+struct FViewConfig
+{
+	float CenterX;
+	float CenterY;
+	float SizeX;
+	float SizeY;
+	float Rotation;
+	float Zoom;
+
+	// Defaults
+	FViewConfig();
+};
+
 class Scene
 {
 public:
 	Scene();
 
-	void PreUpdate(float deltaTime);
+	virtual void BeginScene(sf::RenderTarget& target);
 
-	void Update(float deltaTime);
+	virtual void EndScene(sf::RenderTarget& target);
 
-	void PostUpdate(float deltaTime);
+	virtual void PreUpdate(float deltaTime);
+
+	virtual void Update(float deltaTime);
+
+	virtual void PostUpdate(float deltaTime);
 
 	// Called before render (probably used to set view and stuff)
-	void PreRender(sf::RenderTarget& target);
+	virtual void PreRender(sf::RenderTarget& target);
 
 	// Draw the entities in this scene
-	void Render(sf::RenderTarget& target);
+	virtual void Render(sf::RenderTarget& target);
 
 	// Stuff to do after rendering
-	void PostRender(sf::RenderTarget& target);
+	virtual void PostRender(sf::RenderTarget& target);
+
+protected:
+	// Initialize SceneView based on ViewConfig. Set RenderTarget's view to SceneView
+	virtual void InitializeSceneView(sf::RenderTarget& target);
 
 protected:
 	EntityList Entities;
 
 	AssetManager Assets;
+
+	// View
+	FViewConfig ViewConfig;
+	sf::View SceneView;
 
 };
