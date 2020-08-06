@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "InternalUtilities/EntityList.h"
-#include "InternalUtilities/AssetManager.h"
+#include "EntityList.h"
+#include "AssetManager.h"
 
 // Struct for Scene View properties
 struct FViewConfig

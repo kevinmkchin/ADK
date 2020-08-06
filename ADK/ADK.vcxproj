@@ -18,6 +18,24 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\AssetManager.cpp" />
+    <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\Entity.cpp" />
+    <ClCompile Include="Engine\EntityList.cpp" />
+    <ClCompile Include="Engine\Scene.cpp" />
+    <ClCompile Include="Engine\TextureManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\AssetManager.h" />
+    <ClInclude Include="Engine\Entity.h" />
+    <ClInclude Include="Engine\EntityList.h" />
+    <ClInclude Include="Engine\meta.hpp" />
+    <ClInclude Include="Engine\meta_fwd.hpp" />
+    <ClInclude Include="Engine\MoreColors.h" />
+    <ClInclude Include="Engine\Scene.h" />
+    <ClInclude Include="Engine\TextureManager.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B20D7091-2EDE-42D4-B4B6-41A289E25762}</ProjectGuid>
@@ -128,22 +146,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Engine\Engine.cpp" />
-    <ClCompile Include="Engine\Entities\Entity.cpp" />
-    <ClCompile Include="Engine\InternalUtilities\AssetManager.cpp" />
-    <ClCompile Include="Engine\InternalUtilities\EntityList.cpp" />
-    <ClCompile Include="Engine\InternalUtilities\TextureManager.cpp" />
-    <ClCompile Include="Engine\Scene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Engine\Entities\Entity.h" />
-    <ClInclude Include="Engine\InternalUtilities\AssetManager.h" />
-    <ClInclude Include="Engine\InternalUtilities\EntityList.h" />
-    <ClInclude Include="Engine\InternalUtilities\TextureManager.h" />
-    <ClInclude Include="Engine\Scene.h" />
-    <ClInclude Include="Engine\Util\MoreColors.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

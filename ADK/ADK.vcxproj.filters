@@ -1,57 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{bb785f1a-b20c-4ebf-b97d-b78051bf91da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Engine\Utils">
+      <UniqueIdentifier>{3be00b95-ac46-42f0-b579-006a87b53176}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\AssetManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\Engine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\InternalUtilities\AssetManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Entity.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\InternalUtilities\TextureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Entities\Entity.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\EntityList.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\InternalUtilities\EntityList.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\TextureManager.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\InternalUtilities\AssetManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\AssetManager.h">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\InternalUtilities\TextureManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\Entity.h">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Util\MoreColors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Entities\Entity.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\EntityList.h">
+      <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\InternalUtilities\EntityList.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\TextureManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\meta.hpp">
+      <Filter>Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\meta_fwd.hpp">
+      <Filter>Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MoreColors.h">
+      <Filter>Engine\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
