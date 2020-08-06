@@ -9,7 +9,7 @@ struct DepthComparator
 	bool operator ()(const Entity* entity1, const Entity* entity2)
 	{
 		if (entity1->GetDepth() == entity2->GetDepth())
-			return true;
+			return false;
 		return entity1->GetDepth() < entity2->GetDepth();
 	}
 };
@@ -19,7 +19,8 @@ class EntityList
 public:
 	void Add(Entity* newEntity);
 
-	//void Remove();
+	// Removes given entity from list if it exists DOES NOT DELETE OBJECT / DEALLOCATE MEMORY
+	void Remove(Entity* entityToRemove);
 
 	//std::list<Entity*> FindAll
 
@@ -32,7 +33,9 @@ public:
 	//void RenderOnly
 
 private:
-	// Entities
+	/* Entities
+	In order of depth (deepest/lowest depth value) first, then within same depth, in order of addition
+	*/
 	std::list<Entity*> entities;
 	// Whether or not to sort this 
 	bool bDepthChanged;

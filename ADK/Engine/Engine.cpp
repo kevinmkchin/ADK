@@ -93,6 +93,7 @@ void Engine::Run()
 
 	//ActiveScene = MainMenuScene();
 	ActiveScene = Scene();
+	ActiveScene.BeginScene(window);
 
 	// Game process loop
 	while (window.isOpen())

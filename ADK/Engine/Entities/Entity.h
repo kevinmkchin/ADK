@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+/* KEEP THIS BASE ENTITY CLASS VERY LIGHTWEIGHT */
 class Entity
 {
 public:
@@ -56,7 +57,7 @@ private:
 	int depth;
 
 	// Sprite to render TODO replace this with SpriteSheet and animation system
-	sf::Sprite sprite;
+	sf::Sprite sprite; //272 bytes fucking huge
 
 	// Collider
 

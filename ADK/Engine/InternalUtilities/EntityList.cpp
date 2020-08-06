@@ -7,9 +7,9 @@ void EntityList::Add(Entity* newEntity)
 	// MARK DEPTH CHANGED
 }
 
-//void EntityList::Remove()
+//void EntityList::Remove(Entity* entityToRemove)
 //{
-//
+//	if(entities.)
 //}
 
 void EntityList::Update(float deltaTime)
@@ -27,7 +27,7 @@ void EntityList::Update(float deltaTime)
 void EntityList::Render(sf::RenderTarget& target)
 {
 	// Sort the entities by depth ONLY if MarkDepthChanged
-	//entities.sort(DepthComparator());
+	entities.sort(DepthComparator());
 
 	// Render the entities	
 	for (auto entity : entities)
