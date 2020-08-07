@@ -7,11 +7,14 @@
     <Filter Include="Engine\Utils">
       <UniqueIdentifier>{3be00b95-ac46-42f0-b579-006a87b53176}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{de767e17-51f2-4d1b-b9b2-e64b85651954}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resources">
+      <UniqueIdentifier>{e17ab823-58df-4324-932b-6348253eb936}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\AssetManager.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Engine.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -25,13 +28,16 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\TextureManager.cpp">
-      <Filter>Engine</Filter>
+      <Filter>Engine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\AssetManager.cpp">
+      <Filter>Engine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ExampleEntity.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\AssetManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Entity.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -41,17 +47,20 @@
     <ClInclude Include="Engine\Scene.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\TextureManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\meta.hpp">
-      <Filter>Engine\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\meta_fwd.hpp">
-      <Filter>Engine\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\MoreColors.h">
       <Filter>Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TextureManager.h">
+      <Filter>Engine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AssetManager.h">
+      <Filter>Engine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ADKEditorMetaRegistry.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleEntity.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

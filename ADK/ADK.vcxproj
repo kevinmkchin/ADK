@@ -25,16 +25,17 @@
     <ClCompile Include="Engine\EntityList.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\TextureManager.cpp" />
+    <ClCompile Include="ExampleEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ADKEditorMetaRegistry.h" />
     <ClInclude Include="Engine\AssetManager.h" />
     <ClInclude Include="Engine\Entity.h" />
     <ClInclude Include="Engine\EntityList.h" />
-    <ClInclude Include="Engine\meta.hpp" />
-    <ClInclude Include="Engine\meta_fwd.hpp" />
     <ClInclude Include="Engine\MoreColors.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\TextureManager.h" />
+    <ClInclude Include="ExampleEntity.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -95,6 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,6 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
