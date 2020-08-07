@@ -2,6 +2,12 @@
 #include "MoreColors.h"
 #include "Scene.h"
 
+#include <iostream>
+#include "../ADKEditorMetaRegistry.h"
+
+// Register all types and their identifiers for use in editor and save/load
+REGISTER_ENTITY_TYPES
+
 struct FEngineConfig
 {
 	// How often game logic is ticked/updated
@@ -74,22 +80,6 @@ void Engine::Run()
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	sf::Time timePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
-
-	//testing
-	//AssetManager yea = AssetManager();
-	//yea.Load(Textures::Grass, "Assets/adk/t_missing.png");
-	//sf::Sprite player;
-	//player.setTexture(yea.Get(Textures::Grass));
-	//player.setPosition(640, 360);
-	//sf::View view;
-	//view.setCenter(sf::Vector2f(640.f, 360.f));
-	//view.setSize(sf::Vector2f(200.f, 200.f));
-	//view.zoom(1.f);
-	//window.setView(view);
-	//window.clear(MC_OLIVE);
-	//window.draw(player);
-	//window.display();
-	//testing end
 
 	//ActiveScene = MainMenuScene();
 	ActiveScene = Scene();

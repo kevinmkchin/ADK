@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Scene.h"
+#include "../ExampleEntity.h"
+#include "../ADKEditorMetaRegistry.h"
 
 FViewConfig::FViewConfig()
 	: CenterX(640.f)
@@ -26,15 +28,23 @@ void Scene::BeginScene(sf::RenderTarget& target)
 	Assets.Load(Textures::Grass, "faea");
 	Assets.Load(Textures::Wall, "Assets/ajax.png");
 
-	Entity* NewItem = new Entity(30, 30);
-	NewItem->SetSpriteTexture(Assets.Get(Textures::Wall));
-	NewItem->SetDepth(2);
-	Entities.Add(NewItem);
+	std::string fuck = ADKEditorMetaRegistry::Identifiers[1];
+	Entity* E = ADKEditorMetaRegistry::CreateNewEntity(fuck);
 
-	NewItem = new Entity(10, 10);
-	NewItem->SetSpriteTexture(Assets.Get(Textures::Grass));
-	NewItem->SetDepth(2);
-	Entities.Add(NewItem);
+	E->SetSpriteTexture(Assets.Get(Textures::Wall));
+	E->SetDepth(2);
+	Entities.Add(E);
+
+	//auto NewItem = new ExampleEntity();//(30, 30);
+	//NewItem->SetSpriteTexture(Assets.Get(Textures::Wall));
+	//Entities.Add(NewItem);
+	std::cout << typeid(E).name() << std::endl;
+
+	auto NewItem2 = new Entity(10, 10);
+	NewItem2->SetSpriteTexture(Assets.Get(Textures::Grass));
+	NewItem2->SetDepth(2);
+	Entities.Add(NewItem2);
+	std::cout << typeid(NewItem2).name() << std::endl;
 	//
 }
 
