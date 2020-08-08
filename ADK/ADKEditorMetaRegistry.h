@@ -15,6 +15,8 @@ public:
 #pragma endregion
 	////////////////////////////////////////////////////////// TODO REGISTER ENTITY TYPES AND IDENTIFIERS ///////////////////////////////////////////////////////////////
 
+	// REMEMBER TO TYPE " REGISTER_ENTITY_TYPES " AT THE START OF THE GAME BEFORE USING ANY OF THIS
+
 	// DECLARE IDENTIFIERS HERE
 	DECLARE("BaseEntity")
 	DECLARE("ExampleEntity")

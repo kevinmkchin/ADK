@@ -13,6 +13,9 @@
     <Filter Include="Engine\Resources">
       <UniqueIdentifier>{e17ab823-58df-4324-932b-6348253eb936}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\imgui">
+      <UniqueIdentifier>{ea98b959-49ae-4e35-a6fe-7a4f7de538e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -38,6 +41,21 @@
     </ClCompile>
     <ClCompile Include="Engine\Scene_Editor.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui.cpp">
+      <Filter>Engine\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui_demo.cpp">
+      <Filter>Engine\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui_draw.cpp">
+      <Filter>Engine\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui_widgets.cpp">
+      <Filter>Engine\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui-SFML.cpp">
+      <Filter>Engine\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
