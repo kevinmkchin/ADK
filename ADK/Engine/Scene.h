@@ -4,6 +4,8 @@
 #include "EntityList.h"
 #include "AssetManager.h"
 
+#define LOG(string) std::cout << string << std::endl;
+
 // Struct for Scene View properties
 struct FViewConfig
 {

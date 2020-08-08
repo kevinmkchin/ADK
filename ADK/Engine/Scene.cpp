@@ -28,8 +28,8 @@ void Scene::BeginScene(sf::RenderTarget& target)
 	Assets.Load(Textures::Grass, "faea");
 	Assets.Load(Textures::Wall, "Assets/ajax.png");
 
-	std::string fuck = ADKEditorMetaRegistry::Identifiers[1];
-	Entity* E = ADKEditorMetaRegistry::CreateNewEntity(fuck);
+	std::string ye = ADKEditorMetaRegistry::Identifiers[1];
+	Entity* E = ADKEditorMetaRegistry::CreateNewEntity(ye);
 
 	E->SetSpriteTexture(Assets.Get(Textures::Wall));
 	E->SetDepth(2);
@@ -56,32 +56,34 @@ void Scene::EndScene(sf::RenderTarget& target)
 
 void Scene::PreUpdate(float deltaTime)
 {
-
+	std::cout << "Super PreUpdate" << std::endl;
 }
 
 void Scene::Update(float deltaTime)
 {
+	std::cout << "Super Update " << std::endl;
 	Entities.Update(deltaTime);
 }
 
 void Scene::PostUpdate(float deltaTime)
 {
-
+	std::cout << "Super PostUpdate" << std::endl;
 }
 
 void Scene::PreRender(sf::RenderTarget& target)
 {
-
+	std::cout << "Super PreRender" << std::endl;
 }
 
 void Scene::Render(sf::RenderTarget& target)
 {
+	std::cout << "Super Render" << std::endl;
 	Entities.Render(target);
 }
 
 void Scene::PostRender(sf::RenderTarget& target)
 {
-
+	std::cout << "Super PostRender" << std::endl;
 }
 
 void Scene::InitializeSceneView(sf::RenderTarget& target)
