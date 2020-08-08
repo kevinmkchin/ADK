@@ -3,6 +3,5 @@
 
 ExampleEntity::ExampleEntity()
 {
-	std::cout << " fuck" << std::endl;
-	SetPosition(69, 420);
+	SetPosition(50, 550);
 }

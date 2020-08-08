@@ -3,46 +3,37 @@
 #include "Engine/Entity.h"
 #include "ExampleEntity.h"
 
-
 #pragma region ignore1
+
+#define DECLARE(id) id,
+#define REGISTER(type, id) m[id] = &create_instance<type>;
+
 struct ADKEditorMetaRegistry
 {
 public:
 	const static inline std::vector<std::string> Identifiers = { 
 #pragma endregion
-
 	////////////////////////////////////////////////////////// TODO REGISTER ENTITY TYPES AND IDENTIFIERS ///////////////////////////////////////////////////////////////
 
 	// DECLARE IDENTIFIERS HERE
-
-	"BaseEntity", 
-	"ExampleEntity",
-
+	DECLARE("BaseEntity")
+	DECLARE("ExampleEntity")
 
 #pragma region ignore2
 	};
 
-	static std::map<std::string, Entity*(*)()> CreateMap() { std::map<std::string, Entity*(*)()> m;
+	static std::map<std::string, Entity*(*)()> create_map() { std::map<std::string, Entity*(*)()> m;
 #pragma endregion
-
 	/* TODO Add every entity type and the identifier you want to use for them here, that you want to see in the ADK level editor and use in ADK level data, here.
-	FORMAT:
-
-	m["YOUR_IDENTIFIER"] = &CreateInstance< YOUR_ENTITY_TYPE >;
-
+	Format:
+				REGISTER( YOUR_ENTITY_TYPE , " YOUR_IDENTIFIER ")
 	*/
 	
-	m["BaseEntity"]				= &CreateInstance<Entity>;
-	m["ExampleEntity"]			= &CreateInstance<ExampleEntity>;
-	//m["  "]						= &CreateInstance<  >;
-	//m["  "]						= &CreateInstance<  >;
-	//m["  "]						= &CreateInstance<  >;
-	//m["  "]						= &CreateInstance<  >;
-	//m["  "]						= &CreateInstance<  >;
-	//m["  "]						= &CreateInstance<  >;
+	// REGISTER ENTITY TYPES TO IDENTIFIERS HERE
+	REGISTER(Entity, "BaseEntity")
+	REGISTER(ExampleEntity, "ExampleEntity")
 
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma region ignore3
 		return m; 
 	}
@@ -60,13 +51,13 @@ public:
 
 private:
 	template<typename T> 
-	static Entity * CreateInstance() { return new T; }
+	static Entity * create_instance() { return new T; }
 
 public:
 	static const std::map<std::string, Entity*(*)()> EntityTypeRegistry;
 
 };
 
-#define REGISTER_ENTITY_TYPES const std::map<std::string, Entity*(*)()> ADKEditorMetaRegistry::EntityTypeRegistry = ADKEditorMetaRegistry::CreateMap();
+#define REGISTER_ENTITY_TYPES const std::map<std::string, Entity*(*)()> ADKEditorMetaRegistry::EntityTypeRegistry = ADKEditorMetaRegistry::create_map();
 
 #pragma endregion

@@ -1,8 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "MoreColors.h"
-#include "Scene.h"
+#include "Scene_Editor.h"
 
-#include <iostream>
 #include "../ADKEditorMetaRegistry.h"
 
 // Register all types and their identifiers for use in editor and save/load
@@ -60,7 +59,7 @@ private:
 
 	sf::RenderWindow window;
 
-	Scene ActiveScene;
+	Scene* ActiveScene;
 
 };
 
@@ -81,9 +80,8 @@ void Engine::Run()
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	sf::Time timePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
 
-	//ActiveScene = MainMenuScene();
-	ActiveScene = Scene();
-	ActiveScene.BeginScene(window);
+	ActiveScene = new Scene_Editor();
+	ActiveScene->BeginScene(window);
 
 	// Game process loop
 	while (window.isOpen())
@@ -118,18 +116,18 @@ void Engine::ProcessEvents()
 
 void Engine::Update(float deltaTime)
 {
-	ActiveScene.PreUpdate(deltaTime);
-	ActiveScene.Update(deltaTime);
-	ActiveScene.PostUpdate(deltaTime);
+	ActiveScene->PreUpdate(deltaTime);
+	ActiveScene->Update(deltaTime);
+	ActiveScene->PostUpdate(deltaTime);
 }
 
 void Engine::Render()
 {
 	window.clear(EngineConfig.WindowBackgroundColor);
 
-	ActiveScene.PreRender(window);
-	ActiveScene.Render(window);
-	ActiveScene.PostRender(window);
+	ActiveScene->PreRender(window);
+	ActiveScene->Render(window);
+	ActiveScene->PostRender(window);
 
 	window.display();
 }
