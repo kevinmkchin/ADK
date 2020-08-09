@@ -3,5 +3,5 @@
 
 ExampleEntity::ExampleEntity()
 {
-	SetPosition(50, 550);
+	SetTextureId(Textures::Ajax);
 }

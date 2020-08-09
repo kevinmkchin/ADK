@@ -4,9 +4,11 @@ class Scene_Editor : public Scene
 {
 
 public:
-	virtual void BeginScene(sf::RenderTarget& target) override;
+	virtual void BeginScene(sf::RenderWindow& window) override;
 
-	//virtual void EndScene(sf::RenderTarget& target) override;
+	virtual void EndScene(sf::RenderWindow& window) override;
+
+	virtual void ProcessEvents(sf::Event& event) override;
 
 	virtual void PreUpdate(float deltaTime) override;
 
@@ -14,14 +16,34 @@ public:
 
 	virtual void PostUpdate(float deltaTime) override;
 
-	virtual void PreRender(sf::RenderTarget& target) override;
+	virtual void PreRender(sf::RenderWindow& window) override;
 
-	virtual void Render(sf::RenderTarget& target) override;
+	virtual void Render(sf::RenderWindow& window) override;
 
-	virtual void PostRender(sf::RenderTarget& target) override;
+	virtual void PostRender(sf::RenderWindow& window) override;
+
+protected:
+	void DrawEditorUI();
 
 private:
-	std::vector<Entity*> EntityTypes;
+	void DrawMenuAndOptionsBarUI();
+
+	void DrawToolsMenuUI();
+
+	void DrawEntityTypeUI();
+
+	void DrawEntityPropertyUI();
+
+private:
+	// List of available entities to create
+	EntityList EntityTypes;
+
+	sf::RenderWindow* renderWindowPtr;
+
+	sf::RectangleShape background;
+
+	Entity* EntitySelectedForCreation;
+	Entity* EntitySelectedForProperties;
 
 };
 

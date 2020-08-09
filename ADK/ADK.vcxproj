@@ -32,6 +32,7 @@
     <ClCompile Include="Engine\Scene_Editor.cpp" />
     <ClCompile Include="Engine\TextureManager.cpp" />
     <ClCompile Include="ExampleEntity.cpp" />
+    <ClCompile Include="StoneEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Engine\Scene_Editor.h" />
     <ClInclude Include="Engine\TextureManager.h" />
     <ClInclude Include="ExampleEntity.h" />
+    <ClInclude Include="StoneEntity.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

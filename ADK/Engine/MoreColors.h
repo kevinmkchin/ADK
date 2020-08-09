@@ -5,3 +5,5 @@
 #define		MC_BABYPINK				sf::Color(255, 153, 204)
 #define		MC_SOFTYELLOW			sf::Color(218, 237, 100)
 #define		MC_OLIVE				sf::Color(112, 130, 56)
+#define		MC_CHARCOAL				sf::Color(54, 69, 79)
+#define		MC_MOSTLYBLACKBLUE		sf::Color(23, 29, 34)
