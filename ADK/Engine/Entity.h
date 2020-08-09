@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "TextureManager.h"
 
 /* KEEP THIS BASE ENTITY CLASS VERY LIGHTWEIGHT */
 class Entity
@@ -36,7 +37,11 @@ public:
 	virtual void SetScale(float newScale);
 	inline int GetDepth() const { return depth; }
 	void SetDepth(int newDepth);
+	Textures::ID GetTextureId();
+	void SetTextureId(Textures::ID newTexId);
 	void SetSpriteTexture(sf::Texture& inTexture);
+	sf::Sprite& GetSprite();
+
 
 private:
 	// Whether to Update this entity
@@ -56,6 +61,7 @@ private:
 	*/
 	int depth;
 
+	Textures::ID TextureId = Textures::Default;
 	// Sprite to render TODO replace this with SpriteSheet and animation system
 	sf::Sprite sprite; //272 bytes fucking huge
 

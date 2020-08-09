@@ -57,6 +57,9 @@
     <ClCompile Include="Engine\imgui-SFML.cpp">
       <Filter>Engine\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="StoneEntity.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Entity.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Scene_Editor.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneEntity.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

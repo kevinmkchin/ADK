@@ -25,9 +25,11 @@ class Scene
 public:
 	Scene();
 
-	virtual void BeginScene(sf::RenderTarget& target);
+	virtual void BeginScene(sf::RenderWindow& window);
 
-	virtual void EndScene(sf::RenderTarget& target);
+	virtual void EndScene(sf::RenderWindow& window);
+
+	virtual void ProcessEvents(sf::Event& event);
 
 	virtual void PreUpdate(float deltaTime);
 
@@ -36,17 +38,17 @@ public:
 	virtual void PostUpdate(float deltaTime);
 
 	// Called before render (probably used to set view and stuff)
-	virtual void PreRender(sf::RenderTarget& target);
+	virtual void PreRender(sf::RenderWindow& window);
 
 	// Draw the entities in this scene
-	virtual void Render(sf::RenderTarget& target);
+	virtual void Render(sf::RenderWindow& window);
 
 	// Stuff to do after rendering
-	virtual void PostRender(sf::RenderTarget& target);
+	virtual void PostRender(sf::RenderWindow& window);
 
 protected:
 	// Initialize SceneView based on ViewConfig. Set RenderTarget's view to SceneView
-	virtual void InitializeSceneView(sf::RenderTarget& target);
+	virtual void InitializeSceneView(sf::RenderWindow& window);
 
 protected:
 	EntityList Entities;

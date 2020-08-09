@@ -19,74 +19,55 @@ Scene::Scene()
 
 }
 
-void Scene::BeginScene(sf::RenderTarget& target)
+void Scene::BeginScene(sf::RenderWindow& window)
 {	
-	InitializeSceneView(target);
+	InitializeSceneView(window);
 
-	//testing
-	Assets = AssetManager();
-	Assets.Load(Textures::Grass, "faea");
-	Assets.Load(Textures::Wall, "Assets/ajax.png");
-
-	std::string ye = ADKEditorMetaRegistry::Identifiers[1];
-	Entity* E = ADKEditorMetaRegistry::CreateNewEntity(ye);
-
-	E->SetSpriteTexture(Assets.Get(Textures::Wall));
-	E->SetDepth(2);
-	Entities.Add(E);
-
-	//auto NewItem = new ExampleEntity();//(30, 30);
-	//NewItem->SetSpriteTexture(Assets.Get(Textures::Wall));
-	//Entities.Add(NewItem);
-	std::cout << typeid(E).name() << std::endl;
-
-	auto NewItem2 = new Entity(10, 10);
-	NewItem2->SetSpriteTexture(Assets.Get(Textures::Grass));
-	NewItem2->SetDepth(2);
-	Entities.Add(NewItem2);
-	std::cout << typeid(NewItem2).name() << std::endl;
-	//
 }
 
-void Scene::EndScene(sf::RenderTarget& target)
+void Scene::EndScene(sf::RenderWindow& window)
 {
 	// Reset to default view
-	target.setView(target.getDefaultView());
+	window.setView(window.getDefaultView());
+}
+
+void Scene::ProcessEvents(sf::Event& event)
+{
+
 }
 
 void Scene::PreUpdate(float deltaTime)
 {
-	std::cout << "Super PreUpdate" << std::endl;
+
 }
 
 void Scene::Update(float deltaTime)
 {
-	std::cout << "Super Update " << std::endl;
+
 	Entities.Update(deltaTime);
 }
 
 void Scene::PostUpdate(float deltaTime)
 {
-	std::cout << "Super PostUpdate" << std::endl;
+
 }
 
-void Scene::PreRender(sf::RenderTarget& target)
+void Scene::PreRender(sf::RenderWindow& window)
 {
-	std::cout << "Super PreRender" << std::endl;
+
 }
 
-void Scene::Render(sf::RenderTarget& target)
+void Scene::Render(sf::RenderWindow& window)
 {
-	std::cout << "Super Render" << std::endl;
-	Entities.Render(target);
+	Entities.Render(window);
 }
 
-void Scene::PostRender(sf::RenderTarget& target)
+void Scene::PostRender(sf::RenderWindow& window)
 {
-	std::cout << "Super PostRender" << std::endl;
+
 }
 
-void Scene::InitializeSceneView(sf::RenderTarget& target)
+void Scene::InitializeSceneView(sf::RenderWindow& window)
 {
 	// Initialize SceneView
 	SceneView.setCenter(sf::Vector2f(ViewConfig.CenterX, ViewConfig.CenterY));
@@ -94,5 +75,5 @@ void Scene::InitializeSceneView(sf::RenderTarget& target)
 	SceneView.setRotation(ViewConfig.Rotation);
 	SceneView.zoom(ViewConfig.Zoom);
 	// Set view
-	target.setView(SceneView);
+	window.setView(SceneView);
 }

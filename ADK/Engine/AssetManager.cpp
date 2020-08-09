@@ -5,9 +5,9 @@ AssetManager::AssetManager()
 	textureManager = TextureManager();
 }
 
-void AssetManager::Load(Textures::ID id, const std::string& fileName)
+void AssetManager::Load(Textures::ID id)
 {
-	textureManager.Load(id, fileName);
+	textureManager.Load(id);
 }
 
 sf::Texture& AssetManager::Get(Textures::ID id)

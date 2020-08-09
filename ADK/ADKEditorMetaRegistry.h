@@ -2,11 +2,12 @@
 
 #include "Engine/Entity.h"
 #include "ExampleEntity.h"
+#include "StoneEntity.h"
 
-#pragma region ignore1
+#pragma region ignore
 
 #define DECLARE(id) id,
-#define REGISTER(type, id) m[id] = &create_instance<type>;
+#define REGISTER_ENT(type, id) m[id] = &create_instance<type>;
 
 struct ADKEditorMetaRegistry
 {
@@ -18,10 +19,15 @@ public:
 	// REMEMBER TO TYPE " REGISTER_ENTITY_TYPES " AT THE START OF THE GAME BEFORE USING ANY OF THIS
 
 	// DECLARE IDENTIFIERS HERE
+	DECLARE("Stone")
 	DECLARE("BaseEntity")
-	DECLARE("ExampleEntity")
+	DECLARE("Example")
+	//DECLARE(" ")
+	//DECLARE(" ")
+	//DECLARE(" ")
+	//DECLARE(" ")
 
-#pragma region ignore2
+#pragma region ignore
 	};
 
 	static std::map<std::string, Entity*(*)()> create_map() { std::map<std::string, Entity*(*)()> m;
@@ -32,11 +38,12 @@ public:
 	*/
 	
 	// REGISTER ENTITY TYPES TO IDENTIFIERS HERE
-	REGISTER(Entity, "BaseEntity")
-	REGISTER(ExampleEntity, "ExampleEntity")
+	REGISTER_ENT(Entity, "BaseEntity")
+	REGISTER_ENT(ExampleEntity, "Example")
+	REGISTER_ENT(StoneEntity, "Stone")
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma region ignore3
+#pragma region ignore
 		return m; 
 	}
 

@@ -7,6 +7,7 @@ Entity::Entity()
 	SetPosition(0.f, 0.f);
 	SetRotation(0.f);
 	SetScale(1.f);
+	SetDepth(0);
 }
 
 Entity::Entity(float x, float y)
@@ -16,6 +17,7 @@ Entity::Entity(float x, float y)
 	SetPosition(x, y);
 	SetRotation(0.f);
 	SetScale(1.f);
+	SetDepth(0);
 }
 
 Entity::Entity(float x, float y, float inRot, float inScale)
@@ -25,6 +27,7 @@ Entity::Entity(float x, float y, float inRot, float inScale)
 	SetPosition(x, y);
 	SetRotation(inRot);
 	SetScale(inScale);
+	SetDepth(0);
 }
 
 
@@ -84,7 +87,20 @@ void Entity::SetDepth(int newDepth)
 	depth = newDepth;
 	// TODO MARK ENTITY LIST DEPTH CHANGED
 }
+Textures::ID Entity::GetTextureId()
+{
+	return TextureId;
+}
+void Entity::SetTextureId(Textures::ID newTexId)
+{
+	TextureId = newTexId;
+	// TODO set sprite texture based on new texture id
+}
 void Entity::SetSpriteTexture(sf::Texture& inTexture)
 {
 	sprite.setTexture(inTexture);
+}
+sf::Sprite& Entity::GetSprite()
+{
+	return sprite;
 }
