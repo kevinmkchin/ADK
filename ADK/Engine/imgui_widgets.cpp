@@ -28,6 +28,8 @@ Index of this file:
 
 */
 
+#include <vector>
+
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -5897,6 +5899,20 @@ void ImGui::ListBoxFooter()
     parent_window->DC.CursorPos = bb.Min;
     ItemSize(bb, style.FramePadding.y);
     EndGroup();
+}
+
+static auto vector_getter = [](void* vec, int idx, const char** out_text)
+{
+	auto& vector = *static_cast<std::vector<std::string>*>(vec);
+	if (idx < 0 || idx >= static_cast<int>(vector.size())) { return false; }
+	*out_text = vector.at(idx).c_str();
+	return true;
+};
+bool ImGui::ListBox(const char* label, int* currIndex, std::vector<std::string>& values)
+{
+	if (values.empty()) { return false; }
+	return ImGui::ListBox(label, currIndex, vector_getter,
+		static_cast<void*>(&values), values.size());
 }
 
 bool ImGui::ListBox(const char* label, int* current_item, const char* const items[], int items_count, int height_items)

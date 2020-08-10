@@ -37,7 +37,7 @@ FEngineConfig::FEngineConfig()
 	, bVSyncEnabled(false)
 	, DefaultWindowWidth(1600)
 	, DefaultWindowHeight(900)
-	, bCanResize(false)
+	, bCanResize(true)
 	, WindowBackgroundColor(MC_CHARCOAL)
 {
 }
@@ -74,7 +74,7 @@ private:
 };
 
 Engine::Engine()
-	: window(sf::VideoMode(EngineConfig.DefaultWindowWidth, EngineConfig.DefaultWindowHeight), "ADK Engine", (EngineConfig.bCanResize ? sf::Style::Resize : sf::Style::Close))
+	: window(sf::VideoMode(EngineConfig.DefaultWindowWidth, EngineConfig.DefaultWindowHeight), "ADK Engine", (EngineConfig.bCanResize ? sf::Style::Default : sf::Style::Close))
 {
 }
 

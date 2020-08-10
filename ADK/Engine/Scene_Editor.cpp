@@ -25,18 +25,28 @@ Scene_Editor::Scene_Editor()
 	, EntitySelectedForCreation(nullptr)
 	, EntitySelectedForProperties(nullptr)
 	, bgRect(sf::FloatRect(0.03f * 1600, 0.04f * 900, 0.78f * 1600, 0.738f * 900))
+	, bBrushEnabled(false)
 	, bEntityDrag(false)
 	, bMouseDrag(false)
 	, lastMousePos(sf::Vector2f())
-	, currTool(TOOL_PLACE)
+	, currTool(TOOL_SELECTION)
 {
 }
 
 void Scene_Editor::BeginScene(sf::RenderWindow& window)
 {
-	LOG("Began Editor Scene")
+	LOG("Began Editor Scene");
 
 	// TODO load editor config from ini
+
+	// Setup window values
+	UpdateEditorConfigWithWindow(window);
+
+	// Load button textures
+	selectButton.loadFromFile("Assets/adk/button_selection.png");
+	placeButton.loadFromFile("Assets/adk/button_place.png");
+	brushButton.loadFromFile("Assets/adk/button_brush.png");
+	pickerButton.loadFromFile("Assets/adk/button_picker.png");
 
 	// Initialize ImGui::SFML process
 	ImGui::SFML::Init(window);
@@ -83,6 +93,8 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 		created->SetSpriteTexture(Assets.Get(created->GetTextureId()));
 		EntityTypes.add(created);
 	}
+
+	window.setKeyRepeatEnabled(false);
 }
 
 void Scene_Editor::EndScene(sf::RenderWindow& window)
@@ -102,51 +114,109 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	// Process events/inputs for ImGui::SFML
 	ImGui::SFML::ProcessEvent(event);
 
-	// Place with mouse
+	// Resized. Update Editor Config window values.
+	if (event.type == sf::Event::Resized)
+	{
+		UpdateEditorConfigWithWindow(*renderWindowPtr);
+	}
+
+	// Shortcuts
+	if (sf::Event::KeyPressed)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+		{
+			currTool = TOOL_SELECTION;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			currTool = TOOL_PLACE;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			currTool = TOOL_BRUSH;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			currTool = TOOL_PICKER;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		{
+			ActiveEditorConfig.bShowGrid = !ActiveEditorConfig.bShowGrid;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+		{
+			ActiveEditorConfig.bSnapToGrid = !ActiveEditorConfig.bSnapToGrid;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
+		{
+			if (EntitySelectedForProperties != nullptr)
+			{
+				Entities.removeAndDestroy(EntitySelectedForProperties);
+				SetEntitySelectedForProperties(nullptr);
+			}
+		}
+	}
+
+	// Select entity
+	if (currTool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
+	{
+		for (int i = Entities.size() - 1; i > -1; --i)
+		{
+			Entity* at = Entities.at(i);
+			sf::IntRect spr = at->GetSprite().getTextureRect();
+			sf::FloatRect mouseCol(at->GetPosition().x, at->GetPosition().y, (float) spr.width, (float) spr.height);
+
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+			sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+			if (mouseCol.contains(worldPos))
+			{
+				if (EntitySelectedForProperties == at) // This entity is already clicked on
+				{
+					bEntityDrag = true;
+					return;
+					//continue; // see if theres anything under it that we are trying to select
+				}
+				SetEntitySelectedForProperties(at);
+				return; // don't do the rest of the inputs
+			}
+		}
+	}
+
+	// Place entity
 	if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
 	{
 		if (EntitySelectedForCreation != nullptr)
 		{
-			Entity* created = ADKEditorMetaRegistry::CreateNewEntity(EntitySelectedForCreation->EntityId);
-			created->EntityId = EntitySelectedForCreation->EntityId;
-			created->SetSpriteTexture(Assets.Get(created->GetTextureId()));
-			// get the current mouse position in the window
-			sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-			// convert it to world coordinates
-			sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-			// Calculate amount to subtract if snapping to grid
-			int sX = 0;
-			int sY = 0;
-			if (ActiveEditorConfig.bSnapToGrid)
+			// Single place entity
+			if (currTool == TOOL_PLACE)
 			{
-				sX = (int)worldPos.x % ActiveEditorConfig.GridSizeX;
-				if (worldPos.x < 0)
-				{
-					sX = ActiveEditorConfig.GridSizeX + sX;
-				}
-				std::cout << "sX " << sX << std::endl;
-				sY = (int)worldPos.y % ActiveEditorConfig.GridSizeY;
-				if (worldPos.y < 0)
-				{
-					sY = ActiveEditorConfig.GridSizeY + sY;
-				}
-				std::cout << "sY " << sY << std::endl;
-			}
-			// Set entity's position
-			created->SetPosition((float) ((int)worldPos.x - sX), (float) ((int)worldPos.y - sY));
-			Entities.add(created);
-			SetEntitySelectedForProperties(created);
-			bEntityDrag = true;
+				BrushPlaceHelper();
 
-			std::cout << "Placed " << created->EntityId << " at x: " << worldPos.x << "  y: " << worldPos.y << std::endl;
+				bEntityDrag = true;
+			}
+
+			// Brush place entity
+			if (currTool == TOOL_BRUSH)
+			{
+				bBrushEnabled = true;
+			}
 		}
 	}
 
-	// Entity drag
+	// Left mouse released (Stop entity drag & disable brush placement & empty brush visited positions
 	if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
 	{
 		bEntityDrag = false;
+		// Empty the brush tools visited positions cache
+		bBrushEnabled = false;
+		if (BrushVisitedPositions.empty() == false)
+		{
+			BrushVisitedPositions.clear();
+		}
 	}
+
+	// Entity drag with Left Alt
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
 	{
 		bEntityDrag = true;
@@ -244,6 +314,16 @@ void Scene_Editor::Update(float deltaTime)
 {
 	Scene::Update(deltaTime);
 
+	// Call brush place
+	if (currTool == TOOL_BRUSH && bBrushEnabled)
+	{
+		BrushPlaceHelper();
+	}
+	else
+	{
+		bBrushEnabled = false;
+	}
+
 	// Move entity if dragging it around
 	if (bEntityDrag && EntitySelectedForProperties != nullptr)
 	{
@@ -305,11 +385,8 @@ void Scene_Editor::Render(sf::RenderWindow& window)
 	// Render Grid
 	if (ActiveEditorConfig.bShowGrid)
 	{
-		sf::Vector2i topLeftCornerInPixels(48, 36);
-		sf::Vector2f topLeftWorld = (*renderWindowPtr).mapPixelToCoords(topLeftCornerInPixels);
-
-		sf::Vector2i botRightCornerInPixels(1297, 700);
-		sf::Vector2f botRightWorld = (*renderWindowPtr).mapPixelToCoords(botRightCornerInPixels);
+		sf::Vector2f topLeftWorld = (*renderWindowPtr).mapPixelToCoords(ActiveEditorConfig.TopLeftPixel);
+		sf::Vector2f botRightWorld = (*renderWindowPtr).mapPixelToCoords(ActiveEditorConfig.BotRightPixels);
 
 		int gridRangeX = 6400 / ActiveEditorConfig.GridSizeX; 
 		int gridRangeY = 6400 / ActiveEditorConfig.GridSizeY; 
@@ -382,30 +459,11 @@ void Scene_Editor::DrawEditorUI()
 	DrawToolsMenuUI();
 }
 
-namespace ImGui
-{
-	static auto vector_getter = [](void* vec, int idx, const char** out_text)
-	{
-		auto& vector = *static_cast<std::vector<std::string>*>(vec);
-		if (idx < 0 || idx >= static_cast<int>(vector.size())) { return false; }
-		*out_text = vector.at(idx).c_str();
-		return true;
-	};
-
-	bool ListBox(const char* label, int* currIndex, std::vector<std::string>& values)
-	{
-		if (values.empty()) { return false; }
-		return ListBox(label, currIndex, vector_getter,
-			static_cast<void*>(&values), values.size());
-	}
-
-}
-
 void Scene_Editor::DrawEntityPropertyUI()
 {
 	ImGui::Begin("Entities and Properties", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-	ImGui::SetWindowPos(sf::Vector2f(1297.f, 36.f));
-	ImGui::SetWindowSize(sf::Vector2f(303.f, 864.f));
+	ImGui::SetWindowPos(sf::Vector2f((float) ActiveEditorConfig.BotRightPixels.x, (float) ActiveEditorConfig.TopLeftPixel.y));
+	ImGui::SetWindowSize(sf::Vector2f((float) ActiveEditorConfig.WindowSizeX - ActiveEditorConfig.BotRightPixels.x, (float) ActiveEditorConfig.WindowSizeY - ActiveEditorConfig.TopLeftPixel.y));
 
 	ImGui::BeginTabBar("");
 	if (ImGui::BeginTabItem("Properties"))
@@ -459,6 +517,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 		}
 		ImGui::NextColumn();
 		
+		// Tags options
 		ImGui::Text("Show Tags");
 		bool ex = true;
 		ImGui::Checkbox("Collider", &ex);
@@ -476,6 +535,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 		ImGui::Checkbox("", &bShowOnlyTags);
 		ImGui::NextColumn();
 
+		// Count of entities in level
 		std::string num = std::to_string(Entities.size()).append(" entities in level.");
 		const char * numInCharPtr = num.c_str();
 		ImGui::Text(numInCharPtr);
@@ -490,8 +550,6 @@ void Scene_Editor::DrawEntityPropertyUI()
 			}
 		}
 
-		// todo Entities in the level count
-
 		ImGui::EndTabItem();
 	}
 	ImGui::EndTabBar();
@@ -501,11 +559,9 @@ void Scene_Editor::DrawEntityPropertyUI()
 
 void Scene_Editor::DrawEntityTypeUI()
 {
-	ImGui::Begin("Entity Types Available", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
-	ImGui::SetWindowPos(sf::Vector2f(0.f, 700.f));
-	ImGui::SetWindowSize(sf::Vector2f(1297.f, 200.f));
-	//std::cout << std::to_string(ImGui::GetWindowPos().x) + " position " + std::to_string(ImGui::GetWindowPos().y) << std::endl;
-	//std::cout << std::to_string(ImGui::GetWindowSize().x) + " size " + std::to_string(ImGui::GetWindowSize().y) << std::endl;
+	ImGui::Begin("Entity Types", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+	ImGui::SetWindowPos(sf::Vector2f(0.f, (float) ActiveEditorConfig.BotRightPixels.y));
+	ImGui::SetWindowSize(sf::Vector2f((float) ActiveEditorConfig.BotRightPixels.x, (float) ActiveEditorConfig.WindowSizeY - ActiveEditorConfig.BotRightPixels.y));
 
 	// Display all available entity types
 	for (int i = 0; i < EntityTypes.size(); ++i)
@@ -517,6 +573,7 @@ void Scene_Editor::DrawEntityTypeUI()
 			if (ImGui::ImageButton(entitySprite, sf::Vector2f(50.f, 50.f)))
 			{
 				EntitySelectedForCreation = EntityTypes.at(i);
+				currTool = TOOL_PLACE;
 				std::cout << TextureManager::TexturePaths.at(EntitySelectedForCreation->GetTextureId()) << std::endl;
 			}
 			ImGui::Text(EntityId);
@@ -529,6 +586,7 @@ void Scene_Editor::DrawEntityTypeUI()
 				if (ImGui::ImageButton(entitySprite, sf::Vector2f(50.f, 50.f)))
 				{
 					EntitySelectedForCreation = EntityTypes.at(i);
+					currTool = TOOL_PLACE;
 					std::cout << TextureManager::TexturePaths.at(EntitySelectedForCreation->GetTextureId()) << std::endl;
 				}
 				ImGui::Text(EntityId);
@@ -545,7 +603,7 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 {
 	ImGui::Begin("Menu and  Editor Options", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 	ImGui::SetWindowPos(sf::Vector2f(0.f, 0.f));
-	ImGui::SetWindowSize(sf::Vector2f(1600.f, 36.f));
+	ImGui::SetWindowSize(sf::Vector2f((float) ActiveEditorConfig.WindowSizeX, (float) ActiveEditorConfig.TopLeftPixel.y));
 
 	ImGui::Button("Save");
 	ImGui::SameLine();
@@ -581,7 +639,19 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::SameLine();
 
 	// RESET VIEW button
-
+	if (ImGui::Button("Reset View"))
+	{
+		InitializeSceneView(*renderWindowPtr);
+	}	
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+		ImGui::TextUnformatted("Reset View (A)");
+		ImGui::TextUnformatted("Reset the view back to the original view.");
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
 
 	ImGui::End();
 }
@@ -589,19 +659,70 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 void Scene_Editor::DrawToolsMenuUI()
 {
 	ImGui::Begin("Tools Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-	ImGui::SetWindowPos(sf::Vector2f(0.f, 36.f));
-	ImGui::SetWindowSize(sf::Vector2f(48.f, 664.f));
+	ImGui::SetWindowPos(sf::Vector2f(0.f, (float) ActiveEditorConfig.TopLeftPixel.y));
+	ImGui::SetWindowSize(sf::Vector2f((float)ActiveEditorConfig.TopLeftPixel.x, 
+		(float)ActiveEditorConfig.WindowSizeY - ActiveEditorConfig.TopLeftPixel.y - (ActiveEditorConfig.WindowSizeY - ActiveEditorConfig.BotRightPixels.y)));
 
+	ImGui::Text("TOOLS");
 	// Selection tool
+	if (ImGui::ImageButton(selectButton, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, currTool == TOOL_SELECTION ? sf::Color::Black : sf::Color::White))
+	{
+		currTool = TOOL_SELECTION;
+	}
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+		ImGui::TextUnformatted("Selection Tool (F)");
+		ImGui::TextUnformatted("Select an entity from the level viewport. Drag them around to reposition them.");
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
 
-	// Click tool
+	// Place tool
+	if (ImGui::ImageButton(placeButton, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, currTool == TOOL_PLACE ? sf::Color::Black : sf::Color::White))
+	{
+		currTool = TOOL_PLACE;
+	}
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+		ImGui::TextUnformatted("Place Tool (D)");
+		ImGui::TextUnformatted("Select an entity type from the Entity Types window and place/create entities inside the level.");
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
 
 	// Brush tool 
+	if (ImGui::ImageButton(brushButton, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, currTool == TOOL_BRUSH ? sf::Color::Black : sf::Color::White))
+	{
+		currTool = TOOL_BRUSH;
+	}
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+		ImGui::TextUnformatted("Brush Tool (S)");
+		ImGui::TextUnformatted("Select an entity type from the Entity Types window and place/create MULTIPLE entities at a time. Probably a good idea to turn on 'Snap to Grid' for this.");
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
 
-	// Pick entitytype from level
-
-	ImGui::Button("Place Single", sf::Vector2f(32.f, 32.f));
-	ImGui::Button("Paint ", sf::Vector2f(32.f, 32.f));
+	// Picker tool
+	if (ImGui::ImageButton(pickerButton, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, currTool == TOOL_PICKER ? sf::Color::Black : sf::Color::White))
+	{
+		currTool = TOOL_PICKER;
+	}
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+		ImGui::TextUnformatted("Picker Tool (A)");
+		ImGui::TextUnformatted("Select an entity type by picking from the level viewport.");
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
 
 	ImGui::End();
 }
@@ -620,4 +741,74 @@ void Scene_Editor::SetEntitySelectedForProperties(Entity* newSelection)
 	{
 		EntitySelectedForProperties->GetSprite().setColor(sf::Color::White); // set to whatever modified color u want
 	}
+}
+
+void Scene_Editor::UpdateEditorConfigWithWindow(sf::RenderWindow& window)
+{
+	DefaultEditorConfig.WindowSizeX = window.getSize().x;
+	DefaultEditorConfig.WindowSizeY = window.getSize().y;
+	DefaultEditorConfig.TopLeftPixel.x = (int)(0.03f * window.getSize().x);
+	DefaultEditorConfig.TopLeftPixel.y = (int)(0.04f * window.getSize().y);
+	DefaultEditorConfig.BotRightPixels.x = (int)(0.78f * window.getSize().x + DefaultEditorConfig.TopLeftPixel.x);
+	DefaultEditorConfig.BotRightPixels.y = (int)(0.738f * window.getSize().y + DefaultEditorConfig.TopLeftPixel.y);
+	ActiveEditorConfig = DefaultEditorConfig;
+	bgRect = sf::FloatRect((float)ActiveEditorConfig.TopLeftPixel.x, (float)ActiveEditorConfig.TopLeftPixel.y,
+		(float)ActiveEditorConfig.BotRightPixels.x - ActiveEditorConfig.TopLeftPixel.x, (float)ActiveEditorConfig.BotRightPixels.y - ActiveEditorConfig.TopLeftPixel.y);
+}
+
+void Scene_Editor::BrushPlaceHelper()
+{
+	// Get the current mouse position in the window
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+	// Convert it to world coordinates
+	sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+	// Calculate amount to subtract if snapping to grid
+	int sX = 0;
+	int sY = 0;
+	if (ActiveEditorConfig.bSnapToGrid)
+	{
+		sX = (int)worldPos.x % ActiveEditorConfig.GridSizeX;
+		if (worldPos.x < 0)
+		{
+			sX = ActiveEditorConfig.GridSizeX + sX;
+		}
+		sY = (int)worldPos.y % ActiveEditorConfig.GridSizeY;
+		if (worldPos.y < 0)
+		{
+			sY = ActiveEditorConfig.GridSizeY + sY;
+		}
+	}
+
+	// Get would-be position of a new entity
+	int posX = ((int)worldPos.x) - sX;
+	int posY = ((int)worldPos.y) - sY;
+
+	// Check if position already visited (only for brush tool)
+	if (currTool == TOOL_BRUSH)
+	{
+		for (auto pos : BrushVisitedPositions)
+		{
+			if (pos.x == posX && pos.y == posY)
+			{
+				// If we've visited this position, then don't place a new entity
+				return;
+			}
+		}
+		// Visit this position
+		BrushVisitedPositions.push_back(sf::Vector2i(posX, posY));
+	}
+	
+	// Create a new entity
+	Entity* created = ADKEditorMetaRegistry::CreateNewEntity(EntitySelectedForCreation->EntityId);
+	// Assign it the specific entity id for its entity type
+	created->EntityId = EntitySelectedForCreation->EntityId;
+	// Set the sprite texture based on the entity's texture id
+	created->SetSpriteTexture(Assets.Get(created->GetTextureId()));
+	created->SetPosition((float)posX, (float)posY);
+	// Add the entity to this scene/level editor's entity list
+	Entities.add(created);
+	// Set this entity to be selected
+	SetEntitySelectedForProperties(created);
+
+	std::cout << "Placed " << created->EntityId << " at x: " << worldPos.x << "  y: " << worldPos.y << std::endl;
 }
