@@ -38,7 +38,7 @@ FEngineConfig::FEngineConfig()
 	, DefaultWindowWidth(1600)
 	, DefaultWindowHeight(900)
 	, bCanResize(false)
-	, WindowBackgroundColor(MC_MOSTLYBLACKBLUE)
+	, WindowBackgroundColor(MC_CHARCOAL)
 {
 }
 
