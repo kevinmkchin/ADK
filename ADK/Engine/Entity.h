@@ -42,6 +42,9 @@ public:
 	void SetSpriteTexture(sf::Texture& inTexture);
 	sf::Sprite& GetSprite();
 
+public:
+	// Used only to display entity id in the editor.
+	std::string EntityId;
 
 private:
 	// Whether to Update this entity
