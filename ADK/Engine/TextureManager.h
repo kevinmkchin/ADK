@@ -17,7 +17,8 @@ namespace Textures
 	{
 		Default,
 		Ajax,
-		Stone
+		Stone,
+		Braid
 	};
 }
 
@@ -35,6 +36,7 @@ public:
 	REGISTER_TEX(Textures::Default, "Assets/adk/t_missing.png")
 	REGISTER_TEX(Textures::Ajax, "Assets/ajax.png")
 	REGISTER_TEX(Textures::Stone, "Assets/adk/t_missing.png")
+	REGISTER_TEX(Textures::Braid, "Assets/braid.png")
 
 #pragma region ignore
 		return m;
