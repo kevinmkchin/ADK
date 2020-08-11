@@ -13,6 +13,10 @@ FEditorConfig::FEditorConfig()
 	, GridColor(sf::Color::White)
 	, bShowGrid(true)
 	, bSnapToGrid(false)
+	, BigGridX(0)
+	, BigGridY(0)
+	, BigGridColor(sf::Color::Red)
+	, bShowBigGrid(true)
 
 	, SelectionColor(sf::Color::Green)
 {
@@ -28,6 +32,7 @@ Scene_Editor::Scene_Editor()
 	, bBrushEnabled(false)
 	, bEntityDrag(false)
 	, bMouseDrag(false)
+	, bTextureShow(false)
 	, lastMousePos(sf::Vector2f())
 	, currTool(TOOL_SELECTION)
 {
@@ -39,8 +44,12 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 
 	// TODO load editor config from ini
 
+	// Setup big grid
+	DefaultEditorConfig.BigGridX = (int) ViewConfig.SizeX;
+	DefaultEditorConfig.BigGridY = (int) ViewConfig.SizeY;
 	// Setup window values
 	UpdateEditorConfigWithWindow(window);
+
 
 	// Load button textures
 	selectButton.loadFromFile("Assets/adk/button_selection.png");
@@ -165,7 +174,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		{
 			Entity* at = Entities.at(i);
 			sf::IntRect spr = at->GetSprite().getTextureRect();
-			sf::FloatRect mouseCol(at->GetPosition().x, at->GetPosition().y, (float) spr.width, (float) spr.height);
+			sf::FloatRect mouseCol(at->GetPosition().x, at->GetPosition().y, (float) spr.width * at->GetScale(), (float) spr.height * at->GetScale());
 
 			sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
 			sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
@@ -339,13 +348,11 @@ void Scene_Editor::Update(float deltaTime)
 			{
 				sX = ActiveEditorConfig.GridSizeX + sX;
 			}
-			std::cout << "sX " << sX << std::endl;
 			sY = (int)worldPos.y % ActiveEditorConfig.GridSizeY;
 			if (worldPos.y < 0)
 			{
 				sY = ActiveEditorConfig.GridSizeY + sY;
 			}
-			std::cout << "sY " << sY << std::endl;
 		}
 		// Set entity's position
 		EntitySelectedForProperties->SetPosition((float)((int)worldPos.x - sX), (float)((int)worldPos.y - sY));
@@ -412,13 +419,43 @@ void Scene_Editor::Render(sf::RenderWindow& window)
 		}
 	}
 
+	// Render big grid
+	if (ActiveEditorConfig.bShowBigGrid)
+	{
+		sf::Vector2f topLeftWorld = (*renderWindowPtr).mapPixelToCoords(ActiveEditorConfig.TopLeftPixel);
+		sf::Vector2f botRightWorld = (*renderWindowPtr).mapPixelToCoords(ActiveEditorConfig.BotRightPixels);
+
+		int gridRangeX = 6400 / ActiveEditorConfig.BigGridX;
+		int gridRangeY = 6400 / ActiveEditorConfig.BigGridY;
+
+		for (int x = -gridRangeX; x < gridRangeX; ++x)
+		{
+			sf::Vertex line[2];
+			line[0].position = sf::Vector2f((float)(x * ActiveEditorConfig.BigGridX), topLeftWorld.y);
+			line[0].color = ActiveEditorConfig.BigGridColor;
+			line[1].position = sf::Vector2f((float)(x * ActiveEditorConfig.BigGridX), botRightWorld.y);
+			line[1].color = ActiveEditorConfig.BigGridColor;
+			window.draw(line, 2, sf::Lines);
+		}
+
+		for (int y = -gridRangeY; y < gridRangeY; ++y)
+		{
+			sf::Vertex line[2];
+			line[0].position = sf::Vector2f(topLeftWorld.x, (float)(y * ActiveEditorConfig.BigGridY));
+			line[0].color = ActiveEditorConfig.BigGridColor;
+			line[1].position = sf::Vector2f(botRightWorld.x, (float)(y * ActiveEditorConfig.BigGridY));
+			line[1].color = ActiveEditorConfig.BigGridColor;
+			window.draw(line, 2, sf::Lines);
+		}
+	}
+
 	// Show Selection
 	if (EntitySelectedForProperties != nullptr)
 	{
 		float x = EntitySelectedForProperties->GetSprite().getPosition().x;
 		float y = EntitySelectedForProperties->GetSprite().getPosition().y;
-		float width = (float) EntitySelectedForProperties->GetSprite().getTextureRect().width;
-		float height = (float) EntitySelectedForProperties->GetSprite().getTextureRect().height;
+		float width = (float) EntitySelectedForProperties->GetSprite().getTextureRect().width * EntitySelectedForProperties->GetScale();
+		float height = (float) EntitySelectedForProperties->GetSprite().getTextureRect().height * EntitySelectedForProperties->GetScale();
 
 		sf::Vertex box[8];
 		box[0].position = sf::Vector2f(x, y);
@@ -469,9 +506,13 @@ void Scene_Editor::DrawEntityPropertyUI()
 	if (ImGui::BeginTabItem("Properties"))
 	{
 		// Display properties for currently selected entity
-
 		if (EntitySelectedForProperties != nullptr)
 		{
+#pragma region EntityProperties
+			ImGui::Separator();
+			ImGui::Text("Entity Properties");
+			ImGui::Separator();
+
 			int x = (int) EntitySelectedForProperties->GetPosition().x;
 			int y = (int) EntitySelectedForProperties->GetPosition().y;
 			ImGui::InputInt("X Position", &x);
@@ -482,14 +523,164 @@ void Scene_Editor::DrawEntityPropertyUI()
 			ImGui::InputFloat("Rotation", &angle);
 			EntitySelectedForProperties->SetRotation(angle);
 
-			ImGui::Text("Scale");
+			float scale = EntitySelectedForProperties->GetScale();
+			ImGui::InputFloat("Scale", &scale);
+			EntitySelectedForProperties->SetScale(scale);
 
 			int depth = EntitySelectedForProperties->GetDepth();
 			ImGui::InputInt("Depth", &depth);
 			EntitySelectedForProperties->SetDepth(depth);
-		}
 
-		ImGui::Separator();
+			bool v = EntitySelectedForProperties->IsVisible();
+			ImGui::Checkbox("Visible", &v);
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Whether to Render this entity");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
+			EntitySelectedForProperties->SetVisible(v);
+
+			bool a = EntitySelectedForProperties->IsActive();
+			ImGui::Checkbox("Active", &a);
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Whether to Update this entity");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
+			EntitySelectedForProperties->SetActive(a);
+
+			ImGui::Dummy(ImVec2(0, 7));
+#pragma endregion
+
+#pragma region SpriteSheetProperties
+			ImGui::Separator();
+			ImGui::Text("SpriteSheet Properties");
+			ImGui::Separator();
+
+			int si[2];
+			si[0] = EntitySelectedForProperties->SpriteSheet.FrameSize.x;
+			si[1] = EntitySelectedForProperties->SpriteSheet.FrameSize.y;
+			ImGui::Checkbox("View selected texture", &bTextureShow);
+			if (bTextureShow)
+			{
+				ImGui::Begin("Currently selected texture", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
+				ImGui::SetWindowPos(sf::Vector2f(ActiveEditorConfig.BotRightPixels.x - 810.f, 50.f));
+				ImGui::SetWindowSize(sf::Vector2f(800.f, 800.f));
+
+				sf::Vector2f textureBounds = sf::Vector2f(EntitySelectedForProperties->SpriteSheet.Sprite.getTexture()->getSize());
+				int numWide = (int) textureBounds.x / ((si[0] > 0) ? si[0] : 1);
+				int numTall = (int) textureBounds.y / ((si[1] > 0) ? si[1] : 1);
+				float buttonSize = 700.f / numWide < 700.f / numTall ? 700.f / numWide : 700.f / numTall;
+				for (int i = 0; i < numTall; ++i)
+				{
+					for (int j = 0; j < numWide; ++j)
+					{
+						sf::Sprite frame = EntitySelectedForProperties->GetSprite();
+						frame.setTextureRect(sf::IntRect(j * si[0], i * si[1], si[0], si[1]));
+						ImGui::ImageButton(frame, sf::Vector2f(buttonSize, buttonSize));
+
+						if (j != numWide - 1)
+						{
+							ImGui::SameLine();
+						}
+					}
+				}
+
+				ImGui::End();
+			}
+
+			ImGui::InputInt2("Frame Size", si);
+			EntitySelectedForProperties->SpriteSheet.FrameSize.x = si[0];
+			EntitySelectedForProperties->SpriteSheet.FrameSize.y = si[1];
+
+			ImGui::Checkbox("Loop Animation", &EntitySelectedForProperties->SpriteSheet.bRepeat);
+			int selected = static_cast<int>(EntitySelectedForProperties->SpriteSheet.SelectedAnimation);
+			ImGui::SliderInt("Anim Index", &selected, 0, EntitySelectedForProperties->SpriteSheet.Animations.size() - 1);
+			EntitySelectedForProperties->SpriteSheet.SelectedAnimation = selected;
+
+			ImGui::Dummy(ImVec2(0, 7));
+#pragma endregion
+
+#pragma region AnimationProperties
+			ImGui::Separator();
+			ImGui::Text("Animations");			
+			ImGui::Separator();
+
+			if (ImGui::Button("Add new animation"))
+			{
+				EntitySelectedForProperties->SpriteSheet.Animations.push_back(FAnimation());
+			}
+
+			// display animations
+			for (size_t i = 0; i < EntitySelectedForProperties->SpriteSheet.Animations.size(); ++i)
+			{
+				ImGui::Text(std::to_string(i).c_str());
+				ImGui::Indent();
+				ImGui::PushID(i);
+				
+				float dur = EntitySelectedForProperties->SpriteSheet.Animations[i].AnimDuration.asSeconds();
+				ImGui::InputFloat("Duration", &dur);
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+					ImGui::TextUnformatted("Duration of this animation in seconds. Set to 0 if you want a static sprite.");
+					ImGui::PopTextWrapPos();
+					ImGui::EndTooltip();
+				}
+				EntitySelectedForProperties->SpriteSheet.Animations[i].AnimDuration = sf::seconds(dur);
+				int sframe = static_cast<int>(EntitySelectedForProperties->SpriteSheet.Animations[i].StartFrame);
+				ImGui::InputInt("StartFrame", &sframe);
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+					ImGui::TextUnformatted("Index of the frame that the animation starts on.");
+					ImGui::PopTextWrapPos();
+					ImGui::EndTooltip();
+				}
+				EntitySelectedForProperties->SpriteSheet.Animations[i].StartFrame = sframe;
+				int numFrames = static_cast<int>(EntitySelectedForProperties->SpriteSheet.Animations[i].NumFrames);
+				ImGui::InputInt("# of Frames", &numFrames);				
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+					ImGui::TextUnformatted("Number of frames for this animation, starting at StartFrame.");
+					ImGui::PopTextWrapPos();
+					ImGui::EndTooltip();
+				}
+				EntitySelectedForProperties->SpriteSheet.Animations[i].NumFrames = numFrames;
+
+				if (ImGui::Button("Delete this animation"))
+				{
+					std::vector<FAnimation>::iterator nth = EntitySelectedForProperties->SpriteSheet.Animations.begin() + i;
+					EntitySelectedForProperties->SpriteSheet.Animations.erase(nth);
+					--i;
+				}
+
+				ImGui::PopID();
+				ImGui::Unindent();
+			}
+
+			ImGui::Dummy(ImVec2(0, 7));
+#pragma endregion
+
+#pragma region CollisionProperties
+			ImGui::Separator();
+			ImGui::Text("Collision Properties");
+			ImGui::Separator();
+
+
+
+#pragma endregion
+		}
 
 		ImGui::EndTabItem();
 	}
@@ -609,7 +800,23 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::SameLine();
 
 	ImGui::Button("Load");
-	ImGui::SameLine(400.f);
+	ImGui::SameLine(200.f);
+
+	ImGui::PushItemWidth(90.f);
+	ImGui::InputInt("Big Grid X", &ActiveEditorConfig.BigGridX);
+	ImGui::SameLine();
+	ImGui::InputInt("Big Grid Y", &ActiveEditorConfig.BigGridY);
+	ImGui::SameLine();
+	ImGui::Checkbox("Show Big Grid", &ActiveEditorConfig.bShowBigGrid);
+	ImGui::SameLine();
+	ImGui::PushItemWidth(130.f);
+	ImColor bigGridCol = MoreColors::SFColorToImColor(ActiveEditorConfig.BigGridColor);
+	if (ImGui::ColorEdit3("", (float*)&bigGridCol, ImGuiColorEditFlags_NoInputs))
+	{
+		EntitySelectedForCreation = nullptr;
+	}
+	ActiveEditorConfig.BigGridColor = MoreColors::ImColorToSFColor(bigGridCol);
+	ImGui::SameLine();
 
 	ImGui::PushItemWidth(90.f);
 	ImGui::InputInt("Grid Size X", &ActiveEditorConfig.GridSizeX);

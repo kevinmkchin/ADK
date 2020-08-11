@@ -3,6 +3,42 @@
 #include <SFML/Graphics.hpp>
 #include "TextureManager.h"
 
+struct FAnimation
+{
+public:
+	// Number of frames in this animation
+	std::size_t NumFrames; //maybe replace with end frame?
+	// Starting frame of this animation
+	std::size_t StartFrame;
+	// Duration of animation (duration of each frame would then be AnimDuration / NumFrames). 0 AnimDuration means static sprite/animation
+	sf::Time AnimDuration;
+
+	FAnimation();
+};
+
+struct FSpriteSheet
+{
+public:
+	// Sprite to show. Also holds the texture.
+	sf::Sprite Sprite;
+	// Size of sprite frame in the texture.
+	sf::Vector2i FrameSize;
+
+	// Keeps track of current frame. Don't expose to editor.
+	std::size_t CurrentFrame;
+	// Keeps track of elapsed time since last frame. Don't expose to editor.
+	sf::Time ElapsedTime;
+	// Repeat anim or no
+	bool bRepeat;
+
+	// Index of currently selected animation
+	std::size_t SelectedAnimation;
+	// Animations for this sprite
+	std::vector<FAnimation> Animations;
+
+	FSpriteSheet();
+};
+
 /* KEEP THIS BASE ENTITY CLASS VERY LIGHTWEIGHT */
 class Entity
 {
@@ -12,7 +48,7 @@ public:
 	Entity(float x, float y, float inRot, float inScale);
 
 	// --- UPDATE ---
-	// Do game logic here, but do not render here. Not called if the Entity is not Active
+	// Do game logic here, but do not render here. Not called if the Entity is not Active. Handles animation logic.
 	virtual void Update(float deltaTime);
 
 	// --- RENDER ---
@@ -42,9 +78,16 @@ public:
 	void SetSpriteTexture(sf::Texture& inTexture);
 	sf::Sprite& GetSprite();
 
+protected:
+	// Set Sprite and SpriteSheet defaults here
+	virtual void InitializeSpriteSheet();
+
 public:
-	// Used only to display entity id in the editor.
+	// Used only to display entity id in the editor
 	std::string EntityId;
+
+	// Contains the sprite and all visual information
+	FSpriteSheet SpriteSheet;
 
 private:
 	// Whether to Update this entity
@@ -64,9 +107,10 @@ private:
 	*/
 	int depth;
 
+	// The default texture for a newly created entity of this type
 	Textures::ID TextureId = Textures::Default;
-	// Sprite to render TODO replace this with SpriteSheet and animation system
-	sf::Sprite sprite; //272 bytes fucking huge
+	// 
+	//std::string TexturePath = "";
 
 	// Collider
 
