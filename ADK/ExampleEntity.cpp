@@ -3,5 +3,5 @@
 
 ExampleEntity::ExampleEntity()
 {
-	SetTextureId(Textures::Ajax);
+	SetTextureId(Textures::Braid);
 }

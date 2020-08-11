@@ -69,7 +69,7 @@ void Entity::Update(float deltaTime)
 		SpriteSheet.ElapsedTime += sf::seconds(deltaTime);
 
 		// Update current frame
-		if (timePerFrame.asSeconds() > 0 && SpriteSheet.Animations[SpriteSheet.SelectedAnimation].AnimDuration.asSeconds() > 0.f && currAnim.NumFrames > 0)
+		if (timePerFrame.asSeconds() > 0 && currAnim.AnimDuration.asSeconds() > 0.f && currAnim.NumFrames > 0)
 		{
 			while (SpriteSheet.ElapsedTime > timePerFrame && (SpriteSheet.CurrentFrame - currAnim.StartFrame <= currAnim.NumFrames || SpriteSheet.bRepeat))
 			{
@@ -96,11 +96,16 @@ void Entity::Update(float deltaTime)
 				SpriteSheet.ElapsedTime -= timePerFrame;
 			}
 		}
+		else if (currAnim.AnimDuration.asSeconds() == 0.f)
+		{
+			// If anim duration == 0, then static sprite at start frame
+			SpriteSheet.CurrentFrame = currAnim.StartFrame;
+		}
 
 		// by this point current frame will be accurate with frame we need to display
 		// Figure out texture rect from current frame
 		int xLoc = (SpriteSheet.CurrentFrame % (numFramesWide > 0 ? numFramesWide : 1)) * SpriteSheet.FrameSize.x;
-		int yLoc = (SpriteSheet.CurrentFrame / (numFramesTall > 0 ? numFramesTall : 1)) * SpriteSheet.FrameSize.y;
+		int yLoc = (SpriteSheet.CurrentFrame / (numFramesWide > 0 ? numFramesWide : 1)) * SpriteSheet.FrameSize.y;
 		sf::IntRect frameRect = sf::IntRect(xLoc, yLoc, SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y);
 		// Set new frame to display
 		SpriteSheet.Sprite.setTextureRect(frameRect);

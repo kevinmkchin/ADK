@@ -93,6 +93,7 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 	Assets.Load(Textures::Default);
 	Assets.Load(Textures::Ajax);
 	Assets.Load(Textures::Stone);
+	Assets.Load(Textures::Braid);
 	for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
 	{
 		Entity* created = ADKEditorMetaRegistry::CreateNewEntity(*iter);
@@ -322,6 +323,10 @@ void Scene_Editor::PreUpdate(float deltaTime)
 void Scene_Editor::Update(float deltaTime)
 {
 	Scene::Update(deltaTime);
+	if (EntitySelectedForProperties)
+	{
+		std::cout << EntitySelectedForProperties->SpriteSheet.CurrentFrame << std::endl;
+	}
 
 	// Call brush place
 	if (currTool == TOOL_BRUSH && bBrushEnabled)
@@ -800,6 +805,9 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::SameLine();
 
 	ImGui::Button("Load");
+	ImGui::SameLine();
+
+	ImGui::Button("Config");
 	ImGui::SameLine(200.f);
 
 	ImGui::PushItemWidth(90.f);
