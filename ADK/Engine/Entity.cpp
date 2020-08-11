@@ -1,5 +1,23 @@
 #include "Entity.h"
 
+
+FAnimation::FAnimation()
+	: NumFrames(1)
+	, StartFrame(0)
+	, AnimDuration(sf::seconds(0.f))
+{
+}
+
+FSpriteSheet::FSpriteSheet()
+	: FrameSize(0,0)
+	, CurrentFrame(0)
+	, ElapsedTime(sf::seconds(0))
+	, bRepeat(true)
+	, SelectedAnimation(0)
+{
+	Animations.push_back(FAnimation());
+}
+
 Entity::Entity()
 	: bActive(true)
 	, bVisible(true)
@@ -8,6 +26,7 @@ Entity::Entity()
 	SetRotation(0.f);
 	SetScale(1.f);
 	SetDepth(0);
+	InitializeSpriteSheet();
 }
 
 Entity::Entity(float x, float y)
@@ -18,6 +37,7 @@ Entity::Entity(float x, float y)
 	SetRotation(0.f);
 	SetScale(1.f);
 	SetDepth(0);
+	InitializeSpriteSheet();
 }
 
 Entity::Entity(float x, float y, float inRot, float inScale)
@@ -28,25 +48,90 @@ Entity::Entity(float x, float y, float inRot, float inScale)
 	SetRotation(inRot);
 	SetScale(inScale);
 	SetDepth(0);
+	InitializeSpriteSheet();
 }
-
 
 void Entity::Update(float deltaTime)
 {
+	// Do animation
+#pragma region AnimationUpdate
+	if (bVisible && SpriteSheet.Sprite.getTexture() != nullptr && SpriteSheet.Animations.empty() == false)
+	{
+		// Get num frames wide and tall
+		sf::Vector2i textureBounds(SpriteSheet.Sprite.getTexture()->getSize());
+		int numFramesWide = textureBounds.x / ((SpriteSheet.FrameSize.x > 0) ? SpriteSheet.FrameSize.x : 1);
+		int numFramesTall = textureBounds.y / ((SpriteSheet.FrameSize.y > 0) ? SpriteSheet.FrameSize.y : 1);
 
+		// todo put in some divide by zero checks
+		FAnimation currAnim = SpriteSheet.Animations[SpriteSheet.SelectedAnimation];
+		int framesInAnim = static_cast<int>(currAnim.NumFrames) < numFramesTall * numFramesWide ? static_cast<int>(currAnim.NumFrames) : numFramesTall * numFramesWide;
+		sf::Time timePerFrame = currAnim.AnimDuration / (float) framesInAnim;
+		SpriteSheet.ElapsedTime += sf::seconds(deltaTime);
+
+		// Update current frame
+		if (timePerFrame.asSeconds() > 0 && SpriteSheet.Animations[SpriteSheet.SelectedAnimation].AnimDuration.asSeconds() > 0.f && currAnim.NumFrames > 0)
+		{
+			while (SpriteSheet.ElapsedTime > timePerFrame && (SpriteSheet.CurrentFrame - currAnim.StartFrame <= currAnim.NumFrames || SpriteSheet.bRepeat))
+			{
+				if (SpriteSheet.bRepeat)
+				{
+					SpriteSheet.CurrentFrame = currAnim.StartFrame + ((SpriteSheet.CurrentFrame - currAnim.StartFrame + 1) % currAnim.NumFrames);
+				}
+				else
+				{
+					// Go to next frame if we aren't on the last frame
+					if (SpriteSheet.CurrentFrame - currAnim.StartFrame < currAnim.NumFrames - 1)
+					{
+						++SpriteSheet.CurrentFrame;
+					}
+				}
+
+				// Check if we went out of bounds
+				if (static_cast<int>(SpriteSheet.CurrentFrame) >= numFramesWide * numFramesTall)
+				{
+					SpriteSheet.CurrentFrame = currAnim.StartFrame;
+				}
+
+				// Subtract from elapsed time since last frame
+				SpriteSheet.ElapsedTime -= timePerFrame;
+			}
+		}
+
+		// by this point current frame will be accurate with frame we need to display
+		// Figure out texture rect from current frame
+		int xLoc = (SpriteSheet.CurrentFrame % (numFramesWide > 0 ? numFramesWide : 1)) * SpriteSheet.FrameSize.x;
+		int yLoc = (SpriteSheet.CurrentFrame / (numFramesTall > 0 ? numFramesTall : 1)) * SpriteSheet.FrameSize.y;
+		sf::IntRect frameRect = sf::IntRect(xLoc, yLoc, SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y);
+		// Set new frame to display
+		SpriteSheet.Sprite.setTextureRect(frameRect);
+	}
+#pragma endregion
+
+	// Check if active
+	if (bActive == false)
+	{
+		return;
+	}
+
+	// Update logic here
 }
 
 void Entity::Render(sf::RenderTarget& target)
 {
-	if (bVisible && sprite.getTexture() != nullptr)
+	if (bVisible && SpriteSheet.Sprite.getTexture() != nullptr)
 	{
-		target.draw(sprite);
+		target.draw(SpriteSheet.Sprite);
 	}
 }
 
 void Entity::DebugRender()
 {
 
+}
+
+void Entity::InitializeSpriteSheet()
+{
+	
 }
 
 sf::Vector2f Entity::GetPosition()
@@ -56,13 +141,13 @@ sf::Vector2f Entity::GetPosition()
 void Entity::SetPosition(sf::Vector2f newPos)
 {
 	position = newPos;
-	sprite.setPosition(position);
+	SpriteSheet.Sprite.setPosition(position);
 }
 void Entity::SetPosition(float x, float y)
 {
 	position.x = x;
 	position.y = y;
-	sprite.setPosition(position);
+	SpriteSheet.Sprite.setPosition(position);
 }
 float Entity::GetRotation()
 {
@@ -71,7 +156,7 @@ float Entity::GetRotation()
 void Entity::SetRotation(float newRot) 
 {
 	rotation = newRot;
-	sprite.setRotation(rotation);
+	SpriteSheet.Sprite.setRotation(rotation);
 }
 float Entity::GetScale() 
 {
@@ -80,7 +165,7 @@ float Entity::GetScale()
 void Entity::SetScale(float newScale)
 {
 	scale = newScale;
-	sprite.setScale(scale, scale);
+	SpriteSheet.Sprite.setScale(scale, scale);
 }
 void Entity::SetDepth(int newDepth)
 {
@@ -98,9 +183,16 @@ void Entity::SetTextureId(Textures::ID newTexId)
 }
 void Entity::SetSpriteTexture(sf::Texture& inTexture)
 {
-	sprite.setTexture(inTexture);
+	SpriteSheet.Sprite.setTexture(inTexture);
+
+	// If first time setting sprite sheet, set it to entire texture size by default
+	if (SpriteSheet.FrameSize.x == 0 && SpriteSheet.FrameSize.y == 0)
+	{
+		SpriteSheet.FrameSize.x = inTexture.getSize().x;
+		SpriteSheet.FrameSize.y = inTexture.getSize().y;
+	}
 }
 sf::Sprite& Entity::GetSprite()
 {
-	return sprite;
+	return SpriteSheet.Sprite;
 }

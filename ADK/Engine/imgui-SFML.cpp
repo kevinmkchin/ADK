@@ -621,13 +621,13 @@ bool ImageButton(const sf::Texture& texture, const sf::Vector2f& size,
         framePadding, bgColor, tintColor);
 }
 
-bool ImageButton(const sf::Sprite& sprite, const int framePadding,
-                 const sf::Color& bgColor, const sf::Color& tintColor) {
-    sf::FloatRect spriteSize = sprite.getGlobalBounds();
-    return ImageButton(sprite,
-                       sf::Vector2f(spriteSize.width, spriteSize.height),
-                       framePadding, bgColor, tintColor);
-}
+//bool ImageButton(const sf::Sprite& sprite, const int framePadding,
+//                 const sf::Color& bgColor, const sf::Color& tintColor) {
+//    sf::FloatRect spriteSize = sprite.getGlobalBounds();
+//    return ImageButton(sprite,
+//                       sf::Vector2f(spriteSize.width, spriteSize.height),
+//                       framePadding, bgColor, tintColor);
+//}
 
 bool ImageButton(const sf::Sprite& sprite, const sf::Vector2f& size,
                  const int framePadding, const sf::Color& bgColor,

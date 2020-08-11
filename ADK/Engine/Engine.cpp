@@ -106,7 +106,7 @@ void Engine::Run()
 			// PROCESS GAME EVENTS AND PLAYER INPUT
 			ProcessEvents();
 
-			// UPDATE GAME
+			// UPDATE GAME (deltaTime is in SECONDS) ***
 			Update(timePerFrame.asSeconds());
 
 			// RENDER GAME if framerate capped to game ticks

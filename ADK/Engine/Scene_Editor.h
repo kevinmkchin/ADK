@@ -7,6 +7,7 @@ enum ToolMode
 	TOOL_SELECTION,		// Select a placed entity
 	TOOL_PLACE,			// Place a single entity
 	TOOL_BRUSH,			// Place multiple entities
+	TOOL_ERASER,
 	TOOL_PICKER			// Picks entity type from level
 };
 
@@ -108,6 +109,7 @@ private:
 	bool bBrushEnabled;
 	bool bEntityDrag;
 	bool bMouseDrag;
+	bool bTextureShow;
 	sf::Vector2f lastMousePos;
 	ToolMode currTool;
 
