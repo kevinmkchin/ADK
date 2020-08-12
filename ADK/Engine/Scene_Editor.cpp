@@ -85,9 +85,7 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 #pragma endregion
 
 	// Setup view
-	SceneView.setViewport(sf::FloatRect(0.03f, 0.04f, 0.78f, 0.738f));
 	InitializeSceneView(window);
-	zoomFactor = ViewConfig.Zoom;
 
 	// Make entity of every type to display to editor
 	for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
@@ -337,12 +335,15 @@ void Scene_Editor::Update(float deltaTime)
 	{
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
 		sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-		worldPos -= entityDragOffset;
 		// Calculate amount to subtract if snapping to grid
 		int sX = 0;
 		int sY = 0;
 		if (ActiveEditorConfig.bSnapToGrid)
 		{
+			int gridSubX = (int) entityDragOffset.x / ActiveEditorConfig.GridSizeX;
+			int gridSubY = (int) entityDragOffset.y / ActiveEditorConfig.GridSizeY;
+			worldPos.x -= gridSubX * ActiveEditorConfig.GridSizeX;
+			worldPos.y -= gridSubY * ActiveEditorConfig.GridSizeY;
 			sX = (int)worldPos.x % ActiveEditorConfig.GridSizeX;
 			if (worldPos.x < 0)
 			{
@@ -353,6 +354,10 @@ void Scene_Editor::Update(float deltaTime)
 			{
 				sY = ActiveEditorConfig.GridSizeY + sY;
 			}
+		}
+		else
+		{
+			worldPos -= entityDragOffset;
 		}
 		// Set entity's position
 		EntitySelectedForProperties->SetPosition((float)((int)worldPos.x - sX), (float)((int)worldPos.y - sY));
@@ -570,7 +575,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 			EntitySelectedForProperties->SpriteSheet.FrameSize.x = si[0];
 			EntitySelectedForProperties->SpriteSheet.FrameSize.y = si[1];
 
-			if (ImGui::Button("Select Start Frame"))
+			if (ImGui::Button("View Sprite Sheet"))
 			{
 				bTextureShow = !bTextureShow;
 			}
@@ -578,7 +583,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 			{
 				ImGui::BeginTooltip();
 				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
-				ImGui::TextUnformatted("Select Start Frame");
+				ImGui::TextUnformatted("View the sprite sheet sliced by the specified frame size.");
 				ImGui::TextUnformatted("Choose a frame from the sprite sheet to use as the starting frame of the currently selected animation. Tools aside from selection tool cannot be used while this window is open.");
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
@@ -591,10 +596,12 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::SetWindowPos(sf::Vector2f(ActiveEditorConfig.BotRightPixels.x - 610.f, 50.f));
 				ImGui::SetWindowSize(sf::Vector2f(600.f, 600.f));
 
+				ImGui::Text("Clicking on a frame will set that frame as the start frame of the currently selected animation.");
+
 				sf::Vector2f textureBounds = sf::Vector2f(EntitySelectedForProperties->SpriteSheet.Sprite.getTexture()->getSize());
 				int numWide = (int) textureBounds.x / ((si[0] > 0) ? si[0] : 1);
 				int numTall = (int) textureBounds.y / ((si[1] > 0) ? si[1] : 1);
-				float buttonSize = 700.f / numWide < 700.f / numTall ? 700.f / numWide : 700.f / numTall;
+				float buttonSize = 500.f / numWide < 500.f / numTall ? 500.f / numWide : 500.f / numTall;
 				for (int i = 0; i < numTall; ++i)
 				{
 					for (int j = 0; j < numWide; ++j)
@@ -606,8 +613,11 @@ void Scene_Editor::DrawEntityPropertyUI()
 
 						if (ImGui::ImageButton(frame, sf::Vector2f(buttonSize, buttonSize)))
 						{
-							int index = (i * numWide) + j;
-							EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = index;
+							if (EntitySelectedForProperties->SpriteSheet.SelectedAnimation >= 0)
+							{
+								int index = (i * numWide) + j;
+								EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = index;
+							}
 						}
 
 						if (j != numWide - 1)
@@ -974,6 +984,13 @@ void Scene_Editor::DrawToolsMenuUI()
 	}
 
 	ImGui::End();
+}
+
+void Scene_Editor::InitializeSceneView(sf::RenderWindow& window)
+{
+	SceneView.setViewport(sf::FloatRect(0.03f, 0.04f, 0.78f, 0.738f));
+	Scene::InitializeSceneView(window);
+	zoomFactor = ViewConfig.Zoom;
 }
 
 void Scene_Editor::SetEntitySelectedForProperties(Entity* newSelection)

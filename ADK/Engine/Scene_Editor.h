@@ -68,6 +68,8 @@ protected:
 	// ImGui
 	void DrawEditorUI();
 
+	virtual void InitializeSceneView(sf::RenderWindow& window) override;
+
 private:
 	// ImGui
 	void DrawMenuAndOptionsBarUI();
