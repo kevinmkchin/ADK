@@ -26,7 +26,6 @@ Entity::Entity()
 	SetRotation(0.f);
 	SetScale(1.f);
 	SetDepth(0);
-	InitializeSpriteSheet();
 }
 
 Entity::Entity(float x, float y)
@@ -37,7 +36,6 @@ Entity::Entity(float x, float y)
 	SetRotation(0.f);
 	SetScale(1.f);
 	SetDepth(0);
-	InitializeSpriteSheet();
 }
 
 Entity::Entity(float x, float y, float inRot, float inScale)
@@ -48,7 +46,12 @@ Entity::Entity(float x, float y, float inRot, float inScale)
 	SetRotation(inRot);
 	SetScale(inScale);
 	SetDepth(0);
-	InitializeSpriteSheet();
+}
+
+Entity::~Entity()
+{
+	// Decrement texture reference count
+	ADKAssets::Unload(TexturePath);
 }
 
 void Entity::Update(float deltaTime)
@@ -134,11 +137,6 @@ void Entity::DebugRender()
 
 }
 
-void Entity::InitializeSpriteSheet()
-{
-	
-}
-
 sf::Vector2f Entity::GetPosition()
 {
 	return position;
@@ -177,26 +175,26 @@ void Entity::SetDepth(int newDepth)
 	depth = newDepth;
 	// TODO MARK ENTITY LIST DEPTH CHANGED
 }
-Textures::ID Entity::GetTextureId()
+
+void Entity::LoadDefaultTexture()
 {
-	return TextureId;
+	SetTexturePathAndLoad(TexturePath);
 }
-void Entity::SetTextureId(Textures::ID newTexId)
+
+void Entity::SetTexturePathAndLoad(const std::string& path)
 {
-	TextureId = newTexId;
-	// TODO set sprite texture based on new texture id
-}
-void Entity::SetSpriteTexture(sf::Texture& inTexture)
-{
-	SpriteSheet.Sprite.setTexture(inTexture);
+	TexturePath = path;
+	sf::Texture& LoadedTexture = ADKAssets::Get(TexturePath);
+	SpriteSheet.Sprite.setTexture(LoadedTexture, true);
 
 	// If first time setting sprite sheet, set it to entire texture size by default
 	if (SpriteSheet.FrameSize.x == 0 && SpriteSheet.FrameSize.y == 0)
 	{
-		SpriteSheet.FrameSize.x = inTexture.getSize().x;
-		SpriteSheet.FrameSize.y = inTexture.getSize().y;
+		SpriteSheet.FrameSize.x = LoadedTexture.getSize().x;
+		SpriteSheet.FrameSize.y = LoadedTexture.getSize().y;
 	}
 }
+
 sf::Sprite& Entity::GetSprite()
 {
 	return SpriteSheet.Sprite;

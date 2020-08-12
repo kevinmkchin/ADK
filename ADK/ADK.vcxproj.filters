@@ -30,12 +30,6 @@
     <ClCompile Include="Engine\Scene.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\TextureManager.cpp">
-      <Filter>Engine\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\AssetManager.cpp">
-      <Filter>Engine\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="ExampleEntity.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -60,6 +54,12 @@
     <ClCompile Include="StoneEntity.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\ADKTextures.cpp">
+      <Filter>Engine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ADKAssets.cpp">
+      <Filter>Engine\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Entity.h">
@@ -74,12 +74,6 @@
     <ClInclude Include="Engine\MoreColors.h">
       <Filter>Engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\TextureManager.h">
-      <Filter>Engine\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\AssetManager.h">
-      <Filter>Engine\Resources</Filter>
-    </ClInclude>
     <ClInclude Include="ADKEditorMetaRegistry.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -91,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="StoneEntity.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKTextures.h">
+      <Filter>Engine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKAssets.h">
+      <Filter>Engine\Resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

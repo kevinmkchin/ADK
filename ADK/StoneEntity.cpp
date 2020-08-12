@@ -3,5 +3,5 @@
 
 StoneEntity::StoneEntity()
 {
-	SetTextureId(Textures::Stone);
+	TexturePath = "braid.png";
 }

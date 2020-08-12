@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+
 #include "EntityList.h"
-#include "AssetManager.h"
 
 #define LOG(string) std::cout << string << std::endl
 
@@ -52,8 +52,6 @@ protected:
 
 protected:
 	EntityList Entities;
-
-	AssetManager Assets;
 
 	// View
 	FViewConfig ViewConfig;

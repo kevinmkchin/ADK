@@ -3,5 +3,5 @@
 
 ExampleEntity::ExampleEntity()
 {
-	SetTextureId(Textures::Braid);
+	TexturePath = "platformer-sheet.png";
 }

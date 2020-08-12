@@ -4,7 +4,7 @@
 
 #include "MoreColors.h"
 #include "Scene_Editor.h"
-#include "AssetManager.h"
+#include "ADKAssets.h"
 #include "../ADKEditorMetaRegistry.h"
 
 FEditorConfig::FEditorConfig()
@@ -32,6 +32,7 @@ Scene_Editor::Scene_Editor()
 	, bBrushEnabled(false)
 	, bEntityDrag(false)
 	, bMouseDrag(false)
+	, zoomFactor(1.f)
 	, bTextureShow(false)
 	, lastMousePos(sf::Vector2f())
 	, currTool(TOOL_SELECTION)
@@ -49,7 +50,6 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 	DefaultEditorConfig.BigGridY = (int) ViewConfig.SizeY;
 	// Setup window values
 	UpdateEditorConfigWithWindow(window);
-
 
 	// Load button textures
 	selectButton.loadFromFile("Assets/adk/button_selection.png");
@@ -87,21 +87,16 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 	// Setup view
 	SceneView.setViewport(sf::FloatRect(0.03f, 0.04f, 0.78f, 0.738f));
 	InitializeSceneView(window);
+	zoomFactor = ViewConfig.Zoom;
 
-	// Make entity of every type to display to editor 
-	Assets = AssetManager();
-	Assets.Load(Textures::Default);
-	Assets.Load(Textures::Ajax);
-	Assets.Load(Textures::Stone);
-	Assets.Load(Textures::Braid);
+	// Make entity of every type to display to editor
 	for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
 	{
 		Entity* created = ADKEditorMetaRegistry::CreateNewEntity(*iter);
+		created->LoadDefaultTexture();
 		created->EntityId = *iter;
-		// At this point, Identifiers[0] represents the id of the entity type of entity at EntityTypes.at(0)
-		// For each entity created, set their sprite texture with the specified default texture enum
-		created->SetSpriteTexture(Assets.Get(created->GetTextureId()));
 		EntityTypes.add(created);
+		// At this point, Identifiers[0] represents the id of the entity type of entity at EntityTypes.at(0)
 	}
 
 	window.setKeyRepeatEnabled(false);
@@ -181,13 +176,17 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 			sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
 			if (mouseCol.contains(worldPos))
 			{
+				SetEntitySelectedForProperties(at);
 				if (EntitySelectedForProperties == at) // This entity is already clicked on
 				{
 					bEntityDrag = true;
+					sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+					sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+					sf::Vector2f entPos = EntitySelectedForProperties->GetPosition();
+					entityDragOffset = worldPos - entPos;
 					return;
 					//continue; // see if theres anything under it that we are trying to select
 				}
-				SetEntitySelectedForProperties(at);
 				return; // don't do the rest of the inputs
 			}
 		}
@@ -218,6 +217,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
 	{
 		bEntityDrag = false;
+		entityDragOffset = sf::Vector2f(0.f,0.f);
 		// Empty the brush tools visited positions cache
 		bBrushEnabled = false;
 		if (BrushVisitedPositions.empty() == false)
@@ -241,12 +241,9 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	{
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
-			if (bMouseDrag == false)
-			{
-				// Set last mouse pos to current mouse pos
-				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-				lastMousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-			}
+
+			// Set last mouse pos to current mouse pos
+			lastMousePos = sf::Mouse::getPosition(*renderWindowPtr);
 			bMouseDrag = true;
 		}
 		else if (event.type == sf::Event::MouseButtonReleased)
@@ -258,6 +255,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	// Mouse view zoom
 	if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && bMouseDrag == false && event.type == sf::Event::MouseWheelMoved)
 	{
+		zoomFactor *= event.mouseWheel.delta > 0 ? 0.9f : 1.1f;
 		SceneView.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
 		renderWindowPtr->setView(SceneView);
 	}
@@ -323,10 +321,6 @@ void Scene_Editor::PreUpdate(float deltaTime)
 void Scene_Editor::Update(float deltaTime)
 {
 	Scene::Update(deltaTime);
-	if (EntitySelectedForProperties)
-	{
-		std::cout << EntitySelectedForProperties->SpriteSheet.CurrentFrame << std::endl;
-	}
 
 	// Call brush place
 	if (currTool == TOOL_BRUSH && bBrushEnabled)
@@ -343,6 +337,7 @@ void Scene_Editor::Update(float deltaTime)
 	{
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
 		sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+		worldPos -= entityDragOffset;
 		// Calculate amount to subtract if snapping to grid
 		int sX = 0;
 		int sY = 0;
@@ -367,11 +362,10 @@ void Scene_Editor::Update(float deltaTime)
 	if (bMouseDrag)
 	{		
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-		sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-		sf::Vector2f delta = worldPos - lastMousePos;
-		SceneView.move(-delta);
+		sf::Vector2f delta = sf::Vector2f(pixelPos - lastMousePos);
+		SceneView.move(-delta * zoomFactor);
 		renderWindowPtr->setView(SceneView);
-		lastMousePos = worldPos;
+		lastMousePos = pixelPos;
 	}
 
 	// ImGui::SFML Update
@@ -479,7 +473,7 @@ void Scene_Editor::Render(sf::RenderWindow& window)
 
 		sf::RectangleShape selection;
 		sf::Color selectionColor = ActiveEditorConfig.SelectionColor;
-		selectionColor.a = 45;
+		selectionColor.a /= 5;
 		selection.setFillColor(selectionColor);
 		selection.setPosition(x, y);
 		selection.setSize(sf::Vector2f(width, height));
@@ -571,12 +565,31 @@ void Scene_Editor::DrawEntityPropertyUI()
 			int si[2];
 			si[0] = EntitySelectedForProperties->SpriteSheet.FrameSize.x;
 			si[1] = EntitySelectedForProperties->SpriteSheet.FrameSize.y;
-			ImGui::Checkbox("View selected texture", &bTextureShow);
+
+			ImGui::InputInt2("Frame Size", si);
+			EntitySelectedForProperties->SpriteSheet.FrameSize.x = si[0];
+			EntitySelectedForProperties->SpriteSheet.FrameSize.y = si[1];
+
+			if (ImGui::Button("Select Start Frame"))
+			{
+				bTextureShow = !bTextureShow;
+			}
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Select Start Frame");
+				ImGui::TextUnformatted("Choose a frame from the sprite sheet to use as the starting frame of the currently selected animation. Tools aside from selection tool cannot be used while this window is open.");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
 			if (bTextureShow)
 			{
-				ImGui::Begin("Currently selected texture", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
-				ImGui::SetWindowPos(sf::Vector2f(ActiveEditorConfig.BotRightPixels.x - 810.f, 50.f));
-				ImGui::SetWindowSize(sf::Vector2f(800.f, 800.f));
+				currTool = TOOL_SELECTION;
+
+				ImGui::Begin("Currently selected texture", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+				ImGui::SetWindowPos(sf::Vector2f(ActiveEditorConfig.BotRightPixels.x - 610.f, 50.f));
+				ImGui::SetWindowSize(sf::Vector2f(600.f, 600.f));
 
 				sf::Vector2f textureBounds = sf::Vector2f(EntitySelectedForProperties->SpriteSheet.Sprite.getTexture()->getSize());
 				int numWide = (int) textureBounds.x / ((si[0] > 0) ? si[0] : 1);
@@ -586,28 +599,51 @@ void Scene_Editor::DrawEntityPropertyUI()
 				{
 					for (int j = 0; j < numWide; ++j)
 					{
+						ImGui::PushID((i * numWide) + j);
+
 						sf::Sprite frame = EntitySelectedForProperties->GetSprite();
 						frame.setTextureRect(sf::IntRect(j * si[0], i * si[1], si[0], si[1]));
-						ImGui::ImageButton(frame, sf::Vector2f(buttonSize, buttonSize));
+
+						if (ImGui::ImageButton(frame, sf::Vector2f(buttonSize, buttonSize)))
+						{
+							int index = (i * numWide) + j;
+							EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = index;
+						}
 
 						if (j != numWide - 1)
 						{
 							ImGui::SameLine();
 						}
+
+						ImGui::PopID();
 					}
 				}
 
 				ImGui::End();
 			}
 
-			ImGui::InputInt2("Frame Size", si);
-			EntitySelectedForProperties->SpriteSheet.FrameSize.x = si[0];
-			EntitySelectedForProperties->SpriteSheet.FrameSize.y = si[1];
-
 			ImGui::Checkbox("Loop Animation", &EntitySelectedForProperties->SpriteSheet.bRepeat);
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Whether this animation loop or freeze at the last frame.");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
+
 			int selected = static_cast<int>(EntitySelectedForProperties->SpriteSheet.SelectedAnimation);
 			ImGui::SliderInt("Anim Index", &selected, 0, EntitySelectedForProperties->SpriteSheet.Animations.size() - 1);
 			EntitySelectedForProperties->SpriteSheet.SelectedAnimation = selected;
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Select Animation Index");
+				ImGui::TextUnformatted("Select the index of the animation you want to use.");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
 
 			ImGui::Dummy(ImVec2(0, 7));
 #pragma endregion
@@ -770,7 +806,6 @@ void Scene_Editor::DrawEntityTypeUI()
 			{
 				EntitySelectedForCreation = EntityTypes.at(i);
 				currTool = TOOL_PLACE;
-				std::cout << TextureManager::TexturePaths.at(EntitySelectedForCreation->GetTextureId()) << std::endl;
 			}
 			ImGui::Text(EntityId);
 
@@ -783,7 +818,6 @@ void Scene_Editor::DrawEntityTypeUI()
 				{
 					EntitySelectedForCreation = EntityTypes.at(i);
 					currTool = TOOL_PLACE;
-					std::cout << TextureManager::TexturePaths.at(EntitySelectedForCreation->GetTextureId()) << std::endl;
 				}
 				ImGui::Text(EntityId);
 			}
@@ -819,7 +853,7 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::SameLine();
 	ImGui::PushItemWidth(130.f);
 	ImColor bigGridCol = MoreColors::SFColorToImColor(ActiveEditorConfig.BigGridColor);
-	if (ImGui::ColorEdit3("", (float*)&bigGridCol, ImGuiColorEditFlags_NoInputs))
+	if (ImGui::ColorEdit4("", (float*)&bigGridCol, ImGuiColorEditFlags_NoInputs))
 	{
 		EntitySelectedForCreation = nullptr;
 	}
@@ -838,7 +872,7 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 
 	ImGui::PushItemWidth(130.f);
 	ImColor gridCol = MoreColors::SFColorToImColor(ActiveEditorConfig.GridColor);
-	if (ImGui::ColorEdit3("Grid Color", (float*)&gridCol, ImGuiColorEditFlags_NoInputs))
+	if (ImGui::ColorEdit4("Grid Color", (float*)&gridCol, ImGuiColorEditFlags_NoInputs))
 	{
 		EntitySelectedForCreation = nullptr;
 	}
@@ -846,7 +880,7 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::SameLine();
 
 	ImColor selCol = MoreColors::SFColorToImColor(ActiveEditorConfig.SelectionColor);
-	if (ImGui::ColorEdit3("Select Color", (float*)&selCol, ImGuiColorEditFlags_NoInputs))
+	if (ImGui::ColorEdit4("Select Color", (float*)&selCol, ImGuiColorEditFlags_NoInputs))
 	{
 		EntitySelectedForCreation = nullptr;
 	}
@@ -1015,15 +1049,14 @@ void Scene_Editor::BrushPlaceHelper()
 	
 	// Create a new entity
 	Entity* created = ADKEditorMetaRegistry::CreateNewEntity(EntitySelectedForCreation->EntityId);
+	created->LoadDefaultTexture();
 	// Assign it the specific entity id for its entity type
 	created->EntityId = EntitySelectedForCreation->EntityId;
-	// Set the sprite texture based on the entity's texture id
-	created->SetSpriteTexture(Assets.Get(created->GetTextureId()));
 	created->SetPosition((float)posX, (float)posY);
 	// Add the entity to this scene/level editor's entity list
 	Entities.add(created);
 	// Set this entity to be selected
 	SetEntitySelectedForProperties(created);
 
-	std::cout << "Placed " << created->EntityId << " at x: " << worldPos.x << "  y: " << worldPos.y << std::endl;
+	//std::cout << "Placed " << created->EntityId << " at x: " << worldPos.x << "  y: " << worldPos.y << std::endl;
 }
