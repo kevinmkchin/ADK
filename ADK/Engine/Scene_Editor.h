@@ -108,9 +108,11 @@ private:
 	// Logic stuff
 	bool bBrushEnabled;
 	bool bEntityDrag;
+	sf::Vector2f entityDragOffset;
 	bool bMouseDrag;
+	sf::Vector2i lastMousePos;
+	float zoomFactor;
 	bool bTextureShow;
-	sf::Vector2f lastMousePos;
 	ToolMode currTool;
 
 	// Remember visited world positions while using brush so we don't create an entity in the same position

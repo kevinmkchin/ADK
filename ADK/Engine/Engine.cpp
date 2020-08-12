@@ -1,14 +1,17 @@
 #include <SFML/Graphics.hpp>
+
 #include "MoreColors.h"
 #include "Scene_Editor.h"
-
 #include "../ADKEditorMetaRegistry.h"
-#include "TextureManager.h"
+#include "ADKTextures.h"
 
+
+#pragma region REGISTRATION
 // Register all types and their identifiers for use in editor and save/load
 REGISTER_ENTITY_TYPES
-// Register all texture file paths to their identifier enum
-REGISTER_TEXTURE_PATHS
+// Define static maps for reference counting and texture pointers of ADKTexture
+DEFINE_ADK_TEXTURES
+#pragma endregion
 
 struct FEngineConfig
 {

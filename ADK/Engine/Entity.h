@@ -1,7 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "TextureManager.h"
+
+#include "ADKAssets.h"
 
 struct FAnimation
 {
@@ -46,6 +47,7 @@ public:
 	Entity();
 	Entity(float x, float y);
 	Entity(float x, float y, float inRot, float inScale);
+	virtual ~Entity();
 
 	// --- UPDATE ---
 	// Do game logic here, but do not render here. Not called if the Entity is not Active. Handles animation logic.
@@ -58,6 +60,10 @@ public:
 	// Draw any debug visuals here. Only called if the console is open, but still called even if the Entity is not Visible
 	virtual void DebugRender();
 	// --------------
+
+	// NEVER call these from virtual constructors. Otherwise, the textures for all base types will also end up being loaded.
+	virtual void LoadDefaultTexture();
+	void SetTexturePathAndLoad(const std::string& path);
 
 	inline bool IsActive() { return bActive; }
 	inline void SetActive(bool Active) { bActive = Active; }
@@ -73,14 +79,7 @@ public:
 	virtual void SetScale(float newScale);
 	inline int GetDepth() const { return depth; }
 	void SetDepth(int newDepth);
-	Textures::ID GetTextureId();
-	void SetTextureId(Textures::ID newTexId);
-	void SetSpriteTexture(sf::Texture& inTexture);
 	sf::Sprite& GetSprite();
-
-protected:
-	// Set Sprite and SpriteSheet defaults here
-	virtual void InitializeSpriteSheet();
 
 public:
 	// Used only to display entity id in the editor
@@ -88,6 +87,13 @@ public:
 
 	// Contains the sprite and all visual information
 	FSpriteSheet SpriteSheet;
+
+protected:
+	/* Texture filepath within Assets folder (e.g. "adk/t_missing.png")
+	TODO remember to set the correct texture path with InitializeSpriteSheet(const std::string&, AssetManager).
+	You could also do SetTexturePathAndLoad, but be sure all other essential logic from InitialSpriteSheet will still get done.
+	*/
+	std::string TexturePath = "adk/t_missing.png";
 
 private:
 	// Whether to Update this entity
@@ -106,11 +112,6 @@ private:
 		- zelda-like top down: should probably change based on bottom value of sprite so that sprites are drawn over each other correctly
 	*/
 	int depth;
-
-	// The default texture for a newly created entity of this type
-	Textures::ID TextureId = Textures::Default;
-	// 
-	//std::string TexturePath = "";
 
 	// Collider
 

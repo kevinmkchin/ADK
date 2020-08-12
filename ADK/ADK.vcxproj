@@ -19,7 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\AssetManager.cpp" />
+    <ClCompile Include="Engine\ADKTextures.cpp" />
+    <ClCompile Include="Engine\ADKAssets.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\Entity.cpp" />
     <ClCompile Include="Engine\EntityList.cpp" />
@@ -30,19 +31,18 @@
     <ClCompile Include="Engine\imgui_widgets.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Scene_Editor.cpp" />
-    <ClCompile Include="Engine\TextureManager.cpp" />
     <ClCompile Include="ExampleEntity.cpp" />
     <ClCompile Include="StoneEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
-    <ClInclude Include="Engine\AssetManager.h" />
+    <ClInclude Include="Engine\ADKTextures.h" />
+    <ClInclude Include="Engine\ADKAssets.h" />
     <ClInclude Include="Engine\Entity.h" />
     <ClInclude Include="Engine\EntityList.h" />
     <ClInclude Include="Engine\MoreColors.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Scene_Editor.h" />
-    <ClInclude Include="Engine\TextureManager.h" />
     <ClInclude Include="ExampleEntity.h" />
     <ClInclude Include="StoneEntity.h" />
   </ItemGroup>
@@ -110,7 +110,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)imgui_sfml\lib;$(SolutionDir)SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-network-d.lib;opengl32.lib;ImGui-SFML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-network-d.lib;sfml-main-d.lib;opengl32.lib;ImGui-SFML.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -140,7 +140,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)imgui_sfml\lib;$(SolutionDir)SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-audio.lib;sfml-window.lib;sfml-network.lib;opengl32.lib;ImGui-SFML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-audio.lib;sfml-window.lib;sfml-network.lib;sfml-main.lib;opengl32.lib;ImGui-SFML.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
