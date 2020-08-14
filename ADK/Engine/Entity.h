@@ -7,37 +7,34 @@
 struct FAnimation
 {
 public:
-	// Number of frames in this animation
-	std::size_t NumFrames; //maybe replace with end frame?
+	// Number of frames in this animation. maybe replace with end frame?
+	std::size_t NumFrames = 1; 
 	// Starting frame of this animation
-	std::size_t StartFrame;
+	std::size_t StartFrame = 0;
 	// Duration of animation (duration of each frame would then be AnimDuration / NumFrames). 0 AnimDuration means static sprite/animation
-	sf::Time AnimDuration;
-
-	FAnimation();
+	sf::Time AnimDuration = sf::seconds(0.f);
 };
 
 struct FSpriteSheet
 {
 public:
+// Expose to editor:
 	// Sprite to show. Also holds the texture.
 	sf::Sprite Sprite;
 	// Size of sprite frame in the texture.
-	sf::Vector2i FrameSize;
-
-	// Keeps track of current frame. Don't expose to editor.
-	std::size_t CurrentFrame;
-	// Keeps track of elapsed time since last frame. Don't expose to editor.
-	sf::Time ElapsedTime;
+	sf::Vector2i FrameSize = sf::Vector2i(0,0);
 	// Repeat anim or no
-	bool bRepeat;
-
+	bool bRepeat = true;
 	// Index of currently selected animation
-	std::size_t SelectedAnimation;
+	std::size_t SelectedAnimation = 0;
 	// Animations for this sprite
-	std::vector<FAnimation> Animations;
+	std::vector<FAnimation> Animations = { FAnimation() };
 
-	FSpriteSheet();
+// Don't expose to editor;
+	// Keeps track of current frame.
+	std::size_t CurrentFrame = 0;
+	// Keeps track of elapsed time since last frame.
+	sf::Time ElapsedTime = sf::seconds(0);
 };
 
 /* KEEP THIS BASE ENTITY CLASS VERY LIGHTWEIGHT */

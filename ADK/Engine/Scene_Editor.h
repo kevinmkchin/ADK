@@ -14,18 +14,18 @@ enum ToolMode
 struct FEditorConfig
 {
 public:
-	int GridSizeX;
-	int GridSizeY;
-	sf::Color GridColor;
-	bool bShowGrid;
-	bool bSnapToGrid;
+	int GridSizeX = 32;
+	int GridSizeY = 32;
+	sf::Color GridColor = sf::Color::White;
+	bool bShowGrid = true;
+	bool bSnapToGrid = false;
 
-	int BigGridX;
-	int BigGridY;	
-	sf::Color BigGridColor;
-	bool bShowBigGrid;
+	int BigGridX = 0;
+	int BigGridY = 0;
+	sf::Color BigGridColor = sf::Color::Red;
+	bool bShowBigGrid = false;
 
-	sf::Color SelectionColor;
+	sf::Color SelectionColor = sf::Color::Green;
 
 	sf::Vector2i TopLeftPixel; // Top Left corner of the editor viewport in window pixel space
 	sf::Vector2i BotRightPixels; // Bottom Right corner of the editor viewport in window pixel space
@@ -35,9 +35,6 @@ public:
 	int depthFilterLowerBound;
 	int depthFilterUpperBound;
 	// Tag filter?
-
-	// Defaults
-	FEditorConfig();
 };
 
 class Scene_Editor : public Scene

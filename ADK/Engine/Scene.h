@@ -9,15 +9,12 @@
 // Struct for Scene View properties
 struct FViewConfig
 {
-	float CenterX;
-	float CenterY;
-	float SizeX;
-	float SizeY;
-	float Rotation;
-	float Zoom;
-
-	// Defaults
-	FViewConfig();
+	float CenterX = 640.f;
+	float CenterY = 360.f;
+	float SizeX = 1280.f;
+	float SizeY = 720.f;
+	float Rotation = 0.f;
+	float Zoom = 1.f;
 };
 
 class Scene

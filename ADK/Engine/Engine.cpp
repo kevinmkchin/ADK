@@ -1,3 +1,4 @@
+#include <thread>
 #include <SFML/Graphics.hpp>
 
 #include "MoreColors.h"
@@ -16,34 +17,19 @@ DEFINE_ADK_TEXTURES
 struct FEngineConfig
 {
 	// How often game logic is ticked/updated
-	uint16_t TicksPerSecond;
+	uint16_t TicksPerSecond = 60;
 	// Whether to render only on game logic ticks (i.e. tie framerate to game logic?)
-	bool bCapFramerateToTicks;
+	bool bCapFramerateToTicks = true;
 	// Whether to use V-Sync
-	bool bVSyncEnabled;
+	bool bVSyncEnabled = false;
 	// Game window resolution
-	uint16_t DefaultWindowWidth;
-	uint16_t DefaultWindowHeight;
+	uint16_t DefaultWindowWidth = 1600;
+	uint16_t DefaultWindowHeight = 900;
 	// Whether we can resize window
-	bool bCanResize;
+	bool bCanResize = true;
 	// Default window background color
-	sf::Color WindowBackgroundColor;
-
-	// Defaults
-	FEngineConfig();
+	sf::Color WindowBackgroundColor = MC_CHARCOAL;
 };
-
-// Engine Config Defaults
-FEngineConfig::FEngineConfig()
-	: TicksPerSecond(60)
-	, bCapFramerateToTicks(true)
-	, bVSyncEnabled(false)
-	, DefaultWindowWidth(1600)
-	, DefaultWindowHeight(900)
-	, bCanResize(true)
-	, WindowBackgroundColor(MC_CHARCOAL)
-{
-}
 
 class Engine
 {
@@ -77,7 +63,9 @@ private:
 };
 
 Engine::Engine()
-	: window(sf::VideoMode(EngineConfig.DefaultWindowWidth, EngineConfig.DefaultWindowHeight), "ADK Engine", (EngineConfig.bCanResize ? sf::Style::Default : sf::Style::Close))
+	: window(sf::VideoMode(EngineConfig.DefaultWindowWidth, EngineConfig.DefaultWindowHeight), 
+		"ADK Engine", 
+		(EngineConfig.bCanResize ? sf::Style::Default : sf::Style::Close))
 {
 }
 
