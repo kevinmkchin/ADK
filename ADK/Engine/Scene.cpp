@@ -3,20 +3,9 @@
 #include "../ExampleEntity.h"
 #include "../ADKEditorMetaRegistry.h"
 
-FViewConfig::FViewConfig()
-	: CenterX(640.f)
-	, CenterY(360.f)
-	, SizeX(1280.f)
-	, SizeY(720.f)
-	, Rotation(0.f)
-	, Zoom(1.f)
-{
-}
-
 Scene::Scene()
 	: Entities(EntityList())
 {
-
 }
 
 void Scene::BeginScene(sf::RenderWindow& window)

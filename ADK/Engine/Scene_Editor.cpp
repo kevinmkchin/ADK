@@ -7,21 +7,6 @@
 #include "ADKAssets.h"
 #include "../ADKEditorMetaRegistry.h"
 
-FEditorConfig::FEditorConfig()
-	: GridSizeX(32)
-	, GridSizeY(32)
-	, GridColor(sf::Color::White)
-	, bShowGrid(true)
-	, bSnapToGrid(false)
-	, BigGridX(0)
-	, BigGridY(0)
-	, BigGridColor(sf::Color::Red)
-	, bShowBigGrid(true)
-
-	, SelectionColor(sf::Color::Green)
-{
-}
-
 Scene_Editor::Scene_Editor()
 	: DefaultEditorConfig(FEditorConfig())
 	, ActiveEditorConfig(DefaultEditorConfig)
@@ -161,53 +146,75 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		}
 	}
 
-	// Select entity
-	if (currTool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
+	// Editor features that should only happen when sprite sheet viewer is closed.
+	if (bTextureShow == false)
 	{
-		for (int i = Entities.size() - 1; i > -1; --i)
+		// Select entity
+		if (currTool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
 		{
-			Entity* at = Entities.at(i);
-			sf::IntRect spr = at->GetSprite().getTextureRect();
-			sf::FloatRect mouseCol(at->GetPosition().x, at->GetPosition().y, (float) spr.width * at->GetScale(), (float) spr.height * at->GetScale());
-
-			sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-			sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-			if (mouseCol.contains(worldPos))
+			for (int i = Entities.size() - 1; i > -1; --i)
 			{
-				SetEntitySelectedForProperties(at);
-				if (EntitySelectedForProperties == at) // This entity is already clicked on
+				Entity* at = Entities.at(i);
+				sf::IntRect spr = at->GetSprite().getTextureRect();
+				sf::FloatRect mouseCol(at->GetPosition().x, at->GetPosition().y, (float)spr.width * at->GetScale(), (float)spr.height * at->GetScale());
+
+				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+				sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+				if (mouseCol.contains(worldPos))
 				{
-					bEntityDrag = true;
-					sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-					sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-					sf::Vector2f entPos = EntitySelectedForProperties->GetPosition();
-					entityDragOffset = worldPos - entPos;
-					return;
-					//continue; // see if theres anything under it that we are trying to select
+					SetEntitySelectedForProperties(at);
+					if (EntitySelectedForProperties == at) // This entity is already clicked on
+					{
+						bEntityDrag = true;
+						sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+						sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+						sf::Vector2f entPos = EntitySelectedForProperties->GetPosition();
+						entityDragOffset = worldPos - entPos;
+						return;
+						//continue; // see if theres anything under it that we are trying to select
+					}
+					return; // don't do the rest of the inputs
 				}
-				return; // don't do the rest of the inputs
 			}
 		}
-	}
 
-	// Place entity
-	if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
-	{
-		if (EntitySelectedForCreation != nullptr)
+		// Place entity
+		if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
 		{
-			// Single place entity
-			if (currTool == TOOL_PLACE)
+			if (EntitySelectedForCreation != nullptr)
 			{
-				BrushPlaceHelper();
+				// Single place entity
+				if (currTool == TOOL_PLACE)
+				{
+					BrushPlaceHelper();
 
-				bEntityDrag = true;
-			}
+					bEntityDrag = true;
+				}
 
-			// Brush place entity
-			if (currTool == TOOL_BRUSH)
-			{
-				bBrushEnabled = true;
+				// Brush place entity
+				if (currTool == TOOL_BRUSH)
+				{
+					bBrushEnabled = true;
+				}
 			}
+		}
+
+		// Mouse view zoom
+		if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && bMouseDrag == false && event.type == sf::Event::MouseWheelMoved)
+		{
+			zoomFactor *= event.mouseWheel.delta > 0 ? 0.9f : 1.1f;
+			SceneView.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
+			renderWindowPtr->setView(SceneView);
+		}
+	
+		// Entity drag with Left Alt
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
+		{
+			bEntityDrag = true;
+		}
+		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
+		{
+			bEntityDrag = false;
 		}
 	}
 
@@ -222,16 +229,6 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		{
 			BrushVisitedPositions.clear();
 		}
-	}
-
-	// Entity drag with Left Alt
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
-	{
-		bEntityDrag = true;
-	}
-	else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
-	{
-		bEntityDrag = false;
 	}
 
 	// Mouse view drag
@@ -250,15 +247,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		}
 	}
 
-	// Mouse view zoom
-	if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && bMouseDrag == false && event.type == sf::Event::MouseWheelMoved)
-	{
-		zoomFactor *= event.mouseWheel.delta > 0 ? 0.9f : 1.1f;
-		SceneView.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
-		renderWindowPtr->setView(SceneView);
-	}
-
-	// Scene move
+	// Scene move with Arrows
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
 		float xM = 0;
@@ -283,7 +272,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		renderWindowPtr->setView(SceneView);
 	}
 
-	// Entity Arrow move
+	// Entity move with Arrows
 	if (EntitySelectedForProperties != nullptr)
 	{
 		float xM = 0;
@@ -590,8 +579,6 @@ void Scene_Editor::DrawEntityPropertyUI()
 			}
 			if (bTextureShow)
 			{
-				currTool = TOOL_SELECTION;
-
 				ImGui::Begin("Currently selected texture", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
 				ImGui::SetWindowPos(sf::Vector2f(ActiveEditorConfig.BotRightPixels.x - 610.f, 50.f));
 				ImGui::SetWindowSize(sf::Vector2f(600.f, 600.f));

@@ -1,23 +1,5 @@
 #include "Entity.h"
 
-
-FAnimation::FAnimation()
-	: NumFrames(1)
-	, StartFrame(0)
-	, AnimDuration(sf::seconds(0.f))
-{
-}
-
-FSpriteSheet::FSpriteSheet()
-	: FrameSize(0,0)
-	, CurrentFrame(0)
-	, ElapsedTime(sf::seconds(0))
-	, bRepeat(true)
-	, SelectedAnimation(0)
-{
-	Animations.push_back(FAnimation());
-}
-
 Entity::Entity()
 	: bActive(true)
 	, bVisible(true)
