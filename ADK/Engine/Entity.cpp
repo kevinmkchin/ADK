@@ -165,6 +165,11 @@ void Entity::LoadDefaultTexture()
 
 void Entity::SetTexturePathAndLoad(const std::string& path)
 {
+	// If we already have a texture, then unload that first
+	if (SpriteSheet.Sprite.getTexture() != nullptr)
+	{
+		ADKAssets::Unload(TexturePath);
+	}
 	TexturePath = path;
 	sf::Texture& LoadedTexture = ADKAssets::Get(TexturePath);
 	SpriteSheet.Sprite.setTexture(LoadedTexture, true);
@@ -175,6 +180,12 @@ void Entity::SetTexturePathAndLoad(const std::string& path)
 		SpriteSheet.FrameSize.x = LoadedTexture.getSize().x;
 		SpriteSheet.FrameSize.y = LoadedTexture.getSize().y;
 	}
+}
+
+void Entity::MatchFrameSizeToTexture()
+{
+	SpriteSheet.FrameSize.x = SpriteSheet.Sprite.getTexture()->getSize().x;
+	SpriteSheet.FrameSize.y = SpriteSheet.Sprite.getTexture()->getSize().y;
 }
 
 sf::Sprite& Entity::GetSprite()

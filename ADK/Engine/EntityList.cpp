@@ -44,13 +44,13 @@ void EntityList::Update(float deltaTime)
 	{
 		entity->Update(deltaTime);
 	}
+
+	// Sort the entities by depth ONLY if MarkDepthChanged
+	std::sort(entities.begin(), entities.end(), DepthComparator());
 }
 
 void EntityList::Render(sf::RenderTarget& target)
 {
-	// Sort the entities by depth ONLY if MarkDepthChanged (also not even a big cpu usage)
-	std::sort(entities.begin(), entities.end(), DepthComparator());
-
 	// Render the entities	
 	for (auto& entity : entities)
 	{

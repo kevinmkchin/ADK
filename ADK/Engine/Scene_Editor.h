@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include <imfilebrowser.h>
 
 
 enum ToolMode
@@ -122,6 +123,8 @@ private:
 	sf::Texture placeButton;
 	sf::Texture brushButton;
 	sf::Texture pickerButton;
+
+	ImGui::FileBrowser textureDialog;
 
 };
 
