@@ -62,6 +62,8 @@ public:
 	virtual void LoadDefaultTexture();
 	void SetTexturePathAndLoad(const std::string& path);
 
+	void MatchFrameSizeToTexture();
+
 	inline bool IsActive() { return bActive; }
 	inline void SetActive(bool Active) { bActive = Active; }
 	inline bool IsVisible() { return bVisible; }

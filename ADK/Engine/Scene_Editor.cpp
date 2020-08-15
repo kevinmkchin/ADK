@@ -82,6 +82,10 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 		// At this point, Identifiers[0] represents the id of the entity type of entity at EntityTypes.at(0)
 	}
 
+	textureDialog = ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
+	textureDialog.SetTitle("Choose a texture to use");
+	textureDialog.SetTypeFilters({ ".png", ".jpg" });
+
 	window.setKeyRepeatEnabled(false);
 }
 
@@ -147,7 +151,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	}
 
 	// Editor features that should only happen when sprite sheet viewer is closed.
-	if (bTextureShow == false)
+	if (bTextureShow == false && textureDialog.IsOpened() == false)
 	{
 		// Select entity
 		if (currTool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
@@ -361,11 +365,6 @@ void Scene_Editor::Update(float deltaTime)
 		renderWindowPtr->setView(SceneView);
 		lastMousePos = pixelPos;
 	}
-
-	// ImGui::SFML Update
-	ImGui::SFML::Update(*renderWindowPtr, sf::seconds(deltaTime));
-	// Setup ImGui to draw
-	DrawEditorUI();
 }
 
 void Scene_Editor::PostUpdate(float deltaTime)
@@ -375,7 +374,10 @@ void Scene_Editor::PostUpdate(float deltaTime)
 
 void Scene_Editor::PreRender(sf::RenderWindow& window)
 {
-
+	// ImGui::SFML Update
+	ImGui::SFML::Update(*renderWindowPtr, sf::seconds(0.016666f));//sf::seconds(deltaTime));
+	// Setup ImGui to draw
+	DrawEditorUI();
 }
 
 void Scene_Editor::Render(sf::RenderWindow& window)
@@ -556,6 +558,27 @@ void Scene_Editor::DrawEntityPropertyUI()
 			ImGui::Text("SpriteSheet Properties");
 			ImGui::Separator();
 
+			// Choose Texture
+			if (ImGui::Button("Change Texture"))
+			{
+				textureDialog.Open();
+			}
+			textureDialog.Display();
+			if (textureDialog.HasSelected())
+			{
+				if (textureDialog.GetSelected().filename().has_extension())
+				{
+					size_t pos = textureDialog.GetSelected().string().find("\\Assets\\");
+					if (pos < 1000)
+					{
+						std::string path = textureDialog.GetSelected().string().substr(pos).substr(7);
+						EntitySelectedForProperties->SetTexturePathAndLoad(path);
+						EntitySelectedForProperties->MatchFrameSizeToTexture();
+					}
+				}
+				textureDialog.ClearSelected();
+			}
+
 			int si[2];
 			si[0] = EntitySelectedForProperties->SpriteSheet.FrameSize.x;
 			si[1] = EntitySelectedForProperties->SpriteSheet.FrameSize.y;
@@ -584,6 +607,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::SetWindowSize(sf::Vector2f(600.f, 600.f));
 
 				ImGui::Text("Clicking on a frame will set that frame as the start frame of the currently selected animation.");
+				ImGui::Text("Shift + Clicking on a frame will set that frame as the end frame of the currently selected animation.");
 
 				sf::Vector2f textureBounds = sf::Vector2f(EntitySelectedForProperties->SpriteSheet.Sprite.getTexture()->getSize());
 				int numWide = (int) textureBounds.x / ((si[0] > 0) ? si[0] : 1);
@@ -600,10 +624,24 @@ void Scene_Editor::DrawEntityPropertyUI()
 
 						if (ImGui::ImageButton(frame, sf::Vector2f(buttonSize, buttonSize)))
 						{
-							if (EntitySelectedForProperties->SpriteSheet.SelectedAnimation >= 0)
+							if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 							{
-								int index = (i * numWide) + j;
-								EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = index;
+								if (EntitySelectedForProperties->SpriteSheet.SelectedAnimation >= 0)
+								{
+									// Set num frames
+									int index = (i * numWide) + j;
+									EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].NumFrames
+										= index - EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame + 1;
+								}
+							}
+							else
+							{
+								if (EntitySelectedForProperties->SpriteSheet.SelectedAnimation >= 0)
+								{
+									// Set start frame
+									int index = (i * numWide) + j;
+									EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = index;
+								}
 							}
 						}
 
