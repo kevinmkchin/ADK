@@ -51,12 +51,41 @@ void EntityList::Update(float deltaTime)
 
 void EntityList::Render(sf::RenderTarget& target)
 {
+	// Assume sorted
 	// Render the entities	
 	for (auto& entity : entities)
 	{
 		if (entity->IsVisible())
 		{
 			entity->Render(target);
+		}
+	}
+}
+
+void EntityList::RenderWithDepth(sf::RenderTarget& target, int lower, int upper)
+{
+	// Assume sorted
+	// Render the entities	
+	for (auto& entity : entities)
+	{
+		if (entity->GetDepth() >= lower)
+		{
+			if (entity->GetDepth() <= upper)
+			{
+				if (entity->IsVisible())
+				{
+					entity->Render(target);
+				}
+			}
+			else
+			{
+				// Don't go through the rest of the list
+				return;
+			}
+		}
+		else
+		{
+			continue;
 		}
 	}
 }

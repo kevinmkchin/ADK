@@ -21,6 +21,9 @@ Scene_Editor::Scene_Editor()
 	, bTextureShow(false)
 	, lastMousePos(sf::Vector2f())
 	, currTool(TOOL_SELECTION)
+	, defaultCopyPasteTimer(0.5f)
+	, copyPasteTimer(defaultCopyPasteTimer)
+	, bShowConfig(false)
 {
 }
 
@@ -86,7 +89,7 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 	textureDialog.SetTitle("Choose a texture to use");
 	textureDialog.SetTypeFilters({ ".png", ".jpg" });
 
-	window.setKeyRepeatEnabled(false);
+	//window.setKeyRepeatEnabled(false);
 }
 
 void Scene_Editor::EndScene(sf::RenderWindow& window)
@@ -151,7 +154,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	}
 
 	// Editor features that should only happen when sprite sheet viewer is closed.
-	if (bTextureShow == false && textureDialog.IsOpened() == false)
+	if (bTextureShow == false && bShowConfig == false && textureDialog.IsOpened() == false)
 	{
 		// Select entity
 		if (currTool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
@@ -164,7 +167,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 
 				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
 				sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-				if (mouseCol.contains(worldPos))
+				if (mouseCol.contains(worldPos) && at->GetDepth() >= ActiveEditorConfig.depthFilterLowerBound && at->GetDepth() <= ActiveEditorConfig.depthFilterUpperBound)
 				{
 					SetEntitySelectedForProperties(at);
 					if (EntitySelectedForProperties == at) // This entity is already clicked on
@@ -219,6 +222,55 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
 		{
 			bEntityDrag = false;
+		}
+
+		// Copy
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+		{
+			if (EntitySelectedForProperties != nullptr)
+			{
+				Entity::Copy(copiedEntity, *EntitySelectedForProperties);
+			}
+		}
+
+		// Paste
+		if (copyPasteTimer < 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::V))
+		{
+			// Get the current mouse position in the window
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+			// Convert it to world coordinates
+			sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+			// Calculate amount to subtract if snapping to grid
+			int sX = 0;
+			int sY = 0;
+			if (ActiveEditorConfig.bSnapToGrid)
+			{
+				sX = (int)worldPos.x % ActiveEditorConfig.GridSizeX;
+				if (worldPos.x < 0)
+				{
+					sX = ActiveEditorConfig.GridSizeX + sX;
+				}
+				sY = (int)worldPos.y % ActiveEditorConfig.GridSizeY;
+				if (worldPos.y < 0)
+				{
+					sY = ActiveEditorConfig.GridSizeY + sY;
+				}
+			}
+
+			// Get would-be position of a new entity
+			int posX = ((int)worldPos.x) - sX;
+			int posY = ((int)worldPos.y) - sY;
+
+			// Create a new entity
+			Entity* created = ADKEditorMetaRegistry::CreateNewEntity(copiedEntity.EntityId);
+			Entity::Copy(*created, copiedEntity);
+			created->SetPosition((float)posX, (float)posY);
+			// Add the entity to this scene/level editor's entity list
+			Entities.add(created);
+			// Set this entity to be selected
+			SetEntitySelectedForProperties(created);
+
+			copyPasteTimer = defaultCopyPasteTimer;
 		}
 	}
 
@@ -365,6 +417,14 @@ void Scene_Editor::Update(float deltaTime)
 		renderWindowPtr->setView(SceneView);
 		lastMousePos = pixelPos;
 	}
+
+	// Decrement copy paste timer
+	copyPasteTimer -= deltaTime;
+
+		// ImGui::SFML Update
+	ImGui::SFML::Update(*renderWindowPtr, sf::seconds(0.016666f));//sf::seconds(deltaTime));
+	// Setup ImGui to draw
+	DrawEditorUI();
 }
 
 void Scene_Editor::PostUpdate(float deltaTime)
@@ -374,15 +434,12 @@ void Scene_Editor::PostUpdate(float deltaTime)
 
 void Scene_Editor::PreRender(sf::RenderWindow& window)
 {
-	// ImGui::SFML Update
-	ImGui::SFML::Update(*renderWindowPtr, sf::seconds(0.016666f));//sf::seconds(deltaTime));
-	// Setup ImGui to draw
-	DrawEditorUI();
+
 }
 
 void Scene_Editor::Render(sf::RenderWindow& window)
 {
-	Scene::Render(window);
+	Entities.RenderWithDepth(window, ActiveEditorConfig.depthFilterLowerBound, ActiveEditorConfig.depthFilterUpperBound);
 
 	// Render Grid
 	if (ActiveEditorConfig.bShowGrid)
@@ -876,24 +933,44 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::Button("Load");
 	ImGui::SameLine();
 
-	ImGui::Button("Config");
-	ImGui::SameLine(200.f);
-
-	ImGui::PushItemWidth(90.f);
-	ImGui::InputInt("Big Grid X", &ActiveEditorConfig.BigGridX);
-	ImGui::SameLine();
-	ImGui::InputInt("Big Grid Y", &ActiveEditorConfig.BigGridY);
-	ImGui::SameLine();
-	ImGui::Checkbox("Show Big Grid", &ActiveEditorConfig.bShowBigGrid);
-	ImGui::SameLine();
-	ImGui::PushItemWidth(130.f);
-	ImColor bigGridCol = MoreColors::SFColorToImColor(ActiveEditorConfig.BigGridColor);
-	if (ImGui::ColorEdit4("", (float*)&bigGridCol, ImGuiColorEditFlags_NoInputs))
+	if (ImGui::Button("Config"))
 	{
-		EntitySelectedForCreation = nullptr;
+		bShowConfig = !bShowConfig;
 	}
-	ActiveEditorConfig.BigGridColor = MoreColors::ImColorToSFColor(bigGridCol);
-	ImGui::SameLine();
+	if (bShowConfig)
+	{
+		ImGui::Begin("ADK Editor Settings", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+		ImGui::SetWindowPos(sf::Vector2f((float)ActiveEditorConfig.TopLeftPixel.x, (float)ActiveEditorConfig.TopLeftPixel.y));
+		ImGui::SetWindowSize(sf::Vector2f((float)ActiveEditorConfig.BotRightPixels.x - ActiveEditorConfig.TopLeftPixel.x,
+			(float)ActiveEditorConfig.BotRightPixels.y - ActiveEditorConfig.TopLeftPixel.y));
+
+		// Big grid
+		ImGui::Text("Big Grid: ");
+		ImGui::SameLine();
+		ImGui::PushItemWidth(90.f);
+		ImGui::InputInt("Big Grid X", &ActiveEditorConfig.BigGridX);
+		ImGui::SameLine();
+		ImGui::InputInt("Big Grid Y", &ActiveEditorConfig.BigGridY);
+		ImGui::SameLine();
+		ImGui::Checkbox("Show Big Grid", &ActiveEditorConfig.bShowBigGrid);
+		ImGui::SameLine();
+		ImGui::PushItemWidth(130.f);
+		ImColor bigGridCol = MoreColors::SFColorToImColor(ActiveEditorConfig.BigGridColor);
+		if (ImGui::ColorEdit4("Big Grid Color", (float*)&bigGridCol, ImGuiColorEditFlags_NoInputs))
+		{
+			EntitySelectedForCreation = nullptr;
+		}
+		ActiveEditorConfig.BigGridColor = MoreColors::ImColorToSFColor(bigGridCol);
+
+		// Background color
+		
+
+		// Copy-Paste delay
+
+		ImGui::End();
+	}
+
+	ImGui::SameLine(200.f);
 
 	ImGui::PushItemWidth(90.f);
 	ImGui::InputInt("Grid Size X", &ActiveEditorConfig.GridSizeX);
@@ -920,6 +997,14 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 		EntitySelectedForCreation = nullptr;
 	}
 	ActiveEditorConfig.SelectionColor = MoreColors::ImColorToSFColor(selCol);
+	ImGui::SameLine(1040.f);
+
+	ImGui::Text("Show Depth From");
+	ImGui::SameLine();
+	ImGui::PushItemWidth(90.f);
+	ImGui::InputInt("To", &ActiveEditorConfig.depthFilterLowerBound);
+	ImGui::SameLine();
+	ImGui::InputInt("###", &ActiveEditorConfig.depthFilterUpperBound);
 	ImGui::SameLine();
 
 	// RESET VIEW button

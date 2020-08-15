@@ -119,7 +119,7 @@ void Entity::DebugRender()
 
 }
 
-sf::Vector2f Entity::GetPosition()
+sf::Vector2f Entity::GetPosition() const
 {
 	return position;
 }
@@ -134,7 +134,7 @@ void Entity::SetPosition(float x, float y)
 	position.y = y;
 	SpriteSheet.Sprite.setPosition(position);
 }
-float Entity::GetRotation()
+float Entity::GetRotation() const
 {
 	return rotation;
 }
@@ -143,7 +143,7 @@ void Entity::SetRotation(float newRot)
 	rotation = newRot;
 	SpriteSheet.Sprite.setRotation(rotation);
 }
-float Entity::GetScale() 
+float Entity::GetScale() const
 {
 	return scale;
 }
@@ -191,4 +191,19 @@ void Entity::MatchFrameSizeToTexture()
 sf::Sprite& Entity::GetSprite()
 {
 	return SpriteSheet.Sprite;
+}
+
+void Entity::Copy(Entity& target, const Entity& source)
+{
+	target.SpriteSheet = source.SpriteSheet;
+	target.EntityId = source.EntityId;
+	target.SetTexturePathAndLoad(source.GetTexturePath());
+	target.SetActive(source.IsActive());
+	target.SetVisible(source.IsVisible());
+	target.SetPosition(source.GetPosition());
+	target.SetRotation(source.GetRotation());
+	target.SetScale(source.GetScale());
+	target.SetDepth(source.GetDepth());
+	// TODO copy Collision data
+	// TODO copy Tag data
 }

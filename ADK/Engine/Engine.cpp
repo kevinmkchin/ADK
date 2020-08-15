@@ -18,7 +18,7 @@ struct FEngineConfig
 	// How often game logic is ticked/updated
 	uint16_t TicksPerSecond = 60;
 	// Whether to render only on game logic ticks (i.e. tie framerate to game logic?)
-	bool bCapFramerateToTicks = false;
+	bool bCapFramerateToTicks = true;
 	// Whether to use V-Sync
 	bool bVSyncEnabled = false;
 	// Game window resolution

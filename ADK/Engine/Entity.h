@@ -44,6 +44,7 @@ public:
 	Entity();
 	Entity(float x, float y);
 	Entity(float x, float y, float inRot, float inScale);
+	Entity(const Entity& copy);
 	virtual ~Entity();
 
 	// --- UPDATE ---
@@ -64,21 +65,25 @@ public:
 
 	void MatchFrameSizeToTexture();
 
-	inline bool IsActive() { return bActive; }
+	inline bool IsActive() const { return bActive; }
 	inline void SetActive(bool Active) { bActive = Active; }
-	inline bool IsVisible() { return bVisible; }
+	inline bool IsVisible() const { return bVisible; }
 	inline void SetVisible(bool Visible) { bVisible = Visible; }
 	
-	virtual sf::Vector2f GetPosition();
+	virtual sf::Vector2f GetPosition() const;
 	virtual void SetPosition(sf::Vector2f newPos);
 	virtual void SetPosition(float x, float y);
-	virtual float GetRotation();
+	virtual float GetRotation() const;
 	virtual void SetRotation(float newRot);
-	virtual float GetScale();
+	virtual float GetScale() const;
 	virtual void SetScale(float newScale);
 	inline int GetDepth() const { return depth; }
 	void SetDepth(int newDepth);
 	sf::Sprite& GetSprite();
+	std::string GetTexturePath() const { return TexturePath; }
+
+	// Copier
+	static void Copy(Entity& target, const Entity& source);
 
 public:
 	// Used only to display entity id in the editor
