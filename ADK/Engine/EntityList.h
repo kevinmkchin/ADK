@@ -38,6 +38,8 @@ public:
 
 	void Render(sf::RenderTarget& target);
 
+	void RenderWithDepth(sf::RenderTarget& target, int lower, int upper);
+
 	//void RenderOnly
 
 	void MarkDepthChanged();

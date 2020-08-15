@@ -33,8 +33,8 @@ public:
 	int WindowSizeX;
 	int WindowSizeY;
 
-	int depthFilterLowerBound;
-	int depthFilterUpperBound;
+	int depthFilterLowerBound = -10;
+	int depthFilterUpperBound = 10;
 	// Tag filter?
 };
 
@@ -124,7 +124,16 @@ private:
 	sf::Texture brushButton;
 	sf::Texture pickerButton;
 
+	// Texture loader file dialog
 	ImGui::FileBrowser textureDialog;
+
+	// Local entity to store data of copied entity
+	Entity copiedEntity;
+	float defaultCopyPasteTimer;
+	float copyPasteTimer;
+
+	// Config
+	bool bShowConfig;
 
 };
 
