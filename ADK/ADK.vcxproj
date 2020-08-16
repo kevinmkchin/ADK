@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\ADKSaveLoad.cpp" />
     <ClCompile Include="Engine\ADKTextures.cpp" />
     <ClCompile Include="Engine\ADKAssets.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
@@ -36,10 +37,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
+    <ClInclude Include="Engine\ADKSaveLoad.h" />
     <ClInclude Include="Engine\ADKTextures.h" />
     <ClInclude Include="Engine\ADKAssets.h" />
     <ClInclude Include="Engine\Entity.h" />
     <ClInclude Include="Engine\EntityList.h" />
+    <ClInclude Include="Engine\json.hpp" />
     <ClInclude Include="Engine\MoreColors.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Scene_Editor.h" />
@@ -106,6 +109,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;$(SolutionDir)imgui_sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +138,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;$(SolutionDir)imgui_sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

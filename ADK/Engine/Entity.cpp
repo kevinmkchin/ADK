@@ -177,8 +177,13 @@ void Entity::SetTexturePathAndLoad(const std::string& path)
 	// If first time setting sprite sheet, set it to entire texture size by default
 	if (SpriteSheet.FrameSize.x == 0 && SpriteSheet.FrameSize.y == 0)
 	{
-		SpriteSheet.FrameSize.x = LoadedTexture.getSize().x;
-		SpriteSheet.FrameSize.y = LoadedTexture.getSize().y;
+		MatchFrameSizeToTexture();
+	}
+	else
+	{
+		SpriteSheet.Sprite.setTextureRect(
+			sf::IntRect(SpriteSheet.Sprite.getPosition().x, SpriteSheet.Sprite.getPosition().y,
+				SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
 	}
 }
 
@@ -186,6 +191,9 @@ void Entity::MatchFrameSizeToTexture()
 {
 	SpriteSheet.FrameSize.x = SpriteSheet.Sprite.getTexture()->getSize().x;
 	SpriteSheet.FrameSize.y = SpriteSheet.Sprite.getTexture()->getSize().y;
+	SpriteSheet.Sprite.setTextureRect(
+		sf::IntRect(SpriteSheet.Sprite.getPosition().x, SpriteSheet.Sprite.getPosition().y,
+			SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
 }
 
 sf::Sprite& Entity::GetSprite()

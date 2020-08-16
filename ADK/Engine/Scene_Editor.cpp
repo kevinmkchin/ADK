@@ -4,6 +4,7 @@
 
 #include "MoreColors.h"
 #include "Scene_Editor.h"
+#include "ADKSaveLoad.h"
 #include "ADKAssets.h"
 #include "../ADKEditorMetaRegistry.h"
 
@@ -118,29 +119,32 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	// Shortcuts
 	if (sf::Event::KeyPressed)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+		if (bTypingLevelID == false)
 		{
-			currTool = TOOL_SELECTION;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			currTool = TOOL_PLACE;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			currTool = TOOL_BRUSH;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			currTool = TOOL_PICKER;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-		{
-			ActiveEditorConfig.bShowGrid = !ActiveEditorConfig.bShowGrid;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			ActiveEditorConfig.bSnapToGrid = !ActiveEditorConfig.bSnapToGrid;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+			{
+				currTool = TOOL_SELECTION;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				currTool = TOOL_PLACE;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				currTool = TOOL_BRUSH;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				currTool = TOOL_PICKER;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+			{
+				ActiveEditorConfig.bShowGrid = !ActiveEditorConfig.bShowGrid;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+			{
+				ActiveEditorConfig.bSnapToGrid = !ActiveEditorConfig.bSnapToGrid;
+			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
@@ -214,15 +218,15 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 			renderWindowPtr->setView(SceneView);
 		}
 	
-		// Entity drag with Left Alt
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
-		{
-			bEntityDrag = true;
-		}
-		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
-		{
-			bEntityDrag = false;
-		}
+		//// Entity drag with Left Alt
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
+		//{
+		//	bEntityDrag = true;
+		//}
+		//else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
+		//{
+		//	bEntityDrag = false;
+		//}
 
 		// Copy
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
@@ -329,7 +333,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	}
 
 	// Entity move with Arrows
-	if (EntitySelectedForProperties != nullptr)
+	if (EntitySelectedForProperties != nullptr && bTypingLevelID == false)
 	{
 		float xM = 0;
 		float yM = 0;
@@ -421,8 +425,8 @@ void Scene_Editor::Update(float deltaTime)
 	// Decrement copy paste timer
 	copyPasteTimer -= deltaTime;
 
-		// ImGui::SFML Update
-	ImGui::SFML::Update(*renderWindowPtr, sf::seconds(0.016666f));//sf::seconds(deltaTime));
+	// ImGui::SFML Update
+	ImGui::SFML::Update(*renderWindowPtr, sf::seconds(deltaTime));
 	// Setup ImGui to draw
 	DrawEditorUI();
 }
@@ -927,10 +931,37 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::SetWindowPos(sf::Vector2f(0.f, 0.f));
 	ImGui::SetWindowSize(sf::Vector2f((float) ActiveEditorConfig.WindowSizeX, (float) ActiveEditorConfig.TopLeftPixel.y));
 
-	ImGui::Button("Save");
+	ImGui::PushItemWidth(120.f);
+	ImGui::InputText("LEVEL ID", levelID, 30);
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+		ImGui::TextUnformatted("Level ID is the name of the level.");
+		ImGui::TextUnformatted("Save path in /Assets/Levels/.");
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
+	if (ImGui::IsItemActive())
+	{
+		bTypingLevelID = true;
+	}
+	else
+	{
+		bTypingLevelID = false;
+	}
 	ImGui::SameLine();
-
-	ImGui::Button("Load");
+	if (ImGui::Button("Save"))
+	{
+		ADKSaveLoad Saver;
+		Saver.SaveScene(levelID, *this);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Load"))
+	{
+		ADKSaveLoad Loader;
+		Loader.LoadToScene(levelID, *this);
+	}
 	ImGui::SameLine();
 
 	if (ImGui::Button("Config"))
@@ -970,7 +1001,7 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 		ImGui::End();
 	}
 
-	ImGui::SameLine(200.f);
+	ImGui::SameLine(370.f);
 
 	ImGui::PushItemWidth(90.f);
 	ImGui::InputInt("Grid Size X", &ActiveEditorConfig.GridSizeX);
@@ -997,7 +1028,7 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 		EntitySelectedForCreation = nullptr;
 	}
 	ActiveEditorConfig.SelectionColor = MoreColors::ImColorToSFColor(selCol);
-	ImGui::SameLine(1040.f);
+	ImGui::SameLine(1180.f);
 
 	ImGui::Text("Show Depth From");
 	ImGui::SameLine();

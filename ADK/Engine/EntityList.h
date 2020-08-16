@@ -25,6 +25,8 @@ public:
 	// Removes given entity from list if it exists and destroys the entity.
 	void removeAndDestroy(Entity* entityToRemove);
 
+	void clear();
+
 	Entity* at(int index);
 
 	int find(Entity* entityToFind);

@@ -47,9 +47,10 @@ protected:
 	// Initialize SceneView based on ViewConfig. Set RenderTarget's view to SceneView
 	virtual void InitializeSceneView(sf::RenderWindow& window);
 
-protected:
+public:
 	EntityList Entities;
 
+protected:
 	// View
 	FViewConfig ViewConfig;
 	sf::View SceneView;
