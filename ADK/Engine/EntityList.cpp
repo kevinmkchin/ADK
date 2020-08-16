@@ -21,6 +21,11 @@ void EntityList::removeAndDestroy(Entity* entityToRemove)
 	delete(entityToRemove);
 }
 
+void EntityList::clear()
+{
+	entities.clear();
+}
+
 Entity* EntityList::at(int index)
 {
 	return entities[index];

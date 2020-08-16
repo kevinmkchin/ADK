@@ -44,7 +44,6 @@ public:
 	Entity();
 	Entity(float x, float y);
 	Entity(float x, float y, float inRot, float inScale);
-	Entity(const Entity& copy);
 	virtual ~Entity();
 
 	// --- UPDATE ---

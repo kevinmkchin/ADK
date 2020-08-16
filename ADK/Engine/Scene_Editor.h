@@ -135,5 +135,9 @@ private:
 	// Config
 	bool bShowConfig;
 
+	// Save & Load
+	char levelID[30] = "";
+	bool bTypingLevelID;
+
 };
 
