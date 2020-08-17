@@ -139,5 +139,15 @@ private:
 	char levelID[30] = "";
 	bool bTypingLevelID;
 
+	// alt rotate
+	bool bAltRotate;
+	sf::Vector2f vec1;
+	float ogRot;
+
+	// ctrl scale
+	bool bCtrlScale;
+	sf::Vector2f ogMouse;
+	float ogScale;
+
 };
 
