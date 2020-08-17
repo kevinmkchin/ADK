@@ -163,6 +163,8 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		// Select entity
 		if (currTool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
 		{
+			sf::IntRect viewWindow(ActiveEditorConfig.TopLeftPixel.x, ActiveEditorConfig.TopLeftPixel.y,
+				ActiveEditorConfig.BotRightPixels.x - ActiveEditorConfig.TopLeftPixel.x, ActiveEditorConfig.BotRightPixels.y - ActiveEditorConfig.TopLeftPixel.y);
 			for (int i = Entities.size() - 1; i > -1; --i)
 			{
 				Entity* at = Entities.at(i);
@@ -171,7 +173,10 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 
 				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
 				sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-				if (mouseCol.contains(worldPos) && at->GetDepth() >= ActiveEditorConfig.depthFilterLowerBound && at->GetDepth() <= ActiveEditorConfig.depthFilterUpperBound)
+				if (mouseCol.contains(worldPos) 
+					&& at->GetDepth() >= ActiveEditorConfig.depthFilterLowerBound 
+					&& at->GetDepth() <= ActiveEditorConfig.depthFilterUpperBound 
+					&& viewWindow.contains(pixelPos))
 				{
 					SetEntitySelectedForProperties(at);
 					if (EntitySelectedForProperties == at) // This entity is already clicked on
@@ -218,15 +223,15 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 			renderWindowPtr->setView(SceneView);
 		}
 	
-		//// Entity drag with Left Alt
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
-		//{
-		//	bEntityDrag = true;
-		//}
-		//else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
-		//{
-		//	bEntityDrag = false;
-		//}
+		// Entity drag with Left Alt
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
+		{
+			bEntityDrag = true;
+		}
+		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
+		{
+			bEntityDrag = false;
+		}
 
 		// Copy
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::C))

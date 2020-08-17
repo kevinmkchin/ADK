@@ -163,10 +163,10 @@ void Entity::LoadDefaultTexture()
 	SetTexturePathAndLoad(TexturePath);
 }
 
-void Entity::SetTexturePathAndLoad(const std::string& path)
+void Entity::SetTexturePathAndLoad(const std::string& path, bool forceNoUnload)
 {
 	// If we already have a texture, then unload that first
-	if (SpriteSheet.Sprite.getTexture() != nullptr)
+	if (SpriteSheet.Sprite.getTexture() != nullptr && forceNoUnload == false)
 	{
 		ADKAssets::Unload(TexturePath);
 	}
@@ -182,7 +182,7 @@ void Entity::SetTexturePathAndLoad(const std::string& path)
 	else
 	{
 		SpriteSheet.Sprite.setTextureRect(
-			sf::IntRect(SpriteSheet.Sprite.getPosition().x, SpriteSheet.Sprite.getPosition().y,
+			sf::IntRect((int) SpriteSheet.Sprite.getPosition().x, (int) SpriteSheet.Sprite.getPosition().y,
 				SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
 	}
 }
@@ -205,7 +205,7 @@ void Entity::Copy(Entity& target, const Entity& source)
 {
 	target.SpriteSheet = source.SpriteSheet;
 	target.EntityId = source.EntityId;
-	target.SetTexturePathAndLoad(source.GetTexturePath());
+	target.SetTexturePathAndLoad(source.GetTexturePath(), true);
 	target.SetActive(source.IsActive());
 	target.SetVisible(source.IsVisible());
 	target.SetPosition(source.GetPosition());
