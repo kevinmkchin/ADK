@@ -219,9 +219,37 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		// Mouse view zoom
 		if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && bMouseDrag == false && event.type == sf::Event::MouseWheelMoved)
 		{
-			zoomFactor *= event.mouseWheel.delta > 0 ? 0.9f : 1.1f;
-			SceneView.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
-			renderWindowPtr->setView(SceneView);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				if (EntitySelectedForProperties != nullptr)
+				{
+					if (event.mouseWheel.delta > 0)
+					{
+						EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame--;
+						if ((int) EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame < 0)
+						{
+							EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = 0;
+						}
+					}
+					else
+					{
+						int width = (int) EntitySelectedForProperties->GetSprite().getTexture()->getSize().x / EntitySelectedForProperties->SpriteSheet.FrameSize.x;
+						int height = (int) EntitySelectedForProperties->GetSprite().getTexture()->getSize().y / EntitySelectedForProperties->SpriteSheet.FrameSize.y;
+						int max = width * height;
+						EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame++;
+						if ((int) EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame > max)
+						{
+							EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = max;
+						}
+					}
+				}
+			}
+			else
+			{
+				zoomFactor *= event.mouseWheel.delta > 0 ? 0.9f : 1.1f;
+				SceneView.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
+				renderWindowPtr->setView(SceneView);
+			}
 		}
 	
 		// Ent rotate with Left Alt
@@ -246,9 +274,9 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		}
 
 		// Ent scale with Left Ctrl
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 		{
-			if (bCtrlScale == false)
+			if (bShiftScale == false)
 			{
 				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
 				ogMouse = (*renderWindowPtr).mapPixelToCoords(pixelPos);
@@ -257,11 +285,11 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 					ogScale = EntitySelectedForProperties->GetScale();
 				}
 			}
-			bCtrlScale = true;
+			bShiftScale = true;
 		}
-		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LControl)
+		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LShift)
 		{
-			bCtrlScale = false;
+			bShiftScale = false;
 		}
 
 		// Copy
@@ -469,7 +497,7 @@ void Scene_Editor::Update(float deltaTime)
 	}
 
 	// Ctrl scale
-	if (bCtrlScale && EntitySelectedForProperties != nullptr)
+	if (bShiftScale && EntitySelectedForProperties != nullptr)
 	{
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
 		sf::Vector2f mousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);

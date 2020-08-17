@@ -145,7 +145,7 @@ private:
 	float ogRot;
 
 	// ctrl scale
-	bool bCtrlScale;
+	bool bShiftScale;
 	sf::Vector2f ogMouse;
 	float ogScale;
 
