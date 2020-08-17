@@ -103,7 +103,7 @@ void ADKSaveLoad::LoadToScene(const std::string& savePath, Scene& scene)
 	json loaded;
 	load >> loaded; // big fucking props to nlohmann/json project
 	
-	// Clear scene entities before loading
+	// Clear scene entities before loading (must delete)
 	scene.Entities.clear();
 
 	// Load each entity

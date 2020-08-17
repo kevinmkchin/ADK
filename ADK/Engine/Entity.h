@@ -60,7 +60,7 @@ public:
 
 	// NEVER call these from virtual constructors. Otherwise, the textures for all base types will also end up being loaded.
 	virtual void LoadDefaultTexture();
-	void SetTexturePathAndLoad(const std::string& path);
+	void SetTexturePathAndLoad(const std::string& path, bool forceNoUnload = false);
 
 	void MatchFrameSizeToTexture();
 
