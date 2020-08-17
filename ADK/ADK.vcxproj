@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
+    <ClInclude Include="Engine\ADKMath.h" />
     <ClInclude Include="Engine\ADKSaveLoad.h" />
     <ClInclude Include="Engine\ADKTextures.h" />
     <ClInclude Include="Engine\ADKAssets.h" />

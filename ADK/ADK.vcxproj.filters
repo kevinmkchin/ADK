@@ -104,5 +104,8 @@
     <ClInclude Include="Engine\json.hpp">
       <Filter>Engine\Persistence</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ADKMath.h">
+      <Filter>Engine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

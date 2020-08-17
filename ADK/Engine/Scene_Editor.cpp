@@ -3,6 +3,7 @@
 #include <imgui-SFML.h>
 
 #include "MoreColors.h"
+#include "ADKMath.h"
 #include "Scene_Editor.h"
 #include "ADKSaveLoad.h"
 #include "ADKAssets.h"
@@ -223,14 +224,44 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 			renderWindowPtr->setView(SceneView);
 		}
 	
-		// Entity drag with Left Alt
+		// Ent rotate with Left Alt
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
 		{
-			bEntityDrag = true;
+			if (bAltRotate == false)
+			{
+				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+				sf::Vector2f mousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+				if (EntitySelectedForProperties != nullptr)
+				{
+					sf::Vector2f ePos = EntitySelectedForProperties->GetPosition();
+					vec1 = mousePos - ePos;
+					ogRot = EntitySelectedForProperties->GetRotation();
+				}
+			}
+			bAltRotate = true;
 		}
 		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
 		{
-			bEntityDrag = false;
+			bAltRotate = false;
+		}
+
+		// Ent scale with Left Ctrl
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+		{
+			if (bCtrlScale == false)
+			{
+				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+				ogMouse = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+				if (EntitySelectedForProperties != nullptr)
+				{
+					ogScale = EntitySelectedForProperties->GetScale();
+				}
+			}
+			bCtrlScale = true;
+		}
+		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LControl)
+		{
+			bCtrlScale = false;
 		}
 
 		// Copy
@@ -425,6 +456,35 @@ void Scene_Editor::Update(float deltaTime)
 		SceneView.move(-delta * zoomFactor);
 		renderWindowPtr->setView(SceneView);
 		lastMousePos = pixelPos;
+	}
+
+	// Alt Rotate
+	if (bAltRotate && EntitySelectedForProperties != nullptr)
+	{
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+		sf::Vector2f mousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+		sf::Vector2f vec2 = mousePos - EntitySelectedForProperties->GetPosition();
+		float angle = ADKMath::GetAngleBetweenVectors(vec1, vec2);
+		EntitySelectedForProperties->SetRotation(ogRot + angle);
+	}
+
+	// Ctrl scale
+	if (bCtrlScale && EntitySelectedForProperties != nullptr)
+	{
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+		sf::Vector2f mousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+		sf::Vector2f diff = mousePos - ogMouse;
+
+		// see if negative
+		sf::Vector2f toMouse = mousePos - EntitySelectedForProperties->GetPosition();
+		float mousefromEnt = std::sqrt(toMouse.x * toMouse.x + toMouse.y * toMouse.y);
+		sf::Vector2f toOg = ogMouse - EntitySelectedForProperties->GetPosition();
+		float ogfromEnt = std::sqrt(toOg.x * toOg.x + toOg.y * toOg.y);
+
+		float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
+		float scale = ((len * (mousefromEnt > ogfromEnt ? 1 : -1)) + 280.f) / 280.f;
+
+		EntitySelectedForProperties->SetScale(ogScale * scale);
 	}
 
 	// Decrement copy paste timer
