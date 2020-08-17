@@ -170,8 +170,8 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 			{
 				Entity* at = Entities.at(i);
 				sf::IntRect spr = at->GetSprite().getTextureRect();
-				sf::FloatRect mouseCol(at->GetPosition().x, at->GetPosition().y, (float)spr.width * at->GetScale(), (float)spr.height * at->GetScale());
 
+				sf::FloatRect mouseCol = at->GetSprite().getGlobalBounds();
 				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
 				sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
 				if (mouseCol.contains(worldPos) 
@@ -573,10 +573,11 @@ void Scene_Editor::Render(sf::RenderWindow& window)
 	// Show Selection
 	if (EntitySelectedForProperties != nullptr)
 	{
-		float x = EntitySelectedForProperties->GetSprite().getPosition().x;
-		float y = EntitySelectedForProperties->GetSprite().getPosition().y;
-		float width = (float) EntitySelectedForProperties->GetSprite().getTextureRect().width * EntitySelectedForProperties->GetScale();
-		float height = (float) EntitySelectedForProperties->GetSprite().getTextureRect().height * EntitySelectedForProperties->GetScale();
+		sf::FloatRect bounds = EntitySelectedForProperties->GetSprite().getGlobalBounds();
+		float x = bounds.left;
+		float y = bounds.top;
+		float width = bounds.width;
+		float height = bounds.height;
 
 		sf::Vertex box[8];
 		box[0].position = sf::Vector2f(x, y);
@@ -593,13 +594,14 @@ void Scene_Editor::Render(sf::RenderWindow& window)
 		}
 		window.draw(box, 8, sf::Lines);
 
-		sf::RectangleShape selection;
-		sf::Color selectionColor = ActiveEditorConfig.SelectionColor;
-		selectionColor.a /= 5;
-		selection.setFillColor(selectionColor);
-		selection.setPosition(x, y);
-		selection.setSize(sf::Vector2f(width, height));
-		window.draw(selection);
+		//sf::RectangleShape selection;
+		//selection.setRotation(EntitySelectedForProperties->GetRotation());
+		//sf::Color selectionColor = ActiveEditorConfig.SelectionColor;
+		//selectionColor.a /= 5;
+		//selection.setFillColor(selectionColor);
+		//selection.setPosition(x, y);
+		//selection.setSize(sf::Vector2f(width, height));
+		//window.draw(selection);
 	}
 }
 

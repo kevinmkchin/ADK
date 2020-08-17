@@ -26,7 +26,7 @@ public:
 	sf::Color BigGridColor = sf::Color::Red;
 	bool bShowBigGrid = false;
 
-	sf::Color SelectionColor = sf::Color::Green;
+	sf::Color SelectionColor = sf::Color::White;
 
 	sf::Vector2i TopLeftPixel; // Top Left corner of the editor viewport in window pixel space
 	sf::Vector2i BotRightPixels; // Bottom Right corner of the editor viewport in window pixel space
