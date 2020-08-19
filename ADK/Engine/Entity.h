@@ -93,12 +93,10 @@ public:
 
 protected:
 	/* Texture filepath within Assets folder (e.g. "adk/t_missing.png")
-	TODO remember to set the correct texture path with InitializeSpriteSheet(const std::string&, AssetManager).
+	TODO remember to set the correct texture path
 	You could also do SetTexturePathAndLoad, but be sure all other essential logic from InitialSpriteSheet will still get done.
 	*/
 	std::string TexturePath = "adk/t_missing.png";
-
-private:
 	// Whether to Update this entity
 	bool bActive;
 	// Whether to Render this entity

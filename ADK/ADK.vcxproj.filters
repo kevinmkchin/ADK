@@ -66,6 +66,10 @@
     <ClCompile Include="Engine\ADKSaveLoad.cpp">
       <Filter>Engine\Persistence</Filter>
     </ClCompile>
+    <ClCompile Include="Scene_TestOne.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TopDownPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Entity.h">
@@ -107,5 +111,9 @@
     <ClInclude Include="Engine\ADKMath.h">
       <Filter>Engine\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Scene_TestOne.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TopDownPlayer.h" />
   </ItemGroup>
 </Project>

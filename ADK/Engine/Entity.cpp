@@ -192,7 +192,7 @@ void Entity::MatchFrameSizeToTexture()
 	SpriteSheet.FrameSize.x = SpriteSheet.Sprite.getTexture()->getSize().x;
 	SpriteSheet.FrameSize.y = SpriteSheet.Sprite.getTexture()->getSize().y;
 	SpriteSheet.Sprite.setTextureRect(
-		sf::IntRect(SpriteSheet.Sprite.getPosition().x, SpriteSheet.Sprite.getPosition().y,
+		sf::IntRect((int) SpriteSheet.Sprite.getPosition().x, (int) SpriteSheet.Sprite.getPosition().y,
 			SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
 }
 
