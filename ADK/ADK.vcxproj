@@ -33,7 +33,9 @@
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Scene_Editor.cpp" />
     <ClCompile Include="ExampleEntity.cpp" />
+    <ClCompile Include="Scene_TestOne.cpp" />
     <ClCompile Include="StoneEntity.cpp" />
+    <ClCompile Include="TopDownPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
@@ -48,7 +50,9 @@
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Scene_Editor.h" />
     <ClInclude Include="ExampleEntity.h" />
+    <ClInclude Include="Scene_TestOne.h" />
     <ClInclude Include="StoneEntity.h" />
+    <ClInclude Include="TopDownPlayer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
