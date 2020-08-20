@@ -1,35 +1,28 @@
 #include "TopDownPlayer.h"
 
+TopDownPlayer::TopDownPlayer()
+{
+	collider = BoxCollider((int) GetPosition().x, (int) GetPosition().y, 10, 10, 64, 64);
+}
+
 void TopDownPlayer::Update(float deltaTime)
 {
 	Entity::Update(deltaTime);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		position.y -= 150.f * deltaTime;
-		SpriteSheet.Sprite.setPosition(position);
+		Move(0.f, -150.f * deltaTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		position.y += 150.f * deltaTime;
-		SpriteSheet.Sprite.setPosition(position);
+		Move(0.f, 150.f * deltaTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		position.x -= 150.f * deltaTime;
-		SpriteSheet.Sprite.setPosition(position);
+		Move(-150.f * deltaTime, 0.f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		position.x += 150.f * deltaTime;
-		SpriteSheet.Sprite.setPosition(position);
+		Move(150.f * deltaTime, 0.f);
 	}
-
-}
-
-void TopDownPlayer::Render(sf::RenderTarget& target)
-{
-	Entity::Render(target);
-
-
 }

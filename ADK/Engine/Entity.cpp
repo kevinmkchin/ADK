@@ -96,14 +96,6 @@ void Entity::Update(float deltaTime)
 		SpriteSheet.Sprite.setTextureRect(frameRect);
 	}
 #pragma endregion
-
-	// Check if active
-	if (bActive == false)
-	{
-		return;
-	}
-
-	// Update logic here
 }
 
 void Entity::Render(sf::RenderTarget& target)
@@ -112,45 +104,60 @@ void Entity::Render(sf::RenderTarget& target)
 	{
 		target.draw(SpriteSheet.Sprite);
 	}
+
+	DebugRender(target);
 }
 
-void Entity::DebugRender()
+void Entity::DebugRender(sf::RenderTarget& target)
 {
+	// Debug collider
+	sf::RectangleShape col;
+	col.setPosition((float)collider.top, (float)collider.left);
+	col.setSize(sf::Vector2f((float)collider.width, (float)collider.height));
+	col.setFillColor(sf::Color(0,0,255,80));
+	target.draw(col);
+}
 
+void Entity::Move(float x, float y)
+{
+	SpriteSheet.Sprite.move(x, y);
+	collider.setPos(sf::Vector2i(GetPosition()));
+}
+
+void Entity::Move(sf::Vector2f delta)
+{
+	SpriteSheet.Sprite.move(delta);
+	collider.setPos(sf::Vector2i(GetPosition()));
 }
 
 sf::Vector2f Entity::GetPosition() const
 {
-	return position;
+	return SpriteSheet.Sprite.getPosition();
 }
 void Entity::SetPosition(sf::Vector2f newPos)
 {
-	position = newPos;
-	SpriteSheet.Sprite.setPosition(position);
+	SpriteSheet.Sprite.setPosition(newPos);
+	// TODO
 }
 void Entity::SetPosition(float x, float y)
 {
-	position.x = x;
-	position.y = y;
-	SpriteSheet.Sprite.setPosition(position);
+	SpriteSheet.Sprite.setPosition(x,y);
 }
 float Entity::GetRotation() const
 {
-	return rotation;
+	return SpriteSheet.Sprite.getRotation();;
 }
 void Entity::SetRotation(float newRot) 
 {
-	rotation = newRot;
-	SpriteSheet.Sprite.setRotation(rotation);
+	SpriteSheet.Sprite.setRotation(newRot);
 }
 float Entity::GetScale() const
 {
-	return scale;
+	return SpriteSheet.Sprite.getScale().x;
 }
 void Entity::SetScale(float newScale)
 {
-	scale = newScale;
-	SpriteSheet.Sprite.setScale(scale, scale);
+	SpriteSheet.Sprite.setScale(newScale, newScale);
 }
 void Entity::SetDepth(int newDepth)
 {
@@ -181,9 +188,7 @@ void Entity::SetTexturePathAndLoad(const std::string& path, bool forceNoUnload)
 	}
 	else
 	{
-		SpriteSheet.Sprite.setTextureRect(
-			sf::IntRect((int) SpriteSheet.Sprite.getPosition().x, (int) SpriteSheet.Sprite.getPosition().y,
-				SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
+		SpriteSheet.Sprite.setTextureRect(sf::IntRect((int)GetPosition().x, (int)GetPosition().y, SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
 	}
 }
 
@@ -191,9 +196,7 @@ void Entity::MatchFrameSizeToTexture()
 {
 	SpriteSheet.FrameSize.x = SpriteSheet.Sprite.getTexture()->getSize().x;
 	SpriteSheet.FrameSize.y = SpriteSheet.Sprite.getTexture()->getSize().y;
-	SpriteSheet.Sprite.setTextureRect(
-		sf::IntRect((int) SpriteSheet.Sprite.getPosition().x, (int) SpriteSheet.Sprite.getPosition().y,
-			SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
+	SpriteSheet.Sprite.setTextureRect(sf::IntRect((int) GetPosition().x, (int)GetPosition().y, SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
 }
 
 sf::Sprite& Entity::GetSprite()
