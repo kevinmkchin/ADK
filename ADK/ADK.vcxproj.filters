@@ -69,7 +69,12 @@
     <ClCompile Include="Scene_TestOne.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="TopDownPlayer.cpp" />
+    <ClCompile Include="TopDownPlayer.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\BoxCollider.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Entity.h">
@@ -114,6 +119,11 @@
     <ClInclude Include="Scene_TestOne.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="TopDownPlayer.h" />
+    <ClInclude Include="TopDownPlayer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\BoxCollider.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

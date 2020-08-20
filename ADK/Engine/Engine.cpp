@@ -85,26 +85,29 @@ void Engine::Run()
 	// Game process loop
 	while (window.isOpen())
 	{
-		// Process player inputs in case we don't do an update tick this frame
-		ProcessEvents();
-
-		// Fixed timestep
-		timeSinceLastUpdate += clock.restart();
-		while (timeSinceLastUpdate > timePerFrame) // Loop until timeSinceLastUpdate is below required timePerFrame
+		if (ActiveScene != nullptr)
 		{
-			timeSinceLastUpdate -= timePerFrame;
-
-			// PROCESS GAME EVENTS AND PLAYER INPUT
+			// Process player inputs in case we don't do an update tick this frame
 			ProcessEvents();
 
-			// UPDATE GAME (deltaTime is in SECONDS) ***
-			Update(timePerFrame.asSeconds());
+			// Fixed timestep
+			timeSinceLastUpdate += clock.restart();
+			while (timeSinceLastUpdate > timePerFrame) // Loop until timeSinceLastUpdate is below required timePerFrame
+			{
+				timeSinceLastUpdate -= timePerFrame;
 
-			// RENDER GAME if framerate capped to game ticks
-			if (EngineConfig.bCapFramerateToTicks) { Render(); }
+				// PROCESS GAME EVENTS AND PLAYER INPUT
+				ProcessEvents();
+
+				// UPDATE GAME (deltaTime is in SECONDS) ***
+				Update(timePerFrame.asSeconds());
+
+				// RENDER GAME if framerate capped to game ticks
+				if (EngineConfig.bCapFramerateToTicks) { Render(); }
+			}
+			// RENDER GAME if framerate NOT capped to game ticks
+			if (EngineConfig.bCapFramerateToTicks == false) { Render(); }
 		}
-		// RENDER GAME if framerate NOT capped to game ticks
-		if (EngineConfig.bCapFramerateToTicks == false) { Render(); }
 	}
 }
 

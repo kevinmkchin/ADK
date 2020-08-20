@@ -47,7 +47,10 @@ void EntityList::Update(float deltaTime)
 	// Update the entities
 	for (auto& entity : entities)
 	{
-		entity->Update(deltaTime);
+		if (entity->IsActive())
+		{
+			entity->Update(deltaTime);
+		}
 	}
 
 	// Sort the entities by depth ONLY if MarkDepthChanged

@@ -765,7 +765,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::Text("Clicking on a frame will set that frame as the start frame of the currently selected animation.");
 				ImGui::Text("Shift + Clicking on a frame will set that frame as the end frame of the currently selected animation.");
 
-				sf::Vector2f textureBounds = sf::Vector2f(EntitySelectedForProperties->SpriteSheet.Sprite.getTexture()->getSize());
+				sf::Vector2f textureBounds = sf::Vector2f(EntitySelectedForProperties->GetSprite().getTexture()->getSize());
 				int numWide = (int) textureBounds.x / ((si[0] > 0) ? si[0] : 1);
 				int numTall = (int) textureBounds.y / ((si[1] > 0) ? si[1] : 1);
 				float buttonSize = 500.f / numWide < 500.f / numTall ? 500.f / numWide : 500.f / numTall;
