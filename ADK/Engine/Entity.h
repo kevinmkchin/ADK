@@ -53,9 +53,13 @@ public:
 	// Do game logic here, but do not render here. Not called if the Entity is not Active. Handles animation logic.
 	virtual void Update(float deltaTime);
 
+protected:
+	// Tick animations
+	void UpdateAnimations(float deltaTime);
+
 	///////////////////////////////////////////////////////////
 
-
+public:
 	///////////////////////////////////////////////////////////
 	// --- RENDER ---
 
@@ -123,7 +127,6 @@ public:
 	void MatchFrameSizeToTexture();
 
 	///////////////////////////////////////////////////////////
-
 
 public:
 

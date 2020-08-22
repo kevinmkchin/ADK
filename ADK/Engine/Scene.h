@@ -9,6 +9,7 @@
 // Struct for Scene View properties
 struct FViewConfig
 {
+	// Todo: Defaults for scene view
 	float CenterX = 640.f;
 	float CenterY = 360.f;
 	float SizeX = 1280.f;
@@ -22,25 +23,29 @@ class Scene
 public:
 	Scene();
 
-	virtual void BeginScene(sf::RenderWindow& window);
+	// Called on scene creation. Must override.
+	virtual void BeginScene(sf::RenderWindow& window) = 0;
 
 	virtual void EndScene(sf::RenderWindow& window);
 
 	virtual void ProcessEvents(sf::Event& event);
 
+	// Called before update.
 	virtual void PreUpdate(float deltaTime);
 
-	virtual void Update(float deltaTime);
+	// Update the entities in this scene. Must override.
+	virtual void Update(float deltaTime) = 0;
 
+	// Called after update.
 	virtual void PostUpdate(float deltaTime);
 
-	// Called before render (probably used to set view and stuff)
+	// Called before rendering. (probably used to set view and stuff)
 	virtual void PreRender(sf::RenderWindow& window);
 
-	// Draw the entities in this scene
-	virtual void Render(sf::RenderWindow& window);
+	// Draw the entities in this scene. Must override.
+	virtual void Render(sf::RenderWindow& window) = 0;
 
-	// Stuff to do after rendering
+	// Called after rendering.
 	virtual void PostRender(sf::RenderWindow& window);
 
 protected:
@@ -48,11 +53,13 @@ protected:
 	virtual void InitializeSceneView(sf::RenderWindow& window);
 
 public:
+	// The entities contained in this scene. You don't have to use this.
 	EntityList Entities;
 
 protected:
-	// View
+	// View configurations.
 	FViewConfig ViewConfig;
+	// View to use in scene. Used to set the window's view.
 	sf::View SceneView;
 
 };

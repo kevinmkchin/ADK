@@ -10,7 +10,6 @@ Scene::Scene()
 
 void Scene::BeginScene(sf::RenderWindow& window)
 {	
-	InitializeSceneView(window);
 
 }
 
@@ -33,7 +32,6 @@ void Scene::PreUpdate(float deltaTime)
 void Scene::Update(float deltaTime)
 {
 
-	Entities.Update(deltaTime);
 }
 
 void Scene::PostUpdate(float deltaTime)
@@ -48,7 +46,7 @@ void Scene::PreRender(sf::RenderWindow& window)
 
 void Scene::Render(sf::RenderWindow& window)
 {
-	Entities.Render(window);
+
 }
 
 void Scene::PostRender(sf::RenderWindow& window)

@@ -6,11 +6,33 @@
 class EntityList
 {
 public:
+
+	EntityList();
+
+	///////////////////////////////////////////////////////////
+	// --- ENTITIES ---
+
+	void Update(float deltaTime);
+
+	void Render(sf::RenderTarget& target, bool bDebug = false);
+
+	void RenderWithDepth(sf::RenderTarget& target, int lower, int upper, bool bDebug = false);
+
+	void RenderOnly(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, bool bDebug = false);
+
+	void RenderOnlyWithDepth(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, int lower, int upper, bool bDebug = false);
+
+	// Sets the depth changed flag to be true which guarantees the list will be sorted (by depth) at the end of the next update tick (or current update tick if this is called during entity update).
+	void MarkDepthChanged();
+
+	///////////////////////////////////////////////////////////
+
+
 	///////////////////////////////////////////////////////////
 	// --- ARRAY ---
 
 	// Adds given entity to list. CheckUnique to ensure addition is unique. Return whether addition was successful.
-	bool add(Entity* newEntity, bool checkUnique = false);
+	bool add(Entity* newEntity, bool bCheckunique = false);
 
 	// Removes given entity from list if it exists. Return whether removal was successful. DOES NOT DELETE OBJECT / DEALLOCATE MEMORY
 	bool remove(Entity* entityToRemove);
@@ -37,22 +59,6 @@ public:
 	//std::vector<Entity*> FindAllWithTags(Tag tag1, Tag tag2, Tag tag3)
 	//std::vector<Entity*> FindAllWithTags(Tag tag1, Tag tag2, Tag tag3, Tag tag4)
 
-	///////////////////////////////////////////////////////////
-	// --- ENTITIES ---
-
-	void Update(float deltaTime);
-
-	void Render(sf::RenderTarget& target);
-
-	void RenderWithDepth(sf::RenderTarget& target, int lower, int upper);
-
-	//void RenderOnly
-
-	//void MarkDepthChanged();
-
-	///////////////////////////////////////////////////////////
-
-
 private:
 
 	/* Entities
@@ -62,7 +68,7 @@ private:
 
 
 	// Whether or not to sort this 
-	bool bDepthChanged;
+	bool bDepthChangedFlag;
 
 };
 
