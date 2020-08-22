@@ -25,6 +25,12 @@
 #define NUMFRAMES_LABEL "nfr"
 #define STARTFRAME_LABEL "sfr"
 #define ANIMDUR_LABEL "adr"
+#define COLLEFT_LABEL "cle"
+#define COLTOP_LABEL "cto"
+#define COLOFFSETX_LABEL "cox"
+#define COLOFFSETY_LABEL "coy"
+#define COLWIDTH_LABEL "cwi"
+#define COLHEIGHT_LABEL "che"
 
 using json = nlohmann::json;
 
@@ -78,6 +84,13 @@ void ADKSaveLoad::SaveEntities(const std::string& savePath, EntityList el)
 			anims += anim;
 		}
 		item[ANIMATIONS] = anims;
+		// Collisions
+		item[COLLEFT_LABEL] = e->GetCollider().left;
+		item[COLTOP_LABEL] = e->GetCollider().top;
+		item[COLOFFSETX_LABEL] = e->GetCollider().offsetX;
+		item[COLOFFSETY_LABEL] = e->GetCollider().offsetY;
+		item[COLWIDTH_LABEL] = e->GetCollider().width;
+		item[COLHEIGHT_LABEL] = e->GetCollider().height;
 
 		ents += item;
 	}
@@ -141,6 +154,13 @@ void ADKSaveLoad::LoadToScene(const std::string& savePath, Scene& scene)
 		created->SetActive(e[ACTIVE_LABEL]);
 		created->SetVisible(e[VISIBLE_LABEL]);
 		created->SetTexturePathAndLoad(e[TEXTURE_LABEL]);
+		// Collisions
+		created->GetCollider().left = e[COLLEFT_LABEL];
+		created->GetCollider().top = e[COLTOP_LABEL];
+		created->GetCollider().offsetX = e[COLOFFSETX_LABEL];
+		created->GetCollider().offsetY = e[COLOFFSETY_LABEL];
+		created->GetCollider().width = e[COLWIDTH_LABEL];
+		created->GetCollider().height = e[COLHEIGHT_LABEL];
 
 		// Add the created entity to scene
 		scene.Entities.add(created);
