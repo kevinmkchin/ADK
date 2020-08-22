@@ -2,7 +2,7 @@
 
 TopDownPlayer::TopDownPlayer()
 {
-	collider = BoxCollider((int) GetPosition().x, (int) GetPosition().y, 64, 64);
+	collider = BoxCollider(GetPosition().x, GetPosition().y, 64.f, 64.f);
 }
 
 void TopDownPlayer::Update(float deltaTime)

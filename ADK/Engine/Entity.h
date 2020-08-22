@@ -52,6 +52,7 @@ public:
 
 	// Do game logic here, but do not render here. Not called if the Entity is not Active. Handles animation logic.
 	virtual void Update(float deltaTime);
+
 	///////////////////////////////////////////////////////////
 
 
@@ -64,6 +65,7 @@ public:
 
 	// Draw any debug visuals here. Only called if the console is open, but still called even if the Entity is not Visible
 	virtual void DebugRender(sf::RenderTarget& target);
+
 	///////////////////////////////////////////////////////////
 
 
@@ -82,6 +84,7 @@ public:
 
 	float GetScale() const;
 	void SetScale(float newScale);
+
 	///////////////////////////////////////////////////////////
 
 
@@ -104,6 +107,7 @@ public:
 
 	// Entity copier
 	static void Copy(Entity& target, const Entity& source);
+
 	///////////////////////////////////////////////////////////
 
 
@@ -117,6 +121,7 @@ public:
 	void SetTexturePathAndLoad(const std::string& path, bool forceNoUnload = false);
 
 	void MatchFrameSizeToTexture();
+
 	///////////////////////////////////////////////////////////
 
 
@@ -156,6 +161,8 @@ protected:
 
 	// Collider
 	BoxCollider collider;
+
+
 	// TAGS
 
 };
