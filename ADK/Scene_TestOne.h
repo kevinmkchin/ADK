@@ -14,5 +14,6 @@ public:
 private:
 	Entity* player;
 
+	Entity* created;
 };
 
