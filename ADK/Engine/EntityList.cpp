@@ -1,5 +1,10 @@
 #include "EntityList.h"
 
+EntityList::EntityList()
+	: bDepthChangedFlag(false)
+{
+}
+
 void EntityList::Update(float deltaTime)
 {
 	// Update the entities
@@ -11,24 +16,35 @@ void EntityList::Update(float deltaTime)
 		}
 	}
 
-	//TODO Sort the entities by depth ONLY if MarkDepthChanged
-	std::sort(entities.begin(), entities.end(), DepthComparator());
+	// Sort the entities by depth only if MarkDepthChanged
+	if (bDepthChangedFlag)
+	{
+		std::sort(entities.begin(), entities.end(), DepthComparator());
+		bDepthChangedFlag = false;
+	}
 }
 
-void EntityList::Render(sf::RenderTarget& target)
+void EntityList::Render(sf::RenderTarget& target, bool bDebug /*= false*/)
 {
 	// Assume sorted
 	// Render the entities	
 	for (auto& entity : entities)
 	{
-		if (entity->IsVisible())
+		if (bDebug == false)
 		{
-			entity->Render(target);
+			if (entity->IsVisible())
+			{
+				entity->Render(target);
+			}
+		}
+		else
+		{
+			entity->DebugRender(target);
 		}
 	}
 }
 
-void EntityList::RenderWithDepth(sf::RenderTarget& target, int lower, int upper)
+void EntityList::RenderWithDepth(sf::RenderTarget& target, int lower, int upper, bool bDebug /*= false*/)
 {
 	// Assume sorted
 	// Render the entities	
@@ -38,9 +54,16 @@ void EntityList::RenderWithDepth(sf::RenderTarget& target, int lower, int upper)
 		{
 			if (entity->GetDepth() <= upper)
 			{
-				if (entity->IsVisible())
+				if (bDebug == false)
 				{
-					entity->Render(target);
+					if (entity->IsVisible())
+					{
+						entity->Render(target);
+					}
+				}
+				else
+				{
+					entity->DebugRender(target);
 				}
 			}
 			else
@@ -56,17 +79,65 @@ void EntityList::RenderWithDepth(sf::RenderTarget& target, int lower, int upper)
 	}
 }
 
-//public void RenderOnly(int matchTags)
-//{
-//	foreach(var entity in entities)
-//		if (entity.Visible && entity.TagCheck(matchTags))
-//			entity.Render();
-//}
+void EntityList::RenderOnly(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, bool bDebug /*= false*/)
+{
+	for (auto& entity : entitiesToRender)
+	{
+		if (bDebug == false)
+		{
+			if (entity->IsVisible())
+			{
+				entity->Render(target);
+			}
+		}
+		else
+		{
+			entity->DebugRender(target);
+		}
+	}
+}
 
-bool EntityList::add(Entity* newEntity, bool checkUnique)
+void EntityList::RenderOnlyWithDepth(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, int lower, int upper, bool bDebug /*= false*/)
+{
+	for (auto& entity : entitiesToRender)
+	{
+		if (entity->GetDepth() >= lower)
+		{
+			if (entity->GetDepth() <= upper)
+			{
+				if (bDebug == false)
+				{
+					if (entity->IsVisible())
+					{
+						entity->Render(target);
+					}
+				}
+				else
+				{
+					entity->DebugRender(target);
+				}
+			}
+			else
+			{
+				return;
+			}
+		}
+		else
+		{
+			continue;
+		}
+	}
+}
+
+void EntityList::MarkDepthChanged()
+{
+	bDepthChangedFlag = true;
+}
+
+bool EntityList::add(Entity* newEntity, bool bCheckUnique)
 {
 	// Check unique
-	if (checkUnique)
+	if (bCheckUnique)
 	{
 		if (find(newEntity) == -1)
 		{

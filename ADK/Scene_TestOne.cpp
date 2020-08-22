@@ -5,6 +5,8 @@
 
 void Scene_TestOne::BeginScene(sf::RenderWindow& window)
 {
+	InitializeSceneView(window);
+
 	player = new TopDownPlayer();
 	player->LoadDefaultTexture();
 	Entities.add(player);
@@ -21,16 +23,17 @@ void Scene_TestOne::BeginScene(sf::RenderWindow& window)
 	created->GetCollider().width = (float) created->SpriteSheet.FrameSize.x;
 	created->GetCollider().height = (float) created->SpriteSheet.FrameSize.y;
 	Entities.add(created);
-
-	ViewConfig.CenterX = 400.f;
-	ViewConfig.CenterY = 400.f;
-	ViewConfig.Zoom = 0.5f;
-	InitializeSceneView(window);
 }
 
 void Scene_TestOne::Update(float deltaTime)
 {
-	Scene::Update(deltaTime);
+	Entities.Update(deltaTime);
 
 	player->Move(player->GetCollider().ResolveCollisionRectangle(created->GetCollider()));
+}
+
+void Scene_TestOne::Render(sf::RenderWindow& window)
+{
+	Entities.Render(window);
+	Entities.Render(window, true);
 }

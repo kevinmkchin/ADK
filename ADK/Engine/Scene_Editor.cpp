@@ -335,6 +335,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 			created->SetPosition((float)posX, (float)posY);
 			// Add the entity to this scene/level editor's entity list
 			Entities.add(created);
+			Entities.MarkDepthChanged();
 			// Set this entity to be selected
 			SetEntitySelectedForProperties(created);
 
@@ -431,7 +432,7 @@ void Scene_Editor::PreUpdate(float deltaTime)
 
 void Scene_Editor::Update(float deltaTime)
 {
-	Scene::Update(deltaTime);
+	Entities.Update(deltaTime);
 
 	// Call brush place
 	if (currTool == TOOL_BRUSH && bBrushEnabled)
@@ -537,6 +538,7 @@ void Scene_Editor::PreRender(sf::RenderWindow& window)
 void Scene_Editor::Render(sf::RenderWindow& window)
 {
 	Entities.RenderWithDepth(window, ActiveEditorConfig.depthFilterLowerBound, ActiveEditorConfig.depthFilterUpperBound);
+	Entities.RenderWithDepth(window, ActiveEditorConfig.depthFilterLowerBound, ActiveEditorConfig.depthFilterUpperBound, true);
 
 	// Render Grid
 	if (ActiveEditorConfig.bShowGrid)
@@ -680,6 +682,10 @@ void Scene_Editor::DrawEntityPropertyUI()
 
 			int depth = EntitySelectedForProperties->GetDepth();
 			ImGui::InputInt("Depth", &depth);
+			if (EntitySelectedForProperties->GetDepth() != depth)
+			{
+				Entities.MarkDepthChanged();
+			}
 			EntitySelectedForProperties->SetDepth(depth);
 
 			bool v = EntitySelectedForProperties->IsVisible();
@@ -1308,6 +1314,7 @@ void Scene_Editor::BrushPlaceHelper()
 	created->SetPosition((float)posX, (float)posY);
 	// Add the entity to this scene/level editor's entity list
 	Entities.add(created);
+	Entities.MarkDepthChanged();
 	// Set this entity to be selected
 	SetEntitySelectedForProperties(created);
 
