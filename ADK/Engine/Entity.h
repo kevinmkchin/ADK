@@ -110,6 +110,7 @@ public:
 	sf::Sprite& GetSprite();
 
 	BoxCollider& GetCollider() { return collider; }
+	BoxCollider GetColliderCopy() const { return collider; }
 
 	virtual void InitCollider();
 

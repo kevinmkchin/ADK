@@ -183,7 +183,10 @@ void Entity::Copy(Entity& target, const Entity& source)
 	target.SetRotation(source.GetRotation());
 	target.SetScale(source.GetScale());
 	target.SetDepth(source.GetDepth());
-	// TODO copy Collision data
+	target.GetCollider().offsetX = source.GetColliderCopy().offsetX;
+	target.GetCollider().offsetY = source.GetColliderCopy().offsetY;
+	target.GetCollider().width = source.GetColliderCopy().width;
+	target.GetCollider().height = source.GetColliderCopy().height;
 	// TODO copy Tag data
 }
 
