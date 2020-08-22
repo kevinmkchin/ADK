@@ -26,6 +26,8 @@ Scene_Editor::Scene_Editor()
 	, defaultCopyPasteTimer(0.5f)
 	, copyPasteTimer(defaultCopyPasteTimer)
 	, bShowConfig(false)
+	, bDebugRender(false)
+	, bCollisionMatchSpriteBound(false)
 {
 }
 
@@ -333,6 +335,7 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 			Entity* created = ADKEditorMetaRegistry::CreateNewEntity(copiedEntity.EntityId);
 			Entity::Copy(*created, copiedEntity);
 			created->SetPosition((float)posX, (float)posY);
+			created->InitCollider();
 			// Add the entity to this scene/level editor's entity list
 			Entities.add(created);
 			Entities.MarkDepthChanged();
@@ -494,7 +497,7 @@ void Scene_Editor::Update(float deltaTime)
 		sf::Vector2f mousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
 		sf::Vector2f vec2 = mousePos - EntitySelectedForProperties->GetPosition();
 		float angle = ADKMath::GetAngleBetweenVectors(vec1, vec2);
-		EntitySelectedForProperties->SetRotation(ogRot + angle);
+		EntitySelectedForProperties->SetRotation(ogRot + angle, bCollisionMatchSpriteBound);
 	}
 
 	// Ctrl scale
@@ -513,7 +516,7 @@ void Scene_Editor::Update(float deltaTime)
 		float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
 		float scale = ((len * (mousefromEnt > ogfromEnt ? 1 : -1)) + 280.f) / 280.f;
 
-		EntitySelectedForProperties->SetScale(ogScale * scale);
+		EntitySelectedForProperties->SetScale(ogScale * scale, bCollisionMatchSpriteBound);
 	}
 
 	// Decrement copy paste timer
@@ -538,7 +541,10 @@ void Scene_Editor::PreRender(sf::RenderWindow& window)
 void Scene_Editor::Render(sf::RenderWindow& window)
 {
 	Entities.RenderWithDepth(window, ActiveEditorConfig.depthFilterLowerBound, ActiveEditorConfig.depthFilterUpperBound);
-	Entities.RenderWithDepth(window, ActiveEditorConfig.depthFilterLowerBound, ActiveEditorConfig.depthFilterUpperBound, true);
+	if (bDebugRender)
+	{
+		Entities.RenderWithDepth(window, ActiveEditorConfig.depthFilterLowerBound, ActiveEditorConfig.depthFilterUpperBound, true);
+	}
 
 	// Render Grid
 	if (ActiveEditorConfig.bShowGrid)
@@ -674,11 +680,11 @@ void Scene_Editor::DrawEntityPropertyUI()
 
 			float angle = EntitySelectedForProperties->GetRotation();
 			ImGui::InputFloat("Rotation", &angle);
-			EntitySelectedForProperties->SetRotation(angle);
+			EntitySelectedForProperties->SetRotation(angle, bCollisionMatchSpriteBound);
 
 			float scale = EntitySelectedForProperties->GetScale();
 			ImGui::InputFloat("Scale", &scale);
-			EntitySelectedForProperties->SetScale(scale);
+			EntitySelectedForProperties->SetScale(scale, bCollisionMatchSpriteBound);
 
 			int depth = EntitySelectedForProperties->GetDepth();
 			ImGui::InputInt("Depth", &depth);
@@ -915,8 +921,51 @@ void Scene_Editor::DrawEntityPropertyUI()
 			ImGui::Text("Collision Properties");
 			ImGui::Separator();
 
+			ImGui::Checkbox("Match sprite bounds", &bCollisionMatchSpriteBound);
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Ignore x y offsets and width and height in order to force the box collider to match the global bounds of this sprite.");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
 
+			if (bCollisionMatchSpriteBound == false)
+			{
+				BoxCollider col = EntitySelectedForProperties->GetCollider();
 
+				float off[2] = { col.offsetX, col.offsetY };
+				ImGui::InputFloat2("x-y offsets", off);
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+					ImGui::TextUnformatted("x, y offsets from the x, y positions of the sprite.");
+					ImGui::PopTextWrapPos();
+					ImGui::EndTooltip();
+				}
+				EntitySelectedForProperties->GetCollider().offsetX = off[0];
+				EntitySelectedForProperties->GetCollider().offsetY = off[1];
+
+				float siz[2] = { col.width, col.height };
+				ImGui::InputFloat2("width & height", siz);
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+					ImGui::TextUnformatted("width and height of the collider");
+					ImGui::PopTextWrapPos();
+					ImGui::EndTooltip();
+				}
+				EntitySelectedForProperties->GetCollider().width = siz[0];
+				EntitySelectedForProperties->GetCollider().height = siz[1];
+
+				bool bCollidable = EntitySelectedForProperties->IsCollidable();
+				ImGui::Checkbox("Collision Enabled", &bCollidable);
+				EntitySelectedForProperties->SetCollidable(bCollidable);
+
+			}
 #pragma endregion
 		}
 
@@ -1098,6 +1147,10 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 		
 
 		// Copy-Paste delay
+
+
+		// Misc
+		ImGui::Checkbox("Debug render mode", &bDebugRender);
 
 		ImGui::End();
 	}
@@ -1312,6 +1365,8 @@ void Scene_Editor::BrushPlaceHelper()
 	// Assign it the specific entity id for its entity type
 	created->EntityId = EntitySelectedForCreation->EntityId;
 	created->SetPosition((float)posX, (float)posY);
+	// Initialize collider position
+	created->InitCollider();
 	// Add the entity to this scene/level editor's entity list
 	Entities.add(created);
 	Entities.MarkDepthChanged();

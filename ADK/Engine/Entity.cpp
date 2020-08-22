@@ -1,8 +1,10 @@
 #include "Entity.h"
+#include "ADKAssets.h"
 
 Entity::Entity()
 	: bActive(true)
 	, bVisible(true)
+	, bCollidable(false)
 {
 	SetPosition(0.f, 0.f);
 	SetRotation(0.f);
@@ -13,6 +15,7 @@ Entity::Entity()
 Entity::Entity(float x, float y)
 	: bActive(true)
 	, bVisible(true)
+	, bCollidable(false)
 {
 	SetPosition(x, y);
 	SetRotation(0.f);
@@ -23,6 +26,7 @@ Entity::Entity(float x, float y)
 Entity::Entity(float x, float y, float inRot, float inScale)
 	: bActive(true)
 	, bVisible(true)
+	, bCollidable(false)
 {
 	SetPosition(x, y);
 	SetRotation(inRot);
@@ -79,27 +83,44 @@ sf::Vector2f Entity::GetPosition() const
 void Entity::SetPosition(sf::Vector2f newPos)
 {
 	SpriteSheet.Sprite.setPosition(newPos);
-	// TODO
+	collider.setPos(sf::Vector2f(GetPosition()));
 }
 void Entity::SetPosition(float x, float y)
 {
-	SpriteSheet.Sprite.setPosition(x,y);
+	SpriteSheet.Sprite.setPosition(x, y);
+	collider.setPos(sf::Vector2f(GetPosition()));
 }
 float Entity::GetRotation() const
 {
-	return SpriteSheet.Sprite.getRotation();;
+	return SpriteSheet.Sprite.getRotation();
 }
-void Entity::SetRotation(float newRot) 
+void Entity::SetRotation(float newRot, bool bAffectCollider) 
 {
 	SpriteSheet.Sprite.setRotation(newRot);
+
+	if (bAffectCollider)
+	{
+		sf::FloatRect bounds = SpriteSheet.Sprite.getGlobalBounds();
+		collider.setPos(bounds.left, bounds.top);
+		collider.width = bounds.width;
+		collider.height = bounds.height;
+	}
 }
 float Entity::GetScale() const
 {
 	return SpriteSheet.Sprite.getScale().x;
 }
-void Entity::SetScale(float newScale)
+void Entity::SetScale(float newScale, bool bAffectCollider)
 {
 	SpriteSheet.Sprite.setScale(newScale, newScale);
+
+	if (bAffectCollider)
+	{
+		sf::FloatRect bounds = SpriteSheet.Sprite.getGlobalBounds();
+		collider.setPos(bounds.left, bounds.top);
+		collider.width = bounds.width;
+		collider.height = bounds.height;
+	}
 }
 void Entity::SetDepth(int newDepth)
 {
@@ -146,6 +167,11 @@ sf::Sprite& Entity::GetSprite()
 	return SpriteSheet.Sprite;
 }
 
+void Entity::InitCollider()
+{
+
+}
+
 void Entity::Copy(Entity& target, const Entity& source)
 {
 	target.SpriteSheet = source.SpriteSheet;
@@ -171,7 +197,6 @@ void Entity::UpdateAnimations(float deltaTime)
 		int numFramesWide = textureBounds.x / ((SpriteSheet.FrameSize.x > 0) ? SpriteSheet.FrameSize.x : 1);
 		int numFramesTall = textureBounds.y / ((SpriteSheet.FrameSize.y > 0) ? SpriteSheet.FrameSize.y : 1);
 
-		// todo put in some divide by zero checks
 		FAnimation currAnim = SpriteSheet.Animations[SpriteSheet.SelectedAnimation];
 		int framesInAnim = static_cast<int>(currAnim.NumFrames) < numFramesTall * numFramesWide ? static_cast<int>(currAnim.NumFrames) : numFramesTall * numFramesWide;
 		sf::Time timePerFrame = currAnim.AnimDuration / (float)framesInAnim;

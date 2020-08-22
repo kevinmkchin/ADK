@@ -16,8 +16,8 @@ BoxCollider::BoxCollider(float InLeft, float InTop, float InWidth, float InHeigh
 {
 	offsetX = 0;
 	offsetY = 0;
-	InLeft = InLeft;
-	InTop = InTop;
+	left = InLeft;
+	top = InTop;
 	width = InWidth;
 	height = InHeight;
 }

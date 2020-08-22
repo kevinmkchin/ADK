@@ -1,6 +1,4 @@
-#include <iostream>
 #include "Scene.h"
-#include "../ExampleEntity.h"
 #include "../ADKEditorMetaRegistry.h"
 
 Scene::Scene()

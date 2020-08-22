@@ -7,5 +7,7 @@ class ExampleEntity : public Entity
 public:
 	ExampleEntity();
 
+	virtual void InitCollider() override;
+
 };
 
