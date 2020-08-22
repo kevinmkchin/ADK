@@ -3,27 +3,46 @@
 #include <SFML/Graphics.hpp>
 
 
-class BoxCollider : public sf::IntRect
+class BoxCollider
 {
 public:
 	BoxCollider();
-	BoxCollider(int InX, int InY, int InWidth, int InHeight);
-	BoxCollider(int InX, int InY, int InOffsetX, int InOffsetY, int InWidth, int InHeight);
+	BoxCollider(float InX, float InY, float InWidth, float InHeight);
+	BoxCollider(float InX, float InY, float InOffsetX, float InOffsetY, float InWidth, float InHeight);
 
-	void setPos(int x, int y);
-	void setPos(sf::Vector2i pos);
-	void move(int x, int y);
-	void move(sf::Vector2i delta);
+	void setPos(float x, float y);
+	void setPos(sf::Vector2f pos);
+	void move(float x, float y);
+	void move(sf::Vector2f delta);
+
+	// Returns whether or not this box collider is pixel colliding with the other box collider
+	bool Intersects(BoxCollider& other);
+
+	//bool Contains(BoxCollider& other);
+
+	// Collision resolution
+	// Return vector to move in order to not be colliding anymore
+	sf::Vector2f ResolveCollisionRectangle(BoxCollider& other);
+
+	//// Checks 1 pixel next to
+	//bool IsTouchingTop();
+	//bool IsTouchingBottom();
+	//bool IsTouchingLeft();
+	//bool IsTouchingRight();
 
 public:
-	// X offset from position
-	int offsetX;
-	// Y offset from position
-	int offsetY;
+	// x position
+	float left;
+	// y position
+	float top;
 	// width of box
-	int width;
+	float width;
 	// height of box
-	int height;
+	float height;
+	// X offset from position
+	float offsetX;
+	// Y offset from position
+	float offsetY;
 
 };
 

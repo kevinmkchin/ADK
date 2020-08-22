@@ -112,8 +112,8 @@ void Entity::DebugRender(sf::RenderTarget& target)
 {
 	// Debug collider
 	sf::RectangleShape col;
-	col.setPosition((float)collider.top, (float)collider.left);
-	col.setSize(sf::Vector2f((float)collider.width, (float)collider.height));
+	col.setPosition(collider.left, collider.top);
+	col.setSize(sf::Vector2f(collider.width, collider.height));
 	col.setFillColor(sf::Color(0,0,255,80));
 	target.draw(col);
 }
@@ -121,13 +121,13 @@ void Entity::DebugRender(sf::RenderTarget& target)
 void Entity::Move(float x, float y)
 {
 	SpriteSheet.Sprite.move(x, y);
-	collider.setPos(sf::Vector2i(GetPosition()));
+	collider.setPos(sf::Vector2f(GetPosition()));
 }
 
 void Entity::Move(sf::Vector2f delta)
 {
 	SpriteSheet.Sprite.move(delta);
-	collider.setPos(sf::Vector2i(GetPosition()));
+	collider.setPos(sf::Vector2f(GetPosition()));
 }
 
 sf::Vector2f Entity::GetPosition() const
