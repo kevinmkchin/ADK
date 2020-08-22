@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "ADKAssets.h"
 #include "BoxCollider.h"
 
 struct FAnimation
@@ -84,10 +83,10 @@ public:
 	void SetPosition(float x, float y);
 
 	float GetRotation() const;
-	void SetRotation(float newRot);
+	void SetRotation(float newRot, bool bAffectCollider = false);
 
 	float GetScale() const;
-	void SetScale(float newScale);
+	void SetScale(float newScale, bool bAffectCollider = false);
 
 	///////////////////////////////////////////////////////////
 
@@ -101,6 +100,9 @@ public:
 	inline bool IsVisible() const { return bVisible; }
 	inline void SetVisible(bool Visible) { bVisible = Visible; }
 
+	inline bool IsCollidable() const { return bCollidable; }
+	inline void SetCollidable(bool Collidable) { bCollidable = Collidable; }
+
 	inline int GetDepth() const { return depth; }
 	void SetDepth(int newDepth);
 
@@ -108,6 +110,8 @@ public:
 	sf::Sprite& GetSprite();
 
 	BoxCollider& GetCollider() { return collider; }
+
+	virtual void InitCollider();
 
 	// Entity copier
 	static void Copy(Entity& target, const Entity& source);
@@ -160,11 +164,14 @@ protected:
 
 	// Whether to Render this entity
 	bool bVisible;
+	
+
+	// Whether to Collide with this entity
+	bool bCollidable;
 
 
 	// Collider
 	BoxCollider collider;
-
 
 	// TAGS
 

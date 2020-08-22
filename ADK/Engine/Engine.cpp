@@ -79,7 +79,7 @@ void Engine::Run()
 	sf::Time timePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
 
 	// Choose the scene
-	ActiveScene = new Scene_TestOne();
+	ActiveScene = new Scene_Editor();
 	ActiveScene->BeginScene(window);
 
 	// Game process loop

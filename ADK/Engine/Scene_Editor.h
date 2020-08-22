@@ -1,7 +1,8 @@
 #pragma once
-#include "Scene.h"
+
 #include <imfilebrowser.h>
 
+#include "Scene.h"
 
 enum ToolMode
 {
@@ -148,6 +149,10 @@ private:
 	bool bShiftScale;
 	sf::Vector2f ogMouse;
 	float ogScale;
+
+	// collision properties
+	bool bDebugRender;
+	bool bCollisionMatchSpriteBound;
 
 };
 
