@@ -19,6 +19,9 @@
     <Filter Include="Engine\Persistence">
       <UniqueIdentifier>{26cb27ba-e3ad-4d07-ae7d-222b679f9c89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Colliders">
+      <UniqueIdentifier>{3d8d1a88-3932-4029-91ca-6dd1488d8fe8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -73,7 +76,7 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Engine\BoxCollider.cpp">
-      <Filter>Engine</Filter>
+      <Filter>Engine\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +126,7 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\BoxCollider.h">
-      <Filter>Engine</Filter>
+      <Filter>Engine\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

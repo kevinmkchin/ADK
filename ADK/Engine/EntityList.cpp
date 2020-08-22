@@ -1,47 +1,5 @@
 #include "EntityList.h"
 
-
-void EntityList::add(Entity* newEntity)
-{
-	entities.push_back(newEntity);
-	// MARK DEPTH CHANGED
-}
-
-void EntityList::remove(Entity* entityToRemove)
-{
-	std::vector<Entity*>::iterator toRemove = std::find(entities.begin(), entities.end(), entityToRemove);
-	// Erase
-	entities.erase(toRemove);
-}
-
-void EntityList::removeAndDestroy(Entity* entityToRemove)
-{
-	remove(entityToRemove);
-	// Destroy
-	delete(entityToRemove);
-}
-
-void EntityList::clear()
-{
-	entities.clear();
-}
-
-Entity* EntityList::at(int index)
-{
-	return entities[index];
-}
-
-int EntityList::find(Entity* entityToFind)
-{
-	std::vector<Entity*>::iterator found = std::find(entities.begin(), entities.end(), entityToFind);
-	int index = std::distance(entities.begin(), found);
-	if (index == entities.size())
-	{
-		return -1;
-	}
-	return index;
-}
-
 void EntityList::Update(float deltaTime)
 {
 	// Update the entities
@@ -53,7 +11,7 @@ void EntityList::Update(float deltaTime)
 		}
 	}
 
-	// Sort the entities by depth ONLY if MarkDepthChanged
+	//TODO Sort the entities by depth ONLY if MarkDepthChanged
 	std::sort(entities.begin(), entities.end(), DepthComparator());
 }
 
@@ -104,3 +62,62 @@ void EntityList::RenderWithDepth(sf::RenderTarget& target, int lower, int upper)
 //		if (entity.Visible && entity.TagCheck(matchTags))
 //			entity.Render();
 //}
+
+bool EntityList::add(Entity* newEntity, bool checkUnique)
+{
+	// Check unique
+	if (checkUnique)
+	{
+		if (find(newEntity) == -1)
+		{
+			return false;
+		}
+	}
+	// Add at the end
+	entities.push_back(newEntity);
+	// MARK DEPTH CHANGED
+	return true;
+}
+
+bool EntityList::remove(Entity* entityToRemove)
+{
+	// See if it exists
+	std::vector<Entity*>::iterator toRemove = std::find(entities.begin(), entities.end(), entityToRemove);
+	int removalIndex = std::distance(entities.begin(), toRemove);
+	if (removalIndex == entities.size())
+	{
+		return false;
+	}
+	// Erase
+	entities.erase(toRemove);
+	return true;
+}
+
+bool EntityList::removeAndDestroy(Entity* entityToRemove)
+{
+	bool success = remove(entityToRemove);
+	// Destroy
+	delete(entityToRemove);
+	return success;
+}
+
+void EntityList::clear()
+{
+	entities.clear();
+}
+
+Entity* EntityList::at(int index)
+{
+	return entities[index];
+}
+
+int EntityList::find(Entity* entityToFind)
+{
+	std::vector<Entity*>::iterator found = std::find(entities.begin(), entities.end(), entityToFind);
+	int index = std::distance(entities.begin(), found);
+	if (index == entities.size())
+	{
+		return -1;
+	}
+	return index;
+}
