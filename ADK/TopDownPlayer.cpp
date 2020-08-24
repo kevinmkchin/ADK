@@ -27,3 +27,8 @@ void TopDownPlayer::Update(float deltaTime)
 		Move(75.f * deltaTime, 0.f);
 	}
 }
+
+void TopDownPlayer::InitCollider()
+{
+	collider = BoxCollider(GetPosition().x, GetPosition().y, 64.f, 64.f);
+}

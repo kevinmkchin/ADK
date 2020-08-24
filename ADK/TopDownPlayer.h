@@ -11,5 +11,7 @@ public:
 	// Do game logic here, but do not render here. Not called if the Entity is not Active. Handles animation logic.
 	virtual void Update(float deltaTime) override;
 
+	virtual void InitCollider() override;
+
 };
 
