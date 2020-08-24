@@ -18,7 +18,7 @@ struct FEditorConfig
 public:
 	int GridSizeX = 32;
 	int GridSizeY = 32;
-	sf::Color GridColor = sf::Color::White;
+	sf::Color GridColor = sf::Color(255, 255, 255, 30);
 	bool bShowGrid = true;
 	bool bSnapToGrid = false;
 

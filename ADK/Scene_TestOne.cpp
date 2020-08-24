@@ -4,17 +4,22 @@
 
 void Scene_TestOne::BeginScene(sf::RenderWindow& window)
 {
+	ViewConfig.CenterX = 430.f;
+	ViewConfig.CenterY = 430.f;
+	ViewConfig.Zoom = 0.15f;
 	InitializeSceneView(window);
 
 	player = new TopDownPlayer();
 	player->LoadDefaultTexture();
 	player->SetPosition(500.f, 500.f);
 	player->InitCollider();
+	player->SetVisible(false);
 	Entities.add(player);
 
 	created = new Entity(0.f, 0.f);
 	created->SetTexturePathAndLoad("ajax.png");
-	created->InitCollider();
+	created->GetCollider() = BoxCollider(created->GetPosition().x, created->GetPosition().y, (float)created->SpriteSheet.FrameSize.x, (float)created->SpriteSheet.FrameSize.y);
+	created->SetVisible(false);
 	Entities.add(created);
 }
 

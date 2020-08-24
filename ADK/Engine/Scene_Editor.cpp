@@ -1315,6 +1315,11 @@ void Scene_Editor::UpdateEditorConfigWithWindow(sf::RenderWindow& window)
 	ActiveEditorConfig = DefaultEditorConfig;
 	bgRect = sf::FloatRect((float)ActiveEditorConfig.TopLeftPixel.x, (float)ActiveEditorConfig.TopLeftPixel.y,
 		(float)ActiveEditorConfig.BotRightPixels.x - ActiveEditorConfig.TopLeftPixel.x, (float)ActiveEditorConfig.BotRightPixels.y - ActiveEditorConfig.TopLeftPixel.y);
+
+	// resize the level viewer as well
+	SceneView.setSize(bgRect.width, bgRect.height);
+	SceneView.zoom(zoomFactor);
+	window.setView(SceneView);
 }
 
 void Scene_Editor::BrushPlaceHelper()

@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Engine/Entity.h"
-#include "ExampleEntity.h"
-#include "StoneEntity.h"
 
 #pragma region ignore
 
@@ -15,13 +13,10 @@ public:
 	const static inline std::vector<std::string> Identifiers = { 
 #pragma endregion
 	////////////////////////////////////////////////////////// TODO REGISTER ENTITY TYPES AND IDENTIFIERS ///////////////////////////////////////////////////////////////
-
 	// REMEMBER TO TYPE " REGISTER_ENTITY_TYPES " AT THE START OF THE GAME BEFORE USING ANY OF THIS
 
 	// DECLARE IDENTIFIERS HERE
 	DECLARE("BaseEntity")
-	DECLARE("Example")
-	DECLARE("Stone")
 	//DECLARE(" ")
 	//DECLARE(" ")
 	//DECLARE(" ")
@@ -39,8 +34,6 @@ public:
 	
 	// REGISTER ENTITY TYPES TO IDENTIFIERS HERE
 	REGISTER_ENT(Entity, "BaseEntity")
-	REGISTER_ENT(ExampleEntity, "Example")
-	REGISTER_ENT(StoneEntity, "Stone")
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma region ignore
