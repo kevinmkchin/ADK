@@ -2,6 +2,7 @@
 
 #include "MoreColors.h"
 #include "Scene_Editor.h"
+#include "../Game/Scene_Game.h"
 #include "../Scene_TestOne.h"
 #include "../ADKEditorMetaRegistry.h"
 #include "ADKTextures.h"
@@ -79,7 +80,7 @@ void Engine::Run()
 	sf::Time timePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
 
 	// Choose the scene
-	ActiveScene = new Scene_Editor();
+	ActiveScene = new Scene_Game();
 	ActiveScene->BeginScene(window);
 
 	// Game process loop
