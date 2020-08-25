@@ -33,6 +33,7 @@
     <ClCompile Include="Engine\imgui_widgets.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Scene_Editor.cpp" />
+    <ClCompile Include="Game\Scene_Game.cpp" />
     <ClCompile Include="Scene_TestOne.cpp" />
     <ClCompile Include="TopDownPlayer.cpp" />
   </ItemGroup>
@@ -49,6 +50,7 @@
     <ClInclude Include="Engine\MoreColors.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Scene_Editor.h" />
+    <ClInclude Include="Game\Scene_Game.h" />
     <ClInclude Include="Scene_TestOne.h" />
     <ClInclude Include="TopDownPlayer.h" />
   </ItemGroup>

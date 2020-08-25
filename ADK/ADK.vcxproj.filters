@@ -75,6 +75,9 @@
     <ClCompile Include="Engine\EntityList.cpp">
       <Filter>Engine\ADKUtils</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scene_Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Entity.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="Engine\EntityList.h">
       <Filter>Engine\ADKUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene_Game.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
