@@ -67,13 +67,13 @@ void Entity::DebugRender(sf::RenderTarget& target)
 void Entity::Move(float x, float y)
 {
 	SpriteSheet.Sprite.move(x, y);
-	collider.setPos(sf::Vector2f(GetPosition()));
+	collider.move(x, y);
 }
 
 void Entity::Move(sf::Vector2f delta)
 {
 	SpriteSheet.Sprite.move(delta);
-	collider.setPos(sf::Vector2f(GetPosition()));
+	collider.move(delta);
 }
 
 sf::Vector2f Entity::GetPosition() const
@@ -83,12 +83,12 @@ sf::Vector2f Entity::GetPosition() const
 void Entity::SetPosition(sf::Vector2f newPos)
 {
 	SpriteSheet.Sprite.setPosition(newPos);
-	collider.setPos(sf::Vector2f(GetPosition()));
+	collider.setPos(newPos);
 }
 void Entity::SetPosition(float x, float y)
 {
 	SpriteSheet.Sprite.setPosition(x, y);
-	collider.setPos(sf::Vector2f(GetPosition()));
+	collider.setPos(x, y);
 }
 float Entity::GetRotation() const
 {
@@ -187,6 +187,7 @@ void Entity::Copy(Entity& target, const Entity& source)
 	target.GetCollider().offsetY = source.GetColliderCopy().offsetY;
 	target.GetCollider().width = source.GetColliderCopy().width;
 	target.GetCollider().height = source.GetColliderCopy().height;
+	target.SetCollidable(source.IsCollidable());
 	// TODO copy Tag data
 }
 

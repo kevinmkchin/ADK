@@ -63,12 +63,6 @@
     <ClCompile Include="Engine\ADKSaveLoad.cpp">
       <Filter>Engine\Persistence</Filter>
     </ClCompile>
-    <ClCompile Include="Scene_TestOne.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="TopDownPlayer.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\BoxCollider.cpp">
       <Filter>Engine\Colliders</Filter>
     </ClCompile>
@@ -76,6 +70,12 @@
       <Filter>Engine\ADKUtils</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scene_Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlatformerPlayer.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\DemoPlatformerTile.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -88,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="Engine\MoreColors.h">
       <Filter>Engine\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="ADKEditorMetaRegistry.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene_Editor.h">
       <Filter>Engine</Filter>
@@ -110,12 +107,6 @@
     <ClInclude Include="Engine\ADKMath.h">
       <Filter>Engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_TestOne.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="TopDownPlayer.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\BoxCollider.h">
       <Filter>Engine\Colliders</Filter>
     </ClInclude>
@@ -123,6 +114,13 @@
       <Filter>Engine\ADKUtils</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene_Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ADKEditorMetaRegistry.h" />
+    <ClInclude Include="Game\PlatformerPlayer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DemoPlatformerTile.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
