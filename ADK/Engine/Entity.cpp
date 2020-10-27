@@ -83,12 +83,12 @@ sf::Vector2f Entity::GetPosition() const
 void Entity::SetPosition(sf::Vector2f newPos)
 {
 	SpriteSheet.Sprite.setPosition(newPos);
-	collider.setPos(newPos);
+	collider.set_pos(newPos);
 }
 void Entity::SetPosition(float x, float y)
 {
 	SpriteSheet.Sprite.setPosition(x, y);
-	collider.setPos(x, y);
+	collider.set_pos(x, y);
 }
 float Entity::GetRotation() const
 {
@@ -101,7 +101,7 @@ void Entity::SetRotation(float newRot, bool bAffectCollider)
 	if (bAffectCollider)
 	{
 		sf::FloatRect bounds = SpriteSheet.Sprite.getGlobalBounds();
-		collider.setPos(bounds.left, bounds.top);
+		collider.set_pos(bounds.left, bounds.top);
 		collider.width = bounds.width;
 		collider.height = bounds.height;
 	}
@@ -117,7 +117,7 @@ void Entity::SetScale(float newScale, bool bAffectCollider)
 	if (bAffectCollider)
 	{
 		sf::FloatRect bounds = SpriteSheet.Sprite.getGlobalBounds();
-		collider.setPos(bounds.left, bounds.top);
+		collider.set_pos(bounds.left, bounds.top);
 		collider.width = bounds.width;
 		collider.height = bounds.height;
 	}

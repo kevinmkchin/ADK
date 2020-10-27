@@ -32,13 +32,13 @@ BoxCollider::BoxCollider(float InLeft, float InTop, float InOffsetX, float InOff
 	height = InHeight;
 }
 
-void BoxCollider::setPos(float x, float y)
+void BoxCollider::set_pos(float x, float y)
 {
 	left = offsetX + x;
 	top = offsetY + y;
 }
 
-void BoxCollider::setPos(sf::Vector2f pos)
+void BoxCollider::set_pos(sf::Vector2f pos)
 {
 	left = offsetX + pos.x;
 	top = offsetY + pos.y;
@@ -56,7 +56,7 @@ void BoxCollider::move(sf::Vector2f delta)
 	top += delta.y;
 }
 
-bool BoxCollider::Intersects(BoxCollider& other)
+bool BoxCollider::intersects(BoxCollider& other)
 {
 	float bot = top + height;
 	float right = left + width;
@@ -75,14 +75,14 @@ bool BoxCollider::Intersects(BoxCollider& other)
 	return notColliding == false;
 }
 
-bool BoxCollider::Contains(sf::Vector2f other)
+bool BoxCollider::contains(sf::Vector2f other)
 {
 	float bot = top + height - 1;
 	float right = left + width - 1;
 	return (left <= other.x && other.x <= right) && (top <= other.y && other.y <= bot);
 }
 
-bool BoxCollider::IsTouchingTop(BoxCollider& other, float vel)
+bool BoxCollider::will_touch_top(BoxCollider& other, float vel)
 {
 	float bot = top + height;
 	float right = left + width;
@@ -98,7 +98,7 @@ bool BoxCollider::IsTouchingTop(BoxCollider& other, float vel)
 		left < otherright;
 }
 
-bool BoxCollider::IsTouchingBottom(BoxCollider& other, float vel)
+bool BoxCollider::will_touch_bottom(BoxCollider& other, float vel)
 {
 	float bot = top + height;
 	float right = left + width;
@@ -113,7 +113,7 @@ bool BoxCollider::IsTouchingBottom(BoxCollider& other, float vel)
 		left < otherright;
 }
 
-bool BoxCollider::IsTouchingLeft(BoxCollider& other, float vel)
+bool BoxCollider::will_touch_left(BoxCollider& other, float vel)
 {
 	float bot = top + height;
 	float right = left + width;
@@ -129,13 +129,18 @@ bool BoxCollider::IsTouchingLeft(BoxCollider& other, float vel)
 		top < otherbot;
 }
 
-bool BoxCollider::IsTouchingRight(BoxCollider& other, float vel)
+bool BoxCollider::will_touch_right(BoxCollider& other, float vel)
 {
 	float bot = top + height;
 	float right = left + width;
 	float otherbot = other.top + other.height;
 	float otherright = other.left + other.width;
 
+
+	if (top > otherbot)
+	{
+		printf("");
+	}
 	vel = abs(vel);
 
 	return
@@ -145,10 +150,10 @@ bool BoxCollider::IsTouchingRight(BoxCollider& other, float vel)
 		top < otherbot;
 }
 
-sf::Vector2f BoxCollider::ResolveCollisionRectangle(BoxCollider& other)
+sf::Vector2f BoxCollider::resolve_collision_rect(BoxCollider& other)
 {
 	// Check we are colliding with it
-	if (!Intersects(other))
+	if (!intersects(other))
 	{
 		return sf::Vector2f(0, 0);
 	}
