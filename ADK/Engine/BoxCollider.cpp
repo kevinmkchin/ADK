@@ -58,12 +58,20 @@ void BoxCollider::move(sf::Vector2f delta)
 
 bool BoxCollider::Intersects(BoxCollider& other)
 {
-	float bot = top + height - 1;
-	float right = left + width - 1;
-	float otherbot = other.top + other.height - 1;
-	float otherright = other.left + other.width - 1;
+	float bot = top + height;
+	float right = left + width;
+	float otherbot = other.top + other.height;
+	float otherright = other.left + other.width;
 
 	bool notColliding = bot < other.top || top > otherbot || left > otherright || right < other.left;
+	if (notColliding == false)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 	return notColliding == false;
 }
 
@@ -71,7 +79,70 @@ bool BoxCollider::Contains(sf::Vector2f other)
 {
 	float bot = top + height - 1;
 	float right = left + width - 1;
-	return (left <= other.x <= right) && (top <= other.y <= bot);
+	return (left <= other.x && other.x <= right) && (top <= other.y && other.y <= bot);
+}
+
+bool BoxCollider::IsTouchingTop(BoxCollider& other, float vel)
+{
+	float bot = top + height;
+	float right = left + width;
+	float otherbot = other.top + other.height;
+	float otherright = other.left + other.width;
+
+	vel = abs(vel);
+
+	return
+		top - vel < otherbot &&
+		bot > otherbot &&
+		right > other.left &&
+		left < otherright;
+}
+
+bool BoxCollider::IsTouchingBottom(BoxCollider& other, float vel)
+{
+	float bot = top + height;
+	float right = left + width;
+	float otherright = other.left + other.width;
+
+	vel = abs(vel);
+
+	return
+		bot + vel > other.top &&
+		top < other.top &&
+		right > other.left &&
+		left < otherright;
+}
+
+bool BoxCollider::IsTouchingLeft(BoxCollider& other, float vel)
+{
+	float bot = top + height;
+	float right = left + width;
+	float otherbot = other.top + other.height;
+	float otherright = other.left + other.width;
+
+	vel = abs(vel);
+
+	return
+		left - vel < otherright &&
+		right > otherright &&
+		bot > other.top &&
+		top < otherbot;
+}
+
+bool BoxCollider::IsTouchingRight(BoxCollider& other, float vel)
+{
+	float bot = top + height;
+	float right = left + width;
+	float otherbot = other.top + other.height;
+	float otherright = other.left + other.width;
+
+	vel = abs(vel);
+
+	return
+		right + vel > other.left &&
+		left < other.left &&
+		bot > other.top &&
+		top < otherbot;
 }
 
 sf::Vector2f BoxCollider::ResolveCollisionRectangle(BoxCollider& other)
@@ -82,16 +153,16 @@ sf::Vector2f BoxCollider::ResolveCollisionRectangle(BoxCollider& other)
 		return sf::Vector2f(0, 0);
 	}
 
-	float bot = top + height - 1.f;
-	float right = left + width - 1.f;
-	float otherbot = other.top + other.height - 1.f;
-	float otherright = other.left + other.width - 1.f;
+	float bot = top + height;
+	float right = left + width;
+	float otherbot = other.top + other.height;
+	float otherright = other.left + other.width;
 
 	// Find distance to move to each side
-	float toTop = other.top - bot - 1.f;
-	float toBot = otherbot - top + 1.f;
-	float toLeft = other.left - right - 1.f;
-	float toRight = otherright - left + 1.f;
+	float toTop = other.top - bot;
+	float toBot = otherbot - top;
+	float toLeft = other.left - right;
+	float toRight = otherright - left;
 
 	// Get minimum distance to a side
 	float min = std::min({ std::abs(toTop), std::abs(toBot), std::abs(toLeft), std::abs(toRight) });

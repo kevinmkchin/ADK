@@ -2,6 +2,8 @@
 
 #include "Engine/Entity.h"
 
+#include "Game/DemoPlatformerTile.h"
+
 #pragma region ignore
 
 #define DECLARE(id) id,
@@ -17,6 +19,7 @@ public:
 
 	// DECLARE IDENTIFIERS HERE
 	DECLARE("BaseEntity")
+	DECLARE("DemoPlatformerTile")
 	//DECLARE(" ")
 	//DECLARE(" ")
 	//DECLARE(" ")
@@ -34,6 +37,7 @@ public:
 	
 	// REGISTER ENTITY TYPES TO IDENTIFIERS HERE
 	REGISTER_ENT(Entity, "BaseEntity")
+	REGISTER_ENT(DemoPlatformerTile, "DemoPlatformerTile")
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma region ignore

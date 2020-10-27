@@ -8,6 +8,7 @@
 #define		MC_OLIVE				sf::Color(112, 130, 56)
 #define		MC_CHARCOAL				sf::Color(54, 69, 79)
 #define		MC_MOSTLYBLACKBLUE		sf::Color(23, 29, 34)
+#define		MC_SOFTRED				sf::Color(171, 114, 124)
 
 namespace MoreColors
 {

@@ -33,9 +33,9 @@
     <ClCompile Include="Engine\imgui_widgets.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Scene_Editor.cpp" />
+    <ClCompile Include="Game\DemoPlatformerTile.cpp" />
+    <ClCompile Include="Game\PlatformerPlayer.cpp" />
     <ClCompile Include="Game\Scene_Game.cpp" />
-    <ClCompile Include="Scene_TestOne.cpp" />
-    <ClCompile Include="TopDownPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
@@ -50,9 +50,9 @@
     <ClInclude Include="Engine\MoreColors.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Scene_Editor.h" />
+    <ClInclude Include="Game\DemoPlatformerTile.h" />
+    <ClInclude Include="Game\PlatformerPlayer.h" />
     <ClInclude Include="Game\Scene_Game.h" />
-    <ClInclude Include="Scene_TestOne.h" />
-    <ClInclude Include="TopDownPlayer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
