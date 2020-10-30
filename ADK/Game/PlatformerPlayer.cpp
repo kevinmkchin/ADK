@@ -16,6 +16,9 @@ PlatformerPlayer::PlatformerPlayer()
 	, max_pos_yvel(800.f)
 	, b_jumping(false)
 	, b_pending_jump(false)
+	, b_jumpkey_down(false)
+	, jump_peak_yvel(100.f)
+	, percent_yvel_on_jump_release(0.5f)
 	// Jump buffering
 	, jump_buffer_maxhold_seconds(0.30f)
 	, jump_buffer_maxtap_seconds(0.12f)
@@ -55,7 +58,17 @@ void PlatformerPlayer::read_input(float dt)
 	// Jumping
 	if (b_j_pressed == false)
 	{
-		b_jumpkey_down = false;
+		if (b_jumpkey_down)
+		{
+			// jumpkey released
+			b_jumpkey_down = false;
+
+			// cut our current yvel up
+			if (curr_yvel < 0.f && jump_buffer_timer_seconds == 0.f) // only if we are moving up, and if this is the first time we released jump while jumping
+			{
+				curr_yvel *= percent_yvel_on_jump_release;
+			}
+		}
 	}
 	if (b_j_pressed && b_jumpkey_down == false)
 	{
@@ -64,10 +77,17 @@ void PlatformerPlayer::read_input(float dt)
 		jump_buffer_timer_seconds = 0.f;
 	}
 
-	// Gravity
-	curr_yvel += gravity * dt;
+	// --- Gravity ---
+	if (b_jumping && abs(curr_yvel) <= jump_peak_yvel && b_s_pressed == false)
+	{
+		curr_yvel += (gravity / 2) * dt;
+	}
+	else
+	{
+		curr_yvel += gravity * dt;
+	}
 	
-	// Positive Accelerations
+	// --- Positive Accelerations ---
 	if (b_s_pressed)
 	{
 		curr_yvel += extra_down_acc * dt;
@@ -119,7 +139,6 @@ void PlatformerPlayer::read_input(float dt)
 		curr_yvel = max_pos_yvel;
 	}
 	// Cap curr_xvel to max_xvel if we are grounded
-
 	float xvel_cap = b_jumping ? max_xvel_inair : max_xvel;
 	if (abs(curr_xvel) > xvel_cap)
 	{
@@ -134,6 +153,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 	bool b_y_collided = false;
 	bool b_is_grounded = false;
 	bool b_col_directly_above = false;
+	bool b_jumped_this_frame = false;
 
 	// --- Check movement collision ---
 	for (int i = 0; i < collidable_platforms->size(); ++i) 
@@ -157,17 +177,22 @@ void PlatformerPlayer::resolve_movement(float dt)
 				b_pending_jump = false;
 				curr_yvel = -jump_vel;
 				b_jumping = true;
+				b_jumped_this_frame = true;
 			}
 		}
 
-		if (curr_yvel > 0 && collider.will_touch_bottom(other, curr_yvel * dt))
+		if (b_jumped_this_frame == false)
 		{
-			float to_move_down = other.top - collider.height - collider.top;
+			if (curr_yvel > 0 && collider.will_touch_bottom(other, curr_yvel * dt))
+			{
+				float to_move_down = other.top - collider.height - collider.top;
 
-			Move(0.f, to_move_down);
+				Move(0.f, to_move_down);
 
-			b_jumping = false;
-			b_y_collided = true;
+				b_jumping = false;
+				b_y_collided = true;
+				curr_yvel = 0.f;
+			}
 		}
 
 		if (curr_yvel < 0 && collider.will_touch_top(other, curr_yvel * dt))
@@ -177,6 +202,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 			Move(0.f, to_move_up);
 
 			b_y_collided = true;
+			curr_yvel = 0.f;
 		}
 
 		if (curr_xvel > 0 && collider.will_touch_right(other, curr_xvel * dt))
@@ -208,10 +234,6 @@ void PlatformerPlayer::resolve_movement(float dt)
 	if (!b_y_collided) 
 	{
 		Move(0.f, curr_yvel * dt);
-	} 
-	else 
-	{
-		curr_yvel = 0.f;
 	}
 
 	// --- Reset flags and timers ---

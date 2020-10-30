@@ -46,15 +46,17 @@ private:
 	bool b_jumping;
 	bool b_pending_jump;	// flag to indicate whether we are pending a jump
 	bool b_jumpkey_down;	// flag to indicate whether we are currently holding down the jump key
+	float jump_peak_yvel;	// while jumping, if yvel is between -jump_peak_yvel to +jump_peak_yvel, half gravity is applied
+	float percent_yvel_on_jump_release;		// percent of current yvel to cut yvel to when we release the jump key (for variable jump height)
 
 	// jump buffering
 	float jump_buffer_maxhold_seconds;		// jump buffer (the time before landing you are allowed to HOLD jump and still jump on the frame you land)
 	float jump_buffer_maxtap_seconds;		// jump buffer (the time before landing you are allowed to TAP jump and still jump on the frame you land)
-	float jump_buffer_timer_seconds;	// timer to keep track of how much time it's been since you pressed jump
+	float jump_buffer_timer_seconds;		// timer to keep track of how much time it's been since you pressed jump
 
 	// coyote time
-	float coyote_time_default_seconds;	// coyote time to give the player
-	float coyote_time_timer_seconds;	// timer to keep track of coyote time left
+	float coyote_time_default_seconds;		// coyote time to give the player
+	float coyote_time_timer_seconds;		// timer to keep track of coyote time left
 
 
 
