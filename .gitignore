@@ -1,8 +1,8 @@
 Debug/
 Release/
 
-# Ignore the game specific classes
-Game/
+# Uncomment this if you want to ignore the game specific classes
+# Game/
 
 # VS User-specific files
 *.rsuser
