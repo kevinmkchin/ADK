@@ -60,10 +60,6 @@ void Entity::DebugRender(sf::RenderTarget& target)
 	sf::RectangleShape col;
 	col.setPosition(collider.left, collider.top);
 	col.setSize(sf::Vector2f(collider.width, collider.height));
-	if (collider.height < 0)
-	{
-		printf("wtf");
-	}
 	col.setFillColor(sf::Color(0,0,255,80));
 	target.draw(col);
 }

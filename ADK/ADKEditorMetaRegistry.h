@@ -3,6 +3,7 @@
 #include "Engine/Entity.h"
 
 #include "Game/DemoPlatformerTile.h"
+#include "Game/DemoPlatformerOneWayPlatform.h"
 
 #pragma region ignore
 
@@ -20,6 +21,7 @@ public:
 	// DECLARE IDENTIFIERS HERE
 	DECLARE("BaseEntity")
 	DECLARE("DemoPlatformerTile")
+	DECLARE("DemoPlatformerOneWayPlatform")
 	//DECLARE(" ")
 	//DECLARE(" ")
 	//DECLARE(" ")
@@ -38,6 +40,7 @@ public:
 	// REGISTER ENTITY TYPES TO IDENTIFIERS HERE
 	REGISTER_ENT(Entity, "BaseEntity")
 	REGISTER_ENT(DemoPlatformerTile, "DemoPlatformerTile")
+	REGISTER_ENT(DemoPlatformerOneWayPlatform, "DemoPlatformerOneWayPlatform")
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma region ignore

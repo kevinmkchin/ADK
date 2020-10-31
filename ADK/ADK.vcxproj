@@ -33,6 +33,7 @@
     <ClCompile Include="Engine\imgui_widgets.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Scene_Editor.cpp" />
+    <ClCompile Include="Game\DemoPlatformerOneWayPlatform.cpp" />
     <ClCompile Include="Game\DemoPlatformerTile.cpp" />
     <ClCompile Include="Game\PlatformerPlayer.cpp" />
     <ClCompile Include="Game\Scene_Game.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="Engine\MoreColors.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Scene_Editor.h" />
+    <ClInclude Include="Game\DemoPlatformerOneWayPlatform.h" />
     <ClInclude Include="Game\DemoPlatformerTile.h" />
     <ClInclude Include="Game\PlatformerPlayer.h" />
     <ClInclude Include="Game\Scene_Game.h" />

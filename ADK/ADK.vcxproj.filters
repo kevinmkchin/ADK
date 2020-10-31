@@ -78,6 +78,9 @@
     <ClCompile Include="Game\DemoPlatformerTile.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\DemoPlatformerOneWayPlatform.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Entity.h">
@@ -121,6 +124,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\DemoPlatformerTile.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DemoPlatformerOneWayPlatform.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1048,25 +1048,25 @@ void Scene_Editor::DrawEntityTypeUI()
 		{
 			sf::Sprite entitySprite = EntityTypes.at(i)->GetSprite();
 			const char* EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
-			if (ImGui::ImageButton(entitySprite, sf::Vector2f(50.f, 50.f)))
+			if (ImGui::ImageButton(entitySprite, sf::Vector2f(30.f, 30.f)))
 			{
 				EntitySelectedForCreation = EntityTypes.at(i);
 				currTool = TOOL_PLACE;
 			}
 			ImGui::Text(EntityId);
 
-			++i;
-			if (i < EntityTypes.size())
-			{
-				entitySprite = EntityTypes.at(i)->GetSprite();
-				EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
-				if (ImGui::ImageButton(entitySprite, sf::Vector2f(50.f, 50.f)))
-				{
-					EntitySelectedForCreation = EntityTypes.at(i);
-					currTool = TOOL_PLACE;
-				}
-				ImGui::Text(EntityId);
-			}
+			//++i;
+			//if (i < EntityTypes.size())
+			//{
+			//	entitySprite = EntityTypes.at(i)->GetSprite();
+			//	EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
+			//	if (ImGui::ImageButton(entitySprite, sf::Vector2f(50.f, 50.f)))
+			//	{
+			//		EntitySelectedForCreation = EntityTypes.at(i);
+			//		currTool = TOOL_PLACE;
+			//	}
+			//	ImGui::Text(EntityId);
+			//}
 		}
 		ImGui::EndGroup();
 		ImGui::SameLine();

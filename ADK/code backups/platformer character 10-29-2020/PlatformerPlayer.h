@@ -20,9 +20,14 @@ protected:
 
 	void resolve_movement(float dt);
 
+	/** This function is a fall-back in case something goes wrong and we ended up colliding into something after moving.
+		This function finds the overlap of least resistance and corrects the position of the player by that overlap. */
+	void resolve_outstanding_collisions(float dt);
+
+private:
+
 #pragma region MOVEMENT
 
-protected:
 	// x
 	float curr_xvel;		// current x velocity
 	float max_xvel;			// maximum x velocity--current x velocity is capped at this value--max move speed basically
@@ -53,11 +58,7 @@ protected:
 	float coyote_time_default_seconds;		// coyote time to give the player
 	float coyote_time_timer_seconds;		// timer to keep track of coyote time left
 
-	// states
-	bool b_try_fall_from_oneway;
 
-	// state memory
-	bool b_intersecting_oneway_lastframe;
 
 #pragma endregion
 
