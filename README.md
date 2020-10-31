@@ -2,11 +2,35 @@
 
 ### "Hey, good luck on your engine." - [Noel Berry](https://twitter.com/NoelFB) Aug 14, 2020 at a bouldering gym
 
-<img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">*Ajax the Great, Greek mythological hero*
+<img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">*Greek mythological hero, Ajax the Great*
 
 ## Purpose
+ADK is a few things. ADK is a C++ game engine providing tools for building modern 2D games. ADK is a collection of useful game systems such as pathfinding, character controllers, and projectiles. ADK is the open source repository for several games that I'm working on. Essentially, I'm trying to provide all the resources and tools that one would want in order to create a 2D video game. Whether you take one of the example/demo games and expand upon it or decide to create a new game using the built-in editor, ADK provides the features you need.
 
+I started this little project because I wanted two things: I wanted my own custom C++ game engine to make games with and I wanted a place where I can collect all the little games and game-related programming projects that I do. Instead of having a ton of small projects and repositories, I want to compile them all into a single project. Not only do these projects offer a reference to look at and learn from when creating my next game, having them all included with ADK allows me to share code between the projects. The idea is to create systems and game features that are reusable across projects, so that if I program a pathfinding system in one game I will have it available to use in another game.
 
+## Features
+- **Reference Counted Resource Management**
+  - Automatic reference counting ensures resources are acquired when needed and freed when they are not
+- **Sophisticated Built-in Editor**
+  - Save and Load Levels
+  - Built-in editor allows for working very close to the final product compared to using an external editor
+  -
+- **Animation System**
+- **Collisions**
+  - Included code examples demonstrate how to easily implement pixel-perfect collision using the provided collision system
+- **Entity and Scene System**
+- **Entity Layers**
+
+## Planned Features
+- TAGS!!!
+- Timelines/Coroutines (https://docs.unity3d.com/Manual/Coroutines.html)
+- Input Manager (to handle multiple keybinds)
+- GameInstance class for objects that persist throughout the entire game
+- Sound FX & Music system
+- Particle system
+- Sample GLSL shaders
+- Editor improvements
 
 
 ## PrOGress
