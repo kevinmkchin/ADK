@@ -5,16 +5,18 @@
 <img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">*Greek mythological hero, Ajax the Great*
 
 ## Purpose
-ADK is a few things. ADK is a C++ game engine providing tools for building modern 2D games. ADK is a collection of useful game systems such as pathfinding, character controllers, and projectiles. ADK is the open source repository for several games that I'm working on. Essentially, I'm trying to provide all the resources and tools that one would want in order to create a 2D video game. Whether you take one of the example/demo games and expand upon it or decide to create a new game using the built-in editor, ADK provides the features you need.
+ADK is a few things. ADK is a C++ game engine providing tools for building modern 2D games. ADK is a collection of useful game systems such as pathfinding, inventory, and character controllers. ADK is the open source repository for several games that I'm working on. Essentially, I'm trying to provide all the resources and tools that one would want in order to create a 2D video game. Whether you take one of the example/demo games and expand upon it or decide to create a new game using the integrated editor, ADK provides the features you need.
 
-I started this little project because I wanted two things: I wanted my own custom C++ game engine to make games with and I wanted a place where I can collect all the little games and game-related programming projects that I do. Instead of having a ton of small projects and repositories, I want to compile them all into a single project. Not only do these projects offer a reference to look at and learn from when creating my next game, having them all included with ADK allows me to share code between the projects. The idea is to create systems and game features that are reusable across projects, so that if I program a pathfinding system in one game I will have it available to use in another game.
+I started this little project because I wanted two things: I wanted my own custom C++ game engine to make games with and I wanted a monolithic repository where I can collect all the little games and game-related programming projects that I do. Instead of having a ton of small projects and repositories, I want to compile them all into a single project. Not only do these projects offer reference to learn from when creating my next game, having them included with ADK allows me to share code between the projects. The idea is to create systems and game features that are reusable across projects, so that, for example, if I program an A* pathfinding system in one game I will have it available to use in another game.
+
+If I was going to create my own custom C++ game engine, I needed it to be better than the other engines available. The goal was to make an engine that was more flexible than Unreal engine and better than Game Maker.
 
 ## Features
 - **Reference Counted Resource Management**
   - Automatic reference counting ensures resources are acquired when needed and freed when they are not
-- **Sophisticated Built-in Editor**
+- **Sophisticated Integrated Editor**
   - Save and Load Levels
-  - Built-in editor allows for working very close to the final product compared to using an external editor
+  - Integrated editor allows for working very close to the final product compared to using an external editor
   -
 - **Animation System**
 - **Collisions**
