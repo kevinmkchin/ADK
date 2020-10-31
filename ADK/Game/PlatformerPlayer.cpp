@@ -1,6 +1,8 @@
 #include "PlatformerPlayer.h"
 #include "../Engine/EntityList.h"
 
+#include "DemoPlatformerOneWayPlatform.h"
+
 PlatformerPlayer::PlatformerPlayer()
 	: curr_xvel(0.f)
 	, max_xvel(160.f)
@@ -26,6 +28,9 @@ PlatformerPlayer::PlatformerPlayer()
 	// Coyote time
 	, coyote_time_default_seconds(0.07f)
 	, coyote_time_timer_seconds(coyote_time_default_seconds)
+	// States
+	, b_try_fall_from_oneway(false)
+	, b_intersecting_oneway_lastframe(false)
 {
 	collidable_platforms = new EntityList();
 	SetTexturePathAndLoad("Game/black16.png");
@@ -44,8 +49,6 @@ void PlatformerPlayer::Update(float deltaTime)
 	read_input(deltaTime);
 
 	resolve_movement(deltaTime);
-
-	//resolve_outstanding_collisions(deltaTime);
 }
 
 void PlatformerPlayer::read_input(float dt)
@@ -91,6 +94,7 @@ void PlatformerPlayer::read_input(float dt)
 	if (b_s_pressed)
 	{
 		curr_yvel += extra_down_acc * dt;
+		b_try_fall_from_oneway = true;
 		// TODO GAME to make movement interesting, holding s could make air deceleration slower and air acceleration faster
 	}
 	if (b_a_pressed)
@@ -155,21 +159,46 @@ void PlatformerPlayer::resolve_movement(float dt)
 	bool b_col_directly_above = false;
 	bool b_jumped_this_frame = false;
 
+	bool b_intersecting_oneway = false;
+
+	// --- Figure out our current situation ---
+	for (int i = 0; i < collidable_platforms->size(); ++i)
+	{
+		BoxCollider& other = collidable_platforms->at(i)->GetCollider();
+		
+		// one way platform check
+		bool b_istype_oneway = typeid(*(collidable_platforms->at(i))) == typeid(DemoPlatformerOneWayPlatform);
+
+		if (b_istype_oneway)
+		{
+			// check if we are inside the one way platform 
+			if (b_intersecting_oneway == false)
+			{
+				b_intersecting_oneway = collider.intersects(other);
+			}
+		}
+	}
+
 	// --- Check movement collision ---
 	for (int i = 0; i < collidable_platforms->size(); ++i) 
 	{
-		BoxCollider& other = collidable_platforms->at(i)->GetCollider();
+		Entity* platform = collidable_platforms->at(i);
+		BoxCollider& other = platform->GetCollider();
 
+		// One way platform check
+		bool b_istype_oneway = typeid(*platform) == typeid(DemoPlatformerOneWayPlatform);
+
+		// Check if grounded or hitting ceiling
 		if (collider.will_touch_bottom(other, 0.01f))
 		{
 			b_is_grounded = true;
 		}
-
 		if (collider.will_touch_top(other, 0.01f))
 		{
 			b_col_directly_above = true;
 		}
 
+		// Jump
 		if (b_pending_jump && b_col_directly_above == false)
 		{
 			if (b_is_grounded || (coyote_time_timer_seconds > 0.f && b_jumping == false)) // Not grounded is fine if within coyote time
@@ -181,49 +210,61 @@ void PlatformerPlayer::resolve_movement(float dt)
 			}
 		}
 
-		if (b_jumped_this_frame == false)
+		// Down collision
+		if (b_jumped_this_frame == false					// don't check bottom collision on the frame we jump
+			&& b_intersecting_oneway_lastframe == false		// don't check bottom collision if we were already intersecting a one way platform last frame
+			&& (b_try_fall_from_oneway == false || b_intersecting_oneway == false))	
 		{
+			// Check collision bottom if move in that direction
 			if (curr_yvel > 0 && collider.will_touch_bottom(other, curr_yvel * dt))
 			{
 				float to_move_down = other.top - collider.height - collider.top;
 
-				Move(0.f, to_move_down);
+				if (to_move_down < 0 == false || b_intersecting_oneway == false)
+				{
+					Move(0.f, to_move_down);
 
-				b_jumping = false;
+					b_jumping = false;
+					b_y_collided = true;
+					curr_yvel = 0.f;
+				}
+			}
+		}
+		// Up Right Left collision
+		if (b_istype_oneway == false)
+		{
+			// Check collision top if move in that direction
+			if (curr_yvel < 0 && collider.will_touch_top(other, curr_yvel * dt))
+			{
+				float to_move_up = (other.top + other.height) - collider.top;
+
+				Move(0.f, to_move_up);
+
 				b_y_collided = true;
 				curr_yvel = 0.f;
 			}
+			// Check collision right if move in that direction
+			if (curr_xvel > 0 && collider.will_touch_right(other, curr_xvel * dt))
+			{
+				float to_move_right = other.left - (collider.left + collider.width);
+
+				Move(to_move_right, 0.f);
+
+				b_x_collided = true;
+				curr_xvel = 0.f;
+			}
+			// Check collision left if move in that direction
+			if (curr_xvel < 0 && collider.will_touch_left(other, curr_xvel * dt))
+			{
+				float to_move_left = (other.left + other.width) - collider.left;
+
+				Move(to_move_left, 0.f);
+
+				b_x_collided = true;
+				curr_xvel = 0.f;
+			}
 		}
 
-		if (curr_yvel < 0 && collider.will_touch_top(other, curr_yvel * dt))
-		{
-			float to_move_up = (other.top + other.height) - collider.top;
-
-			Move(0.f, to_move_up);
-
-			b_y_collided = true;
-			curr_yvel = 0.f;
-		}
-
-		if (curr_xvel > 0 && collider.will_touch_right(other, curr_xvel * dt))
-		{
-			float to_move_right = other.left - (collider.left + collider.width);
-
-			Move(to_move_right, 0.f);
-
-			b_x_collided = true;
-			curr_xvel = 0.f;
-		}
-
-		if (curr_xvel < 0 && collider.will_touch_left(other, curr_xvel * dt)) 
-		{
-			float to_move_left = (other.left + other.width) - collider.left;
-
-			Move(to_move_left, 0.f);
-
-			b_x_collided = true;
-			curr_xvel = 0.f;
-		}
 	}
 
 	// --- Move ---
@@ -237,79 +278,38 @@ void PlatformerPlayer::resolve_movement(float dt)
 	}
 
 	// --- Reset flags and timers ---
-	// coyote time
-	if (b_is_grounded)
+
+	// Coyote time
+	if (b_is_grounded) // if grounded, then coyote timer should be at default value
 	{
 		coyote_time_timer_seconds = coyote_time_default_seconds;
 	}
-	else
+	else if (b_jumping == false) // if we aren't grounded or jumping, then we must be falling
 	{
-		if (b_jumping == false)
-		{
-			coyote_time_timer_seconds -= dt;
-		}
+		coyote_time_timer_seconds -= dt; 
 	}
-	// b_pending_jump and jump buffering
+
+	// Jump buffering and b_pending_jump
 	if (b_pending_jump)
 	{
-		jump_buffer_timer_seconds += dt;
+		jump_buffer_timer_seconds += dt; // tick the jump buffer timer
 	}
 	if (b_pending_jump && b_jumpkey_down == false && jump_buffer_timer_seconds > jump_buffer_maxtap_seconds)
 	{
 		b_pending_jump = false; // not pending jump anymore if we aren't holding jumpkey and past jump_buffer_maxtap_seconds
 	}
-	if (b_pending_jump)
+	if (b_pending_jump && jump_buffer_timer_seconds > jump_buffer_maxhold_seconds)
 	{
-		if (jump_buffer_timer_seconds > jump_buffer_maxhold_seconds)
-		{
-			b_pending_jump = false;
-		}
-	}
-}
-
-void PlatformerPlayer::resolve_outstanding_collisions(float dt)
-{
-	std::vector<BoxCollider> collided_boxcolliders;
-	std::vector<BoxCollider> x_collided_boxcolliders;
-	std::vector<BoxCollider> y_collided_boxcolliders;
-
-	// Find boxes we collided with on x or y axis
-	for (int i = 0; i < collidable_platforms->size(); ++i)
-	{
-		BoxCollider& box = collidable_platforms->at(i)->GetCollider();
-		if (GetCollider().intersects(box))
-		{
-			collided_boxcolliders.push_back(box);
-		}
+		b_pending_jump = false; // not pending jump anymore if we are past the jump_buffer_maxhold_seconds
 	}
 
-	for (BoxCollider box : collided_boxcolliders)
+	// Reset states
+	b_try_fall_from_oneway = false;
+
+	// Remember states for next frame
+	b_intersecting_oneway_lastframe = b_intersecting_oneway;
+	if (b_y_collided) // if we collided in y direction, that means our y has been corrected and we are no longer colliding with a oneway platform this frame
 	{
-		sf::Vector2f pos_correction = collider.resolve_collision_rect(box);
-
-		if (pos_correction.x != 0)
-		{
-			x_collided_boxcolliders.push_back(box);
-		}
-		if (pos_correction.y != 0)
-		{
-			y_collided_boxcolliders.push_back(box);
-		}
-	}
-
-	// Resolve x collisions
-	for (BoxCollider box : x_collided_boxcolliders)
-	{
-		sf::Vector2f pos_correction = collider.resolve_collision_rect(box);
-
-		Move(pos_correction.x, 0.f);
-	}
-
-	// Resolve y collisions
-	for (BoxCollider box : y_collided_boxcolliders)
-	{
-		sf::Vector2f pos_correction = collider.resolve_collision_rect(box);
-
-		Move(0.f, pos_correction.y);
+		b_intersecting_oneway_lastframe = false;
 	}
 }

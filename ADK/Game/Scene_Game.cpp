@@ -20,7 +20,7 @@ void Scene_Game::BeginScene(sf::RenderWindow& window)
 	InitializeSceneView(window);
 
 	ADKSaveLoad Loader;
-	Loader.LoadToScene("1_1", *this);
+	Loader.LoadToScene("gym_oneway", *this);
 
 	Platforms = new EntityList();
 	for (int i = 0; i < Entities.size(); ++i)
@@ -42,7 +42,7 @@ void Scene_Game::Update(float deltaTime)
 {
 	Entities.Update(deltaTime);
 
-	player_debug_text.setString("");
+	player_debug_text.setString("debug");
 }
 
 void Scene_Game::Render(sf::RenderWindow& window)

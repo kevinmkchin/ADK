@@ -71,7 +71,7 @@ Engine::Engine()
 
 void Engine::Run()
 {
-	// Read DefaultGame.ini to set up EngineConfig
+	// TODO Read DefaultGame.ini to set up EngineConfig
 	window.setVerticalSyncEnabled(EngineConfig.bVSyncEnabled);
 	// Initialize framerate and update times
 	sf::Clock clock;
@@ -79,7 +79,7 @@ void Engine::Run()
 	sf::Time timePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
 
 	// Choose the scene
-	ActiveScene = new Scene_Game();
+	ActiveScene = new Scene_Editor();
 	ActiveScene->BeginScene(window);
 
 	// Game process loop
