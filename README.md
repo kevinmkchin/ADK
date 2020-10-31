@@ -14,7 +14,7 @@ ADK is a few things. ADK is a C++ game engine providing tools for building moder
 
 I started this little project because I wanted two things: I wanted my own custom C++ game engine to make games with and I wanted a monolithic repository where I can collect all of my little games and game-related programming projects. Instead of having a ton of small projects and repositories, I wanted to compile them all into a single project. Not only do these projects offer references to learn from when creating my next game, having them included with ADK allows me to share code between the projects. The idea is to create systems and game features that are reusable across projects, so that, for example, if I program an A* pathfinding system in one game I will have it available to use in another game.
 
-<img src="https://i.imgur.com/2183Jnt.png" alt="ayax screenshot 2" width="854" height="480">
+<img src="https://media3.giphy.com/media/P8blTBGB0RCX5EJLO3/giphy.gif" alt="ayax gif" width="854" height="480">
 
 If I was going to create my own custom C++ game engine, I needed it to be better than the other engines available. The goal was to make an engine that was more flexible than Unreal engine and better than Game Maker.
 
