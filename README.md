@@ -12,7 +12,7 @@ ADK is a few things. ADK is a C++ game engine providing tools for building moder
 
 <img src="https://i.imgur.com/HRosCqM.png" alt="ayax screenshot 1" width="854" height="480">
 
-I started this little project because I wanted two things: I wanted my own custom C++ game engine to make games with and I wanted a monolithic repository where I can collect all the little games and game-related programming projects that I do. Instead of having a ton of small projects and repositories, I want to compile them all into a single project. Not only do these projects offer reference to learn from when creating my next game, having them included with ADK allows me to share code between the projects. The idea is to create systems and game features that are reusable across projects, so that, for example, if I program an A* pathfinding system in one game I will have it available to use in another game.
+I started this little project because I wanted two things: I wanted my own custom C++ game engine to make games with and I wanted a monolithic repository where I can collect all of my little games and game-related programming projects. Instead of having a ton of small projects and repositories, I wanted to compile them all into a single project. Not only do these projects offer references to learn from when creating my next game, having them included with ADK allows me to share code between the projects. The idea is to create systems and game features that are reusable across projects, so that, for example, if I program an A* pathfinding system in one game I will have it available to use in another game.
 
 <img src="https://i.imgur.com/2183Jnt.png" alt="ayax screenshot 2" width="854" height="480">
 
@@ -24,7 +24,7 @@ If I was going to create my own custom C++ game engine, I needed it to be better
 - **Sophisticated Integrated Editor**
   - Save and Load Levels
   - Integrated editor allows for working very close to the final product compared to using an external editor
-  - Directly placing entities (which is possible because the editor is integrated) means levels don't have to be in a grid
+  - Directly placing entities (which is possible because the editor is integrated) means levels aren't confined to a grid
   - Configure sprites, collisions, and animations all within the editor
 - **Animation System**
   - Easy to configure multiple animations from a single spritesheet
