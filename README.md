@@ -2,7 +2,7 @@
 
 ### "Hey, good luck on your engine." - [Noel Berry](https://twitter.com/NoelFB) Aug 14, 2020 at a bouldering gym
 
-![ayax logo](https://imgur.com/4ze1jne "ajax")
+![ayax logo](https://i.imgur.com/4ze1jne.png "ajax")
 
 
 
