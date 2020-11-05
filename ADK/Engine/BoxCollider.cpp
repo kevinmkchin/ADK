@@ -6,10 +6,10 @@ BoxCollider::BoxCollider()
 {
 	offset_x = 0;
 	offset_y = 0;
-	left = -1;
-	top = -1;
-	width = -1;
-	height = -1;
+	left = 0;
+	top = 0;
+	width = 0;
+	height = 0;
 }
 
 BoxCollider::BoxCollider(float InLeft, float InTop, float InWidth, float InHeight)

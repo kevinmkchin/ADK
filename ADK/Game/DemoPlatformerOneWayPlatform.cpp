@@ -2,14 +2,12 @@
 
 DemoPlatformerOneWayPlatform::DemoPlatformerOneWayPlatform()
 {
-	set_texture_path_and_load("minimal_industry/black_tileset_c.png");
-	init_collider();
+	load_texture_in_constructor("minimal_industry/black_tileset_b.png");
 
-	sprite_sheet.frame_size.x = 16;
-	sprite_sheet.frame_size.y = 16;
+	init_collider();
 }
 
 void DemoPlatformerOneWayPlatform::init_collider()
 {
-	collider = BoxCollider(get_position().x, get_position().y, 16.f, 6.f);
+	collider = BoxCollider(get_position().x, get_position().y, 8.f, 3.f);
 }

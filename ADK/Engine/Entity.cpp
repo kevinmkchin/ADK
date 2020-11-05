@@ -153,6 +153,16 @@ void Entity::set_depth(int newDepth)
 	// TODO MARK ENTITY LIST DEPTH CHANGED
 }
 
+void Entity::load_texture_in_constructor(const std::string& path)
+{
+	if (b_load_texture_in_constructor_done == false)
+	{
+		set_texture_path_and_load(path);
+
+		b_load_texture_in_constructor_done = true;
+	}
+}
+
 void Entity::load_default_texture()
 {
 	set_texture_path_and_load(texture_path);
@@ -163,6 +173,12 @@ void Entity::set_texture_path_and_load(const std::string& path, bool forceNoUnlo
 	// If we already have a texture, then unload that first
 	if (sprite_sheet.sprite.getTexture() != nullptr && forceNoUnload == false)
 	{
+		// Early return if our current texture is the one we are trying to load
+		if (texture_path == path)
+		{
+			return;
+		}
+
 		ADKAssets::unload(texture_path);
 	}
 	texture_path = path;
@@ -182,8 +198,7 @@ void Entity::set_texture_path_and_load(const std::string& path, bool forceNoUnlo
 
 void Entity::match_framesize_to_texture()
 {
-	sprite_sheet.frame_size.x = sprite_sheet.sprite.getTexture()->getSize().x;
-	sprite_sheet.frame_size.y = sprite_sheet.sprite.getTexture()->getSize().y;
+	set_frame_size(sprite_sheet.sprite.getTexture()->getSize().x, sprite_sheet.sprite.getTexture()->getSize().y);
 	sprite_sheet.sprite.setTextureRect(sf::IntRect((int) get_position().x, (int)get_position().y, sprite_sheet.frame_size.x, sprite_sheet.frame_size.y));
 }
 
@@ -202,6 +217,12 @@ void Entity::set_origin(sf::Vector2f in_origin)
 void Entity::use_origin_for_position(bool b_use)
 {
 	b_use_origin_for_position_private = b_use;
+}
+
+void Entity::set_frame_size(int x, int y)
+{
+	sprite_sheet.frame_size.x = x;
+	sprite_sheet.frame_size.y = y;
 }
 
 sf::Sprite& Entity::get_sprite()

@@ -32,8 +32,10 @@ PlatformerPlayer::PlatformerPlayer()
 	, b_try_fall_from_oneway(false)
 	, b_intersecting_oneway_lastframe(false)
 {
+	load_texture_in_constructor("Game/black16.png");
+
 	collidable_platforms = new EntityList();
-	set_texture_path_and_load("Game/black16.png");
+
 	init_collider();
 }
 

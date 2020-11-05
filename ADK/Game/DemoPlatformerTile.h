@@ -1,6 +1,6 @@
 #pragma once
-#include "../Engine/Entity.h"
-class DemoPlatformerTile : public Entity
+#include "../Engine/TileEntity.h"
+class DemoPlatformerTile : public TileEntity
 {
 
 public:

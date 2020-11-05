@@ -255,7 +255,7 @@ void Scene_Editor::process_events(sf::Event& event)
 		}
 	
 		// Ent rotate with Left Alt
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 		{
 			if (b_alt_rotate == false)
 			{
@@ -270,13 +270,13 @@ void Scene_Editor::process_events(sf::Event& event)
 			}
 			b_alt_rotate = true;
 		}
-		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
+		else if (sf::Event::KeyReleased && (event.key.code == sf::Keyboard::LAlt || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)))
 		{
 			b_alt_rotate = false;
 		}
 
 		// Ent scale with Left Ctrl
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 		{
 			if (b_shift_scale == false)
 			{
@@ -289,7 +289,7 @@ void Scene_Editor::process_events(sf::Event& event)
 			}
 			b_shift_scale = true;
 		}
-		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LShift)
+		else if (sf::Event::KeyReleased && (event.key.code == sf::Keyboard::LShift || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)))
 		{
 			b_shift_scale = false;
 		}
@@ -1052,27 +1052,46 @@ void Scene_Editor::draw_entity_type_ui()
 	{
 		ImGui::BeginGroup();
 		{
+			ImGui::PushID(i);
+
 			sf::Sprite entitySprite = entity_types.at(i)->get_sprite();
+			sf::IntRect display_rect;
+			display_rect.left = entitySprite.getTextureRect().left + (int) entitySprite.getOrigin().x;
+			display_rect.top = entitySprite.getTextureRect().top + (int) entitySprite.getOrigin().y;
+			display_rect.width = entitySprite.getTextureRect().width;
+			display_rect.height = entitySprite.getTextureRect().height;
+			entitySprite.setTextureRect(display_rect);
+
 			const char* EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
-			if (ImGui::ImageButton(entitySprite, sf::Vector2f(30.f, 30.f)))
+			if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
 			{
 				entity_selected_for_creation = entity_types.at(i);
 				curr_tool = TOOL_PLACE;
 			}
 			ImGui::Text(EntityId);
+			ImGui::PopID();
 
-			//++i;
-			//if (i < EntityTypes.size())
-			//{
-			//	entitySprite = EntityTypes.at(i)->GetSprite();
-			//	EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
-			//	if (ImGui::ImageButton(entitySprite, sf::Vector2f(50.f, 50.f)))
-			//	{
-			//		EntitySelectedForCreation = EntityTypes.at(i);
-			//		currTool = TOOL_PLACE;
-			//	}
-			//	ImGui::Text(EntityId);
-			//}
+			++i;
+			if (i < entity_types.size())
+			{
+				ImGui::PushID(i);
+
+				entitySprite = entity_types.at(i)->get_sprite();
+				display_rect.left = entitySprite.getTextureRect().left + (int) entitySprite.getOrigin().x;
+				display_rect.top = entitySprite.getTextureRect().top + (int) entitySprite.getOrigin().y;
+				display_rect.width = entitySprite.getTextureRect().width;
+				display_rect.height = entitySprite.getTextureRect().height;
+				entitySprite.setTextureRect(display_rect);
+
+				EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
+				if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
+				{
+					entity_selected_for_creation = entity_types.at(i);
+					curr_tool = TOOL_PLACE;
+				}
+				ImGui::Text(EntityId);
+				ImGui::PopID();
+			}
 		}
 		ImGui::EndGroup();
 		ImGui::SameLine();
