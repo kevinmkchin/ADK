@@ -1,10 +1,16 @@
 #include "Entity.h"
 #include "ADKAssets.h"
 
+
+//////////////////////////////////////////////////////////////
+// --- BASE ENTITY CONSTRUCTORS AND DESTRUCTOR ---
+
 Entity::Entity()
 	: bActive(true)
 	, bVisible(true)
 	, bCollidable(false)
+	, origin_private(sf::Vector2f(0.f,0.f))
+	, b_use_origin_for_position_private(true)
 {
 	SetPosition(0.f, 0.f);
 	SetRotation(0.f);
@@ -16,6 +22,8 @@ Entity::Entity(float x, float y)
 	: bActive(true)
 	, bVisible(true)
 	, bCollidable(false)
+	, origin_private(sf::Vector2f(0.f, 0.f))
+	, b_use_origin_for_position_private(true)
 {
 	SetPosition(x, y);
 	SetRotation(0.f);
@@ -27,6 +35,8 @@ Entity::Entity(float x, float y, float inRot, float inScale)
 	: bActive(true)
 	, bVisible(true)
 	, bCollidable(false)
+	, origin_private(sf::Vector2f(0.f, 0.f))
+	, b_use_origin_for_position_private(true)
 {
 	SetPosition(x, y);
 	SetRotation(inRot);
@@ -39,6 +49,8 @@ Entity::~Entity()
 	// Decrement texture reference count
 	ADKAssets::Unload(TexturePath);
 }
+
+//////////////////////////////////////////////////////////////
 
 void Entity::Update(float deltaTime)
 {
@@ -60,10 +72,6 @@ void Entity::DebugRender(sf::RenderTarget& target)
 	sf::RectangleShape col;
 	col.setPosition(collider.left, collider.top);
 	col.setSize(sf::Vector2f(collider.width, collider.height));
-	if (collider.height < 0)
-	{
-		printf("wtf");
-	}
 	col.setFillColor(sf::Color(0,0,255,80));
 	target.draw(col);
 }
@@ -82,17 +90,30 @@ void Entity::Move(sf::Vector2f delta)
 
 sf::Vector2f Entity::GetPosition() const
 {
-	return SpriteSheet.Sprite.getPosition();
-}
-void Entity::SetPosition(sf::Vector2f newPos)
-{
-	SpriteSheet.Sprite.setPosition(newPos);
-	collider.set_pos(newPos);
+	sf::Vector2f out_pos = SpriteSheet.Sprite.getPosition();
+	if (b_use_origin_for_position_private == false)
+	{
+		out_pos -= origin_private * GetScale();
+	}
+
+	return out_pos;
 }
 void Entity::SetPosition(float x, float y)
 {
-	SpriteSheet.Sprite.setPosition(x, y);
-	collider.set_pos(x, y);
+	SetPosition(sf::Vector2(x, y));
+}
+void Entity::SetPosition(sf::Vector2f newPos)
+{
+	if (b_use_origin_for_position_private)
+	{
+		SpriteSheet.Sprite.setPosition(newPos);
+		collider.set_pos(newPos);
+	}
+	else
+	{
+		SpriteSheet.Sprite.setPosition(newPos + (origin_private * GetScale()));
+		collider.set_pos(newPos);
+	}
 }
 float Entity::GetRotation() const
 {
@@ -164,6 +185,23 @@ void Entity::MatchFrameSizeToTexture()
 	SpriteSheet.FrameSize.x = SpriteSheet.Sprite.getTexture()->getSize().x;
 	SpriteSheet.FrameSize.y = SpriteSheet.Sprite.getTexture()->getSize().y;
 	SpriteSheet.Sprite.setTextureRect(sf::IntRect((int) GetPosition().x, (int)GetPosition().y, SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
+}
+
+void Entity::set_origin(float x, float y)
+{
+	origin_private = sf::Vector2f(x, y);
+	GetSprite().setOrigin(origin_private);
+}
+
+void Entity::set_origin(sf::Vector2f in_origin)
+{
+	origin_private = in_origin;
+	GetSprite().setOrigin(origin_private);
+}
+
+void Entity::use_origin_for_position(bool b_use)
+{
+	b_use_origin_for_position_private = b_use;
 }
 
 sf::Sprite& Entity::GetSprite()

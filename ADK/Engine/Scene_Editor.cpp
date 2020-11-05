@@ -907,6 +907,12 @@ void Scene_Editor::DrawEntityPropertyUI()
 					std::vector<FAnimation>::iterator nth = EntitySelectedForProperties->SpriteSheet.Animations.begin() + i;
 					EntitySelectedForProperties->SpriteSheet.Animations.erase(nth);
 					--i;
+
+					// Make sure selected animation index isn't out of bounds
+					if (EntitySelectedForProperties->SpriteSheet.Animations.size() >= EntitySelectedForProperties->SpriteSheet.SelectedAnimation)
+					{
+						--(EntitySelectedForProperties->SpriteSheet.SelectedAnimation);
+					}
 				}
 
 				ImGui::PopID();
