@@ -1,30 +1,30 @@
 #include "EntityList.h"
 
 EntityList::EntityList()
-	: bDepthChangedFlag(false)
+	: b_depth_changed_flag(false)
 {
 }
 
-void EntityList::Update(float deltaTime)
+void EntityList::update(float deltaTime)
 {
 	// Update the entities
 	for (auto& entity : entities)
 	{
-		if (entity->IsActive())
+		if (entity->is_active())
 		{
-			entity->Update(deltaTime);
+			entity->update(deltaTime);
 		}
 	}
 
 	// Sort the entities by depth only if MarkDepthChanged
-	if (bDepthChangedFlag)
+	if (b_depth_changed_flag)
 	{
 		std::sort(entities.begin(), entities.end(), DepthComparator());
-		bDepthChangedFlag = false;
+		b_depth_changed_flag = false;
 	}
 }
 
-void EntityList::Render(sf::RenderTarget& target, bool bDebug /*= false*/)
+void EntityList::render(sf::RenderTarget& target, bool bDebug /*= false*/)
 {
 	// Assume sorted
 	// Render the entities	
@@ -32,38 +32,38 @@ void EntityList::Render(sf::RenderTarget& target, bool bDebug /*= false*/)
 	{
 		if (bDebug == false)
 		{
-			if (entity->IsVisible())
+			if (entity->is_visible())
 			{
-				entity->Render(target);
+				entity->render(target);
 			}
 		}
 		else
 		{
-			entity->DebugRender(target);
+			entity->render_debug(target);
 		}
 	}
 }
 
-void EntityList::RenderWithDepth(sf::RenderTarget& target, int lower, int upper, bool bDebug /*= false*/)
+void EntityList::render_with_depth(sf::RenderTarget& target, int lower, int upper, bool bDebug /*= false*/)
 {
 	// Assume sorted
 	// Render the entities	
 	for (auto& entity : entities)
 	{
-		if (entity->GetDepth() >= lower)
+		if (entity->get_depth() >= lower)
 		{
-			if (entity->GetDepth() <= upper)
+			if (entity->get_depth() <= upper)
 			{
 				if (bDebug == false)
 				{
-					if (entity->IsVisible())
+					if (entity->is_visible())
 					{
-						entity->Render(target);
+						entity->render(target);
 					}
 				}
 				else
 				{
-					entity->DebugRender(target);
+					entity->render_debug(target);
 				}
 			}
 			else
@@ -79,42 +79,42 @@ void EntityList::RenderWithDepth(sf::RenderTarget& target, int lower, int upper,
 	}
 }
 
-void EntityList::RenderOnly(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, bool bDebug /*= false*/)
+void EntityList::render_only(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, bool bDebug /*= false*/)
 {
 	for (auto& entity : entitiesToRender)
 	{
 		if (bDebug == false)
 		{
-			if (entity->IsVisible())
+			if (entity->is_visible())
 			{
-				entity->Render(target);
+				entity->render(target);
 			}
 		}
 		else
 		{
-			entity->DebugRender(target);
+			entity->render_debug(target);
 		}
 	}
 }
 
-void EntityList::RenderOnlyWithDepth(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, int lower, int upper, bool bDebug /*= false*/)
+void EntityList::render_only_with_depth(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, int lower, int upper, bool bDebug /*= false*/)
 {
 	for (auto& entity : entitiesToRender)
 	{
-		if (entity->GetDepth() >= lower)
+		if (entity->get_depth() >= lower)
 		{
-			if (entity->GetDepth() <= upper)
+			if (entity->get_depth() <= upper)
 			{
 				if (bDebug == false)
 				{
-					if (entity->IsVisible())
+					if (entity->is_visible())
 					{
-						entity->Render(target);
+						entity->render(target);
 					}
 				}
 				else
 				{
-					entity->DebugRender(target);
+					entity->render_debug(target);
 				}
 			}
 			else
@@ -129,9 +129,9 @@ void EntityList::RenderOnlyWithDepth(sf::RenderTarget& target, std::vector<Entit
 	}
 }
 
-void EntityList::MarkDepthChanged()
+void EntityList::mark_depth_changed()
 {
-	bDepthChangedFlag = true;
+	b_depth_changed_flag = true;
 }
 
 bool EntityList::add(Entity* newEntity, bool bCheckUnique)
@@ -146,7 +146,8 @@ bool EntityList::add(Entity* newEntity, bool bCheckUnique)
 	}
 	// Add at the end
 	entities.push_back(newEntity);
-	// MARK DEPTH CHANGED
+	// Mark depth changed
+	mark_depth_changed();
 	return true;
 }
 
@@ -164,11 +165,11 @@ bool EntityList::remove(Entity* entityToRemove)
 	return true;
 }
 
-bool EntityList::removeAndDestroy(Entity* entityToRemove)
+bool EntityList::remove_and_destroy(Entity* entityToRemove)
 {
 	bool success = remove(entityToRemove);
 	// Destroy
-	delete(entityToRemove);
+	delete entityToRemove;
 	return success;
 }
 

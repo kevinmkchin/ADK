@@ -9,52 +9,52 @@
 
 Scene_Game::Scene_Game()
 {
-	ViewConfig.SizeX = 640.f;
-	ViewConfig.SizeY = 360.f;
-	ViewConfig.CenterX = 320.f;
-	ViewConfig.CenterY = 180.f;
+	view_config.size_x = 640.f;
+	view_config.size_y = 360.f;
+	view_config.center_x = 320.f;
+	view_config.center_y = 180.f;
 }
 
-void Scene_Game::BeginScene(sf::RenderWindow& window)
+void Scene_Game::begin_scene(sf::RenderWindow& window)
 {
-	InitializeSceneView(window);
+	initialize_scene_view(window);
 
 	ADKSaveLoad Loader;
-	Loader.LoadToScene("gym_oneway", *this);
+	Loader.load_to_scene("gym_oneway", *this);
 
-	Platforms = new EntityList();
-	for (int i = 0; i < Entities.size(); ++i)
+	platforms = new EntityList();
+	for (int i = 0; i < entities.size(); ++i)
 	{
-		Platforms->add(Entities.at(i));
+		platforms->add(entities.at(i));
 	}
 
-	Player = new PlatformerPlayer();
-	Player->SetPosition(100.f, 100.f);
-	Entities.add(Player);
+	player = new PlatformerPlayer();
+	player->set_position(100.f, 100.f);
+	entities.add(player);
 
-	Player->collidable_platforms = Platforms;
+	player->collidable_platforms = platforms;
 	font.loadFromFile("Assets/Fonts/arial.ttf");
 	player_debug_text.setFont(font);
 
 }
 
-void Scene_Game::Update(float deltaTime)
+void Scene_Game::update(float deltaTime)
 {
-	Entities.Update(deltaTime);
+	entities.update(deltaTime);
 
 	player_debug_text.setString("debug");
 }
 
-void Scene_Game::Render(sf::RenderWindow& window)
+void Scene_Game::render(sf::RenderWindow& window)
 {
-	//Entities.Render(window);
+	entities.render(window);
 
 	window.draw(player_debug_text);
 
-	Entities.Render(window, true);
+	entities.render(window, true);
 }
 
-void Scene_Game::PreRender(sf::RenderWindow& window)
+void Scene_Game::render_pre(sf::RenderWindow& window)
 {
 	window.clear(MC_SOFTRED);
 }

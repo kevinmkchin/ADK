@@ -33,18 +33,18 @@ PlatformerPlayer::PlatformerPlayer()
 	, b_intersecting_oneway_lastframe(false)
 {
 	collidable_platforms = new EntityList();
-	SetTexturePathAndLoad("Game/black16.png");
-	InitCollider();
+	set_texture_path_and_load("Game/black16.png");
+	init_collider();
 }
 
-void PlatformerPlayer::InitCollider()
+void PlatformerPlayer::init_collider()
 {
-	collider = BoxCollider(GetPosition().x, GetPosition().y, 16.f, 16.f);
+	collider = BoxCollider(get_position().x, get_position().y, 16.f, 16.f);
 }
 
-void PlatformerPlayer::Update(float deltaTime)
+void PlatformerPlayer::update(float deltaTime)
 {
-	Entity::Update(deltaTime);
+	Entity::update(deltaTime);
 
 	read_input(deltaTime);
 
@@ -94,8 +94,7 @@ void PlatformerPlayer::read_input(float dt)
 	if (b_s_pressed)
 	{
 		curr_yvel += extra_down_acc * dt;
-		b_try_fall_from_oneway = true;
-		// TODO GAME to make movement interesting, holding s could make air deceleration slower and air acceleration faster
+		// b_try_fall_from_oneway = true; // UNCOMMENT IF YOU TO BE ABLE TO DROP DOWN FROM ONE WAY PLATFORMS
 	}
 	if (b_a_pressed)
 	{
@@ -164,7 +163,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 	// --- Figure out our current situation ---
 	for (int i = 0; i < collidable_platforms->size(); ++i)
 	{
-		BoxCollider& other = collidable_platforms->at(i)->GetCollider();
+		BoxCollider& other = collidable_platforms->at(i)->get_collider();
 		
 		// one way platform check
 		bool b_istype_oneway = typeid(*(collidable_platforms->at(i))) == typeid(DemoPlatformerOneWayPlatform);
@@ -183,7 +182,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 	for (int i = 0; i < collidable_platforms->size(); ++i) 
 	{
 		Entity* platform = collidable_platforms->at(i);
-		BoxCollider& other = platform->GetCollider();
+		BoxCollider& other = platform->get_collider();
 
 		// One way platform check
 		bool b_istype_oneway = typeid(*platform) == typeid(DemoPlatformerOneWayPlatform);
@@ -222,7 +221,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 
 				if (to_move_down < 0 == false || b_intersecting_oneway == false)
 				{
-					Move(0.f, to_move_down);
+					move(0.f, to_move_down);
 
 					b_jumping = false;
 					b_y_collided = true;
@@ -238,7 +237,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 			{
 				float to_move_up = (other.top + other.height) - collider.top;
 
-				Move(0.f, to_move_up);
+				move(0.f, to_move_up);
 
 				b_y_collided = true;
 				curr_yvel = 0.f;
@@ -248,7 +247,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 			{
 				float to_move_right = other.left - (collider.left + collider.width);
 
-				Move(to_move_right, 0.f);
+				move(to_move_right, 0.f);
 
 				b_x_collided = true;
 				curr_xvel = 0.f;
@@ -258,7 +257,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 			{
 				float to_move_left = (other.left + other.width) - collider.left;
 
-				Move(to_move_left, 0.f);
+				move(to_move_left, 0.f);
 
 				b_x_collided = true;
 				curr_xvel = 0.f;
@@ -270,11 +269,11 @@ void PlatformerPlayer::resolve_movement(float dt)
 	// --- Move ---
 	if (!b_x_collided) 
 	{
-		Move(curr_xvel * dt, 0.f);
+		move(curr_xvel * dt, 0.f);
 	}
 	if (!b_y_collided) 
 	{
-		Move(0.f, curr_yvel * dt);
+		move(0.f, curr_yvel * dt);
 	}
 
 	// --- Reset flags and timers ---

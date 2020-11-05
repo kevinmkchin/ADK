@@ -2,63 +2,63 @@
 #include "../ADKEditorMetaRegistry.h"
 
 Scene::Scene()
-	: Entities(EntityList())
+	: entities(EntityList())
 {
 }
 
-void Scene::BeginScene(sf::RenderWindow& window)
+void Scene::begin_scene(sf::RenderWindow& window)
 {	
 
 }
 
-void Scene::EndScene(sf::RenderWindow& window)
+void Scene::end_scene(sf::RenderWindow& window)
 {
 	// Reset to default view
 	window.setView(window.getDefaultView());
 }
 
-void Scene::ProcessEvents(sf::Event& event)
+void Scene::process_events(sf::Event& event)
 {
 
 }
 
-void Scene::PreUpdate(float deltaTime)
+void Scene::update_pre(float deltaTime)
 {
 
 }
 
-void Scene::Update(float deltaTime)
+void Scene::update(float deltaTime)
 {
 
 }
 
-void Scene::PostUpdate(float deltaTime)
+void Scene::update_post(float deltaTime)
 {
 
 }
 
-void Scene::PreRender(sf::RenderWindow& window)
+void Scene::render_pre(sf::RenderWindow& window)
 {
 
 }
 
-void Scene::Render(sf::RenderWindow& window)
+void Scene::render(sf::RenderWindow& window)
 {
 
 }
 
-void Scene::PostRender(sf::RenderWindow& window)
+void Scene::render_post(sf::RenderWindow& window)
 {
 
 }
 
-void Scene::InitializeSceneView(sf::RenderWindow& window)
+void Scene::initialize_scene_view(sf::RenderWindow& window)
 {
 	// Initialize SceneView
-	SceneView.setCenter(sf::Vector2f(ViewConfig.CenterX, ViewConfig.CenterY));
-	SceneView.setSize(sf::Vector2f(ViewConfig.SizeX, ViewConfig.SizeY));
-	SceneView.setRotation(ViewConfig.Rotation);
-	SceneView.zoom(ViewConfig.Zoom);
+	scene_view.setCenter(sf::Vector2f(view_config.center_x, view_config.center_y));
+	scene_view.setSize(sf::Vector2f(view_config.size_x, view_config.size_y));
+	scene_view.setRotation(view_config.rotation);
+	scene_view.zoom(view_config.zoom);
 	// Set view
-	window.setView(SceneView);
+	window.setView(scene_view);
 }

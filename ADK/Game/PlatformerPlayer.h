@@ -9,9 +9,9 @@ class PlatformerPlayer : public Entity
 public:
 	PlatformerPlayer();
 
-	virtual void Update(float deltaTime) override;
+	virtual void update(float deltaTime) override;
 
-	virtual void InitCollider() override;
+	virtual void init_collider() override;
 
 	EntityList* collidable_platforms;
 

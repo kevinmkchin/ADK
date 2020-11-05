@@ -8,11 +8,11 @@ struct FAnimation
 {
 public:
 	// Number of frames in this animation. maybe replace with end frame?
-	std::size_t NumFrames = 1; 
+	std::size_t num_frames = 1; 
 	// Starting frame of this animation
-	std::size_t StartFrame = 0;
+	std::size_t start_frame = 0;
 	// Duration of animation (duration of each frame would then be AnimDuration / NumFrames). 0 AnimDuration means static sprite/animation
-	sf::Time AnimDuration = sf::seconds(0.f);
+	sf::Time anim_duration = sf::seconds(0.f);
 };
 
 struct FSpriteSheet
@@ -20,21 +20,21 @@ struct FSpriteSheet
 public:
 // Expose to editor:
 	// Sprite to show. Also holds the texture.
-	sf::Sprite Sprite;
+	sf::Sprite sprite;
 	// Size of sprite frame in the texture.
-	sf::Vector2i FrameSize = sf::Vector2i(0,0);
+	sf::Vector2i frame_size = sf::Vector2i(0,0);
 	// Repeat anim or no
-	bool bRepeat = true;
+	bool b_repeat = true;
 	// Index of currently selected animation
-	std::size_t SelectedAnimation = 0;
+	std::size_t selected_animation = 0;
 	// Animations for this sprite
-	std::vector<FAnimation> Animations = { FAnimation() };
+	std::vector<FAnimation> animations = { FAnimation() };
 
 // Don't expose to editor;
 	// Keeps track of current frame.
-	std::size_t CurrentFrame = 0;
+	std::size_t current_frame = 0;
 	// Keeps track of elapsed time since last frame.
-	sf::Time ElapsedTime = sf::seconds(0);
+	sf::Time elapsed_time = sf::seconds(0);
 };
 
 /* KEEP THIS BASE ENTITY CLASS LIGHTWEIGHT */
@@ -50,11 +50,11 @@ public:
 	// --- UPDATE ---
 
 	// Do game logic here, but do not render here. Not called if the Entity is not Active. Handles animation logic.
-	virtual void Update(float deltaTime);
+	virtual void update(float deltaTime);
 
 protected:
 	// Tick animations
-	void UpdateAnimations(float deltaTime);
+	void update_animations(float deltaTime);
 
 	///////////////////////////////////////////////////////////
 
@@ -63,11 +63,10 @@ public:
 	// --- RENDER ---
 
 	// Draw the Entity here. Not called if the Entity is not Visible
-	virtual void Render(sf::RenderTarget& target);
-
+	virtual void render(sf::RenderTarget& target);
 
 	// Draw any debug visuals here. Only called if the console is open, but still called even if the Entity is not Visible
-	virtual void DebugRender(sf::RenderTarget& target);
+	virtual void render_debug(sf::RenderTarget& target);
 
 	///////////////////////////////////////////////////////////
 
@@ -75,18 +74,18 @@ public:
 	///////////////////////////////////////////////////////////
 	// --- TRANSFORM ---
 
-	void Move(float x, float y);
-	void Move(sf::Vector2f delta);
+	void move(float x, float y);
+	void move(sf::Vector2f delta);
 
-	sf::Vector2f GetPosition() const;
-	void SetPosition(float x, float y);
-	void SetPosition(sf::Vector2f newPos);
+	sf::Vector2f get_position() const;
+	void set_position(float x, float y);
+	void set_position(sf::Vector2f newPos);
 
-	float GetRotation() const;
-	void SetRotation(float newRot, bool bAffectCollider = false);
+	float get_rotation() const;
+	void set_rotation(float newRot, bool bAffectCollider = false);
 
-	float GetScale() const;
-	void SetScale(float newScale, bool bAffectCollider = false);
+	float get_scale() const;
+	void set_scale(float newScale, bool bAffectCollider = false);
 
 	///////////////////////////////////////////////////////////
 
@@ -94,28 +93,28 @@ public:
 	///////////////////////////////////////////////////////////
 	// --- ENTITY ---
 
-	inline bool IsActive() const { return bActive; }
-	inline void SetActive(bool Active) { bActive = Active; }
+	inline bool is_active() const { return b_active; }
+	inline void set_active(bool Active) { b_active = Active; }
 
-	inline bool IsVisible() const { return bVisible; }
-	inline void SetVisible(bool Visible) { bVisible = Visible; }
+	inline bool is_visible() const { return b_visible; }
+	inline void set_visible(bool Visible) { b_visible = Visible; }
 
-	inline bool IsCollidable() const { return bCollidable; }
-	inline void SetCollidable(bool Collidable) { bCollidable = Collidable; }
+	inline bool is_collidable() const { return b_collidable; }
+	inline void set_collidable(bool Collidable) { b_collidable = Collidable; }
 
-	inline int GetDepth() const { return depth; }
-	void SetDepth(int newDepth);
+	inline int get_depth() const { return depth; }
+	void set_depth(int newDepth);
 
 	// Return SpriteSheet.Sprite
-	sf::Sprite& GetSprite();
+	sf::Sprite& get_sprite();
 
-	BoxCollider& GetCollider() { return collider; }
-	BoxCollider GetColliderCopy() const { return collider; }
+	BoxCollider& get_collider() { return collider; }
+	BoxCollider get_collider_copy() const { return collider; }
 
-	virtual void InitCollider();
+	virtual void init_collider();
 
 	// Entity copier
-	static void Copy(Entity& target, const Entity& source);
+	static void copy(Entity& target, const Entity& source);
 
 	///////////////////////////////////////////////////////////
 
@@ -123,13 +122,13 @@ public:
 	///////////////////////////////////////////////////////////
 	// --- TEXTURES ---
 
-	std::string GetTexturePath() const { return TexturePath; }
+	std::string get_texture_path() const { return texture_path; }
 
 	// NEVER call these from virtual constructors. Otherwise, the textures for all base types will also end up being loaded.
-	virtual void LoadDefaultTexture();
-	void SetTexturePathAndLoad(const std::string& path, bool forceNoUnload = false);
+	virtual void load_default_texture();
+	void set_texture_path_and_load(const std::string& path, bool forceNoUnload = false);
 
-	void MatchFrameSizeToTexture();
+	void match_framesize_to_texture();
 
 	///////////////////////////////////////////////////////////
 
@@ -154,11 +153,11 @@ protected:
 public:
 
 	// Used only to display entity id in the editor
-	std::string EntityId;
+	std::string entity_id;
 
 
 	// Contains the sprite and all visual information
-	FSpriteSheet SpriteSheet;
+	FSpriteSheet sprite_sheet;
 
 protected:
 
@@ -166,8 +165,13 @@ protected:
 	TODO remember to set the correct texture path
 	You could also do SetTexturePathAndLoad, but be sure all other essential logic from InitialSpriteSheet will still get done.
 	*/
-	std::string TexturePath = "adk/t_missing.png";
+	std::string texture_path = "adk/t_missing.png";
 
+	BoxCollider collider;	// Collider
+
+	// TAGS
+
+private:
 
 	/*	Depth (e.g. z-value for drawing)
 	Use cases:
@@ -176,25 +180,10 @@ protected:
 	*/
 	int depth;
 
+	bool b_active;			// Whether to Update this entity
+	bool b_visible;			// Whether to Render this entity
+	bool b_collidable;		// Whether to Collide with this entity
 
-	// Whether to Update this entity
-	bool bActive;
-
-
-	// Whether to Render this entity
-	bool bVisible;
-	
-
-	// Whether to Collide with this entity
-	bool bCollidable;
-
-
-	// Collider
-	BoxCollider collider;
-
-	// TAGS
-
-private:
 	///////////////////////////////////////////////////////////
 	// --- ORIGIN ---
 

@@ -12,18 +12,18 @@ public:
 	///////////////////////////////////////////////////////////
 	// --- ENTITIES ---
 
-	void Update(float deltaTime);
+	void update(float deltaTime);
 
-	void Render(sf::RenderTarget& target, bool bDebug = false);
+	void render(sf::RenderTarget& target, bool bDebug = false);
 
-	void RenderWithDepth(sf::RenderTarget& target, int lower, int upper, bool bDebug = false);
+	void render_with_depth(sf::RenderTarget& target, int lower, int upper, bool bDebug = false);
 
-	void RenderOnly(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, bool bDebug = false);
+	void render_only(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, bool bDebug = false);
 
-	void RenderOnlyWithDepth(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, int lower, int upper, bool bDebug = false);
+	void render_only_with_depth(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, int lower, int upper, bool bDebug = false);
 
 	// Sets the depth changed flag to be true which guarantees the list will be sorted (by depth) at the end of the next update tick (or current update tick if this is called during entity update).
-	void MarkDepthChanged();
+	void mark_depth_changed();
 
 	///////////////////////////////////////////////////////////
 
@@ -38,7 +38,7 @@ public:
 	bool remove(Entity* entityToRemove);
 
 	// Removes given entity from list if it exists and destroys the entity. Return whether removal was successful.
-	bool removeAndDestroy(Entity* entityToRemove);
+	bool remove_and_destroy(Entity* entityToRemove);
 
 	// Empty the list
 	void clear();
@@ -68,7 +68,7 @@ private:
 
 
 	// Whether or not to sort this 
-	bool bDepthChangedFlag;
+	bool b_depth_changed_flag;
 
 };
 
@@ -78,8 +78,8 @@ struct DepthComparator
 	// Compare 2 Entity references by depth
 	bool operator ()(const Entity* entity1, const Entity* entity2)
 	{
-		if (entity1->GetDepth() == entity2->GetDepth())
+		if (entity1->get_depth() == entity2->get_depth())
 			return false;
-		return entity1->GetDepth() < entity2->GetDepth();
+		return entity1->get_depth() < entity2->get_depth();
 	}
 };

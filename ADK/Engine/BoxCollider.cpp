@@ -4,8 +4,8 @@
 
 BoxCollider::BoxCollider()
 {
-	offsetX = 0;
-	offsetY = 0;
+	offset_x = 0;
+	offset_y = 0;
 	left = -1;
 	top = -1;
 	width = -1;
@@ -14,8 +14,8 @@ BoxCollider::BoxCollider()
 
 BoxCollider::BoxCollider(float InLeft, float InTop, float InWidth, float InHeight)
 {
-	offsetX = 0;
-	offsetY = 0;
+	offset_x = 0;
+	offset_y = 0;
 	left = InLeft;
 	top = InTop;
 	width = InWidth;
@@ -24,24 +24,24 @@ BoxCollider::BoxCollider(float InLeft, float InTop, float InWidth, float InHeigh
 
 BoxCollider::BoxCollider(float InLeft, float InTop, float InOffsetX, float InOffsetY, float InWidth, float InHeight)
 {
-	offsetX = InOffsetX;
-	offsetY = InOffsetY;
-	left = offsetX + InLeft;
-	top = offsetY + InTop;
+	offset_x = InOffsetX;
+	offset_y = InOffsetY;
+	left = offset_x + InLeft;
+	top = offset_y + InTop;
 	width = InWidth;
 	height = InHeight;
 }
 
 void BoxCollider::set_pos(float x, float y)
 {
-	left = offsetX + x;
-	top = offsetY + y;
+	left = offset_x + x;
+	top = offset_y + y;
 }
 
 void BoxCollider::set_pos(sf::Vector2f pos)
 {
-	left = offsetX + pos.x;
-	top = offsetY + pos.y;
+	left = offset_x + pos.x;
+	top = offset_y + pos.y;
 }
 
 void BoxCollider::move(float x, float y)

@@ -8,8 +8,8 @@ struct BoxCollider
 	float top;		// y position
 	float width;	// width of box
 	float height;	// height of box
-	float offsetX;	// x offset from left
-	float offsetY;	// y offset from top
+	float offset_x;	// x offset from left
+	float offset_y;	// y offset from top
 
 	// Set top-left position of box collider
 	void set_pos(float x, float y);

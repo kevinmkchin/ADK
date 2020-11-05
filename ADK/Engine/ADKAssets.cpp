@@ -1,11 +1,11 @@
 #include "ADKAssets.h"
 
-sf::Texture& ADKAssets::Get(const std::string& fileName)
+sf::Texture& ADKAssets::get(const std::string& fileName)
 {
-	return *ADKTextures::Get(fileName);
+	return *ADKTextures::get(fileName);
 }
 
-void ADKAssets::Unload(const std::string& fileName)
+void ADKAssets::unload(const std::string& fileName)
 {
-	ADKTextures::Unload(fileName);
+	ADKTextures::unload(fileName);
 }

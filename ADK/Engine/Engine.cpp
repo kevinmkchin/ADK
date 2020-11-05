@@ -17,18 +17,18 @@ DEFINE_ADK_TEXTURES
 struct FEngineConfig
 {
 	// How often game logic is ticked/updated
-	uint16_t TicksPerSecond = 60;
+	uint16_t ticks_per_second = 60;
 	// Whether to render only on game logic ticks (i.e. tie framerate to game logic?)
-	bool bCapFramerateToTicks = true;
+	bool b_cap_framerate_to_ticks = true;
 	// Whether to use V-Sync
-	bool bVSyncEnabled = false;
+	bool b_vsync_enabled = false;
 	// Game window resolution
-	uint16_t DefaultWindowWidth = 1600;
-	uint16_t DefaultWindowHeight = 900;
+	uint16_t default_window_width = 1600;
+	uint16_t default_window_height = 900;
 	// Whether we can resize window
-	bool bCanResize = true;
+	bool b_can_resize = true;
 	// Default window background color
-	sf::Color WindowBackgroundColor = MC_CHARCOAL;
+	sf::Color window_background_color = MC_CHARCOAL;
 };
 
 class Engine
@@ -37,81 +37,81 @@ public:
 	Engine();
 
 	// Start game process
-	void Run();
+	void run();
 
 private:
 
 	// Process user inputs
-	void ProcessEvents();
+	void process_events();
 
 	// Update game logic
-	void Update(float deltaTime);
+	void update(float deltaTime);
 
 	// Render game to screen
-	void Render();
+	void render();
 
 private:
 	// Struct holding engine configurations and settings
-	FEngineConfig EngineConfig;
+	FEngineConfig engine_config;
 
 	// Represents the game window
 	sf::RenderWindow window;
 
 	// Represents the active scene showing to the player
-	Scene* ActiveScene;
+	Scene* active_scene;
 
 };
 
 Engine::Engine()
-	: window(sf::VideoMode(EngineConfig.DefaultWindowWidth, EngineConfig.DefaultWindowHeight), 
+	: window(sf::VideoMode(engine_config.default_window_width, engine_config.default_window_height), 
 		"ADK Engine", 
-		(EngineConfig.bCanResize ? sf::Style::Default : sf::Style::Close))
+		(engine_config.b_can_resize ? sf::Style::Default : sf::Style::Close))
 {
 }
 
-void Engine::Run()
+void Engine::run()
 {
 	// TODO Read DefaultGame.ini to set up EngineConfig
-	window.setVerticalSyncEnabled(EngineConfig.bVSyncEnabled);
+	window.setVerticalSyncEnabled(engine_config.b_vsync_enabled);
 	// Initialize framerate and update times
 	sf::Clock clock;
-	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	sf::Time timePerFrame = sf::seconds(1.f / EngineConfig.TicksPerSecond);
+	sf::Time time_since_last_update = sf::Time::Zero;
+	sf::Time time_per_frame = sf::seconds(1.f / engine_config.ticks_per_second);
 
 	// Choose the scene
-	ActiveScene = new Scene_Editor();
-	ActiveScene->BeginScene(window);
+	active_scene = new Scene_Editor();
+	active_scene->begin_scene(window);
 
 	// Game process loop
 	while (window.isOpen())
 	{
-		if (ActiveScene != nullptr)
+		if (active_scene != nullptr)
 		{
 			// Process player inputs in case we don't do an update tick this frame
-			ProcessEvents();
+			process_events();
 
 			// Fixed timestep
-			timeSinceLastUpdate += clock.restart();
-			while (timeSinceLastUpdate > timePerFrame) // Loop until timeSinceLastUpdate is below required timePerFrame
+			time_since_last_update += clock.restart();
+			while (time_since_last_update > time_per_frame) // Loop until time_since_last_update is below required time_per_frame
 			{
-				timeSinceLastUpdate -= timePerFrame;
+				time_since_last_update -= time_per_frame;
 
-				// PROCESS GAME EVENTS AND PLAYER INPUT
-				ProcessEvents();
+				// PROCESS GAME EVENTS
+				process_events();
 
 				// UPDATE GAME (deltaTime is in SECONDS) ***
-				Update(timePerFrame.asSeconds());
+				update(time_per_frame.asSeconds());
 
 				// RENDER GAME if framerate capped to game ticks
-				if (EngineConfig.bCapFramerateToTicks) { Render(); }
+				if (engine_config.b_cap_framerate_to_ticks) { render(); }
 			}
 			// RENDER GAME if framerate NOT capped to game ticks
-			if (EngineConfig.bCapFramerateToTicks == false) { Render(); }
+			if (engine_config.b_cap_framerate_to_ticks == false) { render(); }
 		}
 	}
 }
 
-void Engine::ProcessEvents()
+void Engine::process_events()
 {
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -123,24 +123,24 @@ void Engine::ProcessEvents()
 		}
 
 		// Process events for the ActiveScene
-		ActiveScene->ProcessEvents(event);
+		active_scene->process_events(event);
 	}
 }
 
-void Engine::Update(float deltaTime)
+void Engine::update(float deltaTime)
 {
-	ActiveScene->PreUpdate(deltaTime);
-	ActiveScene->Update(deltaTime);
-	ActiveScene->PostUpdate(deltaTime);
+	active_scene->update_pre(deltaTime);
+	active_scene->update(deltaTime);
+	active_scene->update_post(deltaTime);
 }
 
-void Engine::Render()
+void Engine::render()
 {
-	window.clear(EngineConfig.WindowBackgroundColor);
+	window.clear(engine_config.window_background_color);
 
-	ActiveScene->PreRender(window);
-	ActiveScene->Render(window);
-	ActiveScene->PostRender(window);
+	active_scene->render_pre(window);
+	active_scene->render(window);
+	active_scene->render_post(window);
 
 	window.display();
 }
@@ -149,7 +149,7 @@ void Engine::Render()
 int main()
 {
 	Engine game;
-	game.Run();
+	game.run();
 
 	return 0;
 }

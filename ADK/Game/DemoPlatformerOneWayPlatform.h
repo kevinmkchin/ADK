@@ -6,7 +6,7 @@ class DemoPlatformerOneWayPlatform : public DemoPlatformerTile
 public:
 	DemoPlatformerOneWayPlatform();
 
-	virtual void InitCollider() override;
+	virtual void init_collider() override;
 
 };
 
