@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Engine/Entity.h"
-
+#include "Engine/TileEntity.h"
 #include "Game/DemoPlatformerTile.h"
 #include "Game/DemoPlatformerOneWayPlatform.h"
 
@@ -20,6 +20,7 @@ public:
 
 	// DECLARE IDENTIFIERS HERE
 	DECLARE("BaseEntity")
+	DECLARE("Tile16")
 	DECLARE("DemoPlatformerTile")
 	DECLARE("DemoPlatformerOneWayPlatform")
 	//DECLARE(" ")
@@ -39,6 +40,7 @@ public:
 	
 	// REGISTER ENTITY TYPES TO IDENTIFIERS HERE
 	REGISTER_ENT(Entity, "BaseEntity")
+	REGISTER_ENT(TileEntity, "Tile16")
 	REGISTER_ENT(DemoPlatformerTile, "DemoPlatformerTile")
 	REGISTER_ENT(DemoPlatformerOneWayPlatform, "DemoPlatformerOneWayPlatform")
 

@@ -84,6 +84,9 @@
     <ClCompile Include="Engine\Entity.cpp">
       <Filter>Engine\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\TileEntity.cpp">
+      <Filter>Engine\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Scene.h">
@@ -130,6 +133,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Entity.h">
+      <Filter>Engine\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TileEntity.h">
       <Filter>Engine\Entities</Filter>
     </ClInclude>
   </ItemGroup>

@@ -124,7 +124,14 @@ public:
 
 	std::string get_texture_path() const { return texture_path; }
 
-	// NEVER call these from virtual constructors. Otherwise, the textures for all base types will also end up being loaded.
+
+	/** When trying to specify which texture to load in the constructor, use this function. This function will only work once.
+		What this means is, only the first call to load_texture_in_constructor will work. This prevents parent class constructors
+		from loading their own texture and overwriting the texture loaded by a derived class. */
+	void load_texture_in_constructor(const std::string& path);
+
+
+	// NEVER call these from constructors. Otherwise, the textures for all base types will also end up being loaded.
 	virtual void load_default_texture();
 	void set_texture_path_and_load(const std::string& path, bool forceNoUnload = false);
 
@@ -132,23 +139,23 @@ public:
 
 	///////////////////////////////////////////////////////////
 
-public:
-
 	sf::Vector2f get_origin() const { return origin_private; }
 
 	bool is_using_origin_for_position() const { return b_use_origin_for_position_private; }
 
 protected:
 
-	// Probably call from a constructor. Should only be set from derived classes.
+	// Should call from constructor of derived classes.
 	void set_origin(float x, float y);
 
-	// Probably call from a constructor. Should only be set from derived classes.
+	// Should call from constructor of derived classes.
 	void set_origin(sf::Vector2f in_origin);
 
-	// Probably call from a constructor. Should only be set from derived classes.
+	// Should call from constructor of derived classes.
 	void use_origin_for_position(bool b_use);
 
+	// Should call from constructor of derived classes.
+	virtual void set_frame_size(int x, int y);
 
 public:
 
@@ -198,6 +205,8 @@ private:
 	bool b_use_origin_for_position_private;
 
 	///////////////////////////////////////////////////////////
+
+	bool b_load_texture_in_constructor_done = false;
 
 };
 

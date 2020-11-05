@@ -79,7 +79,7 @@ void Engine::run()
 	sf::Time time_per_frame = sf::seconds(1.f / engine_config.ticks_per_second);
 
 	// Choose the scene
-	active_scene = new Scene_Editor();
+	active_scene = new Scene_Game();
 	active_scene->begin_scene(window);
 
 	// Game process loop
