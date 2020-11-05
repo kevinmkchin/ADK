@@ -6,7 +6,7 @@ class DemoPlatformerTile : public Entity
 public:
 	DemoPlatformerTile();
 
-	virtual void InitCollider() override;
+	virtual void init_collider() override;
 
 };
 

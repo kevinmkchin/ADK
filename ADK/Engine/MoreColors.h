@@ -13,7 +13,7 @@
 namespace MoreColors
 {
 	// ImGui ImColor to SFML Color
-	static sf::Color ImColorToSFColor(ImColor imColor)
+	static sf::Color imcolor_to_sfcolor(ImColor imColor)
 	{
 		sf::Color ret;
 		ret.r = (sf::Uint8) ((float)(imColor.Value.x) * 255);
@@ -25,7 +25,7 @@ namespace MoreColors
 	}
 
 	// SFML Color to ImGui ImColor
-	static ImColor SFColorToImColor(sf::Color sfColor)
+	static ImColor sfcolor_to_imcolor(sf::Color sfColor)
 	{
 		ImVec4 retCol(sfColor);
 		ImColor ret(retCol);

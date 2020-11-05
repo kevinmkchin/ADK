@@ -9,18 +9,18 @@ class Scene_Game : public Scene
 public:
 	Scene_Game();
 
-	virtual void BeginScene(sf::RenderWindow& window) override;
+	virtual void begin_scene(sf::RenderWindow& window) override;
 
-	virtual void Update(float deltaTime) override;
+	virtual void update(float deltaTime) override;
 
-	virtual void PreRender(sf::RenderWindow& window) override;
+	virtual void render_pre(sf::RenderWindow& window) override;
 
-	virtual void Render(sf::RenderWindow& window) override;
+	virtual void render(sf::RenderWindow& window) override;
 
 private:
-	PlatformerPlayer* Player;
+	PlatformerPlayer* player;
 
-	EntityList* Platforms;
+	EntityList* platforms;
 
 	sf::Font font;
 	sf::Text player_debug_text;

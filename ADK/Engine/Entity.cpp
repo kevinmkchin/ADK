@@ -6,67 +6,67 @@
 // --- BASE ENTITY CONSTRUCTORS AND DESTRUCTOR ---
 
 Entity::Entity()
-	: bActive(true)
-	, bVisible(true)
-	, bCollidable(false)
+	: b_active(true)
+	, b_visible(true)
+	, b_collidable(false)
 	, origin_private(sf::Vector2f(0.f,0.f))
 	, b_use_origin_for_position_private(true)
 {
-	SetPosition(0.f, 0.f);
-	SetRotation(0.f);
-	SetScale(1.f);
-	SetDepth(0);
+	set_position(0.f, 0.f);
+	set_rotation(0.f);
+	set_scale(1.f);
+	set_depth(0);
 }
 
 Entity::Entity(float x, float y)
-	: bActive(true)
-	, bVisible(true)
-	, bCollidable(false)
+	: b_active(true)
+	, b_visible(true)
+	, b_collidable(false)
 	, origin_private(sf::Vector2f(0.f, 0.f))
 	, b_use_origin_for_position_private(true)
 {
-	SetPosition(x, y);
-	SetRotation(0.f);
-	SetScale(1.f);
-	SetDepth(0);
+	set_position(x, y);
+	set_rotation(0.f);
+	set_scale(1.f);
+	set_depth(0);
 }
 
 Entity::Entity(float x, float y, float inRot, float inScale)
-	: bActive(true)
-	, bVisible(true)
-	, bCollidable(false)
+	: b_active(true)
+	, b_visible(true)
+	, b_collidable(false)
 	, origin_private(sf::Vector2f(0.f, 0.f))
 	, b_use_origin_for_position_private(true)
 {
-	SetPosition(x, y);
-	SetRotation(inRot);
-	SetScale(inScale);
-	SetDepth(0);
+	set_position(x, y);
+	set_rotation(inRot);
+	set_scale(inScale);
+	set_depth(0);
 }
 
 Entity::~Entity()
 {
 	// Decrement texture reference count
-	ADKAssets::Unload(TexturePath);
+	ADKAssets::unload(texture_path);
 }
 
 //////////////////////////////////////////////////////////////
 
-void Entity::Update(float deltaTime)
+void Entity::update(float deltaTime)
 {
 	// Do animation
-	UpdateAnimations(deltaTime);
+	update_animations(deltaTime);
 }
 
-void Entity::Render(sf::RenderTarget& target)
+void Entity::render(sf::RenderTarget& target)
 {
-	if (bVisible && SpriteSheet.Sprite.getTexture() != nullptr)
+	if (b_visible && sprite_sheet.sprite.getTexture() != nullptr)
 	{
-		target.draw(SpriteSheet.Sprite);
+		target.draw(sprite_sheet.sprite);
 	}
 }
 
-void Entity::DebugRender(sf::RenderTarget& target)
+void Entity::render_debug(sf::RenderTarget& target)
 {
 	// Debug collider
 	sf::RectangleShape col;
@@ -76,127 +76,127 @@ void Entity::DebugRender(sf::RenderTarget& target)
 	target.draw(col);
 }
 
-void Entity::Move(float x, float y)
+void Entity::move(float x, float y)
 {
-	SpriteSheet.Sprite.move(x, y);
+	sprite_sheet.sprite.move(x, y);
 	collider.move(x, y);
 }
 
-void Entity::Move(sf::Vector2f delta)
+void Entity::move(sf::Vector2f delta)
 {
-	SpriteSheet.Sprite.move(delta);
+	sprite_sheet.sprite.move(delta);
 	collider.move(delta);
 }
 
-sf::Vector2f Entity::GetPosition() const
+sf::Vector2f Entity::get_position() const
 {
-	sf::Vector2f out_pos = SpriteSheet.Sprite.getPosition();
+	sf::Vector2f out_pos = sprite_sheet.sprite.getPosition();
 	if (b_use_origin_for_position_private == false)
 	{
-		out_pos -= origin_private * GetScale();
+		out_pos -= origin_private * get_scale();
 	}
 
 	return out_pos;
 }
-void Entity::SetPosition(float x, float y)
+void Entity::set_position(float x, float y)
 {
-	SetPosition(sf::Vector2(x, y));
+	set_position(sf::Vector2(x, y));
 }
-void Entity::SetPosition(sf::Vector2f newPos)
+void Entity::set_position(sf::Vector2f newPos)
 {
 	if (b_use_origin_for_position_private)
 	{
-		SpriteSheet.Sprite.setPosition(newPos);
+		sprite_sheet.sprite.setPosition(newPos);
 		collider.set_pos(newPos);
 	}
 	else
 	{
-		SpriteSheet.Sprite.setPosition(newPos + (origin_private * GetScale()));
+		sprite_sheet.sprite.setPosition(newPos + (origin_private * get_scale()));
 		collider.set_pos(newPos);
 	}
 }
-float Entity::GetRotation() const
+float Entity::get_rotation() const
 {
-	return SpriteSheet.Sprite.getRotation();
+	return sprite_sheet.sprite.getRotation();
 }
-void Entity::SetRotation(float newRot, bool bAffectCollider) 
+void Entity::set_rotation(float newRot, bool bAffectCollider) 
 {
-	SpriteSheet.Sprite.setRotation(newRot);
+	sprite_sheet.sprite.setRotation(newRot);
 
 	if (bAffectCollider)
 	{
-		sf::FloatRect bounds = SpriteSheet.Sprite.getGlobalBounds();
+		sf::FloatRect bounds = sprite_sheet.sprite.getGlobalBounds();
 		collider.set_pos(bounds.left, bounds.top);
 		collider.width = bounds.width;
 		collider.height = bounds.height;
 	}
 }
-float Entity::GetScale() const
+float Entity::get_scale() const
 {
-	return SpriteSheet.Sprite.getScale().x;
+	return sprite_sheet.sprite.getScale().x;
 }
-void Entity::SetScale(float newScale, bool bAffectCollider)
+void Entity::set_scale(float newScale, bool bAffectCollider)
 {
-	SpriteSheet.Sprite.setScale(newScale, newScale);
+	sprite_sheet.sprite.setScale(newScale, newScale);
 
 	if (bAffectCollider)
 	{
-		sf::FloatRect bounds = SpriteSheet.Sprite.getGlobalBounds();
+		sf::FloatRect bounds = sprite_sheet.sprite.getGlobalBounds();
 		collider.set_pos(bounds.left, bounds.top);
 		collider.width = bounds.width;
 		collider.height = bounds.height;
 	}
 }
-void Entity::SetDepth(int newDepth)
+void Entity::set_depth(int newDepth)
 {
 	depth = newDepth;
 	// TODO MARK ENTITY LIST DEPTH CHANGED
 }
 
-void Entity::LoadDefaultTexture()
+void Entity::load_default_texture()
 {
-	SetTexturePathAndLoad(TexturePath);
+	set_texture_path_and_load(texture_path);
 }
 
-void Entity::SetTexturePathAndLoad(const std::string& path, bool forceNoUnload)
+void Entity::set_texture_path_and_load(const std::string& path, bool forceNoUnload)
 {
 	// If we already have a texture, then unload that first
-	if (SpriteSheet.Sprite.getTexture() != nullptr && forceNoUnload == false)
+	if (sprite_sheet.sprite.getTexture() != nullptr && forceNoUnload == false)
 	{
-		ADKAssets::Unload(TexturePath);
+		ADKAssets::unload(texture_path);
 	}
-	TexturePath = path;
-	sf::Texture& LoadedTexture = ADKAssets::Get(TexturePath);
-	SpriteSheet.Sprite.setTexture(LoadedTexture, true);
+	texture_path = path;
+	sf::Texture& LoadedTexture = ADKAssets::get(texture_path);
+	sprite_sheet.sprite.setTexture(LoadedTexture, true);
 
 	// If first time setting sprite sheet, set it to entire texture size by default
-	if (SpriteSheet.FrameSize.x == 0 && SpriteSheet.FrameSize.y == 0)
+	if (sprite_sheet.frame_size.x == 0 && sprite_sheet.frame_size.y == 0)
 	{
-		MatchFrameSizeToTexture();
+		match_framesize_to_texture();
 	}
 	else
 	{
-		SpriteSheet.Sprite.setTextureRect(sf::IntRect((int)GetPosition().x, (int)GetPosition().y, SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
+		sprite_sheet.sprite.setTextureRect(sf::IntRect((int)get_position().x, (int)get_position().y, sprite_sheet.frame_size.x, sprite_sheet.frame_size.y));
 	}
 }
 
-void Entity::MatchFrameSizeToTexture()
+void Entity::match_framesize_to_texture()
 {
-	SpriteSheet.FrameSize.x = SpriteSheet.Sprite.getTexture()->getSize().x;
-	SpriteSheet.FrameSize.y = SpriteSheet.Sprite.getTexture()->getSize().y;
-	SpriteSheet.Sprite.setTextureRect(sf::IntRect((int) GetPosition().x, (int)GetPosition().y, SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y));
+	sprite_sheet.frame_size.x = sprite_sheet.sprite.getTexture()->getSize().x;
+	sprite_sheet.frame_size.y = sprite_sheet.sprite.getTexture()->getSize().y;
+	sprite_sheet.sprite.setTextureRect(sf::IntRect((int) get_position().x, (int)get_position().y, sprite_sheet.frame_size.x, sprite_sheet.frame_size.y));
 }
 
 void Entity::set_origin(float x, float y)
 {
 	origin_private = sf::Vector2f(x, y);
-	GetSprite().setOrigin(origin_private);
+	get_sprite().setOrigin(origin_private);
 }
 
 void Entity::set_origin(sf::Vector2f in_origin)
 {
 	origin_private = in_origin;
-	GetSprite().setOrigin(origin_private);
+	get_sprite().setOrigin(origin_private);
 }
 
 void Entity::use_origin_for_position(bool b_use)
@@ -204,91 +204,91 @@ void Entity::use_origin_for_position(bool b_use)
 	b_use_origin_for_position_private = b_use;
 }
 
-sf::Sprite& Entity::GetSprite()
+sf::Sprite& Entity::get_sprite()
 {
-	return SpriteSheet.Sprite;
+	return sprite_sheet.sprite;
 }
 
-void Entity::InitCollider()
+void Entity::init_collider()
 {
 
 }
 
-void Entity::Copy(Entity& target, const Entity& source)
+void Entity::copy(Entity& target, const Entity& source)
 {
-	target.SpriteSheet = source.SpriteSheet;
-	target.EntityId = source.EntityId;
-	target.SetTexturePathAndLoad(source.GetTexturePath(), true);
-	target.SetActive(source.IsActive());
-	target.SetVisible(source.IsVisible());
-	target.SetPosition(source.GetPosition());
-	target.SetRotation(source.GetRotation());
-	target.SetScale(source.GetScale());
-	target.SetDepth(source.GetDepth());
-	target.GetCollider().offsetX = source.GetColliderCopy().offsetX;
-	target.GetCollider().offsetY = source.GetColliderCopy().offsetY;
-	target.GetCollider().width = source.GetColliderCopy().width;
-	target.GetCollider().height = source.GetColliderCopy().height;
-	target.SetCollidable(source.IsCollidable());
+	target.sprite_sheet = source.sprite_sheet;
+	target.entity_id = source.entity_id;
+	target.set_texture_path_and_load(source.get_texture_path(), true);
+	target.set_active(source.is_active());
+	target.set_visible(source.is_visible());
+	target.set_position(source.get_position());
+	target.set_rotation(source.get_rotation());
+	target.set_scale(source.get_scale());
+	target.set_depth(source.get_depth());
+	target.get_collider().offset_x = source.get_collider_copy().offset_x;
+	target.get_collider().offset_y = source.get_collider_copy().offset_y;
+	target.get_collider().width = source.get_collider_copy().width;
+	target.get_collider().height = source.get_collider_copy().height;
+	target.set_collidable(source.is_collidable());
 	// TODO copy Tag data
 }
 
-void Entity::UpdateAnimations(float deltaTime)
+void Entity::update_animations(float deltaTime)
 {
 #pragma region AnimationUpdate
-	if (bVisible && SpriteSheet.Sprite.getTexture() != nullptr && SpriteSheet.Animations.empty() == false)
+	if (b_visible && sprite_sheet.sprite.getTexture() != nullptr && sprite_sheet.animations.empty() == false)
 	{
 		// Get num frames wide and tall
-		sf::Vector2i textureBounds(SpriteSheet.Sprite.getTexture()->getSize());
-		int numFramesWide = textureBounds.x / ((SpriteSheet.FrameSize.x > 0) ? SpriteSheet.FrameSize.x : 1);
-		int numFramesTall = textureBounds.y / ((SpriteSheet.FrameSize.y > 0) ? SpriteSheet.FrameSize.y : 1);
+		sf::Vector2i textureBounds(sprite_sheet.sprite.getTexture()->getSize());
+		int numFramesWide = textureBounds.x / ((sprite_sheet.frame_size.x > 0) ? sprite_sheet.frame_size.x : 1);
+		int numFramesTall = textureBounds.y / ((sprite_sheet.frame_size.y > 0) ? sprite_sheet.frame_size.y : 1);
 
-		FAnimation currAnim = SpriteSheet.Animations[SpriteSheet.SelectedAnimation];
-		int framesInAnim = static_cast<int>(currAnim.NumFrames) < numFramesTall * numFramesWide ? static_cast<int>(currAnim.NumFrames) : numFramesTall * numFramesWide;
-		sf::Time timePerFrame = currAnim.AnimDuration / (float)framesInAnim;
-		SpriteSheet.ElapsedTime += sf::seconds(deltaTime);
+		FAnimation currAnim = sprite_sheet.animations[sprite_sheet.selected_animation];
+		int framesInAnim = static_cast<int>(currAnim.num_frames) < numFramesTall * numFramesWide ? static_cast<int>(currAnim.num_frames) : numFramesTall * numFramesWide;
+		sf::Time timePerFrame = currAnim.anim_duration / (float)framesInAnim;
+		sprite_sheet.elapsed_time += sf::seconds(deltaTime);
 
 		// Update current frame
-		if (timePerFrame.asSeconds() > 0 && currAnim.AnimDuration.asSeconds() > 0.f && currAnim.NumFrames > 0)
+		if (timePerFrame.asSeconds() > 0 && currAnim.anim_duration.asSeconds() > 0.f && currAnim.num_frames > 0)
 		{
-			while (SpriteSheet.ElapsedTime > timePerFrame && (SpriteSheet.CurrentFrame - currAnim.StartFrame <= currAnim.NumFrames || SpriteSheet.bRepeat))
+			while (sprite_sheet.elapsed_time > timePerFrame && (sprite_sheet.current_frame - currAnim.start_frame <= currAnim.num_frames || sprite_sheet.b_repeat))
 			{
-				if (SpriteSheet.bRepeat)
+				if (sprite_sheet.b_repeat)
 				{
-					SpriteSheet.CurrentFrame = currAnim.StartFrame + ((SpriteSheet.CurrentFrame - currAnim.StartFrame + 1) % currAnim.NumFrames);
+					sprite_sheet.current_frame = currAnim.start_frame + ((sprite_sheet.current_frame - currAnim.start_frame + 1) % currAnim.num_frames);
 				}
 				else
 				{
 					// Go to next frame if we aren't on the last frame
-					if (SpriteSheet.CurrentFrame - currAnim.StartFrame < currAnim.NumFrames - 1)
+					if (sprite_sheet.current_frame - currAnim.start_frame < currAnim.num_frames - 1)
 					{
-						++SpriteSheet.CurrentFrame;
+						++sprite_sheet.current_frame;
 					}
 				}
 
 				// Check if we went out of bounds
-				if (static_cast<int>(SpriteSheet.CurrentFrame) >= numFramesWide * numFramesTall)
+				if (static_cast<int>(sprite_sheet.current_frame) >= numFramesWide * numFramesTall)
 				{
-					SpriteSheet.CurrentFrame = currAnim.StartFrame;
+					sprite_sheet.current_frame = currAnim.start_frame;
 				}
 
 				// Subtract from elapsed time since last frame
-				SpriteSheet.ElapsedTime -= timePerFrame;
+				sprite_sheet.elapsed_time -= timePerFrame;
 			}
 		}
-		else if (currAnim.AnimDuration.asSeconds() == 0.f)
+		else if (currAnim.anim_duration.asSeconds() == 0.f)
 		{
 			// If anim duration == 0, then static sprite at start frame
-			SpriteSheet.CurrentFrame = currAnim.StartFrame;
+			sprite_sheet.current_frame = currAnim.start_frame;
 		}
 
 		// by this point current frame will be accurate with frame we need to display
 		// Figure out texture rect from current frame
-		int xLoc = (SpriteSheet.CurrentFrame % (numFramesWide > 0 ? numFramesWide : 1)) * SpriteSheet.FrameSize.x;
-		int yLoc = (SpriteSheet.CurrentFrame / (numFramesWide > 0 ? numFramesWide : 1)) * SpriteSheet.FrameSize.y;
-		sf::IntRect frameRect = sf::IntRect(xLoc, yLoc, SpriteSheet.FrameSize.x, SpriteSheet.FrameSize.y);
+		int xLoc = (sprite_sheet.current_frame % (numFramesWide > 0 ? numFramesWide : 1)) * sprite_sheet.frame_size.x;
+		int yLoc = (sprite_sheet.current_frame / (numFramesWide > 0 ? numFramesWide : 1)) * sprite_sheet.frame_size.y;
+		sf::IntRect frameRect = sf::IntRect(xLoc, yLoc, sprite_sheet.frame_size.x, sprite_sheet.frame_size.y);
 		// Set new frame to display
-		SpriteSheet.Sprite.setTextureRect(frameRect);
+		sprite_sheet.sprite.setTextureRect(frameRect);
 	}
 #pragma endregion
 }

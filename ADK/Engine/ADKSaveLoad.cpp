@@ -34,17 +34,17 @@
 
 using json = nlohmann::json;
 
-void ADKSaveLoad::SaveScene(const std::string& savePath, const Scene& scene)
+void ADKSaveLoad::save_scene(const std::string& savePath, const Scene& scene)
 {
 	if (savePath.empty())
 	{
 		return;
 	}
 
-	SaveEntities(savePath, scene.Entities);
+	save_entities(savePath, scene.entities);
 }
 
-void ADKSaveLoad::SaveEntities(const std::string& savePath, EntityList el)
+void ADKSaveLoad::save_entities(const std::string& savePath, EntityList el)
 {
 	if (savePath.empty())
 	{
@@ -58,39 +58,39 @@ void ADKSaveLoad::SaveEntities(const std::string& savePath, EntityList el)
 		Entity* e = el.at(i);
 		json item;
 		// Transform + Depth
-		item[ENTITY_ID_LABEL] = e->EntityId;
-		item[TEXTURE_LABEL] = e->GetTexturePath();
-		item[ACTIVE_LABEL] = e->IsActive();
-		item[VISIBLE_LABEL] = e->IsVisible();
-		item[POS_X_LABEL] = e->GetPosition().x;
-		item[POS_Y_LABEL] = e->GetPosition().y;
-		item[ROT_LABEL] = e->GetRotation();
-		item[SCALE_LABEL] = e->GetScale();
-		item[DEPTH_LABEL] = e->GetDepth();
+		item[ENTITY_ID_LABEL] = e->entity_id;
+		item[TEXTURE_LABEL] = e->get_texture_path();
+		item[ACTIVE_LABEL] = e->is_active();
+		item[VISIBLE_LABEL] = e->is_visible();
+		item[POS_X_LABEL] = e->get_position().x;
+		item[POS_Y_LABEL] = e->get_position().y;
+		item[ROT_LABEL] = e->get_rotation();
+		item[SCALE_LABEL] = e->get_scale();
+		item[DEPTH_LABEL] = e->get_depth();
 		// Sprite Sheet
-		item[FRAME_X_LABEL] = e->SpriteSheet.FrameSize.x;
-		item[FRAME_Y_LABEL] = e->SpriteSheet.FrameSize.y;
-		item[REPEAT_LABEL] = e->SpriteSheet.bRepeat;
-		item[ANIM_INDEX_LABEL] = e->SpriteSheet.SelectedAnimation;
+		item[FRAME_X_LABEL] = e->sprite_sheet.frame_size.x;
+		item[FRAME_Y_LABEL] = e->sprite_sheet.frame_size.y;
+		item[REPEAT_LABEL] = e->sprite_sheet.b_repeat;
+		item[ANIM_INDEX_LABEL] = e->sprite_sheet.selected_animation;
 		// Animations
 		json anims;
-		for (auto a : e->SpriteSheet.Animations)
+		for (auto a : e->sprite_sheet.animations)
 		{
 			json anim;
-			anim[NUMFRAMES_LABEL] = a.NumFrames;
-			anim[STARTFRAME_LABEL] = a.StartFrame;
-			anim[ANIMDUR_LABEL] = a.AnimDuration.asSeconds();
+			anim[NUMFRAMES_LABEL] = a.num_frames;
+			anim[STARTFRAME_LABEL] = a.start_frame;
+			anim[ANIMDUR_LABEL] = a.anim_duration.asSeconds();
 
 			anims += anim;
 		}
 		item[ANIMATIONS] = anims;
 		// Collisions
-		item[COLLEFT_LABEL] = e->GetCollider().left;
-		item[COLTOP_LABEL] = e->GetCollider().top;
-		item[COLOFFSETX_LABEL] = e->GetCollider().offsetX;
-		item[COLOFFSETY_LABEL] = e->GetCollider().offsetY;
-		item[COLWIDTH_LABEL] = e->GetCollider().width;
-		item[COLHEIGHT_LABEL] = e->GetCollider().height;
+		item[COLLEFT_LABEL] = e->get_collider().left;
+		item[COLTOP_LABEL] = e->get_collider().top;
+		item[COLOFFSETX_LABEL] = e->get_collider().offset_x;
+		item[COLOFFSETY_LABEL] = e->get_collider().offset_y;
+		item[COLWIDTH_LABEL] = e->get_collider().width;
+		item[COLHEIGHT_LABEL] = e->get_collider().height;
 
 		ents += item;
 	}
@@ -104,7 +104,7 @@ void ADKSaveLoad::SaveEntities(const std::string& savePath, EntityList el)
 	save.close();
 }
 
-void ADKSaveLoad::LoadToScene(const std::string& savePath, Scene& scene)
+void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene)
 {
 	if (savePath.empty())
 	{
@@ -117,7 +117,7 @@ void ADKSaveLoad::LoadToScene(const std::string& savePath, Scene& scene)
 	load >> loaded; // big fucking props to nlohmann/json project
 	
 	// Clear scene entities before loading (must delete)
-	scene.Entities.clear();
+	scene.entities.clear();
 
 	// Load each entity
 	json entities = loaded[ENTITIES];
@@ -128,41 +128,41 @@ void ADKSaveLoad::LoadToScene(const std::string& savePath, Scene& scene)
 		Entity* created = ADKEditorMetaRegistry::CreateNewEntity(e[ENTITY_ID_LABEL]);
 		
 		// Load SpriteSheet data first, so that setting texture path and loading will set SpriteSheet data correctly
-		created->SpriteSheet.FrameSize.x = e[FRAME_X_LABEL];
-		created->SpriteSheet.FrameSize.y = e[FRAME_Y_LABEL];
-		created->SpriteSheet.bRepeat = e[REPEAT_LABEL];
-		created->SpriteSheet.SelectedAnimation = e[ANIM_INDEX_LABEL];
+		created->sprite_sheet.frame_size.x = e[FRAME_X_LABEL];
+		created->sprite_sheet.frame_size.y = e[FRAME_Y_LABEL];
+		created->sprite_sheet.b_repeat = e[REPEAT_LABEL];
+		created->sprite_sheet.selected_animation = e[ANIM_INDEX_LABEL];
 		// Clear animations because by default there might be some animations loaded
-		created->SpriteSheet.Animations.clear();
+		created->sprite_sheet.animations.clear();
 		json animations = e[ANIMATIONS];
 		// Load each animation
 		for (size_t i = 0; i < animations.size(); ++i)
 		{
 			FAnimation anim;
-			anim.NumFrames = animations[i][NUMFRAMES_LABEL];
-			anim.StartFrame = animations[i][STARTFRAME_LABEL];
-			anim.AnimDuration = sf::seconds(animations[i][ANIMDUR_LABEL]);
+			anim.num_frames = animations[i][NUMFRAMES_LABEL];
+			anim.start_frame = animations[i][STARTFRAME_LABEL];
+			anim.anim_duration = sf::seconds(animations[i][ANIMDUR_LABEL]);
 
-			created->SpriteSheet.Animations.push_back(anim);
+			created->sprite_sheet.animations.push_back(anim);
 		}
 		// Load the rest of the entity data
-		created->EntityId = e[ENTITY_ID_LABEL];
-		created->SetPosition(e[POS_X_LABEL], e[POS_Y_LABEL]);
-		created->SetRotation(e[ROT_LABEL]);
-		created->SetScale(e[SCALE_LABEL]);
-		created->SetDepth(e[DEPTH_LABEL]);
-		created->SetActive(e[ACTIVE_LABEL]);
-		created->SetVisible(e[VISIBLE_LABEL]);
-		created->SetTexturePathAndLoad(e[TEXTURE_LABEL]);
+		created->entity_id = e[ENTITY_ID_LABEL];
+		created->set_position(e[POS_X_LABEL], e[POS_Y_LABEL]);
+		created->set_rotation(e[ROT_LABEL]);
+		created->set_scale(e[SCALE_LABEL]);
+		created->set_depth(e[DEPTH_LABEL]);
+		created->set_active(e[ACTIVE_LABEL]);
+		created->set_visible(e[VISIBLE_LABEL]);
+		created->set_texture_path_and_load(e[TEXTURE_LABEL]);
 		// Collisions
-		created->GetCollider().left = e[COLLEFT_LABEL];
-		created->GetCollider().top = e[COLTOP_LABEL];
-		created->GetCollider().offsetX = e[COLOFFSETX_LABEL];
-		created->GetCollider().offsetY = e[COLOFFSETY_LABEL];
-		created->GetCollider().width = e[COLWIDTH_LABEL];
-		created->GetCollider().height = e[COLHEIGHT_LABEL];
+		created->get_collider().left = e[COLLEFT_LABEL];
+		created->get_collider().top = e[COLTOP_LABEL];
+		created->get_collider().offset_x = e[COLOFFSETX_LABEL];
+		created->get_collider().offset_y = e[COLOFFSETY_LABEL];
+		created->get_collider().width = e[COLWIDTH_LABEL];
+		created->get_collider().height = e[COLHEIGHT_LABEL];
 
 		// Add the created entity to scene
-		scene.Entities.add(created);
+		scene.entities.add(created);
 	}
 }

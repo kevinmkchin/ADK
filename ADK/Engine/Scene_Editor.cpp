@@ -10,48 +10,48 @@
 #include "../ADKEditorMetaRegistry.h"
 
 Scene_Editor::Scene_Editor()
-	: DefaultEditorConfig(FEditorConfig())
-	, ActiveEditorConfig(DefaultEditorConfig)
-	, renderWindowPtr(nullptr)
-	, EntitySelectedForCreation(nullptr)
-	, EntitySelectedForProperties(nullptr)
-	, bgRect(sf::FloatRect(0.03f * 1600, 0.04f * 900, 0.78f * 1600, 0.738f * 900))
-	, bBrushEnabled(false)
-	, bEntityDrag(false)
-	, bMouseDrag(false)
-	, zoomFactor(1.f)
-	, bTextureShow(false)
-	, lastMousePos(sf::Vector2f())
-	, currTool(TOOL_SELECTION)
-	, defaultCopyPasteTimer(0.5f)
-	, copyPasteTimer(defaultCopyPasteTimer)
-	, bShowConfig(false)
-	, bDebugRender(false)
-	, bCollisionMatchSpriteBound(false)
+	: default_editor_config(FEditorConfig())
+	, active_editor_config(default_editor_config)
+	, render_window_ptr(nullptr)
+	, entity_selected_for_creation(nullptr)
+	, entity_selected_for_properties(nullptr)
+	, bg_rect(sf::FloatRect(0.03f * 1600, 0.04f * 900, 0.78f * 1600, 0.738f * 900))
+	, b_brush_enabled(false)
+	, b_entity_drag(false)
+	, b_mouse_drag(false)
+	, zoom_factor(1.f)
+	, b_texture_show(false)
+	, last_mouse_pos(sf::Vector2f())
+	, curr_tool(TOOL_SELECTION)
+	, default_copy_paste_timer(0.5f)
+	, copy_paste_timer(default_copy_paste_timer)
+	, b_show_config(false)
+	, b_debug_render(false)
+	, b_collision_match_sprite_bound(false)
 {
 }
 
-void Scene_Editor::BeginScene(sf::RenderWindow& window)
+void Scene_Editor::begin_scene(sf::RenderWindow& window)
 {
 	LOG("Began Editor Scene");
 
 	// TODO load editor config from ini
 
 	// Setup big grid
-	DefaultEditorConfig.BigGridX = (int) ViewConfig.SizeX;
-	DefaultEditorConfig.BigGridY = (int) ViewConfig.SizeY;
+	default_editor_config.big_grid_x = (int) view_config.size_x;
+	default_editor_config.big_grid_y = (int) view_config.size_y;
 	// Setup window values
-	UpdateEditorConfigWithWindow(window);
+	update_editor_config_with_window(window);
 
 	// Load button textures
-	selectButton.loadFromFile("Assets/adk/button_selection.png");
-	placeButton.loadFromFile("Assets/adk/button_place.png");
-	brushButton.loadFromFile("Assets/adk/button_brush.png");
-	pickerButton.loadFromFile("Assets/adk/button_picker.png");
+	select_button.loadFromFile("Assets/adk/button_selection.png");
+	place_button.loadFromFile("Assets/adk/button_place.png");
+	brush_button.loadFromFile("Assets/adk/button_brush.png");
+	picker_button.loadFromFile("Assets/adk/button_picker.png");
 
 	// Initialize ImGui::SFML process
 	ImGui::SFML::Init(window);
-	renderWindowPtr = &window;
+	render_window_ptr = &window;
 
 #pragma region ImGuiStyle
 	ImGuiStyle * style = &ImGui::GetStyle();
@@ -77,38 +77,38 @@ void Scene_Editor::BeginScene(sf::RenderWindow& window)
 #pragma endregion
 
 	// Setup view
-	InitializeSceneView(window);
+	initialize_scene_view(window);
 
 	// Make entity of every type to display to editor
 	for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
 	{
 		Entity* created = ADKEditorMetaRegistry::CreateNewEntity(*iter);
-		created->LoadDefaultTexture();
-		created->EntityId = *iter;
-		EntityTypes.add(created);
+		created->load_default_texture();
+		created->entity_id = *iter;
+		entity_types.add(created);
 		// At this point, Identifiers[0] represents the id of the entity type of entity at EntityTypes.at(0)
 	}
 
-	textureDialog = ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
-	textureDialog.SetTitle("Choose a texture to use");
-	textureDialog.SetTypeFilters({ ".png", ".jpg" });
+	texture_dialog = ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
+	texture_dialog.SetTitle("Choose a texture to use");
+	texture_dialog.SetTypeFilters({ ".png", ".jpg" });
 
 	//window.setKeyRepeatEnabled(false);
 }
 
-void Scene_Editor::EndScene(sf::RenderWindow& window)
+void Scene_Editor::end_scene(sf::RenderWindow& window)
 {
 	// Shut down ImGui::SFML process
 	ImGui::SFML::Shutdown();
 
 	// Deallocate entity memory
-	for (int i = EntityTypes.size() - 1; i != -1; --i)
+	for (int i = entity_types.size() - 1; i != -1; --i)
 	{
-		EntityTypes.removeAndDestroy(EntityTypes.at(i));
+		entity_types.remove_and_destroy(entity_types.at(i));
 	}
 }
 
-void Scene_Editor::ProcessEvents(sf::Event& event)
+void Scene_Editor::process_events(sf::Event& event)
 {
 	// Process events/inputs for ImGui::SFML
 	ImGui::SFML::ProcessEvent(event);
@@ -116,79 +116,79 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 	// Resized. Update Editor Config window values.
 	if (event.type == sf::Event::Resized)
 	{
-		UpdateEditorConfigWithWindow(*renderWindowPtr);
+		update_editor_config_with_window(*render_window_ptr);
 	}
 
 	// Shortcuts
 	if (sf::Event::KeyPressed)
 	{
-		if (bTypingLevelID == false)
+		if (b_typing_level_id == false)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
 			{
-				currTool = TOOL_SELECTION;
+				curr_tool = TOOL_SELECTION;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				currTool = TOOL_PLACE;
+				curr_tool = TOOL_PLACE;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			{
-				currTool = TOOL_BRUSH;
+				curr_tool = TOOL_BRUSH;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				currTool = TOOL_PICKER;
+				curr_tool = TOOL_PICKER;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 			{
-				ActiveEditorConfig.bShowGrid = !ActiveEditorConfig.bShowGrid;
+				active_editor_config.b_show_grid = !active_editor_config.b_show_grid;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
 			{
-				ActiveEditorConfig.bSnapToGrid = !ActiveEditorConfig.bSnapToGrid;
+				active_editor_config.b_snap_to_grid = !active_editor_config.b_snap_to_grid;
 			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
 		{
-			if (EntitySelectedForProperties != nullptr)
+			if (entity_selected_for_properties != nullptr)
 			{
-				Entities.removeAndDestroy(EntitySelectedForProperties);
-				SetEntitySelectedForProperties(nullptr);
+				entities.remove_and_destroy(entity_selected_for_properties);
+				set_entity_selected_for_properties(nullptr);
 			}
 		}
 	}
 
 	// Editor features that should only happen when sprite sheet viewer is closed.
-	if (bTextureShow == false && bShowConfig == false && textureDialog.IsOpened() == false)
+	if (b_texture_show == false && b_show_config == false && texture_dialog.IsOpened() == false)
 	{
 		// Select entity
-		if (currTool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
+		if (curr_tool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
 		{
-			sf::IntRect viewWindow(ActiveEditorConfig.TopLeftPixel.x, ActiveEditorConfig.TopLeftPixel.y,
-				ActiveEditorConfig.BotRightPixels.x - ActiveEditorConfig.TopLeftPixel.x, ActiveEditorConfig.BotRightPixels.y - ActiveEditorConfig.TopLeftPixel.y);
-			for (int i = Entities.size() - 1; i > -1; --i)
+			sf::IntRect viewWindow(active_editor_config.top_left_pixel.x, active_editor_config.top_left_pixel.y,
+				active_editor_config.bot_right_pixel.x - active_editor_config.top_left_pixel.x, active_editor_config.bot_right_pixel.y - active_editor_config.top_left_pixel.y);
+			for (int i = entities.size() - 1; i > -1; --i)
 			{
-				Entity* at = Entities.at(i);
-				sf::IntRect spr = at->GetSprite().getTextureRect();
+				Entity* at = entities.at(i);
+				sf::IntRect spr = at->get_sprite().getTextureRect();
 
-				sf::FloatRect mouseCol = at->GetSprite().getGlobalBounds();
-				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-				sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+				sf::FloatRect mouseCol = at->get_sprite().getGlobalBounds();
+				sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+				sf::Vector2f worldPos = (*render_window_ptr).mapPixelToCoords(pixelPos);
 				if (mouseCol.contains(worldPos) 
-					&& at->GetDepth() >= ActiveEditorConfig.depthFilterLowerBound 
-					&& at->GetDepth() <= ActiveEditorConfig.depthFilterUpperBound 
+					&& at->get_depth() >= active_editor_config.depth_filter_lowerbound 
+					&& at->get_depth() <= active_editor_config.depth_filter_upperbound 
 					&& viewWindow.contains(pixelPos))
 				{
-					SetEntitySelectedForProperties(at);
-					if (EntitySelectedForProperties == at) // This entity is already clicked on
+					set_entity_selected_for_properties(at);
+					if (entity_selected_for_properties == at) // This entity is already clicked on
 					{
-						bEntityDrag = true;
-						sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-						sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-						sf::Vector2f entPos = EntitySelectedForProperties->GetPosition();
-						entityDragOffset = worldPos - entPos;
+						b_entity_drag = true;
+						sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+						sf::Vector2f worldPos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+						sf::Vector2f entPos = entity_selected_for_properties->get_position();
+						entity_drag_offset = worldPos - entPos;
 						return;
 						//continue; // see if theres anything under it that we are trying to select
 					}
@@ -198,132 +198,132 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		}
 
 		// Place entity
-		if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
+		if (bg_rect.contains(sf::Vector2f(sf::Mouse::getPosition(*render_window_ptr))) && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
 		{
-			if (EntitySelectedForCreation != nullptr)
+			if (entity_selected_for_creation != nullptr)
 			{
 				// Single place entity
-				if (currTool == TOOL_PLACE)
+				if (curr_tool == TOOL_PLACE)
 				{
-					BrushPlaceHelper();
+					brush_place_helper();
 
-					bEntityDrag = true;
+					b_entity_drag = true;
 				}
 
 				// Brush place entity
-				if (currTool == TOOL_BRUSH)
+				if (curr_tool == TOOL_BRUSH)
 				{
-					bBrushEnabled = true;
+					b_brush_enabled = true;
 				}
 			}
 		}
 
 		// Mouse view zoom
-		if (bgRect.contains(sf::Vector2f(sf::Mouse::getPosition(*renderWindowPtr))) && bMouseDrag == false && event.type == sf::Event::MouseWheelMoved)
+		if (bg_rect.contains(sf::Vector2f(sf::Mouse::getPosition(*render_window_ptr))) && b_mouse_drag == false && event.type == sf::Event::MouseWheelMoved)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
-				if (EntitySelectedForProperties != nullptr)
+				if (entity_selected_for_properties != nullptr)
 				{
 					if (event.mouseWheel.delta > 0)
 					{
-						EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame--;
-						if ((int) EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame < 0)
+						entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame--;
+						if ((int) entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame < 0)
 						{
-							EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = 0;
+							entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame = 0;
 						}
 					}
 					else
 					{
-						int width = (int) EntitySelectedForProperties->GetSprite().getTexture()->getSize().x / EntitySelectedForProperties->SpriteSheet.FrameSize.x;
-						int height = (int) EntitySelectedForProperties->GetSprite().getTexture()->getSize().y / EntitySelectedForProperties->SpriteSheet.FrameSize.y;
+						int width = (int) entity_selected_for_properties->get_sprite().getTexture()->getSize().x / entity_selected_for_properties->sprite_sheet.frame_size.x;
+						int height = (int) entity_selected_for_properties->get_sprite().getTexture()->getSize().y / entity_selected_for_properties->sprite_sheet.frame_size.y;
 						int max = width * height;
-						EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame++;
-						if ((int) EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame > max)
+						entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame++;
+						if ((int) entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame > max)
 						{
-							EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = max;
+							entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame = max;
 						}
 					}
 				}
 			}
 			else
 			{
-				zoomFactor *= event.mouseWheel.delta > 0 ? 0.9f : 1.1f;
-				SceneView.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
-				renderWindowPtr->setView(SceneView);
+				zoom_factor *= event.mouseWheel.delta > 0 ? 0.9f : 1.1f;
+				scene_view.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
+				render_window_ptr->setView(scene_view);
 			}
 		}
 	
 		// Ent rotate with Left Alt
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
 		{
-			if (bAltRotate == false)
+			if (b_alt_rotate == false)
 			{
-				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-				sf::Vector2f mousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-				if (EntitySelectedForProperties != nullptr)
+				sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+				sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+				if (entity_selected_for_properties != nullptr)
 				{
-					sf::Vector2f ePos = EntitySelectedForProperties->GetPosition();
+					sf::Vector2f ePos = entity_selected_for_properties->get_position();
 					vec1 = mousePos - ePos;
-					ogRot = EntitySelectedForProperties->GetRotation();
+					og_rot = entity_selected_for_properties->get_rotation();
 				}
 			}
-			bAltRotate = true;
+			b_alt_rotate = true;
 		}
 		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LAlt)
 		{
-			bAltRotate = false;
+			b_alt_rotate = false;
 		}
 
 		// Ent scale with Left Ctrl
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 		{
-			if (bShiftScale == false)
+			if (b_shift_scale == false)
 			{
-				sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-				ogMouse = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-				if (EntitySelectedForProperties != nullptr)
+				sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+				og_mouse = (*render_window_ptr).mapPixelToCoords(pixelPos);
+				if (entity_selected_for_properties != nullptr)
 				{
-					ogScale = EntitySelectedForProperties->GetScale();
+					og_scale = entity_selected_for_properties->get_scale();
 				}
 			}
-			bShiftScale = true;
+			b_shift_scale = true;
 		}
 		else if (sf::Event::KeyReleased && event.key.code == sf::Keyboard::LShift)
 		{
-			bShiftScale = false;
+			b_shift_scale = false;
 		}
 
 		// Copy
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 		{
-			if (EntitySelectedForProperties != nullptr)
+			if (entity_selected_for_properties != nullptr)
 			{
-				Entity::Copy(copiedEntity, *EntitySelectedForProperties);
+				Entity::copy(copied_entity, *entity_selected_for_properties);
 			}
 		}
 
 		// Paste
-		if (copyPasteTimer < 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::V))
+		if (copy_paste_timer < 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 		{
 			// Get the current mouse position in the window
-			sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
 			// Convert it to world coordinates
-			sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+			sf::Vector2f worldPos = (*render_window_ptr).mapPixelToCoords(pixelPos);
 			// Calculate amount to subtract if snapping to grid
 			int sX = 0;
 			int sY = 0;
-			if (ActiveEditorConfig.bSnapToGrid)
+			if (active_editor_config.b_snap_to_grid)
 			{
-				sX = (int)worldPos.x % ActiveEditorConfig.GridSizeX;
+				sX = (int)worldPos.x % active_editor_config.grid_size_x;
 				if (worldPos.x < 0)
 				{
-					sX = ActiveEditorConfig.GridSizeX + sX;
+					sX = active_editor_config.grid_size_x + sX;
 				}
-				sY = (int)worldPos.y % ActiveEditorConfig.GridSizeY;
+				sY = (int)worldPos.y % active_editor_config.grid_size_y;
 				if (worldPos.y < 0)
 				{
-					sY = ActiveEditorConfig.GridSizeY + sY;
+					sY = active_editor_config.grid_size_y + sY;
 				}
 			}
 
@@ -332,30 +332,30 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 			int posY = ((int)worldPos.y) - sY;
 
 			// Create a new entity
-			Entity* created = ADKEditorMetaRegistry::CreateNewEntity(copiedEntity.EntityId);
-			Entity::Copy(*created, copiedEntity);
-			created->SetPosition((float)posX, (float)posY);
-			created->InitCollider();
+			Entity* created = ADKEditorMetaRegistry::CreateNewEntity(copied_entity.entity_id);
+			Entity::copy(*created, copied_entity);
+			created->set_position((float)posX, (float)posY);
+			created->init_collider();
 			// Add the entity to this scene/level editor's entity list
-			Entities.add(created);
-			Entities.MarkDepthChanged();
+			entities.add(created);
+			entities.mark_depth_changed();
 			// Set this entity to be selected
-			SetEntitySelectedForProperties(created);
+			set_entity_selected_for_properties(created);
 
-			copyPasteTimer = defaultCopyPasteTimer;
+			copy_paste_timer = default_copy_paste_timer;
 		}
 	}
 
 	// Left mouse released (Stop entity drag & disable brush placement & empty brush visited positions
 	if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
 	{
-		bEntityDrag = false;
-		entityDragOffset = sf::Vector2f(0.f,0.f);
+		b_entity_drag = false;
+		entity_drag_offset = sf::Vector2f(0.f,0.f);
 		// Empty the brush tools visited positions cache
-		bBrushEnabled = false;
-		if (BrushVisitedPositions.empty() == false)
+		b_brush_enabled = false;
+		if (brush_visited_positions.empty() == false)
 		{
-			BrushVisitedPositions.clear();
+			brush_visited_positions.clear();
 		}
 	}
 
@@ -366,12 +366,12 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		{
 
 			// Set last mouse pos to current mouse pos
-			lastMousePos = sf::Mouse::getPosition(*renderWindowPtr);
-			bMouseDrag = true;
+			last_mouse_pos = sf::Mouse::getPosition(*render_window_ptr);
+			b_mouse_drag = true;
 		}
 		else if (event.type == sf::Event::MouseButtonReleased)
 		{
-			bMouseDrag = false;
+			b_mouse_drag = false;
 		}
 	}
 
@@ -396,12 +396,12 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		{
 			yM += 10;
 		}
-		SceneView.move(sf::Vector2f(xM, yM));
-		renderWindowPtr->setView(SceneView);
+		scene_view.move(sf::Vector2f(xM, yM));
+		render_window_ptr->setView(scene_view);
 	}
 
 	// Entity move with Arrows
-	if (EntitySelectedForProperties != nullptr && bTypingLevelID == false)
+	if (entity_selected_for_properties != nullptr && b_typing_level_id == false)
 	{
 		float xM = 0;
 		float yM = 0;
@@ -421,195 +421,195 @@ void Scene_Editor::ProcessEvents(sf::Event& event)
 		{
 			yM += 1;
 		}
-		sf::Vector2f pos = EntitySelectedForProperties->GetPosition();
+		sf::Vector2f pos = entity_selected_for_properties->get_position();
 		pos.x += xM;
 		pos.y += yM;
-		EntitySelectedForProperties->SetPosition(pos);
+		entity_selected_for_properties->set_position(pos);
 	}
 }
 
-void Scene_Editor::PreUpdate(float deltaTime)
+void Scene_Editor::update_pre(float deltaTime)
 {
 
 }
 
-void Scene_Editor::Update(float deltaTime)
+void Scene_Editor::update(float deltaTime)
 {
-	Entities.Update(deltaTime);
+	entities.update(deltaTime);
 
 	// Call brush place
-	if (currTool == TOOL_BRUSH && bBrushEnabled)
+	if (curr_tool == TOOL_BRUSH && b_brush_enabled)
 	{
-		BrushPlaceHelper();
+		brush_place_helper();
 	}
 	else
 	{
-		bBrushEnabled = false;
+		b_brush_enabled = false;
 	}
 
 	// Move entity if dragging it around
-	if (bEntityDrag && EntitySelectedForProperties != nullptr)
+	if (b_entity_drag && entity_selected_for_properties != nullptr)
 	{
-		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-		sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+		sf::Vector2f worldPos = (*render_window_ptr).mapPixelToCoords(pixelPos);
 		// Calculate amount to subtract if snapping to grid
 		int sX = 0;
 		int sY = 0;
-		if (ActiveEditorConfig.bSnapToGrid)
+		if (active_editor_config.b_snap_to_grid)
 		{
-			int gridSubX = (int) entityDragOffset.x / ActiveEditorConfig.GridSizeX;
-			int gridSubY = (int) entityDragOffset.y / ActiveEditorConfig.GridSizeY;
-			worldPos.x -= gridSubX * ActiveEditorConfig.GridSizeX;
-			worldPos.y -= gridSubY * ActiveEditorConfig.GridSizeY;
-			sX = (int)worldPos.x % ActiveEditorConfig.GridSizeX;
+			int gridSubX = (int) entity_drag_offset.x / active_editor_config.grid_size_x;
+			int gridSubY = (int) entity_drag_offset.y / active_editor_config.grid_size_y;
+			worldPos.x -= gridSubX * active_editor_config.grid_size_x;
+			worldPos.y -= gridSubY * active_editor_config.grid_size_y;
+			sX = (int)worldPos.x % active_editor_config.grid_size_x;
 			if (worldPos.x < 0)
 			{
-				sX = ActiveEditorConfig.GridSizeX + sX;
+				sX = active_editor_config.grid_size_x + sX;
 			}
-			sY = (int)worldPos.y % ActiveEditorConfig.GridSizeY;
+			sY = (int)worldPos.y % active_editor_config.grid_size_y;
 			if (worldPos.y < 0)
 			{
-				sY = ActiveEditorConfig.GridSizeY + sY;
+				sY = active_editor_config.grid_size_y + sY;
 			}
 		}
 		else
 		{
-			worldPos -= entityDragOffset;
+			worldPos -= entity_drag_offset;
 		}
 		// Set entity's position
-		EntitySelectedForProperties->SetPosition((float)((int)worldPos.x - sX), (float)((int)worldPos.y - sY));
+		entity_selected_for_properties->set_position((float)((int)worldPos.x - sX), (float)((int)worldPos.y - sY));
 	}
 
 	// Move view if dragging view
-	if (bMouseDrag)
+	if (b_mouse_drag)
 	{		
-		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-		sf::Vector2f delta = sf::Vector2f(pixelPos - lastMousePos);
-		SceneView.move(-delta * zoomFactor);
-		renderWindowPtr->setView(SceneView);
-		lastMousePos = pixelPos;
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+		sf::Vector2f delta = sf::Vector2f(pixelPos - last_mouse_pos);
+		scene_view.move(-delta * zoom_factor);
+		render_window_ptr->setView(scene_view);
+		last_mouse_pos = pixelPos;
 	}
 
 	// Alt Rotate
-	if (bAltRotate && EntitySelectedForProperties != nullptr)
+	if (b_alt_rotate && entity_selected_for_properties != nullptr)
 	{
-		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-		sf::Vector2f mousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-		sf::Vector2f vec2 = mousePos - EntitySelectedForProperties->GetPosition();
-		float angle = ADKMath::GetAngleBetweenVectors(vec1, vec2);
-		EntitySelectedForProperties->SetRotation(ogRot + angle, bCollisionMatchSpriteBound);
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+		sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+		sf::Vector2f vec2 = mousePos - entity_selected_for_properties->get_position();
+		float angle = ADKMath::get_angle_between_vectors(vec1, vec2);
+		entity_selected_for_properties->set_rotation(og_rot + angle, b_collision_match_sprite_bound);
 	}
 
 	// Ctrl scale
-	if (bShiftScale && EntitySelectedForProperties != nullptr)
+	if (b_shift_scale && entity_selected_for_properties != nullptr)
 	{
-		sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
-		sf::Vector2f mousePos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
-		sf::Vector2f diff = mousePos - ogMouse;
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+		sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+		sf::Vector2f diff = mousePos - og_mouse;
 
 		// see if negative
-		sf::Vector2f toMouse = mousePos - EntitySelectedForProperties->GetPosition();
+		sf::Vector2f toMouse = mousePos - entity_selected_for_properties->get_position();
 		float mousefromEnt = std::sqrt(toMouse.x * toMouse.x + toMouse.y * toMouse.y);
-		sf::Vector2f toOg = ogMouse - EntitySelectedForProperties->GetPosition();
+		sf::Vector2f toOg = og_mouse - entity_selected_for_properties->get_position();
 		float ogfromEnt = std::sqrt(toOg.x * toOg.x + toOg.y * toOg.y);
 
 		float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
 		float scale = ((len * (mousefromEnt > ogfromEnt ? 1 : -1)) + 280.f) / 280.f;
 
-		EntitySelectedForProperties->SetScale(ogScale * scale, bCollisionMatchSpriteBound);
+		entity_selected_for_properties->set_scale(og_scale * scale, b_collision_match_sprite_bound);
 	}
 
 	// Decrement copy paste timer
-	copyPasteTimer -= deltaTime;
+	copy_paste_timer -= deltaTime;
 
 	// ImGui::SFML Update
-	ImGui::SFML::Update(*renderWindowPtr, sf::seconds(deltaTime));
+	ImGui::SFML::Update(*render_window_ptr, sf::seconds(deltaTime));
 	// Setup ImGui to draw
-	DrawEditorUI();
+	draw_editor_ui();
 }
 
-void Scene_Editor::PostUpdate(float deltaTime)
+void Scene_Editor::update_post(float deltaTime)
 {
 
 }
 
-void Scene_Editor::PreRender(sf::RenderWindow& window)
+void Scene_Editor::render_pre(sf::RenderWindow& window)
 {
 
 }
 
-void Scene_Editor::Render(sf::RenderWindow& window)
+void Scene_Editor::render(sf::RenderWindow& window)
 {
-	Entities.RenderWithDepth(window, ActiveEditorConfig.depthFilterLowerBound, ActiveEditorConfig.depthFilterUpperBound);
-	if (bDebugRender)
+	entities.render_with_depth(window, active_editor_config.depth_filter_lowerbound, active_editor_config.depth_filter_upperbound);
+	if (b_debug_render)
 	{
-		Entities.RenderWithDepth(window, ActiveEditorConfig.depthFilterLowerBound, ActiveEditorConfig.depthFilterUpperBound, true);
+		entities.render_with_depth(window, active_editor_config.depth_filter_lowerbound, active_editor_config.depth_filter_upperbound, true);
 	}
 
 	// Render Grid
-	if (ActiveEditorConfig.bShowGrid)
+	if (active_editor_config.b_show_grid)
 	{
-		sf::Vector2f topLeftWorld = (*renderWindowPtr).mapPixelToCoords(ActiveEditorConfig.TopLeftPixel);
-		sf::Vector2f botRightWorld = (*renderWindowPtr).mapPixelToCoords(ActiveEditorConfig.BotRightPixels);
+		sf::Vector2f topLeftWorld = (*render_window_ptr).mapPixelToCoords(active_editor_config.top_left_pixel);
+		sf::Vector2f botRightWorld = (*render_window_ptr).mapPixelToCoords(active_editor_config.bot_right_pixel);
 
-		int gridRangeX = 6400 / ActiveEditorConfig.GridSizeX; 
-		int gridRangeY = 6400 / ActiveEditorConfig.GridSizeY; 
+		int gridRangeX = 6400 / active_editor_config.grid_size_x; 
+		int gridRangeY = 6400 / active_editor_config.grid_size_y; 
 
 		for (int x = -gridRangeX; x < gridRangeX; ++x)
 		{
 			sf::Vertex line[2];
-			line[0].position = sf::Vector2f((float) (x * ActiveEditorConfig.GridSizeX), topLeftWorld.y);
-			line[0].color = ActiveEditorConfig.GridColor;
-			line[1].position = sf::Vector2f((float) (x * ActiveEditorConfig.GridSizeX), botRightWorld.y);
-			line[1].color = ActiveEditorConfig.GridColor;
+			line[0].position = sf::Vector2f((float) (x * active_editor_config.grid_size_x), topLeftWorld.y);
+			line[0].color = active_editor_config.grid_color;
+			line[1].position = sf::Vector2f((float) (x * active_editor_config.grid_size_x), botRightWorld.y);
+			line[1].color = active_editor_config.grid_color;
 			window.draw(line, 2, sf::Lines);
 		}
 
 		for (int y = -gridRangeY; y < gridRangeY; ++y)
 		{
 			sf::Vertex line[2];
-			line[0].position = sf::Vector2f(topLeftWorld.x, (float) (y * ActiveEditorConfig.GridSizeY));
-			line[0].color = ActiveEditorConfig.GridColor;
-			line[1].position = sf::Vector2f(botRightWorld.x, (float) (y * ActiveEditorConfig.GridSizeY));
-			line[1].color = ActiveEditorConfig.GridColor;
+			line[0].position = sf::Vector2f(topLeftWorld.x, (float) (y * active_editor_config.grid_size_y));
+			line[0].color = active_editor_config.grid_color;
+			line[1].position = sf::Vector2f(botRightWorld.x, (float) (y * active_editor_config.grid_size_y));
+			line[1].color = active_editor_config.grid_color;
 			window.draw(line, 2, sf::Lines);
 		}
 	}
 
 	// Render big grid
-	if (ActiveEditorConfig.bShowBigGrid)
+	if (active_editor_config.b_show_big_grid)
 	{
-		sf::Vector2f topLeftWorld = (*renderWindowPtr).mapPixelToCoords(ActiveEditorConfig.TopLeftPixel);
-		sf::Vector2f botRightWorld = (*renderWindowPtr).mapPixelToCoords(ActiveEditorConfig.BotRightPixels);
+		sf::Vector2f topLeftWorld = (*render_window_ptr).mapPixelToCoords(active_editor_config.top_left_pixel);
+		sf::Vector2f botRightWorld = (*render_window_ptr).mapPixelToCoords(active_editor_config.bot_right_pixel);
 
-		int gridRangeX = 6400 / ActiveEditorConfig.BigGridX;
-		int gridRangeY = 6400 / ActiveEditorConfig.BigGridY;
+		int gridRangeX = 6400 / active_editor_config.big_grid_x;
+		int gridRangeY = 6400 / active_editor_config.big_grid_y;
 
 		for (int x = -gridRangeX; x < gridRangeX; ++x)
 		{
 			sf::Vertex line[2];
-			line[0].position = sf::Vector2f((float)(x * ActiveEditorConfig.BigGridX), topLeftWorld.y);
-			line[0].color = ActiveEditorConfig.BigGridColor;
-			line[1].position = sf::Vector2f((float)(x * ActiveEditorConfig.BigGridX), botRightWorld.y);
-			line[1].color = ActiveEditorConfig.BigGridColor;
+			line[0].position = sf::Vector2f((float)(x * active_editor_config.big_grid_x), topLeftWorld.y);
+			line[0].color = active_editor_config.big_grid_color;
+			line[1].position = sf::Vector2f((float)(x * active_editor_config.big_grid_x), botRightWorld.y);
+			line[1].color = active_editor_config.big_grid_color;
 			window.draw(line, 2, sf::Lines);
 		}
 
 		for (int y = -gridRangeY; y < gridRangeY; ++y)
 		{
 			sf::Vertex line[2];
-			line[0].position = sf::Vector2f(topLeftWorld.x, (float)(y * ActiveEditorConfig.BigGridY));
-			line[0].color = ActiveEditorConfig.BigGridColor;
-			line[1].position = sf::Vector2f(botRightWorld.x, (float)(y * ActiveEditorConfig.BigGridY));
-			line[1].color = ActiveEditorConfig.BigGridColor;
+			line[0].position = sf::Vector2f(topLeftWorld.x, (float)(y * active_editor_config.big_grid_y));
+			line[0].color = active_editor_config.big_grid_color;
+			line[1].position = sf::Vector2f(botRightWorld.x, (float)(y * active_editor_config.big_grid_y));
+			line[1].color = active_editor_config.big_grid_color;
 			window.draw(line, 2, sf::Lines);
 		}
 	}
 
 	// Show Selection
-	if (EntitySelectedForProperties != nullptr)
+	if (entity_selected_for_properties != nullptr)
 	{
-		sf::FloatRect bounds = EntitySelectedForProperties->GetSprite().getGlobalBounds();
+		sf::FloatRect bounds = entity_selected_for_properties->get_sprite().getGlobalBounds();
 		float x = bounds.left;
 		float y = bounds.top;
 		float width = bounds.width;
@@ -626,7 +626,7 @@ void Scene_Editor::Render(sf::RenderWindow& window)
 		box[7].position = sf::Vector2f(x + width, y);
 		for (int i = 0; i < 8; ++i)
 		{
-			box[i].color = ActiveEditorConfig.SelectionColor;
+			box[i].color = active_editor_config.selection_color;
 		}
 		window.draw(box, 8, sf::Lines);
 
@@ -641,60 +641,60 @@ void Scene_Editor::Render(sf::RenderWindow& window)
 	}
 }
 
-void Scene_Editor::PostRender(sf::RenderWindow& window)
+void Scene_Editor::render_post(sf::RenderWindow& window)
 {
 	// Render ImGui::SFML. All creation of ImGui widgets must happen between ImGui::SFML::Update and ImGui::SFML::Render.
 	ImGui::SFML::Render(window);
 }
 
-void Scene_Editor::DrawEditorUI()
+void Scene_Editor::draw_editor_ui()
 {
-	DrawMenuAndOptionsBarUI();
-	DrawEntityPropertyUI();
-	DrawEntityTypeUI();
-	DrawToolsMenuUI();
+	draw_menu_and_optionsbar_ui();
+	draw_entity_property_ui();
+	draw_entity_type_ui();
+	draw_tools_menu_ui();
 }
 
-void Scene_Editor::DrawEntityPropertyUI()
+void Scene_Editor::draw_entity_property_ui()
 {
 	ImGui::Begin("Entities and Properties", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-	ImGui::SetWindowPos(sf::Vector2f((float) ActiveEditorConfig.BotRightPixels.x, (float) ActiveEditorConfig.TopLeftPixel.y));
-	ImGui::SetWindowSize(sf::Vector2f((float) ActiveEditorConfig.WindowSizeX - ActiveEditorConfig.BotRightPixels.x, (float) ActiveEditorConfig.WindowSizeY - ActiveEditorConfig.TopLeftPixel.y));
+	ImGui::SetWindowPos(sf::Vector2f((float) active_editor_config.bot_right_pixel.x, (float) active_editor_config.top_left_pixel.y));
+	ImGui::SetWindowSize(sf::Vector2f((float) active_editor_config.window_size_x - active_editor_config.bot_right_pixel.x, (float) active_editor_config.window_size_y - active_editor_config.top_left_pixel.y));
 
 	ImGui::BeginTabBar("");
 	if (ImGui::BeginTabItem("Properties"))
 	{
 		// Display properties for currently selected entity
-		if (EntitySelectedForProperties != nullptr)
+		if (entity_selected_for_properties != nullptr)
 		{
 #pragma region EntityProperties
 			ImGui::Separator();
 			ImGui::Text("Entity Properties");
 			ImGui::Separator();
 
-			int x = (int) EntitySelectedForProperties->GetPosition().x;
-			int y = (int) EntitySelectedForProperties->GetPosition().y;
+			int x = (int) entity_selected_for_properties->get_position().x;
+			int y = (int) entity_selected_for_properties->get_position().y;
 			ImGui::InputInt("X Position", &x);
 			ImGui::InputInt("Y Position", &y);
-			EntitySelectedForProperties->SetPosition((float) x, (float) y);
+			entity_selected_for_properties->set_position((float) x, (float) y);
 
-			float angle = EntitySelectedForProperties->GetRotation();
+			float angle = entity_selected_for_properties->get_rotation();
 			ImGui::InputFloat("Rotation", &angle);
-			EntitySelectedForProperties->SetRotation(angle, bCollisionMatchSpriteBound);
+			entity_selected_for_properties->set_rotation(angle, b_collision_match_sprite_bound);
 
-			float scale = EntitySelectedForProperties->GetScale();
+			float scale = entity_selected_for_properties->get_scale();
 			ImGui::InputFloat("Scale", &scale);
-			EntitySelectedForProperties->SetScale(scale, bCollisionMatchSpriteBound);
+			entity_selected_for_properties->set_scale(scale, b_collision_match_sprite_bound);
 
-			int depth = EntitySelectedForProperties->GetDepth();
+			int depth = entity_selected_for_properties->get_depth();
 			ImGui::InputInt("Depth", &depth);
-			if (EntitySelectedForProperties->GetDepth() != depth)
+			if (entity_selected_for_properties->get_depth() != depth)
 			{
-				Entities.MarkDepthChanged();
+				entities.mark_depth_changed();
 			}
-			EntitySelectedForProperties->SetDepth(depth);
+			entity_selected_for_properties->set_depth(depth);
 
-			bool v = EntitySelectedForProperties->IsVisible();
+			bool v = entity_selected_for_properties->is_visible();
 			ImGui::Checkbox("Visible", &v);
 			if (ImGui::IsItemHovered())
 			{
@@ -704,9 +704,9 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
 			}
-			EntitySelectedForProperties->SetVisible(v);
+			entity_selected_for_properties->set_visible(v);
 
-			bool a = EntitySelectedForProperties->IsActive();
+			bool a = entity_selected_for_properties->is_active();
 			ImGui::Checkbox("Active", &a);
 			if (ImGui::IsItemHovered())
 			{
@@ -716,7 +716,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
 			}
-			EntitySelectedForProperties->SetActive(a);
+			entity_selected_for_properties->set_active(a);
 
 			ImGui::Dummy(ImVec2(0, 7));
 #pragma endregion
@@ -729,35 +729,35 @@ void Scene_Editor::DrawEntityPropertyUI()
 			// Choose Texture
 			if (ImGui::Button("Change Texture"))
 			{
-				textureDialog.Open();
+				texture_dialog.Open();
 			}
-			textureDialog.Display();
-			if (textureDialog.HasSelected())
+			texture_dialog.Display();
+			if (texture_dialog.HasSelected())
 			{
-				if (textureDialog.GetSelected().filename().has_extension())
+				if (texture_dialog.GetSelected().filename().has_extension())
 				{
-					size_t pos = textureDialog.GetSelected().string().find("\\Assets\\");
+					size_t pos = texture_dialog.GetSelected().string().find("\\Assets\\");
 					if (pos < 1000)
 					{
-						std::string path = textureDialog.GetSelected().string().substr(pos).substr(7);
-						EntitySelectedForProperties->SetTexturePathAndLoad(path);
-						EntitySelectedForProperties->MatchFrameSizeToTexture();
+						std::string path = texture_dialog.GetSelected().string().substr(pos).substr(7);
+						entity_selected_for_properties->set_texture_path_and_load(path);
+						entity_selected_for_properties->match_framesize_to_texture();
 					}
 				}
-				textureDialog.ClearSelected();
+				texture_dialog.ClearSelected();
 			}
 
 			int si[2];
-			si[0] = EntitySelectedForProperties->SpriteSheet.FrameSize.x;
-			si[1] = EntitySelectedForProperties->SpriteSheet.FrameSize.y;
+			si[0] = entity_selected_for_properties->sprite_sheet.frame_size.x;
+			si[1] = entity_selected_for_properties->sprite_sheet.frame_size.y;
 
 			ImGui::InputInt2("Frame Size", si);
-			EntitySelectedForProperties->SpriteSheet.FrameSize.x = si[0];
-			EntitySelectedForProperties->SpriteSheet.FrameSize.y = si[1];
+			entity_selected_for_properties->sprite_sheet.frame_size.x = si[0];
+			entity_selected_for_properties->sprite_sheet.frame_size.y = si[1];
 
 			if (ImGui::Button("View Sprite Sheet"))
 			{
-				bTextureShow = !bTextureShow;
+				b_texture_show = !b_texture_show;
 			}
 			if (ImGui::IsItemHovered())
 			{
@@ -768,16 +768,16 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
 			}
-			if (bTextureShow)
+			if (b_texture_show)
 			{
 				ImGui::Begin("Currently selected texture", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
-				ImGui::SetWindowPos(sf::Vector2f(ActiveEditorConfig.BotRightPixels.x - 610.f, 50.f));
+				ImGui::SetWindowPos(sf::Vector2f(active_editor_config.bot_right_pixel.x - 610.f, 50.f));
 				ImGui::SetWindowSize(sf::Vector2f(600.f, 600.f));
 
 				ImGui::Text("Clicking on a frame will set that frame as the start frame of the currently selected animation.");
 				ImGui::Text("Shift + Clicking on a frame will set that frame as the end frame of the currently selected animation.");
 
-				sf::Vector2f textureBounds = sf::Vector2f(EntitySelectedForProperties->GetSprite().getTexture()->getSize());
+				sf::Vector2f textureBounds = sf::Vector2f(entity_selected_for_properties->get_sprite().getTexture()->getSize());
 				int numWide = (int) textureBounds.x / ((si[0] > 0) ? si[0] : 1);
 				int numTall = (int) textureBounds.y / ((si[1] > 0) ? si[1] : 1);
 				float buttonSize = 500.f / numWide < 500.f / numTall ? 500.f / numWide : 500.f / numTall;
@@ -787,28 +787,28 @@ void Scene_Editor::DrawEntityPropertyUI()
 					{
 						ImGui::PushID((i * numWide) + j);
 
-						sf::Sprite frame = EntitySelectedForProperties->GetSprite();
+						sf::Sprite frame = entity_selected_for_properties->get_sprite();
 						frame.setTextureRect(sf::IntRect(j * si[0], i * si[1], si[0], si[1]));
 
 						if (ImGui::ImageButton(frame, sf::Vector2f(buttonSize, buttonSize)))
 						{
 							if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 							{
-								if (EntitySelectedForProperties->SpriteSheet.SelectedAnimation >= 0)
+								if (entity_selected_for_properties->sprite_sheet.selected_animation >= 0)
 								{
 									// Set num frames
 									int index = (i * numWide) + j;
-									EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].NumFrames
-										= index - EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame + 1;
+									entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].num_frames
+										= index - entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame + 1;
 								}
 							}
 							else
 							{
-								if (EntitySelectedForProperties->SpriteSheet.SelectedAnimation >= 0)
+								if (entity_selected_for_properties->sprite_sheet.selected_animation >= 0)
 								{
 									// Set start frame
 									int index = (i * numWide) + j;
-									EntitySelectedForProperties->SpriteSheet.Animations[EntitySelectedForProperties->SpriteSheet.SelectedAnimation].StartFrame = index;
+									entity_selected_for_properties->sprite_sheet.animations[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame = index;
 								}
 							}
 						}
@@ -825,7 +825,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::End();
 			}
 
-			ImGui::Checkbox("Loop Animation", &EntitySelectedForProperties->SpriteSheet.bRepeat);
+			ImGui::Checkbox("Loop Animation", &entity_selected_for_properties->sprite_sheet.b_repeat);
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::BeginTooltip();
@@ -835,9 +835,9 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::EndTooltip();
 			}
 
-			int selected = static_cast<int>(EntitySelectedForProperties->SpriteSheet.SelectedAnimation);
-			ImGui::SliderInt("Anim Index", &selected, 0, EntitySelectedForProperties->SpriteSheet.Animations.size() - 1);
-			EntitySelectedForProperties->SpriteSheet.SelectedAnimation = selected;
+			int selected = static_cast<int>(entity_selected_for_properties->sprite_sheet.selected_animation);
+			ImGui::SliderInt("Anim Index", &selected, 0, entity_selected_for_properties->sprite_sheet.animations.size() - 1);
+			entity_selected_for_properties->sprite_sheet.selected_animation = selected;
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::BeginTooltip();
@@ -858,17 +858,17 @@ void Scene_Editor::DrawEntityPropertyUI()
 
 			if (ImGui::Button("Add new animation"))
 			{
-				EntitySelectedForProperties->SpriteSheet.Animations.push_back(FAnimation());
+				entity_selected_for_properties->sprite_sheet.animations.push_back(FAnimation());
 			}
 
 			// display animations
-			for (size_t i = 0; i < EntitySelectedForProperties->SpriteSheet.Animations.size(); ++i)
+			for (size_t i = 0; i < entity_selected_for_properties->sprite_sheet.animations.size(); ++i)
 			{
 				ImGui::Text(std::to_string(i).c_str());
 				ImGui::Indent();
 				ImGui::PushID(i);
 				
-				float dur = EntitySelectedForProperties->SpriteSheet.Animations[i].AnimDuration.asSeconds();
+				float dur = entity_selected_for_properties->sprite_sheet.animations[i].anim_duration.asSeconds();
 				ImGui::InputFloat("Duration", &dur);
 				if (ImGui::IsItemHovered())
 				{
@@ -878,8 +878,8 @@ void Scene_Editor::DrawEntityPropertyUI()
 					ImGui::PopTextWrapPos();
 					ImGui::EndTooltip();
 				}
-				EntitySelectedForProperties->SpriteSheet.Animations[i].AnimDuration = sf::seconds(dur);
-				int sframe = static_cast<int>(EntitySelectedForProperties->SpriteSheet.Animations[i].StartFrame);
+				entity_selected_for_properties->sprite_sheet.animations[i].anim_duration = sf::seconds(dur);
+				int sframe = static_cast<int>(entity_selected_for_properties->sprite_sheet.animations[i].start_frame);
 				ImGui::InputInt("StartFrame", &sframe);
 				if (ImGui::IsItemHovered())
 				{
@@ -889,8 +889,8 @@ void Scene_Editor::DrawEntityPropertyUI()
 					ImGui::PopTextWrapPos();
 					ImGui::EndTooltip();
 				}
-				EntitySelectedForProperties->SpriteSheet.Animations[i].StartFrame = sframe;
-				int numFrames = static_cast<int>(EntitySelectedForProperties->SpriteSheet.Animations[i].NumFrames);
+				entity_selected_for_properties->sprite_sheet.animations[i].start_frame = sframe;
+				int numFrames = static_cast<int>(entity_selected_for_properties->sprite_sheet.animations[i].num_frames);
 				ImGui::InputInt("# of Frames", &numFrames);				
 				if (ImGui::IsItemHovered())
 				{
@@ -900,18 +900,18 @@ void Scene_Editor::DrawEntityPropertyUI()
 					ImGui::PopTextWrapPos();
 					ImGui::EndTooltip();
 				}
-				EntitySelectedForProperties->SpriteSheet.Animations[i].NumFrames = numFrames;
+				entity_selected_for_properties->sprite_sheet.animations[i].num_frames = numFrames;
 
 				if (ImGui::Button("Delete this animation"))
 				{
-					std::vector<FAnimation>::iterator nth = EntitySelectedForProperties->SpriteSheet.Animations.begin() + i;
-					EntitySelectedForProperties->SpriteSheet.Animations.erase(nth);
+					std::vector<FAnimation>::iterator nth = entity_selected_for_properties->sprite_sheet.animations.begin() + i;
+					entity_selected_for_properties->sprite_sheet.animations.erase(nth);
 					--i;
 
 					// Make sure selected animation index isn't out of bounds
-					if (EntitySelectedForProperties->SpriteSheet.Animations.size() >= EntitySelectedForProperties->SpriteSheet.SelectedAnimation)
+					if (entity_selected_for_properties->sprite_sheet.animations.size() >= entity_selected_for_properties->sprite_sheet.selected_animation)
 					{
-						--(EntitySelectedForProperties->SpriteSheet.SelectedAnimation);
+						--(entity_selected_for_properties->sprite_sheet.selected_animation);
 					}
 				}
 
@@ -927,7 +927,7 @@ void Scene_Editor::DrawEntityPropertyUI()
 			ImGui::Text("Collision Properties");
 			ImGui::Separator();
 
-			ImGui::Checkbox("Match sprite bounds", &bCollisionMatchSpriteBound);
+			ImGui::Checkbox("Match sprite bounds", &b_collision_match_sprite_bound);
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::BeginTooltip();
@@ -937,11 +937,11 @@ void Scene_Editor::DrawEntityPropertyUI()
 				ImGui::EndTooltip();
 			}
 
-			if (bCollisionMatchSpriteBound == false)
+			if (b_collision_match_sprite_bound == false)
 			{
-				BoxCollider col = EntitySelectedForProperties->GetCollider();
+				BoxCollider col = entity_selected_for_properties->get_collider();
 
-				float off[2] = { col.offsetX, col.offsetY };
+				float off[2] = { col.offset_x, col.offset_y };
 				ImGui::InputFloat2("x-y offsets", off);
 				if (ImGui::IsItemHovered())
 				{
@@ -951,8 +951,8 @@ void Scene_Editor::DrawEntityPropertyUI()
 					ImGui::PopTextWrapPos();
 					ImGui::EndTooltip();
 				}
-				EntitySelectedForProperties->GetCollider().offsetX = off[0];
-				EntitySelectedForProperties->GetCollider().offsetY = off[1];
+				entity_selected_for_properties->get_collider().offset_x = off[0];
+				entity_selected_for_properties->get_collider().offset_y = off[1];
 
 				float siz[2] = { col.width, col.height };
 				ImGui::InputFloat2("width & height", siz);
@@ -964,12 +964,12 @@ void Scene_Editor::DrawEntityPropertyUI()
 					ImGui::PopTextWrapPos();
 					ImGui::EndTooltip();
 				}
-				EntitySelectedForProperties->GetCollider().width = siz[0];
-				EntitySelectedForProperties->GetCollider().height = siz[1];
+				entity_selected_for_properties->get_collider().width = siz[0];
+				entity_selected_for_properties->get_collider().height = siz[1];
 
-				bool bCollidable = EntitySelectedForProperties->IsCollidable();
+				bool bCollidable = entity_selected_for_properties->is_collidable();
 				ImGui::Checkbox("Collision Enabled", &bCollidable);
-				EntitySelectedForProperties->SetCollidable(bCollidable);
+				entity_selected_for_properties->set_collidable(bCollidable);
 
 			}
 #pragma endregion
@@ -985,19 +985,19 @@ void Scene_Editor::DrawEntityPropertyUI()
 		// Display all entities currently in level
 		int selected = -1;
 		std::vector<std::string> bruh;
-		for (int i = 0; i < Entities.size(); ++i)
+		for (int i = 0; i < entities.size(); ++i)
 		{
 			std::string name = std::to_string(i).append(" ");
-			name = Entities.at(i)->EntityId.empty() ? name.append(typeid(Entities.at(i)).name()) : name.append(Entities.at(i)->EntityId);
+			name = entities.at(i)->entity_id.empty() ? name.append(typeid(entities.at(i)).name()) : name.append(entities.at(i)->entity_id);
 			bruh.push_back(name);
-			if (Entities.at(i) == EntitySelectedForProperties)
+			if (entities.at(i) == entity_selected_for_properties)
 			{
 				selected = i;
 			}
 		}
 		if (ImGui::ListBox("", &selected, bruh))
 		{
-			SetEntitySelectedForProperties(Entities.at(selected));
+			set_entity_selected_for_properties(entities.at(selected));
 		}
 		ImGui::NextColumn();
 		
@@ -1020,17 +1020,17 @@ void Scene_Editor::DrawEntityPropertyUI()
 		ImGui::NextColumn();
 
 		// Count of entities in level
-		std::string num = std::to_string(Entities.size()).append(" entities in level.");
+		std::string num = std::to_string(entities.size()).append(" entities in level.");
 		const char * numInCharPtr = num.c_str();
 		ImGui::Text(numInCharPtr);
 
 		// Delete Button
 		if (ImGui::Button("Delete Selected"))
 		{
-			if (EntitySelectedForProperties != nullptr)
+			if (entity_selected_for_properties != nullptr)
 			{
-				Entities.removeAndDestroy(EntitySelectedForProperties);
-				SetEntitySelectedForProperties(nullptr);
+				entities.remove_and_destroy(entity_selected_for_properties);
+				set_entity_selected_for_properties(nullptr);
 			}
 		}
 
@@ -1041,23 +1041,23 @@ void Scene_Editor::DrawEntityPropertyUI()
 	ImGui::End();
 }
 
-void Scene_Editor::DrawEntityTypeUI()
+void Scene_Editor::draw_entity_type_ui()
 {
 	ImGui::Begin("Entity Types", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
-	ImGui::SetWindowPos(sf::Vector2f(0.f, (float) ActiveEditorConfig.BotRightPixels.y));
-	ImGui::SetWindowSize(sf::Vector2f((float) ActiveEditorConfig.BotRightPixels.x, (float) ActiveEditorConfig.WindowSizeY - ActiveEditorConfig.BotRightPixels.y));
+	ImGui::SetWindowPos(sf::Vector2f(0.f, (float) active_editor_config.bot_right_pixel.y));
+	ImGui::SetWindowSize(sf::Vector2f((float) active_editor_config.bot_right_pixel.x, (float) active_editor_config.window_size_y - active_editor_config.bot_right_pixel.y));
 
 	// Display all available entity types
-	for (int i = 0; i < EntityTypes.size(); ++i)
+	for (int i = 0; i < entity_types.size(); ++i)
 	{
 		ImGui::BeginGroup();
 		{
-			sf::Sprite entitySprite = EntityTypes.at(i)->GetSprite();
+			sf::Sprite entitySprite = entity_types.at(i)->get_sprite();
 			const char* EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
 			if (ImGui::ImageButton(entitySprite, sf::Vector2f(30.f, 30.f)))
 			{
-				EntitySelectedForCreation = EntityTypes.at(i);
-				currTool = TOOL_PLACE;
+				entity_selected_for_creation = entity_types.at(i);
+				curr_tool = TOOL_PLACE;
 			}
 			ImGui::Text(EntityId);
 
@@ -1081,14 +1081,14 @@ void Scene_Editor::DrawEntityTypeUI()
 	ImGui::End();
 }
 
-void Scene_Editor::DrawMenuAndOptionsBarUI()
+void Scene_Editor::draw_menu_and_optionsbar_ui()
 {
 	ImGui::Begin("Menu and  Editor Options", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 	ImGui::SetWindowPos(sf::Vector2f(0.f, 0.f));
-	ImGui::SetWindowSize(sf::Vector2f((float) ActiveEditorConfig.WindowSizeX, (float) ActiveEditorConfig.TopLeftPixel.y));
+	ImGui::SetWindowSize(sf::Vector2f((float) active_editor_config.window_size_x, (float) active_editor_config.top_left_pixel.y));
 
 	ImGui::PushItemWidth(120.f);
-	ImGui::InputText("LEVEL ID", levelID, 30);
+	ImGui::InputText("LEVEL ID", level_id, 30);
 	if (ImGui::IsItemHovered())
 	{
 		ImGui::BeginTooltip();
@@ -1100,54 +1100,54 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	}
 	if (ImGui::IsItemActive())
 	{
-		bTypingLevelID = true;
+		b_typing_level_id = true;
 	}
 	else
 	{
-		bTypingLevelID = false;
+		b_typing_level_id = false;
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Save"))
 	{
 		ADKSaveLoad Saver;
-		Saver.SaveScene(levelID, *this);
+		Saver.save_scene(level_id, *this);
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Load"))
 	{
 		ADKSaveLoad Loader;
-		Loader.LoadToScene(levelID, *this);
+		Loader.load_to_scene(level_id, *this);
 	}
 	ImGui::SameLine();
 
 	if (ImGui::Button("Config"))
 	{
-		bShowConfig = !bShowConfig;
+		b_show_config = !b_show_config;
 	}
-	if (bShowConfig)
+	if (b_show_config)
 	{
 		ImGui::Begin("ADK Editor Settings", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-		ImGui::SetWindowPos(sf::Vector2f((float)ActiveEditorConfig.TopLeftPixel.x, (float)ActiveEditorConfig.TopLeftPixel.y));
-		ImGui::SetWindowSize(sf::Vector2f((float)ActiveEditorConfig.BotRightPixels.x - ActiveEditorConfig.TopLeftPixel.x,
-			(float)ActiveEditorConfig.BotRightPixels.y - ActiveEditorConfig.TopLeftPixel.y));
+		ImGui::SetWindowPos(sf::Vector2f((float)active_editor_config.top_left_pixel.x, (float)active_editor_config.top_left_pixel.y));
+		ImGui::SetWindowSize(sf::Vector2f((float)active_editor_config.bot_right_pixel.x - active_editor_config.top_left_pixel.x,
+			(float)active_editor_config.bot_right_pixel.y - active_editor_config.top_left_pixel.y));
 
 		// Big grid
 		ImGui::Text("Big Grid: ");
 		ImGui::SameLine();
 		ImGui::PushItemWidth(90.f);
-		ImGui::InputInt("Big Grid X", &ActiveEditorConfig.BigGridX);
+		ImGui::InputInt("Big Grid X", &active_editor_config.big_grid_x);
 		ImGui::SameLine();
-		ImGui::InputInt("Big Grid Y", &ActiveEditorConfig.BigGridY);
+		ImGui::InputInt("Big Grid Y", &active_editor_config.big_grid_y);
 		ImGui::SameLine();
-		ImGui::Checkbox("Show Big Grid", &ActiveEditorConfig.bShowBigGrid);
+		ImGui::Checkbox("Show Big Grid", &active_editor_config.b_show_big_grid);
 		ImGui::SameLine();
 		ImGui::PushItemWidth(130.f);
-		ImColor bigGridCol = MoreColors::SFColorToImColor(ActiveEditorConfig.BigGridColor);
+		ImColor bigGridCol = MoreColors::sfcolor_to_imcolor(active_editor_config.big_grid_color);
 		if (ImGui::ColorEdit4("Big Grid Color", (float*)&bigGridCol, ImGuiColorEditFlags_NoInputs))
 		{
-			EntitySelectedForCreation = nullptr;
+			entity_selected_for_creation = nullptr;
 		}
-		ActiveEditorConfig.BigGridColor = MoreColors::ImColorToSFColor(bigGridCol);
+		active_editor_config.big_grid_color = MoreColors::imcolor_to_sfcolor(bigGridCol);
 
 		// Background color
 		
@@ -1156,7 +1156,7 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 
 
 		// Misc
-		ImGui::Checkbox("Debug render mode", &bDebugRender);
+		ImGui::Checkbox("Debug render mode", &b_debug_render);
 
 		ImGui::End();
 	}
@@ -1164,44 +1164,44 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::SameLine(370.f);
 
 	ImGui::PushItemWidth(90.f);
-	ImGui::InputInt("Grid Size X", &ActiveEditorConfig.GridSizeX);
+	ImGui::InputInt("Grid Size X", &active_editor_config.grid_size_x);
 	ImGui::SameLine();
-	ImGui::InputInt("Grid Size Y", &ActiveEditorConfig.GridSizeY);
+	ImGui::InputInt("Grid Size Y", &active_editor_config.grid_size_y);
 	ImGui::SameLine();
-	ImGui::Checkbox("Show Grid", &ActiveEditorConfig.bShowGrid);
+	ImGui::Checkbox("Show Grid", &active_editor_config.b_show_grid);
 	ImGui::SameLine();
-	ImGui::Checkbox("Snap to Grid", &ActiveEditorConfig.bSnapToGrid);
+	ImGui::Checkbox("Snap to Grid", &active_editor_config.b_snap_to_grid);
 	ImGui::SameLine();
 
 	ImGui::PushItemWidth(130.f);
-	ImColor gridCol = MoreColors::SFColorToImColor(ActiveEditorConfig.GridColor);
+	ImColor gridCol = MoreColors::sfcolor_to_imcolor(active_editor_config.grid_color);
 	if (ImGui::ColorEdit4("Grid Color", (float*)&gridCol, ImGuiColorEditFlags_NoInputs))
 	{
-		EntitySelectedForCreation = nullptr;
+		entity_selected_for_creation = nullptr;
 	}
-	ActiveEditorConfig.GridColor = MoreColors::ImColorToSFColor(gridCol);
+	active_editor_config.grid_color = MoreColors::imcolor_to_sfcolor(gridCol);
 	ImGui::SameLine();
 
-	ImColor selCol = MoreColors::SFColorToImColor(ActiveEditorConfig.SelectionColor);
+	ImColor selCol = MoreColors::sfcolor_to_imcolor(active_editor_config.selection_color);
 	if (ImGui::ColorEdit4("Select Color", (float*)&selCol, ImGuiColorEditFlags_NoInputs))
 	{
-		EntitySelectedForCreation = nullptr;
+		entity_selected_for_creation = nullptr;
 	}
-	ActiveEditorConfig.SelectionColor = MoreColors::ImColorToSFColor(selCol);
+	active_editor_config.selection_color = MoreColors::imcolor_to_sfcolor(selCol);
 	ImGui::SameLine(1180.f);
 
 	ImGui::Text("Show Depth From");
 	ImGui::SameLine();
 	ImGui::PushItemWidth(90.f);
-	ImGui::InputInt("To", &ActiveEditorConfig.depthFilterLowerBound);
+	ImGui::InputInt("To", &active_editor_config.depth_filter_lowerbound);
 	ImGui::SameLine();
-	ImGui::InputInt("###", &ActiveEditorConfig.depthFilterUpperBound);
+	ImGui::InputInt("###", &active_editor_config.depth_filter_upperbound);
 	ImGui::SameLine();
 
 	// RESET VIEW button
 	if (ImGui::Button("Reset View"))
 	{
-		InitializeSceneView(*renderWindowPtr);
+		initialize_scene_view(*render_window_ptr);
 	}	
 	if (ImGui::IsItemHovered())
 	{
@@ -1216,18 +1216,18 @@ void Scene_Editor::DrawMenuAndOptionsBarUI()
 	ImGui::End();
 }
 
-void Scene_Editor::DrawToolsMenuUI()
+void Scene_Editor::draw_tools_menu_ui()
 {
 	ImGui::Begin("Tools Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-	ImGui::SetWindowPos(sf::Vector2f(0.f, (float) ActiveEditorConfig.TopLeftPixel.y));
-	ImGui::SetWindowSize(sf::Vector2f((float)ActiveEditorConfig.TopLeftPixel.x, 
-		(float)ActiveEditorConfig.WindowSizeY - ActiveEditorConfig.TopLeftPixel.y - (ActiveEditorConfig.WindowSizeY - ActiveEditorConfig.BotRightPixels.y)));
+	ImGui::SetWindowPos(sf::Vector2f(0.f, (float) active_editor_config.top_left_pixel.y));
+	ImGui::SetWindowSize(sf::Vector2f((float)active_editor_config.top_left_pixel.x, 
+		(float)active_editor_config.window_size_y - active_editor_config.top_left_pixel.y - (active_editor_config.window_size_y - active_editor_config.bot_right_pixel.y)));
 
 	ImGui::Text("TOOLS");
 	// Selection tool
-	if (ImGui::ImageButton(selectButton, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, currTool == TOOL_SELECTION ? sf::Color::Black : sf::Color::White))
+	if (ImGui::ImageButton(select_button, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, curr_tool == TOOL_SELECTION ? sf::Color::Black : sf::Color::White))
 	{
-		currTool = TOOL_SELECTION;
+		curr_tool = TOOL_SELECTION;
 	}
 	if (ImGui::IsItemHovered())
 	{
@@ -1240,9 +1240,9 @@ void Scene_Editor::DrawToolsMenuUI()
 	}
 
 	// Place tool
-	if (ImGui::ImageButton(placeButton, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, currTool == TOOL_PLACE ? sf::Color::Black : sf::Color::White))
+	if (ImGui::ImageButton(place_button, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, curr_tool == TOOL_PLACE ? sf::Color::Black : sf::Color::White))
 	{
-		currTool = TOOL_PLACE;
+		curr_tool = TOOL_PLACE;
 	}
 	if (ImGui::IsItemHovered())
 	{
@@ -1255,9 +1255,9 @@ void Scene_Editor::DrawToolsMenuUI()
 	}
 
 	// Brush tool 
-	if (ImGui::ImageButton(brushButton, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, currTool == TOOL_BRUSH ? sf::Color::Black : sf::Color::White))
+	if (ImGui::ImageButton(brush_button, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, curr_tool == TOOL_BRUSH ? sf::Color::Black : sf::Color::White))
 	{
-		currTool = TOOL_BRUSH;
+		curr_tool = TOOL_BRUSH;
 	}
 	if (ImGui::IsItemHovered())
 	{
@@ -1270,9 +1270,9 @@ void Scene_Editor::DrawToolsMenuUI()
 	}
 
 	// Picker tool
-	if (ImGui::ImageButton(pickerButton, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, currTool == TOOL_PICKER ? sf::Color::Black : sf::Color::White))
+	if (ImGui::ImageButton(picker_button, sf::Vector2f(30.f, 30.f), -1, sf::Color::Transparent, curr_tool == TOOL_PICKER ? sf::Color::Black : sf::Color::White))
 	{
-		currTool = TOOL_PICKER;
+		curr_tool = TOOL_PICKER;
 	}
 	if (ImGui::IsItemHovered())
 	{
@@ -1287,67 +1287,67 @@ void Scene_Editor::DrawToolsMenuUI()
 	ImGui::End();
 }
 
-void Scene_Editor::InitializeSceneView(sf::RenderWindow& window)
+void Scene_Editor::initialize_scene_view(sf::RenderWindow& window)
 {
-	SceneView.setViewport(sf::FloatRect(0.03f, 0.04f, 0.78f, 0.738f));
-	Scene::InitializeSceneView(window);
-	zoomFactor = ViewConfig.Zoom;
+	scene_view.setViewport(sf::FloatRect(0.03f, 0.04f, 0.78f, 0.738f));
+	Scene::initialize_scene_view(window);
+	zoom_factor = view_config.zoom;
 }
 
-void Scene_Editor::SetEntitySelectedForProperties(Entity* newSelection)
+void Scene_Editor::set_entity_selected_for_properties(Entity* newSelection)
 {
 	// Clear the modified sprite color of the last entity
-	if (EntitySelectedForProperties != nullptr)
+	if (entity_selected_for_properties != nullptr)
 	{
-		EntitySelectedForProperties->GetSprite().setColor(sf::Color::White);
+		entity_selected_for_properties->get_sprite().setColor(sf::Color::White);
 	}
 	// Set new entity
-	EntitySelectedForProperties = newSelection;
+	entity_selected_for_properties = newSelection;
 	// Modify sprite color of new entity
-	if (EntitySelectedForProperties != nullptr)
+	if (entity_selected_for_properties != nullptr)
 	{
-		EntitySelectedForProperties->GetSprite().setColor(sf::Color::White); // set to whatever modified color u want
+		entity_selected_for_properties->get_sprite().setColor(sf::Color::White); // set to whatever modified color u want
 	}
 }
 
-void Scene_Editor::UpdateEditorConfigWithWindow(sf::RenderWindow& window)
+void Scene_Editor::update_editor_config_with_window(sf::RenderWindow& window)
 {
-	DefaultEditorConfig.WindowSizeX = window.getSize().x;
-	DefaultEditorConfig.WindowSizeY = window.getSize().y;
-	DefaultEditorConfig.TopLeftPixel.x = (int)(0.03f * window.getSize().x);
-	DefaultEditorConfig.TopLeftPixel.y = (int)(0.04f * window.getSize().y);
-	DefaultEditorConfig.BotRightPixels.x = (int)(0.78f * window.getSize().x + DefaultEditorConfig.TopLeftPixel.x);
-	DefaultEditorConfig.BotRightPixels.y = (int)(0.738f * window.getSize().y + DefaultEditorConfig.TopLeftPixel.y);
-	ActiveEditorConfig = DefaultEditorConfig;
-	bgRect = sf::FloatRect((float)ActiveEditorConfig.TopLeftPixel.x, (float)ActiveEditorConfig.TopLeftPixel.y,
-		(float)ActiveEditorConfig.BotRightPixels.x - ActiveEditorConfig.TopLeftPixel.x, (float)ActiveEditorConfig.BotRightPixels.y - ActiveEditorConfig.TopLeftPixel.y);
+	default_editor_config.window_size_x = window.getSize().x;
+	default_editor_config.window_size_y = window.getSize().y;
+	default_editor_config.top_left_pixel.x = (int)(0.03f * window.getSize().x);
+	default_editor_config.top_left_pixel.y = (int)(0.04f * window.getSize().y);
+	default_editor_config.bot_right_pixel.x = (int)(0.78f * window.getSize().x + default_editor_config.top_left_pixel.x);
+	default_editor_config.bot_right_pixel.y = (int)(0.738f * window.getSize().y + default_editor_config.top_left_pixel.y);
+	active_editor_config = default_editor_config;
+	bg_rect = sf::FloatRect((float)active_editor_config.top_left_pixel.x, (float)active_editor_config.top_left_pixel.y,
+		(float)active_editor_config.bot_right_pixel.x - active_editor_config.top_left_pixel.x, (float)active_editor_config.bot_right_pixel.y - active_editor_config.top_left_pixel.y);
 
 	// resize the level viewer as well
-	SceneView.setSize(bgRect.width, bgRect.height);
-	SceneView.zoom(zoomFactor);
-	window.setView(SceneView);
+	scene_view.setSize(bg_rect.width, bg_rect.height);
+	scene_view.zoom(zoom_factor);
+	window.setView(scene_view);
 }
 
-void Scene_Editor::BrushPlaceHelper()
+void Scene_Editor::brush_place_helper()
 {
 	// Get the current mouse position in the window
-	sf::Vector2i pixelPos = sf::Mouse::getPosition(*renderWindowPtr);
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
 	// Convert it to world coordinates
-	sf::Vector2f worldPos = (*renderWindowPtr).mapPixelToCoords(pixelPos);
+	sf::Vector2f worldPos = (*render_window_ptr).mapPixelToCoords(pixelPos);
 	// Calculate amount to subtract if snapping to grid
 	int sX = 0;
 	int sY = 0;
-	if (ActiveEditorConfig.bSnapToGrid)
+	if (active_editor_config.b_snap_to_grid)
 	{
-		sX = (int)worldPos.x % ActiveEditorConfig.GridSizeX;
+		sX = (int)worldPos.x % active_editor_config.grid_size_x;
 		if (worldPos.x < 0)
 		{
-			sX = ActiveEditorConfig.GridSizeX + sX;
+			sX = active_editor_config.grid_size_x + sX;
 		}
-		sY = (int)worldPos.y % ActiveEditorConfig.GridSizeY;
+		sY = (int)worldPos.y % active_editor_config.grid_size_y;
 		if (worldPos.y < 0)
 		{
-			sY = ActiveEditorConfig.GridSizeY + sY;
+			sY = active_editor_config.grid_size_y + sY;
 		}
 	}
 
@@ -1356,9 +1356,9 @@ void Scene_Editor::BrushPlaceHelper()
 	int posY = ((int)worldPos.y) - sY;
 
 	// Check if position already visited (only for brush tool)
-	if (currTool == TOOL_BRUSH)
+	if (curr_tool == TOOL_BRUSH)
 	{
-		for (auto pos : BrushVisitedPositions)
+		for (auto pos : brush_visited_positions)
 		{
 			if (pos.x == posX && pos.y == posY)
 			{
@@ -1367,22 +1367,22 @@ void Scene_Editor::BrushPlaceHelper()
 			}
 		}
 		// Visit this position
-		BrushVisitedPositions.push_back(sf::Vector2i(posX, posY));
+		brush_visited_positions.push_back(sf::Vector2i(posX, posY));
 	}
 	
 	// Create a new entity
-	Entity* created = ADKEditorMetaRegistry::CreateNewEntity(EntitySelectedForCreation->EntityId);
-	created->LoadDefaultTexture();
+	Entity* created = ADKEditorMetaRegistry::CreateNewEntity(entity_selected_for_creation->entity_id);
+	created->load_default_texture();
 	// Assign it the specific entity id for its entity type
-	created->EntityId = EntitySelectedForCreation->EntityId;
-	created->SetPosition((float)posX, (float)posY);
+	created->entity_id = entity_selected_for_creation->entity_id;
+	created->set_position((float)posX, (float)posY);
 	// Initialize collider position
-	created->InitCollider();
+	created->init_collider();
 	// Add the entity to this scene/level editor's entity list
-	Entities.add(created);
-	Entities.MarkDepthChanged();
+	entities.add(created);
+	entities.mark_depth_changed();
 	// Set this entity to be selected
-	SetEntitySelectedForProperties(created);
+	set_entity_selected_for_properties(created);
 
 	//std::cout << "Placed " << created->EntityId << " at x: " << worldPos.x << "  y: " << worldPos.y << std::endl;
 }

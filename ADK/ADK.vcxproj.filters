@@ -25,12 +25,12 @@
     <Filter Include="Engine\ADKUtils">
       <UniqueIdentifier>{14925f3f-f881-468e-8ac5-0f40cac0e087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Entities">
+      <UniqueIdentifier>{67e1a4cf-7db5-4ff1-924a-3220891d7c5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Entity.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene.cpp">
@@ -81,11 +81,11 @@
     <ClCompile Include="Game\DemoPlatformerOneWayPlatform.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Entity.cpp">
+      <Filter>Engine\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Entity.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Scene.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -128,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="Game\DemoPlatformerOneWayPlatform.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Entity.h">
+      <Filter>Engine\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

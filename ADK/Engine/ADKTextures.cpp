@@ -1,15 +1,15 @@
 #include <cassert>
 #include "ADKTextures.h"
 
-sf::Texture* ADKTextures::Get(const std::string& path)
+sf::Texture* ADKTextures::get(const std::string& path)
 {
 	// Check if texture isn't loaded yet
-	std::map<std::string, sf::Texture*>::iterator it = TexturePointers.find(path);
-	if (it != TexturePointers.end())
+	std::map<std::string, sf::Texture*>::iterator it = texture_pointers.find(path);
+	if (it != texture_pointers.end())
 	{
 		// Assert it exists in ReferenceCount
-		std::map<std::string, uint16_t>::iterator refCount = ReferenceCount.find(path);
-		assert(refCount != ReferenceCount.end());
+		std::map<std::string, uint16_t>::iterator refCount = reference_count.find(path);
+		assert(refCount != reference_count.end());
 		// Increment reference count
 		++(refCount->second);
 
@@ -21,8 +21,8 @@ sf::Texture* ADKTextures::Get(const std::string& path)
 	else
 	{
 		// Assert it doesn't exist in TexturePointers
-		std::map<std::string, sf::Texture*>::iterator texPtr = TexturePointers.find(path);
-		assert(texPtr == TexturePointers.end());
+		std::map<std::string, sf::Texture*>::iterator texPtr = texture_pointers.find(path);
+		assert(texPtr == texture_pointers.end());
 		// Create new texture and load from file
 		sf::Texture* texture = new sf::Texture();
 		std::string loadPath = "Assets/";
@@ -36,22 +36,22 @@ sf::Texture* ADKTextures::Get(const std::string& path)
 			}
 		}
 		// Add to ReferenceCount and TexturePointers
-		ReferenceCount.insert(std::make_pair(path, 1));
-		TexturePointers.insert(std::make_pair(path, texture));
+		reference_count.insert(std::make_pair(path, 1));
+		texture_pointers.insert(std::make_pair(path, texture));
 		// Return new texture pointer
 		return texture;
 	}
 
 }
 
-void ADKTextures::Unload(const std::string& path)
+void ADKTextures::unload(const std::string& path)
 {
-	std::map<std::string, sf::Texture*>::iterator texPtr = TexturePointers.find(path);
-	std::map<std::string, uint16_t>::iterator refCount = ReferenceCount.find(path);
+	std::map<std::string, sf::Texture*>::iterator texPtr = texture_pointers.find(path);
+	std::map<std::string, uint16_t>::iterator refCount = reference_count.find(path);
 
 	// Assert that path exists in ReferenceCount and TexturePointers (i.e. we've reference counted properly)
-	assert(texPtr != TexturePointers.end());
-	assert(refCount != ReferenceCount.end());
+	assert(texPtr != texture_pointers.end());
+	assert(refCount != reference_count.end());
 
 	// Decrement ReferenceCount
 	--(refCount->second);
@@ -64,7 +64,7 @@ void ADKTextures::Unload(const std::string& path)
 		// Deallocate texture
 		delete(texPtr->second);
 		// Erase texture entry from ReferenceCount and TexturePointers
-		TexturePointers.erase(texPtr);
-		ReferenceCount.erase(refCount);
+		texture_pointers.erase(texPtr);
+		reference_count.erase(refCount);
 	}
 }
