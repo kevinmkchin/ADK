@@ -79,8 +79,8 @@ public:
 	void Move(sf::Vector2f delta);
 
 	sf::Vector2f GetPosition() const;
-	void SetPosition(sf::Vector2f newPos);
 	void SetPosition(float x, float y);
+	void SetPosition(sf::Vector2f newPos);
 
 	float GetRotation() const;
 	void SetRotation(float newRot, bool bAffectCollider = false);
@@ -135,6 +135,24 @@ public:
 
 public:
 
+	sf::Vector2f get_origin() const { return origin_private; }
+
+	bool is_using_origin_for_position() const { return b_use_origin_for_position_private; }
+
+protected:
+
+	// Probably call from a constructor. Should only be set from derived classes.
+	void set_origin(float x, float y);
+
+	// Probably call from a constructor. Should only be set from derived classes.
+	void set_origin(sf::Vector2f in_origin);
+
+	// Probably call from a constructor. Should only be set from derived classes.
+	void use_origin_for_position(bool b_use);
+
+
+public:
+
 	// Used only to display entity id in the editor
 	std::string EntityId;
 
@@ -175,6 +193,22 @@ protected:
 	BoxCollider collider;
 
 	// TAGS
+
+private:
+	///////////////////////////////////////////////////////////
+	// --- ORIGIN ---
+
+	/** Local origin of position, rotation, and scale transformations. 
+		This vector2f is the origin's offset from the top-left corner of the sprite.
+		This entity's rotations are performed around this origin. This entity will scale relative to the origin point.
+		This will also be the origin of the entity's position if b_use_origin_for_position is true. */
+	sf::Vector2f origin_private;
+
+	/** Whether or not to separate position origin from rotation/scale origin.
+		If this is false, position origin will always be top-left corner of sprite. */
+	bool b_use_origin_for_position_private;
+
+	///////////////////////////////////////////////////////////
 
 };
 
