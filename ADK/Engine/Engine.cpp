@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include <fstream>
 
+#include "json.hpp"
 #include "MoreColors.h"
 #include "Scene_Editor.h"
 #include "../Game/Scene_Game.h"
@@ -63,15 +65,39 @@ private:
 };
 
 Engine::Engine()
-	: window(sf::VideoMode(engine_config.default_window_width, engine_config.default_window_height), 
-		"ADK Engine", 
-		(engine_config.b_can_resize ? sf::Style::Default : sf::Style::Close))
 {
+	//FEngineConfig default_engine;
+	//nlohmann::json item;
+	//item["Core"]["TicksPerSecond"] = default_engine.ticks_per_second;
+	//item["Core"]["CapFpsToTick"] = default_engine.b_cap_framerate_to_ticks;
+	//item["Graphics"]["bVsyncOn"] = default_engine.b_vsync_enabled;
+	//item["Graphics"]["WinW"] = default_engine.default_window_width;
+	//item["Graphics"]["WinH"] = default_engine.default_window_height;
+	//item["Graphics"]["bCanResize"] = default_engine.b_can_resize;
+	//std::ofstream config_stream_engine;
+	//config_stream_engine.open("Saved/Config/Engine.json");
+	//config_stream_engine << item.dump(4);
+	//config_stream_engine.close();
+
+	// Load Engine configs
+	std::ifstream config_load("Saved/Config/Engine.json");
+	nlohmann::json config_json;
+	config_load >> config_json;
+	engine_config.ticks_per_second = config_json["Core"]["TicksPerSecond"];
+	engine_config.b_cap_framerate_to_ticks = config_json["Core"]["CapFpsToTick"];
+	engine_config.b_vsync_enabled = config_json["Graphics"]["bVsyncOn"];
+	engine_config.default_window_width = config_json["Graphics"]["WinW"];
+	engine_config.default_window_height = config_json["Graphics"]["WinH"];
+	engine_config.b_can_resize = config_json["Graphics"]["bCanResize"];
+
+	// Create window
+	window.create(sf::VideoMode(engine_config.default_window_width, engine_config.default_window_height),
+		"ADK Engine",
+		(engine_config.b_can_resize ? sf::Style::Default : sf::Style::Close));
 }
 
 void Engine::run()
 {
-	// TODO Read DefaultGame.ini to set up EngineConfig
 	window.setVerticalSyncEnabled(engine_config.b_vsync_enabled);
 	// Initialize framerate and update times
 	sf::Clock clock;
@@ -79,7 +105,7 @@ void Engine::run()
 	sf::Time time_per_frame = sf::seconds(1.f / engine_config.ticks_per_second);
 
 	// Choose the scene
-	active_scene = new Scene_Game();
+	active_scene = new Scene_Editor();
 	active_scene->begin_scene(window);
 
 	// Game process loop

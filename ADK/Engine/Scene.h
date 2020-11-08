@@ -9,7 +9,6 @@
 // Struct for Scene View properties
 struct FViewConfig
 {
-	// Todo: Defaults for scene view
 	float center_x = 640.f;
 	float center_y = 360.f;
 	float size_x = 1280.f;

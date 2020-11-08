@@ -1,6 +1,8 @@
 #include <iostream>
+#include <fstream>
 #include <imgui.h>
 #include <imgui-SFML.h>
+#include "json.hpp"
 
 #include "MoreColors.h"
 #include "ADKMath.h"
@@ -35,11 +37,43 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 {
 	LOG("Began Editor Scene");
 
-	// TODO load editor config from ini
+	// Load editor config
+	std::ifstream config_load("Saved/Config/Editor.json");
+	nlohmann::json config_json;
+	config_load >> config_json;
+	default_editor_config.grid_size_x = config_json["GridSizeX"];
+	default_editor_config.grid_size_y = config_json["GridSizeY"];
+	default_editor_config.b_show_grid = config_json["bShowGrid"];
+	default_editor_config.b_snap_to_grid = config_json["bSnapGrid"];
+	default_editor_config.grid_color.r = config_json["GridColorR"];
+	default_editor_config.grid_color.g = config_json["GridColorG"];
+	default_editor_config.grid_color.b = config_json["GridColorB"];
+	default_editor_config.grid_color.a = config_json["GridColorA"];
+	default_editor_config.selection_color.r = config_json["SelectColorR"];
+	default_editor_config.selection_color.g = config_json["SelectColorG"];
+	default_editor_config.selection_color.b = config_json["SelectColorB"];
+	default_editor_config.selection_color.a = config_json["SelectColorA"];
+	default_editor_config.depth_filter_lowerbound = config_json["DepthFilterLower"];
+	default_editor_config.depth_filter_upperbound = config_json["DepthFilterUpper"];
+	default_editor_config.big_grid_x = config_json["BigGridSizeX"];
+	default_editor_config.big_grid_y = config_json["BigGridSizeY"];
+	default_editor_config.b_show_big_grid = config_json["bShowBigGrid"];
+	default_editor_config.big_grid_color.r = config_json["BigGridColorR"];
+	default_editor_config.big_grid_color.g = config_json["BigGridColorG"];
+	default_editor_config.big_grid_color.b = config_json["BigGridColorB"];
+	default_editor_config.big_grid_color.a = config_json["BigGridColorA"];
+	b_debug_render = config_json["bDebugRenderMode"];
+	view_config.size_x = config_json["ViewResolutionX"];
+	view_config.size_y = config_json["ViewResolutionY"];
+	view_config.center_x = config_json["ViewCenterX"];
+	view_config.center_y = config_json["ViewCenterY"];
 
-	// Setup big grid
-	default_editor_config.big_grid_x = (int) view_config.size_x;
-	default_editor_config.big_grid_y = (int) view_config.size_y;
+	if (default_editor_config.big_grid_x == 0 || default_editor_config.big_grid_y == 0)
+	{
+		default_editor_config.big_grid_x = (int)view_config.size_x;
+		default_editor_config.big_grid_y = (int)view_config.size_y;
+	}
+
 	// Setup window values
 	update_editor_config_with_window(window);
 
@@ -485,7 +519,8 @@ void Scene_Editor::update(float deltaTime)
 	{		
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
 		sf::Vector2f delta = sf::Vector2f(pixelPos - last_mouse_pos);
-		scene_view.move(-delta * zoom_factor);
+		float res_factor = view_config.size_x / (default_editor_config.bot_right_pixel.x - default_editor_config.top_left_pixel.x);
+		scene_view.move(-delta * res_factor * zoom_factor);
 		render_window_ptr->setView(scene_view);
 		last_mouse_pos = pixelPos;
 	}
@@ -1177,6 +1212,95 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 		// Misc
 		ImGui::Checkbox("Debug render mode", &b_debug_render);
 
+		// View
+		ImGui::InputFloat("View Resolution X", &view_config.size_x);
+		ImGui::InputFloat("View Resolution Y", &view_config.size_y);
+		ImGui::InputFloat("View Center X", &view_config.center_x);
+		ImGui::InputFloat("View Center Y", &view_config.center_y);
+
+		// Save Config
+		if (ImGui::Button("Save Editor Configs"))
+		{
+			// Load config
+			std::ifstream config_load("Saved/Config/Editor.json");
+			nlohmann::json config_json;
+			config_load >> config_json;
+			// Change config
+			config_json["GridSizeX"] = active_editor_config.grid_size_x;
+			config_json["GridSizeY"] = active_editor_config.grid_size_y;
+			config_json["bShowGrid"] = active_editor_config.b_show_grid;
+			config_json["bSnapGrid"] = active_editor_config.b_snap_to_grid;
+			config_json["GridColorR"] = active_editor_config.grid_color.r;
+			config_json["GridColorG"] = active_editor_config.grid_color.g;
+			config_json["GridColorB"] = active_editor_config.grid_color.b;
+			config_json["GridColorA"] = active_editor_config.grid_color.a;
+			config_json["SelectColorR"] = active_editor_config.selection_color.r;
+			config_json["SelectColorG"] = active_editor_config.selection_color.g;
+			config_json["SelectColorB"] = active_editor_config.selection_color.b;
+			config_json["SelectColorA"] = active_editor_config.selection_color.a;
+			config_json["DepthFilterLower"] = active_editor_config.depth_filter_lowerbound;
+			config_json["DepthFilterUpper"] = active_editor_config.depth_filter_upperbound;
+			config_json["BigGridSizeX"] = active_editor_config.big_grid_x;
+			config_json["BigGridSizeY"] = active_editor_config.big_grid_y;
+			config_json["bShowBigGrid"] = active_editor_config.b_show_big_grid;
+			config_json["BigGridColorR"] = active_editor_config.big_grid_color.r;
+			config_json["BigGridColorG"] = active_editor_config.big_grid_color.g;
+			config_json["BigGridColorB"] = active_editor_config.big_grid_color.b;
+			config_json["BigGridColorA"] = active_editor_config.big_grid_color.a;
+			config_json["bDebugRenderMode"] = b_debug_render;
+			config_json["ViewResolutionX"] = view_config.size_x;
+			config_json["ViewResolutionY"] = view_config.size_y;
+			config_json["ViewCenterX"] = view_config.center_x;
+			config_json["ViewCenterY"] = view_config.center_y;
+			// Save config
+			std::ofstream config_stream_engine;
+			config_stream_engine.open("Saved/Config/Editor.json");
+			config_stream_engine << config_json.dump(4);
+			config_stream_engine.close();
+		}
+
+		if (ImGui::Button("Reset Editor Configs"))
+		{
+			// Load config
+			std::ifstream config_load("Saved/Config/Editor.json");
+			nlohmann::json config_json;
+			config_load >> config_json;
+			// Change config
+			FEditorConfig default_config;
+			FViewConfig default_view;
+			config_json["GridSizeX"] = default_config.grid_size_x;
+			config_json["GridSizeY"] = default_config.grid_size_y;
+			config_json["bShowGrid"] = default_config.b_show_grid;
+			config_json["bSnapGrid"] = default_config.b_snap_to_grid;
+			config_json["GridColorR"] = default_config.grid_color.r;
+			config_json["GridColorG"] = default_config.grid_color.g;
+			config_json["GridColorB"] = default_config.grid_color.b;
+			config_json["GridColorA"] = default_config.grid_color.a;
+			config_json["SelectColorR"] = default_config.selection_color.r;
+			config_json["SelectColorG"] = default_config.selection_color.g;
+			config_json["SelectColorB"] = default_config.selection_color.b;
+			config_json["SelectColorA"] = default_config.selection_color.a;
+			config_json["DepthFilterLower"] = default_config.depth_filter_lowerbound;
+			config_json["DepthFilterUpper"] = default_config.depth_filter_upperbound;
+			config_json["BigGridSizeX"] = default_config.big_grid_x;
+			config_json["BigGridSizeY"] = default_config.big_grid_y;
+			config_json["bShowBigGrid"] = default_config.b_show_big_grid;
+			config_json["BigGridColorR"] = default_config.big_grid_color.r;
+			config_json["BigGridColorG"] = default_config.big_grid_color.g;
+			config_json["BigGridColorB"] = default_config.big_grid_color.b;
+			config_json["BigGridColorA"] = default_config.big_grid_color.a;
+			config_json["bDebugRenderMode"] = false;
+			config_json["ViewResolutionX"] = default_view.size_x;
+			config_json["ViewResolutionY"] = default_view.size_y;
+			config_json["ViewCenterX"] = default_view.center_x;
+			config_json["ViewCenterY"] = default_view.center_y;
+			// Save config
+			std::ofstream config_stream_engine;
+			config_stream_engine.open("Saved/Config/Editor.json");
+			config_stream_engine << config_json.dump(4);
+			config_stream_engine.close();
+		}
+
 		ImGui::End();
 	}
 
@@ -1308,6 +1432,7 @@ void Scene_Editor::draw_tools_menu_ui()
 
 void Scene_Editor::initialize_scene_view(sf::RenderWindow& window)
 {
+	view_config.zoom = 1.f;
 	scene_view.setViewport(sf::FloatRect(0.03f, 0.04f, 0.78f, 0.738f));
 	Scene::initialize_scene_view(window);
 	zoom_factor = view_config.zoom;

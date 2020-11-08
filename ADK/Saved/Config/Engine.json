@@ -1,0 +1,12 @@
+{
+    "Core": {
+        "CapFpsToTick": true,
+        "TicksPerSecond": 60
+    },
+    "Graphics": {
+        "WinH": 1008,
+        "WinW": 1792,
+        "bCanResize": true,
+        "bVsyncOn": false
+    }
+}
