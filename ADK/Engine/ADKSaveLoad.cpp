@@ -97,7 +97,7 @@ void ADKSaveLoad::save_entities(const std::string& savePath, EntityList el)
 	final[ENTITIES] = ents;
 
 	// Save to json
-	std::string serialized = final.dump();
+	std::string serialized = final.dump(4);
 	std::ofstream save;
 	save.open(LEVELPATH + savePath + ".json");
 	save << serialized;
