@@ -29,6 +29,8 @@ struct FEngineConfig
 	uint16_t default_window_height = 900;
 	// Whether we can resize window
 	bool b_can_resize = true;
+	// Fullscreen
+	bool b_fullscreen = false;
 	// Default window background color
 	sf::Color window_background_color = MC_CHARCOAL;
 };
@@ -74,6 +76,7 @@ Engine::Engine()
 	//item["Graphics"]["WinW"] = default_engine.default_window_width;
 	//item["Graphics"]["WinH"] = default_engine.default_window_height;
 	//item["Graphics"]["bCanResize"] = default_engine.b_can_resize;
+	//item["Graphics"]["bFullscreen"] = engine_config.b_fullscreen;
 	//std::ofstream config_stream_engine;
 	//config_stream_engine.open("Saved/Config/Engine.json");
 	//config_stream_engine << item.dump(4);
@@ -89,11 +92,12 @@ Engine::Engine()
 	engine_config.default_window_width = config_json["Graphics"]["WinW"];
 	engine_config.default_window_height = config_json["Graphics"]["WinH"];
 	engine_config.b_can_resize = config_json["Graphics"]["bCanResize"];
+	engine_config.b_fullscreen = config_json["Graphics"]["bFullscreen"];
 
 	// Create window
 	window.create(sf::VideoMode(engine_config.default_window_width, engine_config.default_window_height),
 		"ADK Engine",
-		(engine_config.b_can_resize ? sf::Style::Default : sf::Style::Close));
+		(engine_config.b_fullscreen ? sf::Style::Fullscreen : (engine_config.b_can_resize ? sf::Style::Default : sf::Style::Close)));
 }
 
 void Engine::run()
