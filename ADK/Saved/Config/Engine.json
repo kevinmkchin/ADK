@@ -7,6 +7,7 @@
         "WinH": 1008,
         "WinW": 1792,
         "bCanResize": true,
-        "bVsyncOn": false
+        "bVsyncOn": false,
+		"bFullscreen": false
     }
 }
