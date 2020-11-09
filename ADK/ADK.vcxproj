@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DemoPlatformerOneWayPlatform.cpp" />
+    <ClCompile Include="DemoPlatformerTile.cpp" />
     <ClCompile Include="Engine\ADKSaveLoad.cpp" />
     <ClCompile Include="Engine\ADKTextures.cpp" />
     <ClCompile Include="Engine\ADKAssets.cpp" />
@@ -34,13 +36,18 @@
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Scene_Editor.cpp" />
     <ClCompile Include="Engine\TileEntity.cpp" />
-    <ClCompile Include="Game\DemoPlatformerOneWayPlatform.cpp" />
-    <ClCompile Include="Game\DemoPlatformerTile.cpp" />
-    <ClCompile Include="Game\PlatformerPlayer.cpp" />
-    <ClCompile Include="Game\Scene_Game.cpp" />
+    <ClCompile Include="PlatformerActiveMovingPlatform.cpp" />
+    <ClCompile Include="PlatformerMovingPlatform.cpp" />
+    <ClCompile Include="PlatformerPassiveMovingPlatform.cpp" />
+    <ClCompile Include="PlatformerPlayer.cpp" />
+    <ClCompile Include="PlatformerSpikes.cpp" />
+    <ClCompile Include="Scene_Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
+    <ClInclude Include="ADKInput.h" />
+    <ClInclude Include="DemoPlatformerOneWayPlatform.h" />
+    <ClInclude Include="DemoPlatformerTile.h" />
     <ClInclude Include="Engine\ADKMath.h" />
     <ClInclude Include="Engine\ADKSaveLoad.h" />
     <ClInclude Include="Engine\ADKTextures.h" />
@@ -53,10 +60,12 @@
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Scene_Editor.h" />
     <ClInclude Include="Engine\TileEntity.h" />
-    <ClInclude Include="Game\DemoPlatformerOneWayPlatform.h" />
-    <ClInclude Include="Game\DemoPlatformerTile.h" />
-    <ClInclude Include="Game\PlatformerPlayer.h" />
-    <ClInclude Include="Game\Scene_Game.h" />
+    <ClInclude Include="PlatformerActiveMovingPlatform.h" />
+    <ClInclude Include="PlatformerMovingPlatform.h" />
+    <ClInclude Include="PlatformerPassiveMovingPlatform.h" />
+    <ClInclude Include="PlatformerPlayer.h" />
+    <ClInclude Include="PlatformerSpikes.h" />
+    <ClInclude Include="Scene_Game.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

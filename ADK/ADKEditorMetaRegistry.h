@@ -2,8 +2,10 @@
 
 #include "Engine/Entity.h"
 #include "Engine/TileEntity.h"
-#include "Game/DemoPlatformerTile.h"
-#include "Game/DemoPlatformerOneWayPlatform.h"
+#include "DemoPlatformerTile.h"
+#include "DemoPlatformerOneWayPlatform.h"
+#include "PlatformerSpikes.h"
+#include "PlatformerMovingPlatform.h"
 
 #pragma region ignore
 
@@ -23,6 +25,8 @@ public:
 	DECLARE("Tile16")
 	DECLARE("DemoPlatformerTile")
 	DECLARE("DemoPlatformerOneWayPlatform")
+	DECLARE("PlatformerSpikes")
+	DECLARE("MovingPlatform")
 	//DECLARE(" ")
 	//DECLARE(" ")
 	//DECLARE(" ")
@@ -43,6 +47,8 @@ public:
 	REGISTER_ENT(TileEntity, "Tile16")
 	REGISTER_ENT(DemoPlatformerTile, "DemoPlatformerTile")
 	REGISTER_ENT(DemoPlatformerOneWayPlatform, "DemoPlatformerOneWayPlatform")
+	REGISTER_ENT(PlatformerSpikes, "PlatformerSpikes")
+	REGISTER_ENT(PlatformerMovingPlatform, "MovingPlatform")
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma region ignore

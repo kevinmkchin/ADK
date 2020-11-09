@@ -1,5 +1,5 @@
 #pragma once
-#include "../Engine/Entity.h"
+#include "Engine/Entity.h"
 
 class EntityList;
 
@@ -13,12 +13,34 @@ public:
 
 	virtual void init_collider() override;
 
+	virtual void load_default_texture() override;
+
+	// platforms we can stand on
 	EntityList* collidable_platforms;
 
+	// blocks that deal damage to us
+	EntityList* damage_blocks;
+
+	void affect_health(float delta);
+
 protected:
+	virtual void begin_play() override;
+
 	void read_input(float dt);
 
 	void resolve_movement(float dt);
+
+	void die();
+
+#pragma region ATTRIBUTES
+
+protected:
+
+	float max_health;
+
+	float health;
+
+#pragma endregion
 
 #pragma region MOVEMENT
 

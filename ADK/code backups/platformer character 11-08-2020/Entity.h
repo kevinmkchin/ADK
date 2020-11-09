@@ -52,14 +52,14 @@ public:
 	// Do game logic here, but do not render here. Not called if the Entity is not Active. Handles animation logic.
 	virtual void update(float deltaTime);
 
-	// Tick animations
-	void update_animations(float deltaTime);
-
 protected:
 	/*	Gets called on the first ever update call to this entity.
 	You could load texture here.
 	ALWAYS call Entity::begin_play from overriden begin_play. */
 	virtual void begin_play();
+
+	// Tick animations
+	void update_animations(float deltaTime);
 
 	///////////////////////////////////////////////////////////
 
@@ -117,8 +117,6 @@ public:
 	BoxCollider get_collider_copy() const { return collider; }
 
 	virtual void init_collider();
-
-	virtual void collided(Entity* collided_entity);
 
 	// Entity copier
 	static void copy(Entity& target, const Entity& source);

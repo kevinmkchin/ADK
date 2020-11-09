@@ -469,7 +469,7 @@ void Scene_Editor::update_pre(float deltaTime)
 
 void Scene_Editor::update(float deltaTime)
 {
-	entities.update(deltaTime);
+	entities.update_animation_only(deltaTime);
 
 	// Call brush place
 	if (curr_tool == TOOL_BRUSH && b_brush_enabled)

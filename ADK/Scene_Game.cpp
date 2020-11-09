@@ -1,11 +1,13 @@
 #include "Scene_Game.h"
-#include "../Engine/ADKSaveLoad.h"
-#include "../Engine/MoreColors.h"
+#include "Engine/ADKSaveLoad.h"
+#include "Engine/MoreColors.h"
 #include <vector>
 #include <cstdlib>
 #include <time.h>
 
 #include "PlatformerPlayer.h"
+#include "PlatformerSpikes.h"
+#include "PlatformerMovingPlatform.h"
 
 Scene_Game::Scene_Game()
 {
@@ -22,20 +24,32 @@ void Scene_Game::begin_scene(sf::RenderWindow& window)
 	ADKSaveLoad Loader;
 	Loader.load_to_scene("gym_oneway", *this);
 
-	platforms = new EntityList();
+	player = new PlatformerPlayer;
+	player->set_position(100.f, 200.f);
+	player->collidable_platforms = new EntityList;
+	player->damage_blocks = new EntityList;
 	for (int i = 0; i < entities.size(); ++i)
 	{
-		platforms->add(entities.at(i));
-	}
+		// Add spikes to separate list
+		if (PlatformerSpikes* spike = dynamic_cast<PlatformerSpikes*>(entities.at(i)))
+		{
+			player->damage_blocks->add(entities.at(i));
+			continue;
+		}
 
-	player = new PlatformerPlayer();
-	player->set_position(100.f, 100.f);
+		// Give player reference to moving platforms
+		if (PlatformerMovingPlatform* moving_platform = dynamic_cast<PlatformerMovingPlatform*>(entities.at(i)))
+		{
+			moving_platform->entity_to_collide = player;
+		}
+
+		player->collidable_platforms->add(entities.at(i));
+	}
 	entities.add(player);
 
-	player->collidable_platforms = platforms;
+
 	font.loadFromFile("Assets/Fonts/arial.ttf");
 	player_debug_text.setFont(font);
-
 }
 
 void Scene_Game::update(float deltaTime)

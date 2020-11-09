@@ -2,7 +2,7 @@
 
 DemoPlatformerTile::DemoPlatformerTile()
 {
-	load_texture_in_constructor("minimal_industry/black_tileset_a.png");
+	texture_path = "Game/sheet1.png";
 
 	set_frame_size(8, 8);
 
@@ -11,5 +11,5 @@ DemoPlatformerTile::DemoPlatformerTile()
 
 void DemoPlatformerTile::init_collider()
 {
-	collider = BoxCollider(get_position().x, get_position().y, 16.f, 16.f);
+	collider = BoxCollider(get_position().x, get_position().y, 8.f, 8.f);
 }

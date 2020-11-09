@@ -247,15 +247,9 @@ void Entity::init_collider()
 
 }
 
-void Entity::collided(Entity* collided_entity)
-{
-
-}
-
 void Entity::copy(Entity& target, const Entity& source)
 {
 	target.sprite_sheet = source.sprite_sheet;
-	target.set_frame_size(source.sprite_sheet.frame_size.x, source.sprite_sheet.frame_size.y);
 	target.entity_id = source.entity_id;
 	target.set_texture_path_and_load(source.get_texture_path(), true);
 	target.set_active(source.is_active());

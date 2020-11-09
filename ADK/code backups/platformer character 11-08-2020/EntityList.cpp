@@ -24,18 +24,6 @@ void EntityList::update(float deltaTime)
 	}
 }
 
-void EntityList::update_animation_only(float deltaTime)
-{
-	// Update the entities
-	for (auto& entity : entities)
-	{
-		if (entity->is_active())
-		{
-			entity->update_animations(deltaTime);
-		}
-	}
-}
-
 void EntityList::render(sf::RenderTarget& target, bool bDebug /*= false*/)
 {
 	// Assume sorted

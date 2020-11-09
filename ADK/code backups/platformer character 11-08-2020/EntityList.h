@@ -14,8 +14,6 @@ public:
 
 	void update(float deltaTime);
 
-	void update_animation_only(float deltaTime);
-
 	void render(sf::RenderTarget& target, bool bDebug = false);
 
 	void render_with_depth(sf::RenderTarget& target, int lower, int upper, bool bDebug = false);
