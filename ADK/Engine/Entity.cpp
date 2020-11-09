@@ -54,6 +54,12 @@ Entity::~Entity()
 
 void Entity::update(float deltaTime)
 {
+	// Call begin play on first ever update call
+	if (b_begun_play == false)
+	{
+		begin_play();
+	}
+
 	// Do animation
 	update_animations(deltaTime);
 }
@@ -153,16 +159,6 @@ void Entity::set_depth(int newDepth)
 	// TODO MARK ENTITY LIST DEPTH CHANGED
 }
 
-void Entity::load_texture_in_constructor(const std::string& path)
-{
-	if (b_load_texture_in_constructor_done == false)
-	{
-		set_texture_path_and_load(path);
-
-		b_load_texture_in_constructor_done = true;
-	}
-}
-
 void Entity::load_default_texture()
 {
 	set_texture_path_and_load(texture_path);
@@ -202,6 +198,17 @@ void Entity::match_framesize_to_texture()
 	sprite_sheet.sprite.setTextureRect(sf::IntRect((int) get_position().x, (int)get_position().y, sprite_sheet.frame_size.x, sprite_sheet.frame_size.y));
 }
 
+void Entity::set_animation_start_frame(int anim_index, int start_frame)
+{
+	if ((std::size_t) anim_index >= sprite_sheet.animations.size())
+	{
+		printf("Attempted to set start frame of animation %d but there are only %d animations.\n", anim_index, sprite_sheet.animations.size());
+		return;
+	}
+
+	sprite_sheet.animations[anim_index].start_frame = start_frame;
+}
+
 void Entity::set_origin(float x, float y)
 {
 	origin_private = sf::Vector2f(x, y);
@@ -225,6 +232,11 @@ void Entity::set_frame_size(int x, int y)
 	sprite_sheet.frame_size.y = y;
 }
 
+void Entity::begin_play()
+{
+	b_begun_play = true;
+}
+
 sf::Sprite& Entity::get_sprite()
 {
 	return sprite_sheet.sprite;
@@ -235,9 +247,15 @@ void Entity::init_collider()
 
 }
 
+void Entity::collided(Entity* collided_entity)
+{
+
+}
+
 void Entity::copy(Entity& target, const Entity& source)
 {
 	target.sprite_sheet = source.sprite_sheet;
+	target.set_frame_size(source.sprite_sheet.frame_size.x, source.sprite_sheet.frame_size.y);
 	target.entity_id = source.entity_id;
 	target.set_texture_path_and_load(source.get_texture_path(), true);
 	target.set_active(source.is_active());

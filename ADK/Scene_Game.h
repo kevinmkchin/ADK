@@ -1,5 +1,5 @@
 #pragma once
-#include "../Engine/Scene.h"
+#include "Engine/Scene.h"
 
 class PlatformerPlayer;
 
@@ -19,8 +19,6 @@ public:
 
 private:
 	PlatformerPlayer* player;
-
-	EntityList* platforms;
 
 	sf::Font font;
 	sf::Text player_debug_text;

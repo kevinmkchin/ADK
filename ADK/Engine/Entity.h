@@ -52,9 +52,14 @@ public:
 	// Do game logic here, but do not render here. Not called if the Entity is not Active. Handles animation logic.
 	virtual void update(float deltaTime);
 
-protected:
 	// Tick animations
 	void update_animations(float deltaTime);
+
+protected:
+	/*	Gets called on the first ever update call to this entity.
+	You could load texture here.
+	ALWAYS call Entity::begin_play from overriden begin_play. */
+	virtual void begin_play();
 
 	///////////////////////////////////////////////////////////
 
@@ -82,7 +87,7 @@ public:
 	void set_position(sf::Vector2f newPos);
 
 	float get_rotation() const;
-	void set_rotation(float newRot, bool bAffectCollider = false);
+	virtual void set_rotation(float newRot, bool bAffectCollider = false);
 
 	float get_scale() const;
 	void set_scale(float newScale, bool bAffectCollider = false);
@@ -113,6 +118,8 @@ public:
 
 	virtual void init_collider();
 
+	virtual void collided(Entity* collided_entity);
+
 	// Entity copier
 	static void copy(Entity& target, const Entity& source);
 
@@ -124,13 +131,6 @@ public:
 
 	std::string get_texture_path() const { return texture_path; }
 
-
-	/** When trying to specify which texture to load in the constructor, use this function. This function will only work once.
-		What this means is, only the first call to load_texture_in_constructor will work. This prevents parent class constructors
-		from loading their own texture and overwriting the texture loaded by a derived class. */
-	void load_texture_in_constructor(const std::string& path);
-
-
 	// NEVER call these from constructors. Otherwise, the textures for all base types will also end up being loaded.
 	virtual void load_default_texture();
 	void set_texture_path_and_load(const std::string& path, bool forceNoUnload = false);
@@ -138,6 +138,8 @@ public:
 	void match_framesize_to_texture();
 
 	///////////////////////////////////////////////////////////
+
+	void set_animation_start_frame(int anim_index, int start_frame);
 
 	sf::Vector2f get_origin() const { return origin_private; }
 
@@ -178,6 +180,9 @@ protected:
 
 	// TAGS
 
+
+	bool b_begun_play = false;
+
 private:
 
 	/*	Depth (e.g. z-value for drawing)
@@ -205,8 +210,6 @@ private:
 	bool b_use_origin_for_position_private;
 
 	///////////////////////////////////////////////////////////
-
-	bool b_load_texture_in_constructor_done = false;
 
 };
 

@@ -69,24 +69,32 @@
     <ClCompile Include="Engine\EntityList.cpp">
       <Filter>Engine\ADKUtils</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene_Game.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlatformerPlayer.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\DemoPlatformerTile.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\DemoPlatformerOneWayPlatform.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Entity.cpp">
       <Filter>Engine\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Engine\TileEntity.cpp">
       <Filter>Engine\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="PlatformerSpikes.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoPlatformerOneWayPlatform.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoPlatformerTile.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerPlayer.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerMovingPlatform.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerPassiveMovingPlatform.cpp" />
+    <ClCompile Include="PlatformerActiveMovingPlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Scene.h">
@@ -119,24 +127,33 @@
     <ClInclude Include="Engine\EntityList.h">
       <Filter>Engine\ADKUtils</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene_Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
-    <ClInclude Include="Game\PlatformerPlayer.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\DemoPlatformerTile.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\DemoPlatformerOneWayPlatform.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Entity.h">
       <Filter>Engine\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Engine\TileEntity.h">
       <Filter>Engine\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="ADKInput.h" />
+    <ClInclude Include="PlatformerSpikes.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoPlatformerOneWayPlatform.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoPlatformerTile.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerPlayer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerMovingPlatform.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerPassiveMovingPlatform.h" />
+    <ClInclude Include="PlatformerActiveMovingPlatform.h" />
   </ItemGroup>
 </Project>

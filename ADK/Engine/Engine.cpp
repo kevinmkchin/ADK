@@ -4,7 +4,7 @@
 #include "json.hpp"
 #include "MoreColors.h"
 #include "Scene_Editor.h"
-#include "../Game/Scene_Game.h"
+#include "../Scene_Game.h"
 #include "../ADKEditorMetaRegistry.h"
 #include "ADKTextures.h"
 
@@ -32,7 +32,7 @@ struct FEngineConfig
 	// Fullscreen
 	bool b_fullscreen = false;
 	// Default window background color
-	sf::Color window_background_color = MC_CHARCOAL;
+	sf::Color window_background_color = MC_CORNFLOWERBLUE;
 };
 
 class Engine
@@ -102,6 +102,12 @@ Engine::Engine()
 
 void Engine::run()
 {
+	if (sf::Joystick::isConnected(1))
+	{
+		printf("Joystick is connected.\n");
+		printf("Joystick has %d.\n", sf::Joystick::getButtonCount(1));
+	}
+
 	window.setVerticalSyncEnabled(engine_config.b_vsync_enabled);
 	// Initialize framerate and update times
 	sf::Clock clock;
@@ -109,7 +115,7 @@ void Engine::run()
 	sf::Time time_per_frame = sf::seconds(1.f / engine_config.ticks_per_second);
 
 	// Choose the scene
-	active_scene = new Scene_Editor();
+	active_scene = new Scene_Game();
 	active_scene->begin_scene(window);
 
 	// Game process loop

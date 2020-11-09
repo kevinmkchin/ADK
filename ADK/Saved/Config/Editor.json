@@ -21,7 +21,7 @@
     "ViewCenterY": 90.0,
     "ViewResolutionX": 320.0,
     "ViewResolutionY": 180.0,
-    "bDebugRenderMode": false,
+    "bDebugRenderMode": true,
     "bShowBigGrid": false,
     "bShowGrid": true,
     "bSnapGrid": true

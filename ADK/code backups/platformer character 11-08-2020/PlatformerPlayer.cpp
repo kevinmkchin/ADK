@@ -1,5 +1,5 @@
 #include "PlatformerPlayer.h"
-#include "../Engine/EntityList.h"
+#include "Engine/EntityList.h"
 
 #include "DemoPlatformerOneWayPlatform.h"
 
@@ -32,8 +32,6 @@ PlatformerPlayer::PlatformerPlayer()
 	, b_try_fall_from_oneway(false)
 	, b_intersecting_oneway_lastframe(false)
 {
-	load_texture_in_constructor("Game/black16.png");
-
 	collidable_platforms = new EntityList();
 
 	init_collider();
@@ -42,6 +40,18 @@ PlatformerPlayer::PlatformerPlayer()
 void PlatformerPlayer::init_collider()
 {
 	collider = BoxCollider(get_position().x, get_position().y, 16.f, 16.f);
+}
+
+void PlatformerPlayer::load_default_texture()
+{
+	texture_path = "Game/style1/black16.png";
+	Entity::load_default_texture();
+}
+
+void PlatformerPlayer::begin_play()
+{
+	load_default_texture();
+	Entity::begin_play();
 }
 
 void PlatformerPlayer::update(float deltaTime)
@@ -59,6 +69,23 @@ void PlatformerPlayer::read_input(float dt)
 	bool b_s_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 	bool b_a_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 	bool b_d_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+
+	//bool b_j_pressed = sf::Joystick::isButtonPressed(1, 0);//sf::Keyboard::isKeyPressed(sf::Keyboard::J);
+	//bool b_s_pressed = sf::Joystick::isButtonPressed(1, 8);//sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+	//bool b_a_pressed = false;//sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+	//bool b_d_pressed = false;//sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+
+	float pov_x_input = sf::Joystick::getAxisPosition(1, sf::Joystick::PovX);
+	if (pov_x_input > 0.4f)
+	{
+		b_d_pressed = true;
+	}
+	if (pov_x_input < -0.4f)
+	{
+		b_a_pressed = true;
+	}
+
+
 
 	// Jumping
 	if (b_j_pressed == false)
