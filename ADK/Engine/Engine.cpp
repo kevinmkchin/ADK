@@ -1,10 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include <imgui.h>
+#include <imgui-SFML.h>
 
 #include "json.hpp"
 #include "MoreColors.h"
 #include "Scene_Editor.h"
-#include "../Scene_Game.h"
+#include "../Scene_PlatformerGame.h"
 #include "../ADKEditorMetaRegistry.h"
 #include "ADKTextures.h"
 
@@ -54,6 +56,13 @@ private:
 	// Render game to screen
 	void render();
 
+	////////////////////////////////////////////////////
+
+	template <class Scene>
+	void switch_active_scene(bool b_end_scene = false);
+
+	void show_engine_imgui();
+
 private:
 	// Struct holding engine configurations and settings
 	FEngineConfig engine_config;
@@ -67,6 +76,7 @@ private:
 };
 
 Engine::Engine()
+	: active_scene(nullptr)
 {
 	//FEngineConfig default_engine;
 	//nlohmann::json item;
@@ -98,6 +108,7 @@ Engine::Engine()
 	window.create(sf::VideoMode(engine_config.default_window_width, engine_config.default_window_height),
 		"ADK Engine",
 		(engine_config.b_fullscreen ? sf::Style::Fullscreen : (engine_config.b_can_resize ? sf::Style::Default : sf::Style::Close)));
+	window.setVerticalSyncEnabled(engine_config.b_vsync_enabled);
 }
 
 void Engine::run()
@@ -108,15 +119,16 @@ void Engine::run()
 		printf("Joystick has %d.\n", sf::Joystick::getButtonCount(1));
 	}
 
-	window.setVerticalSyncEnabled(engine_config.b_vsync_enabled);
+	// Initialize ImGui::SFML process
+	ImGui::SFML::Init(window);
+
 	// Initialize framerate and update times
 	sf::Clock clock;
 	sf::Time time_since_last_update = sf::Time::Zero;
 	sf::Time time_per_frame = sf::seconds(1.f / engine_config.ticks_per_second);
 
 	// Choose the scene
-	active_scene = new Scene_Game();
-	active_scene->begin_scene(window);
+	switch_active_scene<Scene_PlatformerGame>();
 
 	// Game process loop
 	while (window.isOpen())
@@ -145,6 +157,9 @@ void Engine::run()
 			if (engine_config.b_cap_framerate_to_ticks == false) { render(); }
 		}
 	}
+
+	// Shut down ImGui::SFML process
+	ImGui::SFML::Shutdown();
 }
 
 void Engine::process_events()
@@ -163,8 +178,50 @@ void Engine::process_events()
 	}
 }
 
+template <class Scene>
+void Engine::switch_active_scene(bool b_end_scene /*= false*/)
+{
+	if (b_end_scene && active_scene != nullptr)
+	{
+		active_scene->end_scene(window);
+		delete active_scene;
+	}
+
+	active_scene = new Scene;
+	active_scene->begin_scene(window);
+}
+
+
+void Engine::show_engine_imgui()
+{
+	ImGui::Begin("ADK Control Panel");
+
+	// Switch Scenes
+	if (ImGui::Button("Scene_PlatformerGame") && typeid(active_scene) != typeid(Scene_PlatformerGame))
+	{
+		switch_active_scene<Scene_PlatformerGame>(true);
+	}
+	if (ImGui::Button("Scene_Editor") && typeid(active_scene) != typeid(Scene_Editor))
+	{
+		switch_active_scene<Scene_Editor>(true);
+	}
+	ImGui::Separator();
+
+	// Switch levels
+
+	ImGui::End();
+}
+
 void Engine::update(float deltaTime)
 {
+	// ImGui::SFML Update
+	ImGui::SFML::Update(window, sf::seconds(deltaTime));
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde))
+	{
+		show_engine_imgui();
+	}
+
 	active_scene->update_pre(deltaTime);
 	active_scene->update(deltaTime);
 	active_scene->update_post(deltaTime);
@@ -177,6 +234,9 @@ void Engine::render()
 	active_scene->render_pre(window);
 	active_scene->render(window);
 	active_scene->render_post(window);
+
+	// Render ImGui::SFML. All creation of ImGui widgets must happen between ImGui::SFML::Update and ImGui::SFML::Render.
+	ImGui::SFML::Render(window);
 
 	window.display();
 }

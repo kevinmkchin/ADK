@@ -78,16 +78,7 @@
     <ClCompile Include="Engine\TileEntity.cpp">
       <Filter>Engine\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="DemoPlatformerOneWayPlatform.cpp">
-      <Filter>PlatformerDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoPlatformerTile.cpp">
-      <Filter>PlatformerDemo</Filter>
-    </ClCompile>
     <ClCompile Include="PlatformerPlayer.cpp">
-      <Filter>PlatformerDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene_Game.cpp">
       <Filter>PlatformerDemo</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerActivePlatform.cpp">
@@ -104,6 +95,15 @@
     </ClCompile>
     <ClCompile Include="PlatformerSpikes.cpp">
       <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_PlatformerGame.cpp">
+      <Filter>PlatformerDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerTile.cpp">
+      <Filter>PlatformerDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerOneWayTile.cpp">
+      <Filter>PlatformerDemo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,16 +145,7 @@
       <Filter>Engine\Entities</Filter>
     </ClInclude>
     <ClInclude Include="ADKInput.h" />
-    <ClInclude Include="DemoPlatformerOneWayPlatform.h">
-      <Filter>PlatformerDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoPlatformerTile.h">
-      <Filter>PlatformerDemo</Filter>
-    </ClInclude>
     <ClInclude Include="PlatformerPlayer.h">
-      <Filter>PlatformerDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene_Game.h">
       <Filter>PlatformerDemo</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerActivePlatform.h">
@@ -171,6 +162,15 @@
     </ClInclude>
     <ClInclude Include="PlatformerSpikes.h">
       <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_PlatformerGame.h">
+      <Filter>PlatformerDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerTile.h">
+      <Filter>PlatformerDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerOneWayTile.h">
+      <Filter>PlatformerDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,6 +14,10 @@ void EntityList::update(float deltaTime)
 		{
 			entity->update(deltaTime);
 		}
+		else
+		{
+			entity->update_animations(deltaTime);
+		}
 	}
 
 	// Sort the entities by depth only if MarkDepthChanged
@@ -29,10 +33,7 @@ void EntityList::update_animation_only(float deltaTime)
 	// Update the entities
 	for (auto& entity : entities)
 	{
-		if (entity->is_active())
-		{
-			entity->update_animations(deltaTime);
-		}
+		entity->update_animations(deltaTime);
 	}
 }
 

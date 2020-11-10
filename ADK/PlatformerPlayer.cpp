@@ -1,8 +1,9 @@
 #include "PlatformerPlayer.h"
 #include "Engine/EntityList.h"
 
-#include "DemoPlatformerOneWayPlatform.h"
+#include "PlatformerOneWayTile.h"
 #include "PlatformerSpikes.h"
+#include "PlatformerTrampoline.h"
 
 PlatformerPlayer::PlatformerPlayer()
 	: max_health(1.f)
@@ -236,7 +237,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 		BoxCollider& other = collidable_platforms->at(i)->get_collider();
 		
 		// one way platform check
-		bool b_istype_oneway = typeid(*(collidable_platforms->at(i))) == typeid(DemoPlatformerOneWayPlatform);
+		bool b_istype_oneway = typeid(*(collidable_platforms->at(i))) == typeid(PlatformerOneWayTile);
 
 		if (b_istype_oneway)
 		{
@@ -256,7 +257,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 		BoxCollider& other = platform->get_collider();
 
 		// One way platform check
-		bool b_istype_oneway = typeid(*platform) == typeid(DemoPlatformerOneWayPlatform);
+		bool b_istype_oneway = typeid(*platform) == typeid(PlatformerOneWayTile);
 
 		// Check if grounded or hitting ceiling
 		if (collider.will_touch_bottom(other, 0.01f))

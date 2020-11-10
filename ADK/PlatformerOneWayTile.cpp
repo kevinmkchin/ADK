@@ -1,6 +1,6 @@
-#include "DemoPlatformerOneWayPlatform.h"
+#include "PlatformerOneWayTile.h"
 
-DemoPlatformerOneWayPlatform::DemoPlatformerOneWayPlatform()
+PlatformerOneWayTile::PlatformerOneWayTile()
 {
 	texture_path = "Game/sheet2.png";
 
@@ -9,7 +9,7 @@ DemoPlatformerOneWayPlatform::DemoPlatformerOneWayPlatform()
 	init_collider();
 }
 
-void DemoPlatformerOneWayPlatform::init_collider()
+void PlatformerOneWayTile::init_collider()
 {
 	collider = BoxCollider(get_position().x, get_position().y, 8.f, 4.f);
 }

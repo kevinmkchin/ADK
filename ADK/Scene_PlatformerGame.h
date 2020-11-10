@@ -3,13 +3,15 @@
 
 class PlatformerPlayer;
 
-class Scene_Game : public Scene
+class Scene_PlatformerGame : public Scene
 {
 
 public:
-	Scene_Game();
+	Scene_PlatformerGame();
 
 	virtual void begin_scene(sf::RenderWindow& window) override;
+
+	virtual void end_scene(sf::RenderWindow& window) override;
 
 	virtual void update(float deltaTime) override;
 

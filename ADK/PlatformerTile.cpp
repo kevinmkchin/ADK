@@ -1,6 +1,6 @@
-#include "DemoPlatformerTile.h"
+#include "PlatformerTile.h"
 
-DemoPlatformerTile::DemoPlatformerTile()
+PlatformerTile::PlatformerTile()
 {
 	set_active(false);
 
@@ -11,7 +11,7 @@ DemoPlatformerTile::DemoPlatformerTile()
 	init_collider();
 }
 
-void DemoPlatformerTile::init_collider()
+void PlatformerTile::init_collider()
 {
 	collider = BoxCollider(get_position().x, get_position().y, 8.f, 8.f);
 }
