@@ -8,21 +8,21 @@ PlatformerPlayer::PlatformerPlayer()
 	: max_health(1.f)
 	, health(max_health)
 	, curr_xvel(0.f)
-	, max_xvel(160.f)
-	, max_xvel_inair(230.f)
-	, acc_ground_xvel(1400.f)
-	, dec_ground_xvel(2000.f)
-	, acc_air_xvel(700.f)
-	, dec_air_xvel(800.f)
+	, max_xvel(80.f)
+	, max_xvel_inair(110.f)
+	, acc_ground_xvel(700.f)
+	, dec_ground_xvel(1000.f)
+	, acc_air_xvel(350.f)
+	, dec_air_xvel(400.f)
 	, curr_yvel(0.f)
-	, gravity(1200.f)
-	, extra_down_acc(550.f)
-	, jump_vel(340.f)
-	, max_pos_yvel(800.f)
+	, gravity(600.f)
+	, extra_down_acc(275.f)
+	, jump_vel(170.f)
+	, max_pos_yvel(400.f)
 	, b_jumping(false)
 	, b_pending_jump(false)
 	, b_jumpkey_down(false)
-	, jump_peak_yvel(100.f)
+	, jump_peak_yvel(50.f)
 	, percent_yvel_on_jump_release(0.5f)
 	// Jump buffering
 	, jump_buffer_maxhold_seconds(0.30f)
@@ -37,12 +37,14 @@ PlatformerPlayer::PlatformerPlayer()
 {
 	collidable_platforms = new EntityList();
 
+	set_frame_size(8, 13);
+
 	init_collider();
 }
 
 void PlatformerPlayer::init_collider()
 {
-	collider = BoxCollider(get_position().x, get_position().y, 16.f, 16.f);
+	collider = BoxCollider(get_position().x, get_position().y, 0.5f, 1.f, 7.f, 12.f);
 }
 
 void PlatformerPlayer::load_default_texture()
@@ -59,6 +61,15 @@ void PlatformerPlayer::affect_health(float delta)
 	{
 		die();
 	}
+}
+
+void PlatformerPlayer::launch_up(float in_yvel)
+{
+	// set yvel so we go up
+	curr_yvel = in_yvel;
+
+	// set to jumping i guess
+	bool b_jumping = true;
 }
 
 void PlatformerPlayer::begin_play()

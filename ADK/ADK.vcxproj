@@ -36,11 +36,12 @@
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Scene_Editor.cpp" />
     <ClCompile Include="Engine\TileEntity.cpp" />
-    <ClCompile Include="PlatformerActiveMovingPlatform.cpp" />
+    <ClCompile Include="PlatformerActivePlatform.cpp" />
+    <ClCompile Include="PlatformerFallingPlatform.cpp" />
     <ClCompile Include="PlatformerMovingPlatform.cpp" />
-    <ClCompile Include="PlatformerPassiveMovingPlatform.cpp" />
     <ClCompile Include="PlatformerPlayer.cpp" />
     <ClCompile Include="PlatformerSpikes.cpp" />
+    <ClCompile Include="PlatformerTrampoline.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -60,11 +61,12 @@
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Scene_Editor.h" />
     <ClInclude Include="Engine\TileEntity.h" />
-    <ClInclude Include="PlatformerActiveMovingPlatform.h" />
+    <ClInclude Include="PlatformerActivePlatform.h" />
+    <ClInclude Include="PlatformerFallingPlatform.h" />
     <ClInclude Include="PlatformerMovingPlatform.h" />
-    <ClInclude Include="PlatformerPassiveMovingPlatform.h" />
     <ClInclude Include="PlatformerPlayer.h" />
     <ClInclude Include="PlatformerSpikes.h" />
+    <ClInclude Include="PlatformerTrampoline.h" />
     <ClInclude Include="Scene_Game.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

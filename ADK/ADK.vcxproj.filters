@@ -7,9 +7,6 @@
     <Filter Include="Engine\Utils">
       <UniqueIdentifier>{3be00b95-ac46-42f0-b579-006a87b53176}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{de767e17-51f2-4d1b-b9b2-e64b85651954}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Resources">
       <UniqueIdentifier>{e17ab823-58df-4324-932b-6348253eb936}</UniqueIdentifier>
     </Filter>
@@ -27,6 +24,12 @@
     </Filter>
     <Filter Include="Engine\Entities">
       <UniqueIdentifier>{67e1a4cf-7db5-4ff1-924a-3220891d7c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlatformerDemo">
+      <UniqueIdentifier>{de767e17-51f2-4d1b-b9b2-e64b85651954}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlatformerDemo\ActivePlatforms">
+      <UniqueIdentifier>{02dff9d6-ae4d-4bc9-a9c6-9bbbe0c39273}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,26 +78,33 @@
     <ClCompile Include="Engine\TileEntity.cpp">
       <Filter>Engine\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="PlatformerSpikes.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="DemoPlatformerOneWayPlatform.cpp">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo</Filter>
     </ClCompile>
     <ClCompile Include="DemoPlatformerTile.cpp">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerPlayer.cpp">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Game.cpp">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerActivePlatform.cpp">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerFallingPlatform.cpp">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerMovingPlatform.cpp">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
     </ClCompile>
-    <ClCompile Include="PlatformerPassiveMovingPlatform.cpp" />
-    <ClCompile Include="PlatformerActiveMovingPlatform.cpp" />
+    <ClCompile Include="PlatformerTrampoline.cpp">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerSpikes.cpp">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Scene.h">
@@ -135,25 +145,32 @@
       <Filter>Engine\Entities</Filter>
     </ClInclude>
     <ClInclude Include="ADKInput.h" />
-    <ClInclude Include="PlatformerSpikes.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="DemoPlatformerOneWayPlatform.h">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo</Filter>
     </ClInclude>
     <ClInclude Include="DemoPlatformerTile.h">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerPlayer.h">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Game.h">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerActivePlatform.h">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerFallingPlatform.h">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerMovingPlatform.h">
-      <Filter>Game</Filter>
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
     </ClInclude>
-    <ClInclude Include="PlatformerPassiveMovingPlatform.h" />
-    <ClInclude Include="PlatformerActiveMovingPlatform.h" />
+    <ClInclude Include="PlatformerTrampoline.h">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerSpikes.h">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

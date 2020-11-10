@@ -3,6 +3,8 @@
 
 PlatformerSpikes::PlatformerSpikes()
 {
+	set_active(false);
+
 	texture_path = "Game/sheet2.png";
 
 	set_animation_start_frame(0, 5);
