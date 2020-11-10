@@ -1,9 +1,9 @@
 #pragma once
-#include "Engine/TileEntity.h"
+#include "PlatformerActivePlatform.h"
 
 class PlatformerPlayer;
 
-class PlatformerMovingPlatform : public TileEntity
+class PlatformerMovingPlatform : public PlatformerActivePlatform
 {
 
 public:
@@ -16,9 +16,6 @@ public:
 protected:
 
 	virtual void begin_play() override;
-
-public:
-	PlatformerPlayer* entity_to_collide;
 
 protected:
 

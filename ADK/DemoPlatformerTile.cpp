@@ -2,6 +2,8 @@
 
 DemoPlatformerTile::DemoPlatformerTile()
 {
+	set_active(false);
+
 	texture_path = "Game/sheet1.png";
 
 	set_frame_size(8, 8);

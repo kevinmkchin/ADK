@@ -1,6 +1,7 @@
 #pragma once
-#include "DemoPlatformerTile.h"
-class PlatformerSpikes : public DemoPlatformerTile
+#include "PlatformerActivePlatform.h"
+
+class PlatformerSpikes : public PlatformerActivePlatform
 {
 
 public:

@@ -6,6 +6,8 @@
 #include "DemoPlatformerOneWayPlatform.h"
 #include "PlatformerSpikes.h"
 #include "PlatformerMovingPlatform.h"
+#include "PlatformerFallingPlatform.h"
+#include "PlatformerTrampoline.h"
 
 #pragma region ignore
 
@@ -27,6 +29,8 @@ public:
 	DECLARE("DemoPlatformerOneWayPlatform")
 	DECLARE("PlatformerSpikes")
 	DECLARE("MovingPlatform")
+	DECLARE("FallingPlatform")
+	DECLARE("Trampoline")
 	//DECLARE(" ")
 	//DECLARE(" ")
 	//DECLARE(" ")
@@ -49,6 +53,8 @@ public:
 	REGISTER_ENT(DemoPlatformerOneWayPlatform, "DemoPlatformerOneWayPlatform")
 	REGISTER_ENT(PlatformerSpikes, "PlatformerSpikes")
 	REGISTER_ENT(PlatformerMovingPlatform, "MovingPlatform")
+	REGISTER_ENT(PlatformerFallingPlatform, "FallingPlatform")
+	REGISTER_ENT(PlatformerTrampoline, "Trampoline")
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma region ignore

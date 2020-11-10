@@ -23,6 +23,8 @@ public:
 
 	void affect_health(float delta);
 
+	void launch_up(float in_yvel);
+
 protected:
 	virtual void begin_play() override;
 
