@@ -1,10 +1,10 @@
 #pragma once
 #include "Engine/TileEntity.h"
-class DemoPlatformerTile : public TileEntity
+class PlatformerTile : public TileEntity
 {
 
 public:
-	DemoPlatformerTile();
+	PlatformerTile();
 
 	virtual void init_collider() override;
 

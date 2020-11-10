@@ -25,7 +25,8 @@ public:
 	// Called on scene creation. Must override.
 	virtual void begin_scene(sf::RenderWindow& window) = 0;
 
-	virtual void end_scene(sf::RenderWindow& window);
+	// Clean up scene and entities. Must override.
+	virtual void end_scene(sf::RenderWindow& window) = 0;
 
 	virtual void process_events(sf::Event& event);
 

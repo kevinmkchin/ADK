@@ -83,8 +83,6 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	brush_button.loadFromFile("Assets/adk/button_brush.png");
 	picker_button.loadFromFile("Assets/adk/button_picker.png");
 
-	// Initialize ImGui::SFML process
-	ImGui::SFML::Init(window);
 	render_window_ptr = &window;
 
 #pragma region ImGuiStyle
@@ -132,14 +130,17 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 
 void Scene_Editor::end_scene(sf::RenderWindow& window)
 {
-	// Shut down ImGui::SFML process
-	ImGui::SFML::Shutdown();
-
 	// Deallocate entity memory
 	for (int i = entity_types.size() - 1; i != -1; --i)
 	{
 		entity_types.remove_and_destroy(entity_types.at(i));
 	}
+	for (int i = entities.size() - 1; i != -1; --i)
+	{
+		entities.remove_and_destroy(entities.at(i));
+	}
+
+	Scene::end_scene(window);
 }
 
 void Scene_Editor::process_events(sf::Event& event)
@@ -557,8 +558,6 @@ void Scene_Editor::update(float deltaTime)
 	// Decrement copy paste timer
 	copy_paste_timer -= deltaTime;
 
-	// ImGui::SFML Update
-	ImGui::SFML::Update(*render_window_ptr, sf::seconds(deltaTime));
 	// Setup ImGui to draw
 	draw_editor_ui();
 }
@@ -678,8 +677,7 @@ void Scene_Editor::render(sf::RenderWindow& window)
 
 void Scene_Editor::render_post(sf::RenderWindow& window)
 {
-	// Render ImGui::SFML. All creation of ImGui widgets must happen between ImGui::SFML::Update and ImGui::SFML::Render.
-	ImGui::SFML::Render(window);
+
 }
 
 void Scene_Editor::draw_editor_ui()

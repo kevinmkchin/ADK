@@ -2,8 +2,8 @@
 
 #include "Engine/Entity.h"
 #include "Engine/TileEntity.h"
-#include "DemoPlatformerTile.h"
-#include "DemoPlatformerOneWayPlatform.h"
+#include "PlatformerTile.h"
+#include "PlatformerOneWayTile.h"
 #include "PlatformerSpikes.h"
 #include "PlatformerMovingPlatform.h"
 #include "PlatformerFallingPlatform.h"
@@ -49,8 +49,8 @@ public:
 	// REGISTER ENTITY TYPES TO IDENTIFIERS HERE
 	REGISTER_ENT(Entity, "BaseEntity")
 	REGISTER_ENT(TileEntity, "Tile16")
-	REGISTER_ENT(DemoPlatformerTile, "DemoPlatformerTile")
-	REGISTER_ENT(DemoPlatformerOneWayPlatform, "DemoPlatformerOneWayPlatform")
+	REGISTER_ENT(PlatformerTile, "DemoPlatformerTile")
+	REGISTER_ENT(PlatformerOneWayTile, "DemoPlatformerOneWayPlatform")
 	REGISTER_ENT(PlatformerSpikes, "PlatformerSpikes")
 	REGISTER_ENT(PlatformerMovingPlatform, "MovingPlatform")
 	REGISTER_ENT(PlatformerFallingPlatform, "FallingPlatform")
