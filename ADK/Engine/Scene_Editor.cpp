@@ -25,7 +25,7 @@ Scene_Editor::Scene_Editor()
 	, b_texture_show(false)
 	, last_mouse_pos(sf::Vector2f())
 	, curr_tool(TOOL_SELECTION)
-	, default_copy_paste_timer(0.5f)
+	, default_copy_paste_timer(0.35f)
 	, copy_paste_timer(default_copy_paste_timer)
 	, b_show_config(false)
 	, b_debug_render(false)
@@ -108,9 +108,6 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	style->Colors[ImGuiCol_ButtonActive] = ImVec4(0.2f, 0.251f, 0.267f, 1.00f);
 #pragma endregion
 
-	// Setup view
-	initialize_scene_view(window);
-
 	// Make entity of every type to display to editor
 	for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
 	{
@@ -125,7 +122,9 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	texture_dialog.SetTitle("Choose a texture to use");
 	texture_dialog.SetTypeFilters({ ".png", ".jpg" });
 
-	//window.setKeyRepeatEnabled(false);
+	// Setup scene
+	initialize_scene_view(window);
+	window.setKeyRepeatEnabled(false);
 }
 
 void Scene_Editor::end_scene(sf::RenderWindow& window)
@@ -155,37 +154,37 @@ void Scene_Editor::process_events(sf::Event& event)
 	}
 
 	// Shortcuts
-	if (sf::Event::KeyPressed)
+	if (event.type == sf::Event::KeyPressed)
 	{
 		if (b_typing_level_id == false)
 		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+			if (event.key.code == sf::Keyboard::F)
 			{
 				curr_tool = TOOL_SELECTION;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			if (event.key.code == sf::Keyboard::D)
 			{
 				curr_tool = TOOL_PLACE;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			if (event.key.code == sf::Keyboard::S)
 			{
 				curr_tool = TOOL_BRUSH;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			if (event.key.code == sf::Keyboard::A)
 			{
 				curr_tool = TOOL_PICKER;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+			if (event.key.code == sf::Keyboard::R)
 			{
 				active_editor_config.b_show_grid = !active_editor_config.b_show_grid;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+			if (event.key.code == sf::Keyboard::T)
 			{
 				active_editor_config.b_snap_to_grid = !active_editor_config.b_snap_to_grid;
 			}
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete))
+		if (event.key.code == sf::Keyboard::Delete)
 		{
 			if (entity_selected_for_properties != nullptr)
 			{
@@ -305,7 +304,7 @@ void Scene_Editor::process_events(sf::Event& event)
 			}
 			b_alt_rotate = true;
 		}
-		else if (sf::Event::KeyReleased && (event.key.code == sf::Keyboard::LAlt || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)))
+		else if (event.type == sf::Event::KeyReleased && (event.key.code == sf::Keyboard::LAlt || event.key.code == sf::Keyboard::LControl))
 		{
 			b_alt_rotate = false;
 		}
@@ -324,7 +323,7 @@ void Scene_Editor::process_events(sf::Event& event)
 			}
 			b_shift_scale = true;
 		}
-		else if (sf::Event::KeyReleased && (event.key.code == sf::Keyboard::LShift || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)))
+		else if (event.type == sf::Event::KeyReleased && (event.key.code == sf::Keyboard::LShift || event.key.code == sf::Keyboard::LControl))
 		{
 			b_shift_scale = false;
 		}
@@ -378,6 +377,10 @@ void Scene_Editor::process_events(sf::Event& event)
 			set_entity_selected_for_properties(created);
 
 			copy_paste_timer = default_copy_paste_timer;
+		}
+		if (event.type == sf::Event::KeyReleased && (event.key.code == sf::Keyboard::LControl || event.key.code == sf::Keyboard::V))
+		{
+			copy_paste_timer = -1.f;
 		}
 	}
 
@@ -436,7 +439,7 @@ void Scene_Editor::process_events(sf::Event& event)
 	}
 
 	// Entity move with Arrows
-	if (entity_selected_for_properties != nullptr && b_typing_level_id == false)
+	if (entity_selected_for_properties != nullptr && b_typing_level_id == false && sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
 	{
 		float xM = 0;
 		float yM = 0;
@@ -556,7 +559,10 @@ void Scene_Editor::update(float deltaTime)
 	}
 
 	// Decrement copy paste timer
-	copy_paste_timer -= deltaTime;
+	if (copy_paste_timer > 0.f)
+	{
+		copy_paste_timer -= deltaTime;
+	}
 
 	// Setup ImGui to draw
 	draw_editor_ui();

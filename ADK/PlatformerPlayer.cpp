@@ -19,7 +19,7 @@ PlatformerPlayer::PlatformerPlayer()
 	, acc_ground_xvel(700.f)
 	, dec_ground_xvel(1000.f)
 	, acc_air_xvel(300.f)
-	, dec_air_xvel(200.f)
+	, dec_air_xvel(0.f)
 
 	// Y vel
 	, curr_yvel(0.f)
@@ -57,10 +57,10 @@ PlatformerPlayer::PlatformerPlayer()
 
 
 	// Dust effects
-	, dust_tick_interval_seconds(0.1f)
-	, dust_dissipation_chance(20)
-	, dust_move_up_chance(25)
-	, dust_move_sideways_chance(9)
+	, dust_tick_interval_seconds(0.05f)
+	, dust_dissipation_chance(30)
+	, dust_move_up_chance(28)
+	, dust_move_sideways_chance(10)
 
 	, dust_lifetime_jump(0.42f)
 	, dust_num_pixels_min_jump(48)
@@ -248,6 +248,8 @@ void PlatformerPlayer::read_input(float dt)
 		curr_yvel += gravity * dt;
 	}
 	
+	printf("%d \n", b_jumping);
+
 	// --- Positive Accelerations ---
 	if (b_s_pressed)
 	{
@@ -512,7 +514,7 @@ void PlatformerPlayer::update_dust_effects(float dt)
 {
 	// --- Add new dust groups (new dust kicked up) ---
 	// from jump
-	if (b_jumped_from_ground_this_frame)
+	if (b_jumped_from_ground_this_frame && coyote_time_timer_seconds == coyote_time_default_seconds)
 	{
 		int px = (int)(get_position().x + (int)((float)sprite_sheet.frame_size.x / 2.f));
 		int py = (int)(get_position().y + ((float)sprite_sheet.frame_size.y) + (float)dust_down_adjustment_jump);

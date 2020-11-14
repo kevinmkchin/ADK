@@ -75,10 +75,14 @@ private:
 	// Represents the active scene showing to the player
 	Scene* active_scene;
 
+	// Whether to pause updating the game
+	bool b_update_paused;
+
 };
 
 Engine::Engine()
 	: active_scene(nullptr)
+	, b_update_paused(false)
 {
 	//FEngineConfig default_engine;
 	//nlohmann::json item;
@@ -175,6 +179,15 @@ void Engine::process_events()
 			window.close();
 		}
 
+		/*
+		f1: pause update
+
+		*/
+		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F1)
+		{
+			b_update_paused = !b_update_paused;
+		}
+
 		// Process events for the ActiveScene
 		active_scene->process_events(event);
 	}
@@ -224,9 +237,12 @@ void Engine::update(float deltaTime)
 		show_engine_imgui();
 	}
 
-	active_scene->update_pre(deltaTime);
-	active_scene->update(deltaTime);
-	active_scene->update_post(deltaTime);
+	if (b_update_paused == false)
+	{
+		active_scene->update_pre(deltaTime);
+		active_scene->update(deltaTime);
+		active_scene->update_post(deltaTime);
+	}
 }
 
 void Engine::render()

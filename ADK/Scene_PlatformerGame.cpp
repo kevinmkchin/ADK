@@ -19,7 +19,7 @@ Scene_PlatformerGame::Scene_PlatformerGame()
 
 void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 {
-	initialize_scene_view(window);
+	Scene::begin_scene(window);
 
 	ADKSaveLoad Loader;
 	Loader.load_to_scene("gym_platforms", *this);
