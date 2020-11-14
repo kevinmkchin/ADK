@@ -8,7 +8,10 @@ Scene::Scene()
 
 void Scene::begin_scene(sf::RenderWindow& window)
 {	
-
+	// Initialize scene view based on view config
+	initialize_scene_view(window);
+	// Set key presses to poll repeatedly
+	window.setKeyRepeatEnabled(true);
 }
 
 void Scene::end_scene(sf::RenderWindow& window)
