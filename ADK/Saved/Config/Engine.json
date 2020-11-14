@@ -4,8 +4,8 @@
         "TicksPerSecond": 60
     },
     "Graphics": {
-        "WinH": 1008,
-        "WinW": 1792,
+        "WinH": 900,
+        "WinW": 1600,
         "bCanResize": true,
         "bVsyncOn": false,
 		"bFullscreen": false

@@ -275,16 +275,21 @@ void Entity::copy(Entity& target, const Entity& source)
 void Entity::update_animations(float deltaTime)
 {
 #pragma region AnimationUpdate
-	if (b_visible && sprite_sheet.sprite.getTexture() != nullptr && sprite_sheet.animations.empty() == false)
-	{
-		// Get num frames wide and tall
-		sf::Vector2i textureBounds(sprite_sheet.sprite.getTexture()->getSize());
-		int numFramesWide = textureBounds.x / ((sprite_sheet.frame_size.x > 0) ? sprite_sheet.frame_size.x : 1);
-		int numFramesTall = textureBounds.y / ((sprite_sheet.frame_size.y > 0) ? sprite_sheet.frame_size.y : 1);
 
-		FAnimation currAnim = sprite_sheet.animations[sprite_sheet.selected_animation];
-		int framesInAnim = static_cast<int>(currAnim.num_frames) < numFramesTall * numFramesWide ? static_cast<int>(currAnim.num_frames) : numFramesTall * numFramesWide;
-		sf::Time timePerFrame = currAnim.anim_duration / (float)framesInAnim;
+	// Get num frames wide and tall
+	sf::Vector2i textureBounds(sprite_sheet.sprite.getTexture()->getSize());
+	int numFramesWide = textureBounds.x / ((sprite_sheet.frame_size.x > 0) ? sprite_sheet.frame_size.x : 1);
+	int numFramesTall = textureBounds.y / ((sprite_sheet.frame_size.y > 0) ? sprite_sheet.frame_size.y : 1);
+
+	FAnimation currAnim = sprite_sheet.animations[sprite_sheet.selected_animation];
+	int framesInAnim = static_cast<int>(currAnim.num_frames) < numFramesTall * numFramesWide ? static_cast<int>(currAnim.num_frames) : numFramesTall * numFramesWide;
+	sf::Time timePerFrame = currAnim.anim_duration / (float)framesInAnim;
+
+	if (b_visible 
+		&& sprite_sheet.sprite.getTexture() != nullptr 
+		&& sprite_sheet.animations.empty() == false 
+		&& b_anim_paused == false)
+	{
 		sprite_sheet.elapsed_time += sf::seconds(deltaTime);
 
 		// Update current frame
@@ -322,12 +327,13 @@ void Entity::update_animations(float deltaTime)
 		}
 
 		// by this point current frame will be accurate with frame we need to display
-		// Figure out texture rect from current frame
-		int xLoc = (sprite_sheet.current_frame % (numFramesWide > 0 ? numFramesWide : 1)) * sprite_sheet.frame_size.x;
-		int yLoc = (sprite_sheet.current_frame / (numFramesWide > 0 ? numFramesWide : 1)) * sprite_sheet.frame_size.y;
-		sf::IntRect frameRect = sf::IntRect(xLoc, yLoc, sprite_sheet.frame_size.x, sprite_sheet.frame_size.y);
-		// Set new frame to display
-		sprite_sheet.sprite.setTextureRect(frameRect);
 	}
+
+	// Figure out texture rect from current frame
+	int xLoc = (sprite_sheet.current_frame % (numFramesWide > 0 ? numFramesWide : 1)) * sprite_sheet.frame_size.x;
+	int yLoc = (sprite_sheet.current_frame / (numFramesWide > 0 ? numFramesWide : 1)) * sprite_sheet.frame_size.y;
+	sf::IntRect frameRect = sf::IntRect(xLoc, yLoc, sprite_sheet.frame_size.x, sprite_sheet.frame_size.y);
+	// Set new frame to display
+	sprite_sheet.sprite.setTextureRect(frameRect);
 #pragma endregion
 }
