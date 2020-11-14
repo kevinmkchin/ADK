@@ -183,6 +183,8 @@ protected:
 
 	bool b_begun_play = false;
 
+	bool b_anim_paused = false;
+
 private:
 
 	/*	Depth (e.g. z-value for drawing)

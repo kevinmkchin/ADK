@@ -10,9 +10,12 @@ PlatformerMovingPlatform::PlatformerMovingPlatform()
 	, b_going_towards_end(false)
 	, travel_timer(0.f)
 {
-	texture_path = "Game/movingplatforms.png";
+	texture_path = "Game/movingplatform24x16.png";
 	set_frame_size(24, 16);
 	set_animation_start_frame(0, 0);
+	sprite_sheet.animations[0].anim_duration = sf::seconds(0.2f);
+	sprite_sheet.animations[0].num_frames = 4;
+
 	init_collider();
 }
 
@@ -45,8 +48,13 @@ void PlatformerMovingPlatform::update(float deltaTime)
 
 		move((b_going_towards_end ? 1.f : -1.f) * (velocity_per_sec * deltaTime));
 	}
+	else if (travel_timer >= travel_time_in_seconds && travel_timer < travel_time_in_seconds + pause_at_turn_in_seconds)
+	{
+		b_anim_paused = true;
+	}
 	else if (travel_timer >= travel_time_in_seconds + pause_at_turn_in_seconds)
 	{
+		b_anim_paused = false;
 		travel_timer = 0.f;
 		b_going_towards_end = !b_going_towards_end;
 	}

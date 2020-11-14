@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include <stdlib.h>
+#include <time.h>
 #include <imgui.h>
 #include <imgui-SFML.h>
 
@@ -128,7 +130,7 @@ void Engine::run()
 	sf::Time time_per_frame = sf::seconds(1.f / engine_config.ticks_per_second);
 
 	// Choose the scene
-	switch_active_scene<Scene_PlatformerGame>();
+	switch_active_scene<Scene_Editor>();
 
 	// Game process loop
 	while (window.isOpen())
@@ -244,6 +246,9 @@ void Engine::render()
 // --- MAIN ---
 int main()
 {
+	/* initialize random seed: */
+	srand(static_cast<unsigned int>(time(nullptr)));
+
 	Engine game;
 	game.run();
 

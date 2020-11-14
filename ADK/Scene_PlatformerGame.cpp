@@ -22,12 +22,15 @@ void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 	initialize_scene_view(window);
 
 	ADKSaveLoad Loader;
-	Loader.load_to_scene("platformer_test", *this);
+	Loader.load_to_scene("gym_platforms", *this);
 
 	player = new PlatformerPlayer;
 	player->set_position(50.f, 5.f);
 	player->collidable_platforms = new EntityList;
 	player->damage_blocks = new EntityList;
+	entities.add(player);
+
+	// Deal with entities on begin scene
 	for (int i = 0; i < entities.size(); ++i)
 	{
 		// Add spikes to separate list
@@ -46,7 +49,6 @@ void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 		// Add entities to collidable platforms
 		player->collidable_platforms->add(entities.at(i));
 	}
-	entities.add(player);
 
 	font.loadFromFile("Assets/Fonts/arial.ttf");
 	player_debug_text.setFont(font);
