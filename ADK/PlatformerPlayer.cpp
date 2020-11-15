@@ -2,13 +2,17 @@
 
 #include "PlatformerPlayer.h"
 #include "Engine/EntityList.h"
+#include "Engine/ADKCamera.h"
 
 #include "PlatformerOneWayTile.h"
 #include "PlatformerSpikes.h"
 #include "PlatformerTrampoline.h"
 
 PlatformerPlayer::PlatformerPlayer()
-	: max_health(1.f)
+	: camera(nullptr)
+
+	// Attributes
+	, max_health(1.f)
 	, health(max_health)
 
 	// X vel
@@ -18,8 +22,8 @@ PlatformerPlayer::PlatformerPlayer()
 	, max_xvel_decel(1000.f)
 	, acc_ground_xvel(700.f)
 	, dec_ground_xvel(1000.f)
-	, acc_air_xvel(300.f)
-	, dec_air_xvel(0.f)
+	, acc_air_xvel(540.f)
+	, dec_air_xvel(200.f)
 
 	// Y vel
 	, curr_yvel(0.f)
@@ -48,6 +52,9 @@ PlatformerPlayer::PlatformerPlayer()
 	, coyote_time_timer_seconds(coyote_time_default_seconds)
 	, b_input_paused(false)
 	, input_pause_timer_seconds(0.f)
+
+	// Launched
+	, b_launched(false)
 
 	// States
 	, b_try_fall_from_oneway(false)
@@ -119,9 +126,24 @@ void PlatformerPlayer::launch(float in_xvel, float in_yvel, float input_pause)
 	curr_yvel = in_yvel;
 
 	// set to jumping i guess
-	bool b_jumping = true;
+	b_jumping = true;
 	b_launched_this_frame = true;
+	b_launched = true;
 
+	// camera shake
+	if (camera != nullptr)
+	{
+		if (in_xvel != 0.f)
+		{
+			camera->shake_camera(3.5f, 0.f, 0.6f, 0.8f, true);
+		}
+		else
+		{
+			camera->shake_camera(0.f, 3.5f, 0.6f, 0.8f, true);
+		}
+	}
+
+	// pause inputs when we just got launched and input_pause > 0.f
 	if (input_pause > 0.f)
 	{
 		b_input_paused = true;
@@ -239,16 +261,15 @@ void PlatformerPlayer::read_input(float dt)
 	}
 
 	// --- Gravity ---
-	if (b_jumping && abs(curr_yvel) <= jump_peak_yvel && b_s_pressed == false)
+	if (b_jumping && b_launched == false && abs(curr_yvel) <= jump_peak_yvel && b_s_pressed == false)
 	{
+		/*	Half gravity if jumping, not launched, y velocity is less than jump peak yvel, and we are not pressing s/down. */
 		curr_yvel += (gravity / 2) * dt;
 	}
 	else
 	{
 		curr_yvel += gravity * dt;
 	}
-	
-	printf("%d \n", b_jumping);
 
 	// --- Positive Accelerations ---
 	if (b_s_pressed)
@@ -381,6 +402,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 				b_pending_jump = false;
 				curr_yvel = -jump_vel;
 				b_jumping = true;
+				b_launched = false;
 				b_jumped_this_frame = true;
 				b_jumped_from_ground_this_frame = true;
 			}

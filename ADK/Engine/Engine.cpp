@@ -11,6 +11,7 @@
 #include "../Scene_PlatformerGame.h"
 #include "../ADKEditorMetaRegistry.h"
 #include "ADKTextures.h"
+#include "../ADKInput.h"
 
 
 #pragma region REGISTRATION
@@ -178,6 +179,8 @@ void Engine::process_events()
 		{
 			window.close();
 		}
+
+		ADKInput::update_event(event);
 
 		/*
 		f1: pause update

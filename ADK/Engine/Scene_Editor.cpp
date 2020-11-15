@@ -283,8 +283,9 @@ void Scene_Editor::process_events(sf::Event& event)
 			else
 			{
 				zoom_factor *= event.mouseWheel.delta > 0 ? 0.9f : 1.1f;
-				scene_view.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
-				render_window_ptr->setView(scene_view);
+				sf::View curr_view = render_window_ptr->getView();
+				curr_view.zoom(event.mouseWheel.delta > 0 ? 0.9f : 1.1f);
+				render_window_ptr->setView(curr_view);
 			}
 		}
 	
@@ -434,8 +435,9 @@ void Scene_Editor::process_events(sf::Event& event)
 		{
 			yM += 10;
 		}
-		scene_view.move(sf::Vector2f(xM, yM));
-		render_window_ptr->setView(scene_view);
+		sf::View curr_view = render_window_ptr->getView();
+		curr_view.move(sf::Vector2f(xM, yM));
+		render_window_ptr->setView(curr_view);
 	}
 
 	// Entity move with Arrows
@@ -524,8 +526,9 @@ void Scene_Editor::update(float deltaTime)
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
 		sf::Vector2f delta = sf::Vector2f(pixelPos - last_mouse_pos);
 		float res_factor = view_config.size_x / (default_editor_config.bot_right_pixel.x - default_editor_config.top_left_pixel.x);
-		scene_view.move(-delta * res_factor * zoom_factor);
-		render_window_ptr->setView(scene_view);
+		sf::View curr_view = render_window_ptr->getView();
+		curr_view.move(-delta * res_factor * zoom_factor);
+		render_window_ptr->setView(curr_view);
 		last_mouse_pos = pixelPos;
 	}
 
@@ -1437,8 +1440,10 @@ void Scene_Editor::draw_tools_menu_ui()
 void Scene_Editor::initialize_scene_view(sf::RenderWindow& window)
 {
 	view_config.zoom = 1.f;
-	scene_view.setViewport(sf::FloatRect(0.03f, 0.04f, 0.78f, 0.738f));
 	Scene::initialize_scene_view(window);
+	sf::View curr_view = window.getView();
+	curr_view.setViewport(sf::FloatRect(0.03f, 0.04f, 0.78f, 0.738f));
+	window.setView(curr_view);
 	zoom_factor = view_config.zoom;
 }
 
@@ -1471,9 +1476,10 @@ void Scene_Editor::update_editor_config_with_window(sf::RenderWindow& window)
 		(float)active_editor_config.bot_right_pixel.x - active_editor_config.top_left_pixel.x, (float)active_editor_config.bot_right_pixel.y - active_editor_config.top_left_pixel.y);
 
 	// resize the level viewer as well
-	scene_view.setSize(bg_rect.width, bg_rect.height);
-	scene_view.zoom(zoom_factor);
-	window.setView(scene_view);
+	sf::View curr_view = window.getView();
+	curr_view.setSize(bg_rect.width, bg_rect.height);
+	curr_view.zoom(zoom_factor);
+	window.setView(curr_view);
 }
 
 void Scene_Editor::brush_place_helper()

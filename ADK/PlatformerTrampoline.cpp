@@ -3,7 +3,7 @@
 
 PlatformerTrampoline::PlatformerTrampoline()
 	: launch_vel_y(300.f)
-	, launch_vel_x(490.f)
+	, launch_vel_x(400.f)
 {
 	texture_path = "Game/trampoline.png";
 
