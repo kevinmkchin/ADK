@@ -1,6 +1,8 @@
 #include "Scene.h"
 #include "../ADKEditorMetaRegistry.h"
 
+sf::View nullview;
+
 Scene::Scene()
 	: entities(EntityList())
 {
@@ -57,11 +59,12 @@ void Scene::render_post(sf::RenderWindow& window)
 
 void Scene::initialize_scene_view(sf::RenderWindow& window)
 {
+	sf::View view_to_set = window.getView();
 	// Initialize SceneView
-	scene_view.setCenter(sf::Vector2f(view_config.center_x, view_config.center_y));
-	scene_view.setSize(sf::Vector2f(view_config.size_x, view_config.size_y));
-	scene_view.setRotation(view_config.rotation);
-	scene_view.zoom(view_config.zoom);
+	view_to_set.setCenter(sf::Vector2f(view_config.center_x, view_config.center_y));
+	view_to_set.setSize(sf::Vector2f(view_config.size_x, view_config.size_y));
+	view_to_set.setRotation(view_config.rotation);
+	view_to_set.zoom(view_config.zoom);
 	// Set view
-	window.setView(scene_view);
+	window.setView(view_to_set);
 }

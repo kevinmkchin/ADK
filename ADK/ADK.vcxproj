@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\ADKCamera.cpp" />
     <ClCompile Include="PlatformerOneWayTile.cpp" />
     <ClCompile Include="PlatformerTile.cpp" />
     <ClCompile Include="Engine\ADKSaveLoad.cpp" />
@@ -47,6 +48,7 @@
   <ItemGroup>
     <ClInclude Include="ADKEditorMetaRegistry.h" />
     <ClInclude Include="ADKInput.h" />
+    <ClInclude Include="Engine\ADKCamera.h" />
     <ClInclude Include="PlatformerOneWayTile.h" />
     <ClInclude Include="PlatformerTile.h" />
     <ClInclude Include="Engine\ADKMath.h" />

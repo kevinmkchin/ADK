@@ -31,6 +31,9 @@
     <Filter Include="PlatformerDemo\ActivePlatforms">
       <UniqueIdentifier>{02dff9d6-ae4d-4bc9-a9c6-9bbbe0c39273}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{57b4f54a-943b-4698-b879-59f9f5ce1c95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -105,6 +108,9 @@
     <ClCompile Include="PlatformerOneWayTile.cpp">
       <Filter>PlatformerDemo</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\ADKCamera.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Scene.h">
@@ -171,6 +177,9 @@
     </ClInclude>
     <ClInclude Include="PlatformerOneWayTile.h">
       <Filter>PlatformerDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKCamera.h">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

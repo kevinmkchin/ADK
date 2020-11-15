@@ -1,15 +1,18 @@
-#include "Scene_PlatformerGame.h"
-#include "Engine/ADKSaveLoad.h"
-#include "Engine/MoreColors.h"
 #include <vector>
 #include <cstdlib>
 #include <time.h>
+#include "Scene_PlatformerGame.h"
+#include "Engine/ADKSaveLoad.h"
+#include "Engine/MoreColors.h"
+#include "Engine/ADKCamera.h"
 
 #include "PlatformerPlayer.h"
 #include "PlatformerSpikes.h"
 #include "PlatformerActivePlatform.h"
 
 Scene_PlatformerGame::Scene_PlatformerGame()
+	: camera(nullptr)
+	, player(nullptr)
 {
 	view_config.size_x = 320.f;
 	view_config.size_y = 180.f;
@@ -24,11 +27,19 @@ void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 	ADKSaveLoad Loader;
 	Loader.load_to_scene("gym_platforms", *this);
 
+	// Init Player
 	player = new PlatformerPlayer;
 	player->set_position(50.f, 5.f);
 	player->collidable_platforms = new EntityList;
 	player->damage_blocks = new EntityList;
 	entities.add(player);
+
+	// Init Camera
+	camera = new ADKCamera(window);
+	camera->set_follow_target(player);
+	camera->set_follow_x(true);
+	camera->set_follow_y(false);
+	player->camera = camera;
 
 	// Deal with entities on begin scene
 	for (int i = 0; i < entities.size(); ++i)
@@ -50,6 +61,7 @@ void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 		player->collidable_platforms->add(entities.at(i));
 	}
 
+
 	font.loadFromFile("Assets/Fonts/arial.ttf");
 	player_debug_text.setFont(font);
 	player_debug_text.setCharacterSize(13);
@@ -66,11 +78,29 @@ void Scene_PlatformerGame::end_scene(sf::RenderWindow& window)
 	Scene::end_scene(window);
 }
 
+void Scene_PlatformerGame::process_events(sf::Event& event)
+{
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F)
+	{
+		camera->shake_camera(10.f, 10.f, 0.7f, 1.f, true);
+	}
+}
+
 void Scene_PlatformerGame::update(float deltaTime)
 {
 	entities.update(deltaTime);
 
 	player_debug_text.setString("debug");
+}
+
+void Scene_PlatformerGame::update_post(float deltaTime)
+{
+	camera->update_camera(deltaTime);
+}
+
+void Scene_PlatformerGame::render_pre(sf::RenderWindow& window)
+{
+	window.clear(MC_SOFTRED);
 }
 
 void Scene_PlatformerGame::render(sf::RenderWindow& window)
@@ -80,9 +110,4 @@ void Scene_PlatformerGame::render(sf::RenderWindow& window)
 	window.draw(player_debug_text);
 
 	//entities.render(window, true);
-}
-
-void Scene_PlatformerGame::render_pre(sf::RenderWindow& window)
-{
-	window.clear(MC_SOFTRED);
 }

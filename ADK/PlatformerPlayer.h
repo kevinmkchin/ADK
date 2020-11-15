@@ -2,6 +2,7 @@
 #include "Engine/Entity.h"
 
 class EntityList;
+class ADKCamera;
 
 struct DustGroup
 {
@@ -50,6 +51,9 @@ protected:
 
 	// reset memory and states like whether we jumped this frame or not
 	void reset_states();
+
+public:
+	ADKCamera* camera;
 
 #pragma region ATTRIBUTES
 
@@ -101,6 +105,9 @@ protected:
 	bool b_input_paused;
 	float input_pause_timer_seconds;
 
+	// launched
+	bool b_launched;						// whether we are in air because we've been launched
+
 	// states
 	bool b_try_fall_from_oneway;
 	bool b_jumped_from_ground_this_frame;	// whether we jumped off the ground this frame
@@ -111,7 +118,6 @@ protected:
 	bool b_intersecting_oneway_lastframe;
 
 #pragma endregion
-
 
 #pragma region DUSTEFFECT
 

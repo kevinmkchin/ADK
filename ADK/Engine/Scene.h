@@ -59,7 +59,5 @@ public:
 protected:
 	// View configurations.
 	FViewConfig view_config;
-	// View to use in scene. Used to set the window's view.
-	sf::View scene_view;
 
 };
