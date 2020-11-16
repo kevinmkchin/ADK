@@ -58,6 +58,8 @@ If I was going to create my own custom C++ game engine, I needed it to be better
 
 [dev log 4 - platformer showcase](https://www.youtube.com/watch?v=YY4cDHtUP5A)
 
+[dev log 5 - Improved Engine Workflow, Platformer Game Progress, Camera Class](https://youtu.be/AYnVYH03Bl0)
+
 ### Screenshots
 
 
