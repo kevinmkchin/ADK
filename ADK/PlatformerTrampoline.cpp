@@ -1,5 +1,6 @@
 #include "PlatformerTrampoline.h"
 #include "PlatformerPlayer.h"
+#include "PlatformerFallingPlatform.h"
 
 PlatformerTrampoline::PlatformerTrampoline()
 	: launch_vel_y(300.f)
@@ -8,6 +9,11 @@ PlatformerTrampoline::PlatformerTrampoline()
 	texture_path = "Game/trampoline.png";
 
 	set_frame_size(16, 16);
+
+	sprite_sheet.animations[0].anim_duration = sf::seconds(1.f);
+	sprite_sheet.animations[0].num_frames = 16;
+	sprite_sheet.b_repeat = false;
+	b_anim_paused = true;
 
 	init_collider();
 }
@@ -53,6 +59,7 @@ void PlatformerTrampoline::set_rotation(float newRot, bool bAffectCollider /*= f
 
 void PlatformerTrampoline::collided(Entity* collided_entity)
 {
+	// Bounce player
 	if (PlatformerPlayer* player = dynamic_cast<PlatformerPlayer*>(collided_entity))
 	{
 		if (get_rotation() == 0.f)
@@ -72,6 +79,15 @@ void PlatformerTrampoline::collided(Entity* collided_entity)
 			player->launch(-launch_vel_x, -160.f, 0.1f);
 		}
 	}
+	// or Bounce falling platform
+	else if (PlatformerFallingPlatform* falling_platform = dynamic_cast<PlatformerFallingPlatform*>(collided_entity))
+	{
+		falling_platform->launch_up(-(launch_vel_y / 4.f));
+	}
+
+	b_anim_paused = false;
+	sprite_sheet.current_frame = 0;
+	sprite_sheet.elapsed_time = sf::seconds(0.f);
 }
 
 void PlatformerTrampoline::update(float deltaTime)

@@ -3,13 +3,15 @@
 #include "PlatformerPlayer.h"
 #include "Engine/EntityList.h"
 #include "Engine/ADKCamera.h"
+#include "Scene_PlatformerGame.h"
 
 #include "PlatformerOneWayTile.h"
-#include "PlatformerSpikes.h"
+#include "PlatformerDamageBlock.h"
 #include "PlatformerTrampoline.h"
 
 PlatformerPlayer::PlatformerPlayer()
 	: camera(nullptr)
+	, owning_scene(nullptr)
 
 	// Attributes
 	, max_health(1.f)
@@ -56,6 +58,10 @@ PlatformerPlayer::PlatformerPlayer()
 	// Launched
 	, b_launched(false)
 
+	// death grace period
+	, death_grace_period_default(1.f)
+	, death_grace_period_timer(death_grace_period_default)
+
 	// States
 	, b_try_fall_from_oneway(false)
 	, b_jumped_from_ground_this_frame(false)
@@ -92,6 +98,8 @@ PlatformerPlayer::PlatformerPlayer()
 {
 	collidable_platforms = new EntityList();
 
+	texture_path = "Misc/style1/black16.png";
+
 	set_frame_size(8, 13);
 
 	init_collider();
@@ -102,16 +110,17 @@ void PlatformerPlayer::init_collider()
 	collider = BoxCollider(get_position().x, get_position().y, 0.5f, 1.f, 7.f, 12.f);
 }
 
-void PlatformerPlayer::load_default_texture()
-{
-	texture_path = "Game/style1/black16.png";
-	Entity::load_default_texture();
-}
-
 void PlatformerPlayer::affect_health(float delta)
 {
-	health += delta;
+	if (health + delta <= 0.f) //if we are going to die
+	{
+		if (death_grace_period_timer > 0.f)	// if we are within death grace period, don't take damage
+		{
+			return;
+		}
+	}
 
+	health += delta;
 	if (health <= 0.f)
 	{
 		die();
@@ -151,6 +160,13 @@ void PlatformerPlayer::launch(float in_xvel, float in_yvel, float input_pause)
 	}
 }
 
+void PlatformerPlayer::restart_player()
+{
+	set_position(50.f, 5.f);
+
+	set_active(true);
+}
+
 void PlatformerPlayer::begin_play()
 {
 	load_default_texture();
@@ -161,24 +177,31 @@ void PlatformerPlayer::update(float deltaTime)
 {
 	Entity::update(deltaTime);
 
+	// death grace timer / invulernability
+	if (death_grace_period_timer > 0.f)
+	{
+		death_grace_period_timer -= deltaTime;
+	}
+
 	read_input(deltaTime);
 
 	resolve_movement(deltaTime);
 
-	// Damage blocks
-	for (int i = 0; i < damage_blocks->size(); ++i)
+	// Trigger boxes
+	for (int i = 0; i < trigger_boxes->size(); ++i)
 	{
-		Entity* e = damage_blocks->at(i);
-		
+		Entity* e = trigger_boxes->at(i);
 		if (collider.intersects(e->get_collider()))
 		{
-			// Spike
-			if (PlatformerSpikes* spike = dynamic_cast<PlatformerSpikes*>(e))
+
+			// Spike / Damage block
+			if (PlatformerDamageBlock* damage_block = dynamic_cast<PlatformerDamageBlock*>(e))
 			{
-				spike->collided(this);
+				damage_block->collided(this);
 			}
 
 
+			
 		}
 	}
 
@@ -204,7 +227,6 @@ void PlatformerPlayer::render(sf::RenderTarget& target)
 	}
 }
 
-
 void PlatformerPlayer::read_input(float dt)
 {
 	// input pause
@@ -227,15 +249,20 @@ void PlatformerPlayer::read_input(float dt)
 	//bool b_s_pressed = sf::Joystick::isButtonPressed(1, 8);//sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 	//bool b_a_pressed = false;//sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 	//bool b_d_pressed = false;//sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+	//float pov_x_input = sf::Joystick::getAxisPosition(1, sf::Joystick::PovX);
+	//if (pov_x_input > 0.4f)
+	//{
+	//	b_d_pressed = true;
+	//}
+	//if (pov_x_input < -0.4f)
+	//{
+	//	b_a_pressed = true;
+	//}
 
-	float pov_x_input = sf::Joystick::getAxisPosition(1, sf::Joystick::PovX);
-	if (pov_x_input > 0.4f)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
 	{
-		b_d_pressed = true;
-	}
-	if (pov_x_input < -0.4f)
-	{
-		b_a_pressed = true;
+		//curr_xvel = 300.f;
+		curr_yvel = -200.f;
 	}
 
 	// Jumping
@@ -528,8 +555,14 @@ void PlatformerPlayer::resolve_movement(float dt)
 
 void PlatformerPlayer::die()
 {
-	printf("die\n");
-	set_position(50.f, 5.f);
+	death_grace_period_timer = death_grace_period_default;
+
+	set_active(false);
+
+	if (owning_scene)
+	{
+		owning_scene->on_player_death();
+	}
 }
 
 void PlatformerPlayer::update_dust_effects(float dt)

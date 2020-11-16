@@ -1,17 +1,12 @@
-#include <SFML/Graphics.hpp>
-#include <fstream>
-#include <stdlib.h>
-#include <time.h>
-#include <imgui.h>
-#include <imgui-SFML.h>
-
+#include "Engine.h"
 #include "json.hpp"
-#include "MoreColors.h"
-#include "Scene_Editor.h"
-#include "../Scene_PlatformerGame.h"
 #include "../ADKEditorMetaRegistry.h"
 #include "ADKTextures.h"
 #include "../ADKInput.h"
+#include "ADKTimer.h"
+
+#include "Scene_Editor.h"
+#include "../Scene_PlatformerGame.h"
 
 
 #pragma region REGISTRATION
@@ -21,69 +16,11 @@ REGISTER_ENTITY_TYPES
 DEFINE_ADK_TEXTURES
 #pragma endregion
 
-struct FEngineConfig
-{
-	// How often game logic is ticked/updated
-	uint16_t ticks_per_second = 60;
-	// Whether to render only on game logic ticks (i.e. tie framerate to game logic?)
-	bool b_cap_framerate_to_ticks = true;
-	// Whether to use V-Sync
-	bool b_vsync_enabled = false;
-	// Game window resolution
-	uint16_t default_window_width = 1600;
-	uint16_t default_window_height = 900;
-	// Whether we can resize window
-	bool b_can_resize = true;
-	// Fullscreen
-	bool b_fullscreen = false;
-	// Default window background color
-	sf::Color window_background_color = MC_CORNFLOWERBLUE;
-};
-
-class Engine
-{
-public:
-	Engine();
-
-	// Start game process
-	void run();
-
-private:
-
-	// Process user inputs
-	void process_events();
-
-	// Update game logic
-	void update(float deltaTime);
-
-	// Render game to screen
-	void render();
-
-	////////////////////////////////////////////////////
-
-	template <class Scene>
-	void switch_active_scene(bool b_end_scene = false);
-
-	void show_engine_imgui();
-
-private:
-	// Struct holding engine configurations and settings
-	FEngineConfig engine_config;
-
-	// Represents the game window
-	sf::RenderWindow window;
-
-	// Represents the active scene showing to the player
-	Scene* active_scene;
-
-	// Whether to pause updating the game
-	bool b_update_paused;
-
-};
-
 Engine::Engine()
 	: active_scene(nullptr)
 	, b_update_paused(false)
+	, update_pause_timer(-1.f)
+	, game_speed(1.f)
 {
 	//FEngineConfig default_engine;
 	//nlohmann::json item;
@@ -129,6 +66,29 @@ void Engine::run()
 	// Initialize ImGui::SFML process
 	ImGui::SFML::Init(window);
 
+#pragma region ImGuiStyle
+	ImGuiStyle * style = &ImGui::GetStyle();
+	//style->WindowPadding = ImVec2(15, 15);
+	style->WindowRounding = 0.0f;
+	//style->FramePadding = ImVec2(5, 5);
+	//style->FrameRounding = 4.0f;
+	//style->ItemSpacing = ImVec2(12, 8);
+	//style->ItemInnerSpacing = ImVec2(8, 6);
+	//style->IndentSpacing = 25.0f;
+	style->ScrollbarSize = 17.0f;
+	style->ScrollbarRounding = 9.0f;
+	style->Colors[ImGuiCol_Text] = ImVec4(0.80f, 0.80f, 0.83f, 1.00f);
+	style->Colors[ImGuiCol_TextDisabled] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
+	style->Colors[ImGuiCol_WindowBg] = ImVec4((float)23 / (float)255, (float)29 / (float)255, (float)34 / (float)255, 1.00f);//ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
+	style->Colors[ImGuiCol_MenuBarBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
+	style->Colors[ImGuiCol_TitleBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
+	style->Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(1.00f, 0.98f, 0.95f, 0.75f);
+	style->Colors[ImGuiCol_TitleBgActive] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
+	style->Colors[ImGuiCol_Button] = ImVec4(0.467f, 0.533f, 0.6f, 1.00f);
+	style->Colors[ImGuiCol_ButtonHovered] = ImVec4(0.467f, 0.6f, 0.6f, 1.00f);
+	style->Colors[ImGuiCol_ButtonActive] = ImVec4(0.2f, 0.251f, 0.267f, 1.00f);
+#pragma endregion
+
 	// Initialize framerate and update times
 	sf::Clock clock;
 	sf::Time time_since_last_update = sf::Time::Zero;
@@ -136,6 +96,9 @@ void Engine::run()
 
 	// Choose the scene
 	switch_active_scene<Scene_Editor>();
+
+	// Init core utils
+	ADKTimer* adk_timer = ADKTimer::get_timer();
 
 	// Game process loop
 	while (window.isOpen())
@@ -154,6 +117,9 @@ void Engine::run()
 				// PROCESS GAME EVENTS
 				process_events();
 
+				// UPDATE TIMER
+				adk_timer->update_timer(time_per_frame.asSeconds());
+
 				// UPDATE GAME (deltaTime is in SECONDS) ***
 				update(time_per_frame.asSeconds());
 
@@ -164,6 +130,9 @@ void Engine::run()
 			if (engine_config.b_cap_framerate_to_ticks == false) { render(); }
 		}
 	}
+
+	// Clean up core utils
+	delete adk_timer;
 
 	// Shut down ImGui::SFML process
 	ImGui::SFML::Shutdown();
@@ -206,15 +175,16 @@ void Engine::switch_active_scene(bool b_end_scene /*= false*/)
 	}
 
 	active_scene = new Scene;
+	active_scene->set_engine_instance(this);
 	active_scene->begin_scene(window);
 }
-
 
 void Engine::show_engine_imgui()
 {
 	ImGui::Begin("ADK Control Panel");
 
 	// Switch Scenes
+	ImGui::Text("Switch Scene");
 	if (ImGui::Button("Scene_PlatformerGame") && typeid(active_scene) != typeid(Scene_PlatformerGame))
 	{
 		switch_active_scene<Scene_PlatformerGame>(true);
@@ -225,9 +195,63 @@ void Engine::show_engine_imgui()
 	}
 	ImGui::Separator();
 
-	// Switch levels
+	// Engine Control
+	ImGui::Text("Engine Control");
+	if (ImGui::Button("Pause Update"))
+	{
+		b_update_paused = !b_update_paused;
+	}
+	if (ImGui::Button("1x Speed"))
+	{
+		game_speed = 1.f;
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("0.5x Speed"))
+	{
+		game_speed = 0.5f;
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("0.2x Speed"))
+	{
+		game_speed = 0.2f;
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("2x Speed"))
+	{
+		game_speed = 2.f;
+	}
+	ImGui::Separator();
+
+	// Scene specific ImGui
+	active_scene->show_scene_debugui();
+	ImGui::Separator();
 
 	ImGui::End();
+}
+
+void Engine::pause_update(bool b_pause, float in_pause_in_seconds /*= -1.f*/)
+{
+	if (b_pause)
+	{
+		if (in_pause_in_seconds < 0.f)
+		{
+			b_update_paused = true;
+			update_pause_timer = -1.f;
+		}
+		else
+		{
+			b_update_paused = true;
+			update_pause_timer = in_pause_in_seconds;
+		}
+	}
+	else
+	{
+		b_update_paused = false;
+		if (active_scene)
+		{
+			active_scene->on_unpause();
+		}
+	}
 }
 
 void Engine::update(float deltaTime)
@@ -240,8 +264,26 @@ void Engine::update(float deltaTime)
 		show_engine_imgui();
 	}
 
+	// update pause timer
+	if (update_pause_timer > 0.f)
+	{
+		update_pause_timer -= deltaTime;
+		if (update_pause_timer <= 0.f)
+		{
+			b_update_paused = false;
+			if (active_scene)
+			{
+				active_scene->on_unpause();
+			}
+		}
+	}
+
+	// check if update is paused
 	if (b_update_paused == false)
 	{
+		// modify delta time with game speed
+		deltaTime *= game_speed;
+		// actually update
 		active_scene->update_pre(deltaTime);
 		active_scene->update(deltaTime);
 		active_scene->update_post(deltaTime);
@@ -270,6 +312,10 @@ int main()
 
 	Engine game;
 	game.run();
+
+	//ADKTimer::set_timed_callback(&Engine::run, &game);
+	//ADKTimer::CallObjectMethod(&Engine::run, game);
+
 
 	return 0;
 }

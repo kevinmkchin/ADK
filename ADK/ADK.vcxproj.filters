@@ -111,6 +111,18 @@
     <ClCompile Include="Engine\ADKCamera.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="PlatformerDamageBlock.cpp">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerFallingPlatformSmall.cpp">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerFallingPlatformMedium.cpp">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ADKTimer.cpp">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Scene.h">
@@ -180,6 +192,21 @@
     </ClInclude>
     <ClInclude Include="Engine\ADKCamera.h">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerDamageBlock.h">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerFallingPlatformSmall.h">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerFallingPlatformMedium.h">
+      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKTimer.h">
+      <Filter>Engine\ADKUtils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

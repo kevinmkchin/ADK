@@ -1,15 +1,14 @@
 #include "PlatformerSpikes.h"
-#include "PlatformerPlayer.h"
 
 PlatformerSpikes::PlatformerSpikes()
 {
 	set_active(false);
 
 	texture_path = "Game/sheet2.png";
-	
 	set_frame_size(8, 8);
-
 	set_animation_start_frame(0, 5);
+	sprite_sheet.animations[0].anim_duration = sf::seconds(0.f);
+	sprite_sheet.animations[0].num_frames = 1;
 
 	init_collider();
 }
@@ -50,13 +49,5 @@ void PlatformerSpikes::set_rotation(float newRot, bool bAffectCollider /*= false
 		collider.offset_y = 0.f;
 		collider.width = 4.f;
 		collider.height = 8.f;
-	}
-}
-
-void PlatformerSpikes::collided(Entity* collided_entity)
-{
-	if (PlatformerPlayer* player = dynamic_cast<PlatformerPlayer*>(collided_entity))
-	{
-		player->affect_health(-1.f);
 	}
 }

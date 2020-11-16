@@ -25,7 +25,8 @@ public:
 		intensity as the last tick/shake. duration determines how long the shake lasts for; it is possible for the camera 
 		to essentially stop shaking before duration runs out due to lerping the intensity. b_at_intensity determines whether 
 		the camera shake offset will always be at the current intensity values; if it is false, then the camera shake offset
-		will be in range [-intensity, intensity]; this does not affect lerping.
+		will be in range [-intensity, intensity]; this does not affect lerping; the result of it being false is that the camera
+		shake will be a bit more chaotic.
 	*/
 	void shake_camera(float in_x_intensity, float in_y_intensity, float in_lerp_amount, float in_duration, bool b_at_intensity);
 

@@ -10,6 +10,10 @@ public:
 
 	virtual void update(float deltaTime) override;
 
+	virtual void collided(Entity* collided_entity) override;
+
+	virtual void launch_up(float yvel_up);
+
 protected:
 	virtual void update_falling_active();
 
@@ -21,6 +25,7 @@ protected:
 
 	float initial_delay_timer;		// timer for initial delay
 	float curr_fall_vel;			// holds current fall speed
+	float max_fall_vel;				// max fall speed
 	bool b_falling_active;			// holds whether this block has been activated
 
 };

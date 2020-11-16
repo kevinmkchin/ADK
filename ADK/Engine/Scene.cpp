@@ -1,10 +1,12 @@
 #include "Scene.h"
 #include "../ADKEditorMetaRegistry.h"
+#include "Engine.h"
 
 sf::View nullview;
 
 Scene::Scene()
 	: entities(EntityList())
+	, engine_ptr(nullptr)
 {
 }
 
@@ -57,6 +59,33 @@ void Scene::render_post(sf::RenderWindow& window)
 
 }
 
+void Scene::set_engine_instance(Engine* in_engine)
+{
+	engine_ptr = in_engine;
+}
+
+void Scene::pause_update(bool b_pause, float in_pause_in_seconds)
+{
+	if (engine_ptr)
+	{
+		engine_ptr->pause_update(b_pause, in_pause_in_seconds);
+	}
+}
+
+bool Scene::is_update_paused() const
+{
+	if (engine_ptr)
+	{
+		return engine_ptr->is_update_paused();
+	}
+	return false;
+}
+
+void Scene::on_unpause()
+{
+
+}
+
 void Scene::initialize_scene_view(sf::RenderWindow& window)
 {
 	sf::View view_to_set = window.getView();
@@ -68,3 +97,9 @@ void Scene::initialize_scene_view(sf::RenderWindow& window)
 	// Set view
 	window.setView(view_to_set);
 }
+
+void Scene::show_scene_debugui()
+{
+
+}
+

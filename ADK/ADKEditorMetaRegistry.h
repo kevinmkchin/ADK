@@ -7,7 +7,10 @@
 #include "PlatformerSpikes.h"
 #include "PlatformerMovingPlatform.h"
 #include "PlatformerFallingPlatform.h"
+#include "PlatformerFallingPlatformSmall.h"
+#include "PlatformerFallingPlatformMedium.h"
 #include "PlatformerTrampoline.h"
+#include "PlatformerDamageBlock.h"
 
 #pragma region ignore
 
@@ -28,9 +31,12 @@ public:
 	DECLARE("DemoPlatformerTile")
 	DECLARE("DemoPlatformerOneWayPlatform")
 	DECLARE("PlatformerSpikes")
+	DECLARE("Trampoline")
 	DECLARE("MovingPlatform")
 	DECLARE("FallingPlatform")
-	DECLARE("Trampoline")
+	DECLARE("FallingPlatformSmall")
+	DECLARE("FallingPlatformMedium")
+	DECLARE("DamageBlock")
 	//DECLARE(" ")
 	//DECLARE(" ")
 	//DECLARE(" ")
@@ -52,9 +58,12 @@ public:
 	REGISTER_ENT(PlatformerTile, "DemoPlatformerTile")
 	REGISTER_ENT(PlatformerOneWayTile, "DemoPlatformerOneWayPlatform")
 	REGISTER_ENT(PlatformerSpikes, "PlatformerSpikes")
+	REGISTER_ENT(PlatformerTrampoline, "Trampoline")
 	REGISTER_ENT(PlatformerMovingPlatform, "MovingPlatform")
 	REGISTER_ENT(PlatformerFallingPlatform, "FallingPlatform")
-	REGISTER_ENT(PlatformerTrampoline, "Trampoline")
+	REGISTER_ENT(PlatformerFallingPlatformSmall, "FallingPlatformSmall")
+	REGISTER_ENT(PlatformerFallingPlatformMedium, "FallingPlatformMedium")
+	REGISTER_ENT(PlatformerDamageBlock, "DamageBlock")
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma region ignore
