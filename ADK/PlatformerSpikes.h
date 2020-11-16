@@ -1,7 +1,7 @@
 #pragma once
-#include "PlatformerDamageBlock.h"
+#include "PlatformerDamageBox.h"
 
-class PlatformerSpikes : public PlatformerDamageBlock
+class PlatformerSpikes : public PlatformerDamageBox
 {
 
 public:

@@ -69,6 +69,9 @@ protected:
 	virtual void initialize_scene_view(sf::RenderWindow& window) override;
 
 private:
+	void load_level_confirmation(std::string path);
+	void save_level_confirmation(std::string path);
+
 	// ImGui
 	void draw_editor_ui();
 	void draw_menu_and_optionsbar_ui();
@@ -139,6 +142,9 @@ private:
 	// Save & Load
 	char level_id[30] = "";
 	bool b_typing_level_id;
+	bool b_show_load_confirm;
+	bool b_show_save_confirm;
+	std::string pending_level_path;
 
 	// alt rotate
 	bool b_alt_rotate;

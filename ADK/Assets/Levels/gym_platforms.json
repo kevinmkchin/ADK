@@ -2889,34 +2889,6 @@
             "aid": 0,
             "anims": [
                 {
-                    "adr": 0.4000000059604645,
-                    "nfr": 8,
-                    "sfr": 0
-                }
-            ],
-            "che": 12.0,
-            "cle": 258.0,
-            "cox": 2.0,
-            "coy": 2.0,
-            "cto": 146.0,
-            "cwi": 12.0,
-            "dep": 0,
-            "eid": "DamageBlock",
-            "frx": 16,
-            "fry": 16,
-            "posx": 256.0,
-            "posy": 144.0,
-            "rot": 0.0,
-            "rpt": true,
-            "scl": 1.0,
-            "tpath": "Game/blackhole2.png",
-            "vis": true
-        },
-        {
-            "act": true,
-            "aid": 0,
-            "anims": [
-                {
                     "adr": 1.0,
                     "nfr": 16,
                     "sfr": 0
@@ -3974,6 +3946,34 @@
             "rpt": true,
             "scl": 1.0,
             "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.4000000059604645,
+                    "nfr": 8,
+                    "sfr": 0
+                }
+            ],
+            "che": 12.0,
+            "cle": 258.0,
+            "cox": 2.0,
+            "coy": 2.0,
+            "cto": 146.0,
+            "cwi": 12.0,
+            "dep": 0,
+            "eid": "MovingDamageBox",
+            "frx": 16,
+            "fry": 16,
+            "posx": 256.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/blackhole2.png",
             "vis": true
         }
     ]

@@ -29,6 +29,8 @@ Scene_Editor::Scene_Editor()
 	, default_copy_paste_timer(0.35f)
 	, copy_paste_timer(default_copy_paste_timer)
 	, b_show_config(false)
+	, b_show_load_confirm(false)
+	, b_show_save_confirm(false)
 	, b_debug_render(false)
 	, b_collision_match_sprite_bound(false)
 {
@@ -173,7 +175,7 @@ void Scene_Editor::process_events(sf::Event& event)
 	}
 
 	// Editor features that should only happen when sprite sheet viewer is closed.
-	if (b_texture_show == false && b_show_config == false && texture_dialog.IsOpened() == false)
+	if (b_texture_show == false && b_show_config == false && b_show_load_confirm == false && b_show_save_confirm == false && texture_dialog.IsOpened() == false)
 	{
 		// Select entity
 		if (curr_tool == TOOL_SELECTION && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonPressed)
@@ -734,19 +736,78 @@ void Scene_Editor::show_scene_debugui()
 			filenames.push_back(iter->path().string());
 		}
 	}
-	for (std::string name : filenames)
+	
+	for (std::size_t i = 0; i < filenames.size(); ++i)
 	{
+		ImGui::PushID(i);
+		std::string name = filenames.at(i);
 		name = name.substr(levels_directory.length());
-		if (ImGui::Button(name.c_str()))
+		ImGui::Text(name.c_str());
+		ImGui::SameLine();
+		if (ImGui::Button("Load"))
 		{
-			ADKSaveLoad Loader;
-			Loader.load_to_scene(name, *this);
+			load_level_confirmation(name);
 		}
+		ImGui::SameLine();
+		if (ImGui::Button("Save"))
+		{
+			save_level_confirmation(name);
+		}
+		ImGui::PopID();
 	}
+}
+
+void Scene_Editor::load_level_confirmation(std::string path)
+{
+	b_show_load_confirm = true;
+	b_show_save_confirm = false;
+	pending_level_path = path;
+}
+
+void Scene_Editor::save_level_confirmation(std::string path)
+{
+	b_show_save_confirm = true;
+	b_show_load_confirm = false;
+	pending_level_path = path;
 }
 
 void Scene_Editor::draw_editor_ui()
 {
+	if (b_show_save_confirm)
+	{
+		ImGui::Begin("Save Confirmation");
+		std::string confirm_text = "Attempting to save/overwrite '" + pending_level_path + "'. Proceed with save?";
+		ImGui::Text(confirm_text.c_str());
+		if (ImGui::Button("yes"))
+		{
+			ADKSaveLoad Saver;
+			Saver.save_scene(pending_level_path, *this);
+			b_show_save_confirm = false;
+		}
+		if (ImGui::Button("no"))
+		{
+			b_show_save_confirm = false;
+		}
+		ImGui::End();
+	}
+	if (b_show_load_confirm)
+	{
+		ImGui::Begin("Load Confirmation");
+		std::string confirm_text = "Attempting to load '" + pending_level_path + "'. Proceed with load?";
+		ImGui::Text(confirm_text.c_str());
+		if (ImGui::Button("yes"))
+		{
+			ADKSaveLoad Loader;
+			Loader.load_to_scene(pending_level_path, *this);
+			b_show_load_confirm = false;
+		}
+		if (ImGui::Button("no"))
+		{
+			b_show_load_confirm = false;
+		}
+		ImGui::End();
+	}
+
 	draw_menu_and_optionsbar_ui();
 	draw_entity_property_ui();
 	draw_entity_type_ui();
@@ -1224,16 +1285,14 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 		b_typing_level_id = false;
 	}
 	ImGui::SameLine();
-	if (ImGui::Button("Save"))
-	{
-		ADKSaveLoad Saver;
-		Saver.save_scene(level_id, *this);
-	}
-	ImGui::SameLine();
 	if (ImGui::Button("Load"))
 	{
-		ADKSaveLoad Loader;
-		Loader.load_to_scene(level_id, *this);
+		load_level_confirmation(level_id);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Save"))
+	{
+		save_level_confirmation(level_id);
 	}
 	ImGui::SameLine();
 
