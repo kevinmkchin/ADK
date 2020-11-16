@@ -13,7 +13,7 @@ public:
 	void save_entities(const std::string& savePath, const EntityList el);
 
 	// Load savePath + .json to scene.Entities
-	void load_to_scene(const std::string& savePath, Scene& scene);
+	void load_to_scene(const std::string& savePath, Scene& scene, bool b_clear_entities = true);
 
 };
 

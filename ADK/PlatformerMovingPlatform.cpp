@@ -33,7 +33,7 @@ void PlatformerMovingPlatform::update(float deltaTime)
 	travel_timer += deltaTime;
 	if (travel_timer < travel_time_in_seconds)
 	{
-		if (entity_to_collide != nullptr)
+		if (entity_to_collide != nullptr && entity_to_collide->is_active())
 		{
 			if (collider.will_touch_top(entity_to_collide->get_collider(), 0.01f))
 			{

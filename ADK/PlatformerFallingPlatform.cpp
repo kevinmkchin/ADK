@@ -99,11 +99,15 @@ void PlatformerFallingPlatform::update(float deltaTime)
 		}
 		if (!b_y_collided)
 		{
-			// move player
-			if (collider.will_touch_top(entity_to_collide->get_collider(), 0.01f))
+			if (entity_to_collide != nullptr && entity_to_collide->is_active())
 			{
-				entity_to_collide->move(0.f, curr_fall_vel * deltaTime);
+				// move player
+				if (collider.will_touch_top(entity_to_collide->get_collider(), 0.01f))
+				{
+					entity_to_collide->move(0.f, curr_fall_vel * deltaTime);
+				}
 			}
+
 			// move block
 			move(0.f, curr_fall_vel * deltaTime);
 		}

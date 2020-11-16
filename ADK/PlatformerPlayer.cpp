@@ -10,7 +10,9 @@
 #include "PlatformerTrampoline.h"
 
 PlatformerPlayer::PlatformerPlayer()
-	: camera(nullptr)
+	: collidable_platforms(new EntityList())
+	, trigger_boxes(new EntityList())
+	, camera(nullptr)
 	, owning_scene(nullptr)
 
 	// Attributes
@@ -96,13 +98,17 @@ PlatformerPlayer::PlatformerPlayer()
 
 	, dust_group_size(dust_num_pixels_max_jump > dust_num_pixels_max_land ? dust_num_pixels_max_jump : dust_num_pixels_max_land)
 {
-	collidable_platforms = new EntityList();
-
 	texture_path = "Misc/style1/black16.png";
 
 	set_frame_size(8, 13);
 
 	init_collider();
+}
+
+PlatformerPlayer::~PlatformerPlayer()
+{
+	delete collidable_platforms;
+	delete trigger_boxes;
 }
 
 void PlatformerPlayer::init_collider()
@@ -399,7 +405,7 @@ void PlatformerPlayer::resolve_movement(float dt)
 	}
 
 	// --- Check movement collision ---
-	for (int i = 0; i < collidable_platforms->size(); ++i) 
+	for (int i = 0; i < collidable_platforms->size(); ++i)
 	{
 		bool curr_platform_collided = false;
 		Entity* platform = collidable_platforms->at(i);

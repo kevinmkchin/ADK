@@ -5,13 +5,15 @@
 sf::View nullview;
 
 Scene::Scene()
-	: entities(EntityList())
+	: level_entities(EntityList())
 	, engine_ptr(nullptr)
 {
 }
 
 void Scene::begin_scene(sf::RenderWindow& window)
-{	
+{
+	// Keep reference to game window
+	render_window_ptr = &window;
 	// Initialize scene view based on view config
 	initialize_scene_view(window);
 	// Set key presses to poll repeatedly

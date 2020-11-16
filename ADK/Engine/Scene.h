@@ -65,8 +65,9 @@ protected:
 	virtual void initialize_scene_view(sf::RenderWindow& window);
 
 public:
-	// The entities contained in this scene. You don't have to use this.
-	EntityList entities;
+	/*	The entities contained in this scene. You don't have to use this.
+		If you want entities to persist between ADKSaveLoad::load_to_scene calls, then probably don't put them in here. */
+	EntityList level_entities;
 
 protected:
 	// View configurations.
@@ -74,5 +75,8 @@ protected:
 
 	// Reference to engine instance
 	Engine* engine_ptr;
+
+	// Reference to render window
+	sf::RenderWindow* render_window_ptr;
 
 };

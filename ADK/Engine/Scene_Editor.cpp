@@ -114,9 +114,9 @@ void Scene_Editor::end_scene(sf::RenderWindow& window)
 	{
 		entity_types.remove_and_destroy(entity_types.at(i));
 	}
-	for (int i = entities.size() - 1; i != -1; --i)
+	for (int i = level_entities.size() - 1; i != -1; --i)
 	{
-		entities.remove_and_destroy(entities.at(i));
+		level_entities.remove_and_destroy(level_entities.at(i));
 	}
 
 	Scene::end_scene(window);
@@ -168,7 +168,7 @@ void Scene_Editor::process_events(sf::Event& event)
 		{
 			if (entity_selected_for_properties != nullptr)
 			{
-				entities.remove_and_destroy(entity_selected_for_properties);
+				level_entities.remove_and_destroy(entity_selected_for_properties);
 				set_entity_selected_for_properties(nullptr);
 			}
 		}
@@ -182,9 +182,9 @@ void Scene_Editor::process_events(sf::Event& event)
 		{
 			sf::IntRect viewWindow(active_editor_config.top_left_pixel.x, active_editor_config.top_left_pixel.y,
 				active_editor_config.bot_right_pixel.x - active_editor_config.top_left_pixel.x, active_editor_config.bot_right_pixel.y - active_editor_config.top_left_pixel.y);
-			for (int i = entities.size() - 1; i > -1; --i)
+			for (int i = level_entities.size() - 1; i > -1; --i)
 			{
-				Entity* at = entities.at(i);
+				Entity* at = level_entities.at(i);
 				sf::IntRect spr = at->get_sprite().getTextureRect();
 
 				sf::FloatRect mouseCol = at->get_sprite().getGlobalBounds();
@@ -352,8 +352,8 @@ void Scene_Editor::process_events(sf::Event& event)
 			created->set_position((float)posX, (float)posY);
 			created->init_collider();
 			// Add the entity to this scene/level editor's entity list
-			entities.add(created);
-			entities.mark_depth_changed();
+			level_entities.add(created);
+			level_entities.mark_depth_changed();
 			// Set this entity to be selected
 			set_entity_selected_for_properties(created);
 
@@ -456,7 +456,7 @@ void Scene_Editor::update_pre(float deltaTime)
 
 void Scene_Editor::update(float deltaTime)
 {
-	entities.update_animation_only(deltaTime);
+	level_entities.update_animation_only(deltaTime);
 
 	// Call brush place
 	if (curr_tool == TOOL_BRUSH && b_brush_enabled)
@@ -615,10 +615,10 @@ void Scene_Editor::render_pre(sf::RenderWindow& window)
 
 void Scene_Editor::render(sf::RenderWindow& window)
 {
-	entities.render_with_depth(window, active_editor_config.depth_filter_lowerbound, active_editor_config.depth_filter_upperbound);
+	level_entities.render_with_depth(window, active_editor_config.depth_filter_lowerbound, active_editor_config.depth_filter_upperbound);
 	if (b_debug_render)
 	{
-		entities.render_with_depth(window, active_editor_config.depth_filter_lowerbound, active_editor_config.depth_filter_upperbound, true);
+		level_entities.render_with_depth(window, active_editor_config.depth_filter_lowerbound, active_editor_config.depth_filter_upperbound, true);
 	}
 
 	// Render Grid
@@ -797,6 +797,12 @@ void Scene_Editor::draw_editor_ui()
 		ImGui::Text(confirm_text.c_str());
 		if (ImGui::Button("yes"))
 		{
+			// delete all entities in scene viewer
+			for (int i = level_entities.size() - 1; i != -1; --i)
+			{
+				level_entities.remove_and_destroy(level_entities.at(i));
+			}
+
 			ADKSaveLoad Loader;
 			Loader.load_to_scene(pending_level_path, *this);
 			b_show_load_confirm = false;
@@ -849,7 +855,7 @@ void Scene_Editor::draw_entity_property_ui()
 			ImGui::InputInt("Depth", &depth);
 			if (entity_selected_for_properties->get_depth() != depth)
 			{
-				entities.mark_depth_changed();
+				level_entities.mark_depth_changed();
 			}
 			entity_selected_for_properties->set_depth(depth);
 
@@ -1144,19 +1150,19 @@ void Scene_Editor::draw_entity_property_ui()
 		// Display all entities currently in level
 		int selected = -1;
 		std::vector<std::string> bruh;
-		for (int i = 0; i < entities.size(); ++i)
+		for (int i = 0; i < level_entities.size(); ++i)
 		{
 			std::string name = std::to_string(i).append(" ");
-			name = entities.at(i)->entity_id.empty() ? name.append(typeid(entities.at(i)).name()) : name.append(entities.at(i)->entity_id);
+			name = level_entities.at(i)->entity_id.empty() ? name.append(typeid(level_entities.at(i)).name()) : name.append(level_entities.at(i)->entity_id);
 			bruh.push_back(name);
-			if (entities.at(i) == entity_selected_for_properties)
+			if (level_entities.at(i) == entity_selected_for_properties)
 			{
 				selected = i;
 			}
 		}
 		if (ImGui::ListBox("", &selected, bruh))
 		{
-			set_entity_selected_for_properties(entities.at(selected));
+			set_entity_selected_for_properties(level_entities.at(selected));
 		}
 		ImGui::NextColumn();
 		
@@ -1179,7 +1185,7 @@ void Scene_Editor::draw_entity_property_ui()
 		ImGui::NextColumn();
 
 		// Count of entities in level
-		std::string num = std::to_string(entities.size()).append(" entities in level.");
+		std::string num = std::to_string(level_entities.size()).append(" entities in level.");
 		const char * numInCharPtr = num.c_str();
 		ImGui::Text(numInCharPtr);
 
@@ -1188,7 +1194,7 @@ void Scene_Editor::draw_entity_property_ui()
 		{
 			if (entity_selected_for_properties != nullptr)
 			{
-				entities.remove_and_destroy(entity_selected_for_properties);
+				level_entities.remove_and_destroy(entity_selected_for_properties);
 				set_entity_selected_for_properties(nullptr);
 			}
 		}
@@ -1648,8 +1654,8 @@ void Scene_Editor::brush_place_helper()
 	// Initialize collider position
 	created->init_collider();
 	// Add the entity to this scene/level editor's entity list
-	entities.add(created);
-	entities.mark_depth_changed();
+	level_entities.add(created);
+	level_entities.mark_depth_changed();
 	// Set this entity to be selected
 	set_entity_selected_for_properties(created);
 

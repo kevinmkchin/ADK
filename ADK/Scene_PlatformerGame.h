@@ -15,8 +15,6 @@ public:
 
 	virtual void end_scene(sf::RenderWindow& window) override;
 
-	virtual void process_events(sf::Event& event) override;
-
 	virtual void update(float deltaTime) override;
 
 	virtual void update_post(float deltaTime) override;
@@ -25,10 +23,24 @@ public:
 
 	virtual void render(sf::RenderWindow& window) override;
 
+	virtual void show_scene_debugui() override;
+
 // Scene_PlatformerGame specific
 	void on_player_death();
 
 	void on_end_freezeframe();
+
+protected:
+	// Init everything that persists throughout levels
+	void initialize_gamescene();
+
+	// Init everything only relevant to this level. Called to parse entity list, create player, camera, etc.
+	void initialize_level(sf::RenderWindow& window);
+
+	// Clean up level, delete dynamically allocated entities, etc.
+	void end_level();
+
+	void switch_level(std::string level_path);
 
 private:
 	ADKCamera* camera;

@@ -43,6 +43,10 @@ public:
 	void pause_update(bool b_pause, float in_pause_in_seconds = -1.f);
 	bool is_update_paused() const { return b_update_paused; }
 
+	// Switch the active scene. b_end_scene calls Scene::end_scene if true.
+	template <class Scene>
+	void switch_active_scene(bool b_end_scene = false);
+
 private:
 
 	// Process user inputs
@@ -55,9 +59,6 @@ private:
 	void render();
 
 	////////////////////////////////////////////////////
-
-	template <class Scene>
-	void switch_active_scene(bool b_end_scene = false);
 
 	void show_engine_imgui();
 

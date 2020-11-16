@@ -3,6 +3,8 @@
 #include <vector>
 #include "Entity.h"
 
+/*	probably best to always allocate EntityList dynamically
+	*/
 class EntityList
 {
 public:
