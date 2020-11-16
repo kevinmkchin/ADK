@@ -30,6 +30,8 @@ If I was going to create my own custom C++ game engine, I needed it to be better
   - Easy to configure multiple animations from a single spritesheet
 - **Collisions**
   - Included code examples demonstrate how to easily implement pixel-perfect collision using the provided collision system
+- **Timers**
+  - Timers allow you to set a timer for a callback function/delegate. For example, when the player dies, you could set a 2 second timer for a function that restarts the level. Very useful.
 - **Entity and Scene System**
   - What do you expect? It's a game engine
 - **Entity Layers**
