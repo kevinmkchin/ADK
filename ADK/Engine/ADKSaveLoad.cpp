@@ -4,7 +4,7 @@
 #include "../ADKEditorMetaRegistry.h"
 #include "json.hpp"
 
-#define LEVELPATH "Assets/Levels/"
+#define LEVELPATH "Assets\\Levels\\"
 
 #define ENTITIES "entities"
 #define ENTITY_ID_LABEL "eid"
@@ -98,8 +98,13 @@ void ADKSaveLoad::save_entities(const std::string& savePath, EntityList el)
 
 	// Save to json
 	std::string serialized = final.dump(4);
-	std::ofstream save;
-	save.open(LEVELPATH + savePath + ".json");
+	std::ofstream save;	
+
+	bool has_levelpath = savePath.find(LEVELPATH) == 0;
+	bool has_json = (savePath.length() > 5) && (savePath.substr(savePath.length() - 5) == ".json");
+	std::string path_to_save = (has_levelpath ? "" : LEVELPATH) + savePath + (has_json ? "" : ".json");
+
+	save.open(path_to_save);
 	save << serialized;
 	save.close();
 }
@@ -111,8 +116,12 @@ void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene)
 		return;
 	}
 
+	bool has_levelpath = savePath.find(LEVELPATH) == 0;
+	bool has_json = (savePath.length() > 5) && (savePath.substr(savePath.length() - 5) == ".json");
+	std::string path_to_load = (has_levelpath ? "" : LEVELPATH) + savePath + (has_json ? "" : ".json");
+
 	// Load json
-	std::ifstream load(LEVELPATH + savePath + ".json");
+	std::ifstream load(path_to_load);
 	json loaded;
 	load >> loaded; // big fucking props to nlohmann/json project
 	

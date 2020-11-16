@@ -6,6 +6,8 @@
 
 #define LOG(string) std::cout << string << std::endl
 
+class Engine;
+
 // Struct for Scene View properties
 struct FViewConfig
 {
@@ -48,6 +50,16 @@ public:
 	// Called after rendering.
 	virtual void render_post(sf::RenderWindow& window);
 
+	void set_engine_instance(Engine* in_engine);
+
+	// Call to pause or unpause update. pause_in_seconds is how long to pause update for before resuming.
+	void pause_update(bool b_pause, float in_pause_in_seconds = -1.f);
+	bool is_update_paused() const;
+	virtual void on_unpause();
+
+	// Scene specific ImGui for control panel
+	virtual void show_scene_debugui();
+
 protected:
 	// Initialize SceneView based on ViewConfig. Set RenderTarget's view to SceneView
 	virtual void initialize_scene_view(sf::RenderWindow& window);
@@ -59,5 +71,8 @@ public:
 protected:
 	// View configurations.
 	FViewConfig view_config;
+
+	// Reference to engine instance
+	Engine* engine_ptr;
 
 };

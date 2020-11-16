@@ -9,6 +9,8 @@ class PlatformerActivePlatform : public TileEntity
 {
 
 public:
+	PlatformerActivePlatform();
+
 	PlatformerPlayer* entity_to_collide;
 
 };

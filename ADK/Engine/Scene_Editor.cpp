@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <experimental/filesystem>
 #include <imgui.h>
 #include <imgui-SFML.h>
 #include "json.hpp"
@@ -84,29 +85,6 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	picker_button.loadFromFile("Assets/adk/button_picker.png");
 
 	render_window_ptr = &window;
-
-#pragma region ImGuiStyle
-	ImGuiStyle * style = &ImGui::GetStyle();
-	//style->WindowPadding = ImVec2(15, 15);
-	style->WindowRounding = 0.0f;
-	//style->FramePadding = ImVec2(5, 5);
-	//style->FrameRounding = 4.0f;
-	//style->ItemSpacing = ImVec2(12, 8);
-	//style->ItemInnerSpacing = ImVec2(8, 6);
-	//style->IndentSpacing = 25.0f;
-	style->ScrollbarSize = 17.0f;
-	style->ScrollbarRounding = 9.0f;
-	style->Colors[ImGuiCol_Text] = ImVec4(0.80f, 0.80f, 0.83f, 1.00f);
-	style->Colors[ImGuiCol_TextDisabled] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-	style->Colors[ImGuiCol_WindowBg] = ImVec4((float)23 / (float)255, (float)29 / (float)255, (float)34 / (float)255, 1.00f);//ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-	style->Colors[ImGuiCol_MenuBarBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-	style->Colors[ImGuiCol_TitleBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-	style->Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(1.00f, 0.98f, 0.95f, 0.75f);
-	style->Colors[ImGuiCol_TitleBgActive] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-	style->Colors[ImGuiCol_Button] = ImVec4(0.467f, 0.533f, 0.6f, 1.00f);
-	style->Colors[ImGuiCol_ButtonHovered] = ImVec4(0.467f, 0.6f, 0.6f, 1.00f);
-	style->Colors[ImGuiCol_ButtonActive] = ImVec4(0.2f, 0.251f, 0.267f, 1.00f);
-#pragma endregion
 
 	// Make entity of every type to display to editor
 	for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
@@ -289,7 +267,7 @@ void Scene_Editor::process_events(sf::Event& event)
 			}
 		}
 	
-		// Ent rotate with Left Alt
+		// Ent rotate with Left Alt and Ctrl
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 		{
 			if (b_alt_rotate == false)
@@ -310,7 +288,7 @@ void Scene_Editor::process_events(sf::Event& event)
 			b_alt_rotate = false;
 		}
 
-		// Ent scale with Left Ctrl
+		// Ent scale with Left Ctrl and Shift
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 		{
 			if (b_shift_scale == false)
@@ -415,7 +393,7 @@ void Scene_Editor::process_events(sf::Event& event)
 	}
 
 	// Scene move with Arrows
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) == false)
 	{
 		float xM = 0;
 		float yM = 0;
@@ -441,7 +419,8 @@ void Scene_Editor::process_events(sf::Event& event)
 	}
 
 	// Entity move with Arrows
-	if (entity_selected_for_properties != nullptr && b_typing_level_id == false && sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
+	if (entity_selected_for_properties != nullptr && b_typing_level_id == false 
+		&& sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) == false)
 	{
 		float xM = 0;
 		float yM = 0;
@@ -535,11 +514,62 @@ void Scene_Editor::update(float deltaTime)
 	// Alt Rotate
 	if (b_alt_rotate && entity_selected_for_properties != nullptr)
 	{
-		sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
-		sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
-		sf::Vector2f vec2 = mousePos - entity_selected_for_properties->get_position();
-		float angle = ADKMath::get_angle_between_vectors(vec1, vec2);
-		entity_selected_for_properties->set_rotation(og_rot + angle, b_collision_match_sprite_bound);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			entity_selected_for_properties->set_rotation(0.f, b_collision_match_sprite_bound);
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+			sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+			if (entity_selected_for_properties != nullptr)
+			{
+				sf::Vector2f ePos = entity_selected_for_properties->get_position();
+				vec1 = mousePos - ePos;
+				og_rot = entity_selected_for_properties->get_rotation();
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			entity_selected_for_properties->set_rotation(90.f, b_collision_match_sprite_bound);
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+			sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+			if (entity_selected_for_properties != nullptr)
+			{
+				sf::Vector2f ePos = entity_selected_for_properties->get_position();
+				vec1 = mousePos - ePos;
+				og_rot = entity_selected_for_properties->get_rotation();
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			entity_selected_for_properties->set_rotation(180.f, b_collision_match_sprite_bound);
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+			sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+			if (entity_selected_for_properties != nullptr)
+			{
+				sf::Vector2f ePos = entity_selected_for_properties->get_position();
+				vec1 = mousePos - ePos;
+				og_rot = entity_selected_for_properties->get_rotation();
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			entity_selected_for_properties->set_rotation(270.f, b_collision_match_sprite_bound);
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+			sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+			if (entity_selected_for_properties != nullptr)
+			{
+				sf::Vector2f ePos = entity_selected_for_properties->get_position();
+				vec1 = mousePos - ePos;
+				og_rot = entity_selected_for_properties->get_rotation();
+			}
+		}
+		else
+		{
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+			sf::Vector2f mousePos = (*render_window_ptr).mapPixelToCoords(pixelPos);
+			sf::Vector2f vec2 = mousePos - entity_selected_for_properties->get_position();
+			float angle = ADKMath::get_angle_between_vectors(vec1, vec2);
+			entity_selected_for_properties->set_rotation(og_rot + angle, b_collision_match_sprite_bound);
+		}
 	}
 
 	// Ctrl scale
@@ -687,6 +717,32 @@ void Scene_Editor::render(sf::RenderWindow& window)
 void Scene_Editor::render_post(sf::RenderWindow& window)
 {
 
+}
+
+void Scene_Editor::show_scene_debugui()
+{
+	ImGui::Text("Editor: Load Level");
+
+	std::string levels_directory = "Assets/Levels/";
+	namespace stdfs = std::experimental::filesystem;
+	std::vector<std::string> filenames;
+	const stdfs::directory_iterator end{};
+	for (stdfs::directory_iterator iter{ levels_directory }; iter != end; ++iter)
+	{
+		if (stdfs::is_regular_file(*iter))	// http://en.cppreference.com/w/cpp/experimental/fs/is_regular_file 
+		{
+			filenames.push_back(iter->path().string());
+		}
+	}
+	for (std::string name : filenames)
+	{
+		name = name.substr(levels_directory.length());
+		if (ImGui::Button(name.c_str()))
+		{
+			ADKSaveLoad Loader;
+			Loader.load_to_scene(name, *this);
+		}
+	}
 }
 
 void Scene_Editor::draw_editor_ui()

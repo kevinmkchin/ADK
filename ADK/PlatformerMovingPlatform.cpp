@@ -33,17 +33,20 @@ void PlatformerMovingPlatform::update(float deltaTime)
 	travel_timer += deltaTime;
 	if (travel_timer < travel_time_in_seconds)
 	{
-		if (collider.will_touch_top(entity_to_collide->get_collider(), 0.01f))
+		if (entity_to_collide != nullptr)
 		{
-			entity_to_collide->move((b_going_towards_end ? 1.f : -1.f) * (velocity_per_sec * deltaTime));
-		}
-		else if (vel_this_tick.x < 0 && collider.will_touch_left(entity_to_collide->get_collider(), vel_this_tick.x))
-		{
-			entity_to_collide->move(vel_this_tick.x, 0.f);
-		}
-		else if (vel_this_tick.x > 0 && collider.will_touch_right(entity_to_collide->get_collider(), vel_this_tick.x))
-		{
-			entity_to_collide->move(vel_this_tick.x, 0.f);
+			if (collider.will_touch_top(entity_to_collide->get_collider(), 0.01f))
+			{
+				entity_to_collide->move((b_going_towards_end ? 1.f : -1.f) * (velocity_per_sec * deltaTime));
+			}
+			else if (vel_this_tick.x < 0 && collider.will_touch_left(entity_to_collide->get_collider(), vel_this_tick.x))
+			{
+				entity_to_collide->move(vel_this_tick.x, 0.f);
+			}
+			else if (vel_this_tick.x > 0 && collider.will_touch_right(entity_to_collide->get_collider(), vel_this_tick.x))
+			{
+				entity_to_collide->move(vel_this_tick.x, 0.f);
+			}
 		}
 
 		move((b_going_towards_end ? 1.f : -1.f) * (velocity_per_sec * deltaTime));

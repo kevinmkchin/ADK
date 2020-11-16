@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\ADKCamera.cpp" />
+    <ClCompile Include="Engine\ADKTimer.cpp" />
+    <ClCompile Include="PlatformerDamageBlock.cpp" />
+    <ClCompile Include="PlatformerFallingPlatformMedium.cpp" />
+    <ClCompile Include="PlatformerFallingPlatformSmall.cpp" />
     <ClCompile Include="PlatformerOneWayTile.cpp" />
     <ClCompile Include="PlatformerTile.cpp" />
     <ClCompile Include="Engine\ADKSaveLoad.cpp" />
@@ -49,6 +53,11 @@
     <ClInclude Include="ADKEditorMetaRegistry.h" />
     <ClInclude Include="ADKInput.h" />
     <ClInclude Include="Engine\ADKCamera.h" />
+    <ClInclude Include="Engine\ADKTimer.h" />
+    <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="PlatformerDamageBlock.h" />
+    <ClInclude Include="PlatformerFallingPlatformMedium.h" />
+    <ClInclude Include="PlatformerFallingPlatformSmall.h" />
     <ClInclude Include="PlatformerOneWayTile.h" />
     <ClInclude Include="PlatformerTile.h" />
     <ClInclude Include="Engine\ADKMath.h" />

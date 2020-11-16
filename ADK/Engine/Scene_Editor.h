@@ -63,6 +63,8 @@ public:
 
 	virtual void render_post(sf::RenderWindow& window) override;
 
+	virtual void show_scene_debugui() override;
+
 protected:
 	virtual void initialize_scene_view(sf::RenderWindow& window) override;
 

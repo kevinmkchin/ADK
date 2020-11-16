@@ -145,7 +145,8 @@ public:
 
 	bool is_using_origin_for_position() const { return b_use_origin_for_position_private; }
 
-protected:
+	// Should call from constructor of derived classes.
+	virtual void set_frame_size(int x, int y);
 
 	// Should call from constructor of derived classes.
 	void set_origin(float x, float y);
@@ -155,9 +156,6 @@ protected:
 
 	// Should call from constructor of derived classes.
 	void use_origin_for_position(bool b_use);
-
-	// Should call from constructor of derived classes.
-	virtual void set_frame_size(int x, int y);
 
 public:
 
