@@ -6,7 +6,7 @@
 #include "Scene_PlatformerGame.h"
 
 #include "PlatformerOneWayTile.h"
-#include "PlatformerDamageBlock.h"
+#include "PlatformerTriggerBox.h"
 #include "PlatformerTrampoline.h"
 
 PlatformerPlayer::PlatformerPlayer()
@@ -164,6 +164,9 @@ void PlatformerPlayer::restart_player()
 {
 	set_position(50.f, 5.f);
 
+	curr_xvel = 0.f;
+	curr_yvel = 0.f;
+
 	set_active(true);
 }
 
@@ -193,15 +196,11 @@ void PlatformerPlayer::update(float deltaTime)
 		Entity* e = trigger_boxes->at(i);
 		if (collider.intersects(e->get_collider()))
 		{
-
-			// Spike / Damage block
-			if (PlatformerDamageBlock* damage_block = dynamic_cast<PlatformerDamageBlock*>(e))
+			if (PlatformerTriggerBox* damage_block = dynamic_cast<PlatformerTriggerBox*>(e))
 			{
+				// Trigger the trigger box
 				damage_block->collided(this);
 			}
-
-
-			
 		}
 	}
 

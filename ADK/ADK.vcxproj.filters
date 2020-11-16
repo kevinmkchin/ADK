@@ -34,6 +34,9 @@
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{57b4f54a-943b-4698-b879-59f9f5ce1c95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlatformerDemo\TriggerBoxes">
+      <UniqueIdentifier>{626ae2b8-3fcb-4863-8a0c-c2146355749c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -96,9 +99,6 @@
     <ClCompile Include="PlatformerTrampoline.cpp">
       <Filter>PlatformerDemo\ActivePlatforms</Filter>
     </ClCompile>
-    <ClCompile Include="PlatformerSpikes.cpp">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
-    </ClCompile>
     <ClCompile Include="Scene_PlatformerGame.cpp">
       <Filter>PlatformerDemo</Filter>
     </ClCompile>
@@ -111,9 +111,6 @@
     <ClCompile Include="Engine\ADKCamera.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="PlatformerDamageBlock.cpp">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
-    </ClCompile>
     <ClCompile Include="PlatformerFallingPlatformSmall.cpp">
       <Filter>PlatformerDemo\ActivePlatforms</Filter>
     </ClCompile>
@@ -122,6 +119,18 @@
     </ClCompile>
     <ClCompile Include="Engine\ADKTimer.cpp">
       <Filter>Engine\ADKUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerSpikes.cpp">
+      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerTriggerBox.cpp">
+      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerMovingDamageBox.cpp">
+      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerDamageBox.cpp">
+      <Filter>PlatformerDemo\TriggerBoxes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +187,6 @@
     <ClInclude Include="PlatformerTrampoline.h">
       <Filter>PlatformerDemo\ActivePlatforms</Filter>
     </ClInclude>
-    <ClInclude Include="PlatformerSpikes.h">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
-    </ClInclude>
     <ClInclude Include="Scene_PlatformerGame.h">
       <Filter>PlatformerDemo</Filter>
     </ClInclude>
@@ -193,9 +199,6 @@
     <ClInclude Include="Engine\ADKCamera.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="PlatformerDamageBlock.h">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
-    </ClInclude>
     <ClInclude Include="PlatformerFallingPlatformSmall.h">
       <Filter>PlatformerDemo\ActivePlatforms</Filter>
     </ClInclude>
@@ -207,6 +210,18 @@
     </ClInclude>
     <ClInclude Include="Engine\ADKTimer.h">
       <Filter>Engine\ADKUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerSpikes.h">
+      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerTriggerBox.h">
+      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerMovingDamageBox.h">
+      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerDamageBox.h">
+      <Filter>PlatformerDemo\TriggerBoxes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

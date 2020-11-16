@@ -9,7 +9,7 @@
 #include "Engine/ADKTimer.h"
 
 #include "PlatformerPlayer.h"
-#include "PlatformerDamageBlock.h"
+#include "PlatformerTriggerBox.h"
 #include "PlatformerActivePlatform.h"
 
 Scene_PlatformerGame::Scene_PlatformerGame()
@@ -48,7 +48,7 @@ void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 	for (int i = 0; i < entities.size(); ++i)
 	{
 		// Add damage blocks to separate list
-		if (PlatformerDamageBlock* damage_block = dynamic_cast<PlatformerDamageBlock*>(entities.at(i)))
+		if (PlatformerTriggerBox* damage_block = dynamic_cast<PlatformerTriggerBox*>(entities.at(i)))
 		{
 			player->trigger_boxes->add(entities.at(i));
 			continue;
@@ -164,7 +164,7 @@ void Scene_PlatformerGame::render(sf::RenderWindow& window)
 
 void Scene_PlatformerGame::on_player_death()
 {
-	Entity* selected_deatheffect = death_effects.at(ADKMath::rand_int_range(0, 5));
+	Entity* selected_deatheffect = death_effects.at(ADKMath::rand_int_range(0, death_effects.size() - 1));
 	selected_deatheffect->set_position(player->get_position().x + (player->sprite_sheet.frame_size.x / 2.f), player->get_position().y + (player->sprite_sheet.frame_size.y / 2.f));
 	selected_deatheffect->set_visible(true);
 

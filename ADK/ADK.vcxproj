@@ -21,7 +21,8 @@
   <ItemGroup>
     <ClCompile Include="Engine\ADKCamera.cpp" />
     <ClCompile Include="Engine\ADKTimer.cpp" />
-    <ClCompile Include="PlatformerDamageBlock.cpp" />
+    <ClCompile Include="PlatformerDamageBox.cpp" />
+    <ClCompile Include="PlatformerMovingDamageBox.cpp" />
     <ClCompile Include="PlatformerFallingPlatformMedium.cpp" />
     <ClCompile Include="PlatformerFallingPlatformSmall.cpp" />
     <ClCompile Include="PlatformerOneWayTile.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="PlatformerPlayer.cpp" />
     <ClCompile Include="PlatformerSpikes.cpp" />
     <ClCompile Include="PlatformerTrampoline.cpp" />
+    <ClCompile Include="PlatformerTriggerBox.cpp" />
     <ClCompile Include="Scene_PlatformerGame.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -55,7 +57,8 @@
     <ClInclude Include="Engine\ADKCamera.h" />
     <ClInclude Include="Engine\ADKTimer.h" />
     <ClInclude Include="Engine\Engine.h" />
-    <ClInclude Include="PlatformerDamageBlock.h" />
+    <ClInclude Include="PlatformerDamageBox.h" />
+    <ClInclude Include="PlatformerMovingDamageBox.h" />
     <ClInclude Include="PlatformerFallingPlatformMedium.h" />
     <ClInclude Include="PlatformerFallingPlatformSmall.h" />
     <ClInclude Include="PlatformerOneWayTile.h" />
@@ -78,6 +81,7 @@
     <ClInclude Include="PlatformerPlayer.h" />
     <ClInclude Include="PlatformerSpikes.h" />
     <ClInclude Include="PlatformerTrampoline.h" />
+    <ClInclude Include="PlatformerTriggerBox.h" />
     <ClInclude Include="Scene_PlatformerGame.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

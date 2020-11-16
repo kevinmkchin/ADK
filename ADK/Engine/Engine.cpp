@@ -307,15 +307,11 @@ void Engine::render()
 // --- MAIN ---
 int main()
 {
-	/* initialize random seed: */
+	/* initialize random seed */
 	srand(static_cast<unsigned int>(time(nullptr)));
 
 	Engine game;
 	game.run();
-
-	//ADKTimer::set_timed_callback(&Engine::run, &game);
-	//ADKTimer::CallObjectMethod(&Engine::run, game);
-
 
 	return 0;
 }
