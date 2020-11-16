@@ -21,6 +21,7 @@ class PlatformerPlayer : public Entity
 // Overrides
 public:
 	PlatformerPlayer();
+	~PlatformerPlayer();
 
 	virtual void update(float deltaTime) override;
 

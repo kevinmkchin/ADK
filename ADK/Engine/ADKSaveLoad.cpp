@@ -41,7 +41,7 @@ void ADKSaveLoad::save_scene(const std::string& savePath, const Scene& scene)
 		return;
 	}
 
-	save_entities(savePath, scene.entities);
+	save_entities(savePath, scene.level_entities);
 }
 
 void ADKSaveLoad::save_entities(const std::string& savePath, EntityList el)
@@ -109,7 +109,7 @@ void ADKSaveLoad::save_entities(const std::string& savePath, EntityList el)
 	save.close();
 }
 
-void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene)
+void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene, bool b_clear_entities)
 {
 	if (savePath.empty())
 	{
@@ -125,8 +125,11 @@ void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene)
 	json loaded;
 	load >> loaded; // big fucking props to nlohmann/json project
 	
-	// Clear scene entities before loading (must delete)
-	scene.entities.clear();
+	// Clear scene entities before loading (must delete before this line)
+	if (b_clear_entities)
+	{
+		scene.level_entities.clear();
+	}
 
 	// Load each entity
 	json entities = loaded[ENTITIES];
@@ -172,6 +175,6 @@ void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene)
 		created->get_collider().height = e[COLHEIGHT_LABEL];
 
 		// Add the created entity to scene
-		scene.entities.add(created);
+		scene.level_entities.add(created);
 	}
 }
