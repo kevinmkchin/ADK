@@ -17,6 +17,9 @@ I started this little project because I wanted two things: I wanted my own custo
 <img src="https://media3.giphy.com/media/P8blTBGB0RCX5EJLO3/giphy.gif" alt="ayax gif" width="854" height="480">
 
 If I was going to create my own custom C++ game engine, I needed it to be better than the other engines available. The goal was to make an engine that was more flexible than Unreal engine and better than Game Maker.
+## Feature currently working on! ##
+### REFLECTION!
+I'm adding some proper entity code reflection. It's gonna be awesome.
 
 ## Features
 - **Reference Counted Resource Management**
