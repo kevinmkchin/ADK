@@ -1,0 +1,3420 @@
+{
+    "entities": [
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 0.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 0.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 8.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 8.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 16.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 16.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 24.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 24.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 32.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 32.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 40.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 40.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 48.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 48.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 56.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 56.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 64.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 64.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 72.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 72.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 80.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 80.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 88.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 88.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 96.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 96.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 104.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 104.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 112.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 112.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 120.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 120.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 128.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 128.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 136.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 136.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 144.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 144.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 152.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 152.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 160.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 160.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 168.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 168.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 176.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 176.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 184.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 184.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 192.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 192.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 200.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 200.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 208.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 208.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 216.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 216.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 224.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 224.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 232.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 232.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 240.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 240.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 248.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 248.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 256.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 256.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 264.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 264.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 272.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 272.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 280.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 280.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 288.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 288.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 296.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 296.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 304.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 304.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 312.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 312.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 56.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 56.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 64.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 64.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 72.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 72.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 80.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 80.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 88.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 88.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 96.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 96.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 104.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 104.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 112.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 112.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 120.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 120.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 128.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 128.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 136.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 136.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 144.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 144.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 152.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 152.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 160.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 160.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 168.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 168.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 176.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 176.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 184.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 184.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 192.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 192.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 200.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 200.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 208.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 208.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 216.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 216.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 224.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 224.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 232.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 232.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 240.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 240.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 248.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 248.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 256.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 256.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 272.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 272.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 264.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 264.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 5
+                }
+            ],
+            "che": 4.0,
+            "cle": 280.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 44.0,
+            "cwi": 7.0,
+            "dep": 0,
+            "eid": "PlatformerSpikes",
+            "frx": 8,
+            "fry": 8,
+            "posx": 280.0,
+            "posy": 40.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet2.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 16.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 16.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 8.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 8.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 0.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 0.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 33.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 32.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 49.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 48.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 65.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 64.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 81.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 80.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 97.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 96.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 113.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 112.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 129.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 128.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 145.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 144.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 161.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 160.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 177.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 176.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 193.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 192.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 209.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 208.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 225.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 224.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 241.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 240.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 257.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 256.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 1.0,
+                    "nfr": 16,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 273.0,
+            "cox": 1.0,
+            "coy": 12.0,
+            "cto": 156.0,
+            "cwi": 14.0,
+            "dep": 0,
+            "eid": "Trampoline",
+            "frx": 16,
+            "fry": 16,
+            "posx": 272.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/trampoline.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 64.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 64.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 72.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 72.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 80.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 80.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 88.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 88.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 96.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 96.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 104.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 104.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 112.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 112.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 120.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 120.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 128.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 128.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 136.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 136.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 144.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 144.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 152.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 152.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 160.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 160.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 168.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 168.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 176.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 176.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 184.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 184.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 192.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 192.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 208.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 208.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 216.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 216.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 224.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 224.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 232.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 232.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 240.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 240.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 248.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 248.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 256.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 256.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 264.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 264.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 272.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 272.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 280.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 280.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 200.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": -1,
+            "eid": "FallingPlatformSmall",
+            "frx": 8,
+            "fry": 8,
+            "posx": 200.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "tpath": "Game/fallingplatform_a_8x8.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 0.0,
+            "cle": 0.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 144.0,
+            "cwi": 0.0,
+            "dep": 0,
+            "eid": "Tile16",
+            "frx": 16,
+            "fry": 16,
+            "posx": 0.0,
+            "posy": 144.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "adk/t_missing.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 24.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 24.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 32.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 32.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 40.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 40.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 48.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 48.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 56.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 24.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "DemoPlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "posx": 56.0,
+            "posy": 24.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        }
+    ]
+}

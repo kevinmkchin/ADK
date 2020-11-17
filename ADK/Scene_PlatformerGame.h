@@ -42,10 +42,13 @@ protected:
 
 	void switch_level(std::string level_path);
 
+	void restart_level();
+
 private:
+	std::string active_level_path;
+
 	ADKCamera* camera;
 	PlatformerPlayer* player;
-
 	EntityList death_effects;
 
 	sf::Font font;

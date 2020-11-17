@@ -46,7 +46,6 @@ void Scene_PlatformerGame::end_scene(sf::RenderWindow& window)
 void Scene_PlatformerGame::update(float deltaTime)
 {
 	level_entities.update(deltaTime);
-	death_effects.update(deltaTime); // TODO try removing this line
 
 	player_debug_text.setString("debug");
 }
@@ -67,7 +66,7 @@ void Scene_PlatformerGame::render_pre(sf::RenderWindow& window)
 void Scene_PlatformerGame::render(sf::RenderWindow& window)
 {
 	level_entities.render(window);
-	death_effects.render(window);
+	death_effects.render(window); // entity lists like this one for death effects only need to render; they don't need to update
 
 	window.draw(player_debug_text);
 
@@ -178,8 +177,14 @@ void Scene_PlatformerGame::switch_level(std::string level_path)
 
 	ADKSaveLoad Loader;
 	Loader.load_to_scene(level_path, *this); // load new level but don't empty entities
+	active_level_path = level_path;
 
 	initialize_level(*render_window_ptr);
+}
+
+void Scene_PlatformerGame::restart_level()
+{
+	switch_level(active_level_path);
 }
 
 void Scene_PlatformerGame::on_player_death()
@@ -213,7 +218,8 @@ void Scene_PlatformerGame::on_end_freezeframe()
 		camera->shake_camera(7.f, 7.f, 0.75f, 0.8f, false);
 	}
 
-	ADKTimer::get_timer()->set_timed_callback(&PlatformerPlayer::restart_player, player, 0.6f);
+	//ADKTimer::get_timer()->set_timed_callback(&PlatformerPlayer::restart_player, player, 0.6f);
+	ADKTimer::get_timer()->set_timed_callback(&Scene_PlatformerGame::restart_level, this, 0.6f);
 }
 
 void Scene_PlatformerGame::show_scene_debugui()
