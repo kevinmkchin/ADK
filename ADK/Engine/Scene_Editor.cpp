@@ -797,6 +797,9 @@ void Scene_Editor::draw_editor_ui()
 		ImGui::Text(confirm_text.c_str());
 		if (ImGui::Button("yes"))
 		{
+			entity_selected_for_properties = nullptr;
+			entity_selected_for_creation = nullptr;
+
 			// delete all entities in scene viewer
 			for (int i = level_entities.size() - 1; i != -1; --i)
 			{
@@ -1219,10 +1222,20 @@ void Scene_Editor::draw_entity_type_ui()
 		{
 			ImGui::PushID(i);
 
-			sf::Sprite entitySprite = entity_types.at(i)->get_sprite();
+			Entity* entity_type = entity_types.at(i);
+			sf::Sprite entitySprite = entity_type->get_sprite();
+			
+			// TODO ADK find texture rect for these type entities only once
 			sf::IntRect display_rect;
-			display_rect.left = entitySprite.getTextureRect().left + (int) entitySprite.getOrigin().x;
-			display_rect.top = entitySprite.getTextureRect().top + (int) entitySprite.getOrigin().y;
+			sf::Vector2i textureBounds(entitySprite.getTexture()->getSize());
+			int fsx = entity_type->sprite_sheet.frame_size.x;
+			int fsy = entity_type->sprite_sheet.frame_size.y;
+			int numFramesWide = textureBounds.x / ((fsx > 0) ? fsx : 1);
+			int numFramesTall = textureBounds.y / ((fsy > 0) ? fsy : 1);
+			int xLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame % (numFramesWide > 0 ? numFramesWide : 1)) * fsx;
+			int yLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame / (numFramesWide > 0 ? numFramesWide : 1)) * fsy;
+			display_rect.left = xLoc;
+			display_rect.top = yLoc;
 			display_rect.width = entitySprite.getTextureRect().width;
 			display_rect.height = entitySprite.getTextureRect().height;
 			entitySprite.setTextureRect(display_rect);
@@ -1241,9 +1254,19 @@ void Scene_Editor::draw_entity_type_ui()
 			{
 				ImGui::PushID(i);
 
-				entitySprite = entity_types.at(i)->get_sprite();
-				display_rect.left = entitySprite.getTextureRect().left + (int) entitySprite.getOrigin().x;
-				display_rect.top = entitySprite.getTextureRect().top + (int) entitySprite.getOrigin().y;
+				entity_type = entity_types.at(i);
+				entitySprite = entity_type->get_sprite();
+
+				display_rect;
+				sf::Vector2i textureBounds(entitySprite.getTexture()->getSize());
+				fsx = entity_type->sprite_sheet.frame_size.x;
+				fsy = entity_type->sprite_sheet.frame_size.y;
+				numFramesWide = textureBounds.x / ((fsx > 0) ? fsx : 1);
+				numFramesTall = textureBounds.y / ((fsy > 0) ? fsy : 1);
+				xLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame % (numFramesWide > 0 ? numFramesWide : 1)) * fsx;
+				yLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame / (numFramesWide > 0 ? numFramesWide : 1)) * fsy;
+				display_rect.left = xLoc;
+				display_rect.top = yLoc;
 				display_rect.width = entitySprite.getTextureRect().width;
 				display_rect.height = entitySprite.getTextureRect().height;
 				entitySprite.setTextureRect(display_rect);
