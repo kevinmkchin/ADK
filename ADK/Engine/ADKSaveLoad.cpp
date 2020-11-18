@@ -112,6 +112,37 @@ void ADKSaveLoad::save_entities(const std::string& savePath, EntityList el)
 		item[COLWIDTH_LABEL] = e->get_collider().width;
 		item[COLHEIGHT_LABEL] = e->get_collider().height;
 
+		// SAVE FIELDS
+		for (ADKFieldDescription field : e->class_description_ptr->fields)
+		{
+			json fieldjson;
+			char* ent_address = (char*)e;
+			std::string fieldtype = field.type.name.text;
+			if (fieldtype == typeid(int).name())
+			{
+				fieldjson["type"] = field.type.name.text;
+				fieldjson["offset"] = field.offset;
+				fieldjson["value"] = *((int*)(ent_address + field.offset));
+			}
+			else if (fieldtype == typeid(float).name())
+			{
+				fieldjson["type"] = field.type.name.text;
+				fieldjson["offset"] = field.offset;
+				fieldjson["value"] = *((float*)(ent_address + field.offset));
+			}
+			else if (fieldtype == typeid(bool).name())
+			{
+				fieldjson["type"] = field.type.name.text;
+				fieldjson["offset"] = field.offset;
+				fieldjson["value"] = *((bool*)(ent_address + field.offset));
+			}
+			else if (fieldtype == typeid(std::string).name())
+			{
+
+			}
+			item[field.name.text] = fieldjson;
+		}
+
 		ents += item;
 	}
 	final[ENTITIES] = ents;
@@ -143,7 +174,7 @@ void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene, bool 
 	// Load json
 	std::ifstream load(path_to_load);
 	json loaded;
-	load >> loaded; // big fucking props to nlohmann/json project
+	load >> loaded;
 	
 	// Clear scene entities before loading (must delete before this line)
 	if (b_clear_entities)
@@ -162,6 +193,35 @@ void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene, bool 
 		ADKName entity_name;
 		entity_name.text = e[ENTITY_ID_LABEL];
 		Entity* created = adkcdb->create_entity_of_class(entity_name);
+
+		// LOAD FIELDS
+		// offset in json not being used, just getting the fields that class description knows about
+		// type in json not being used
+		char* ent_address = (char*)created;
+		for (ADKFieldDescription field : created->class_description_ptr->fields)
+		{
+			int offset = field.offset;
+			std::string fieldtype = field.type.name.text;
+			if (fieldtype == typeid(int).name())
+			{
+				int* int_address = (int*)(ent_address + offset);
+				*(int_address) = e[field.name.text]["value"];
+			}
+			else if (fieldtype == typeid(float).name())
+			{
+				float* float_address = (float*)(ent_address + offset);
+				*(float_address) = e[field.name.text]["value"];
+			}
+			else if (fieldtype == typeid(bool).name())
+			{
+				bool* bool_address = (bool*)(ent_address + offset);
+				*(bool_address) = e[field.name.text]["value"];
+			}
+			else if (fieldtype == typeid(std::string).name())
+			{
+
+			}
+		}
 
 		// Load SpriteSheet data first, so that setting texture path and loading will set SpriteSheet data correctly
 		created->sprite_sheet.frame_size.x = e[FRAME_X_LABEL];
