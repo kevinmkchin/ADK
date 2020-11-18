@@ -5,13 +5,23 @@
 //////////////////////////////////////////////////////////////
 // --- BASE ENTITY CONSTRUCTORS AND DESTRUCTOR ---
 
+//REFLECT_CLASS_BEGIN(Entity)
+//REFLECT_CLASS_MEMBER(depth)
+//REFLECT_CLASS_MEMBER(b_active)
+//REFLECT_CLASS_END()
+
+ADKOBJECT(Entity)
 Entity::Entity()
 	: b_active(true)
 	, b_visible(true)
 	, b_collidable(false)
 	, origin_private(sf::Vector2f(0.f,0.f))
 	, b_use_origin_for_position_private(true)
+	, b_loaded_texture(false)
 {
+	ADKOBJECT_BEGIN(Entity)
+	ADKOBJECT_END()
+
 	set_position(0.f, 0.f);
 	set_rotation(0.f);
 	set_scale(1.f);
@@ -24,7 +34,13 @@ Entity::Entity(float x, float y)
 	, b_collidable(false)
 	, origin_private(sf::Vector2f(0.f, 0.f))
 	, b_use_origin_for_position_private(true)
+	, b_loaded_texture(false)
 {
+	ADKOBJECT_BEGIN(Entity)
+	ADKOBJECT_FIELD(depth)
+	ADKOBJECT_FIELD(b_active)
+	ADKOBJECT_END()
+
 	set_position(x, y);
 	set_rotation(0.f);
 	set_scale(1.f);
@@ -37,7 +53,13 @@ Entity::Entity(float x, float y, float inRot, float inScale)
 	, b_collidable(false)
 	, origin_private(sf::Vector2f(0.f, 0.f))
 	, b_use_origin_for_position_private(true)
+	, b_loaded_texture(false)
 {
+	ADKOBJECT_BEGIN(Entity)
+	ADKOBJECT_FIELD(depth)
+	ADKOBJECT_FIELD(b_active)
+	ADKOBJECT_END()
+
 	set_position(x, y);
 	set_rotation(inRot);
 	set_scale(inScale);
@@ -46,8 +68,11 @@ Entity::Entity(float x, float y, float inRot, float inScale)
 
 Entity::~Entity()
 {
-	// Decrement texture reference count
-	ADKAssets::unload(texture_path);
+	if (b_loaded_texture)
+	{
+		// Decrement texture reference count
+		ADKAssets::unload(texture_path);
+	}
 }
 
 //////////////////////////////////////////////////////////////
@@ -179,6 +204,7 @@ void Entity::set_texture_path_and_load(const std::string& path, bool forceNoUnlo
 	}
 	texture_path = path;
 	sf::Texture& LoadedTexture = ADKAssets::get(texture_path);
+	b_loaded_texture = true;
 	sprite_sheet.sprite.setTexture(LoadedTexture, true);
 
 	// If first time setting sprite sheet, set it to entire texture size by default
@@ -256,7 +282,6 @@ void Entity::copy(Entity& target, const Entity& source)
 {
 	target.sprite_sheet = source.sprite_sheet;
 	target.set_frame_size(source.sprite_sheet.frame_size.x, source.sprite_sheet.frame_size.y);
-	target.entity_id = source.entity_id;
 	target.set_texture_path_and_load(source.get_texture_path(), true);
 	target.set_active(source.is_active());
 	target.set_visible(source.is_visible());

@@ -10,7 +10,6 @@
 #include "Scene_Editor.h"
 #include "ADKSaveLoad.h"
 #include "ADKAssets.h"
-#include "../ADKEditorMetaRegistry.h"
 
 Scene_Editor::Scene_Editor()
 	: default_editor_config(FEditorConfig())
@@ -89,13 +88,22 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	render_window_ptr = &window;
 
 	// Make entity of every type to display to editor
-	for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
+	//for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
+	//{
+	//	Entity* created = ADKEditorMetaRegistry::CreateNewEntity(*iter);
+	//	created->load_default_texture();
+	//	created->entity_id = *iter;
+	//	entity_types.add(created);
+	//	// At this point, Identifiers[0] represents the id of the entity type of entity at EntityTypes.at(0)
+	//}
+
+	std::map<std::string, ADKClassDescription*> db = ADKClassDatabase::get_database()->get_all_class_descriptions();
+	for (auto& it : db)
 	{
-		Entity* created = ADKEditorMetaRegistry::CreateNewEntity(*iter);
+		ADKClassDescription* class_desc = it.second;
+		Entity* created = class_desc->constructor();
 		created->load_default_texture();
-		created->entity_id = *iter;
 		entity_types.add(created);
-		// At this point, Identifiers[0] represents the id of the entity type of entity at EntityTypes.at(0)
 	}
 
 	texture_dialog = ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
@@ -347,7 +355,8 @@ void Scene_Editor::process_events(sf::Event& event)
 			int posY = ((int)worldPos.y) - sY;
 
 			// Create a new entity
-			Entity* created = ADKEditorMetaRegistry::CreateNewEntity(copied_entity.entity_id);
+			
+			Entity* created = copied_entity.class_description_ptr->constructor();
 			Entity::copy(*created, copied_entity);
 			created->set_position((float)posX, (float)posY);
 			created->init_collider();
@@ -1156,7 +1165,7 @@ void Scene_Editor::draw_entity_property_ui()
 		for (int i = 0; i < level_entities.size(); ++i)
 		{
 			std::string name = std::to_string(i).append(" ");
-			name = level_entities.at(i)->entity_id.empty() ? name.append(typeid(level_entities.at(i)).name()) : name.append(level_entities.at(i)->entity_id);
+			name = level_entities.at(i)->class_description_ptr->type.name.text;
 			bruh.push_back(name);
 			if (level_entities.at(i) == entity_selected_for_properties)
 			{
@@ -1240,7 +1249,7 @@ void Scene_Editor::draw_entity_type_ui()
 			display_rect.height = entitySprite.getTextureRect().height;
 			entitySprite.setTextureRect(display_rect);
 
-			const char* EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
+			const char* EntityId = entity_type->class_description_ptr->type.name.text.c_str();
 			if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
 			{
 				entity_selected_for_creation = entity_types.at(i);
@@ -1271,7 +1280,7 @@ void Scene_Editor::draw_entity_type_ui()
 				display_rect.height = entitySprite.getTextureRect().height;
 				entitySprite.setTextureRect(display_rect);
 
-				EntityId = ADKEditorMetaRegistry::Identifiers[i].c_str();
+				EntityId = entity_type->class_description_ptr->type.name.text.c_str();
 				if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
 				{
 					entity_selected_for_creation = entity_types.at(i);
@@ -1669,10 +1678,8 @@ void Scene_Editor::brush_place_helper()
 	}
 	
 	// Create a new entity
-	Entity* created = ADKEditorMetaRegistry::CreateNewEntity(entity_selected_for_creation->entity_id);
+	Entity* created = entity_selected_for_creation->class_description_ptr->constructor();
 	created->load_default_texture();
-	// Assign it the specific entity id for its entity type
-	created->entity_id = entity_selected_for_creation->entity_id;
 	created->set_position((float)posX, (float)posY);
 	// Initialize collider position
 	created->init_collider();

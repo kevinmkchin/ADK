@@ -132,6 +132,9 @@
     <ClCompile Include="PlatformerDamageBox.cpp">
       <Filter>PlatformerDemo\TriggerBoxes</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\ADKReflection.cpp">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Scene.h">
@@ -164,14 +167,12 @@
     <ClInclude Include="Engine\EntityList.h">
       <Filter>Engine\ADKUtils</Filter>
     </ClInclude>
-    <ClInclude Include="ADKEditorMetaRegistry.h" />
     <ClInclude Include="Engine\Entity.h">
       <Filter>Engine\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Engine\TileEntity.h">
       <Filter>Engine\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="ADKInput.h" />
     <ClInclude Include="PlatformerPlayer.h">
       <Filter>PlatformerDemo</Filter>
     </ClInclude>
@@ -222,6 +223,12 @@
     </ClInclude>
     <ClInclude Include="PlatformerDamageBox.h">
       <Filter>PlatformerDemo\TriggerBoxes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKReflection.h">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKInput.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

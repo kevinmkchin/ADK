@@ -2,6 +2,7 @@
 #include "PlatformerPlayer.h"
 #include "Engine/ADKMath.h"
 
+ADKOBJECT(PlatformerMovingPlatform)
 PlatformerMovingPlatform::PlatformerMovingPlatform()
 	: direction(45.f)
 	, distance_to_travel(50.f)
@@ -10,6 +11,9 @@ PlatformerMovingPlatform::PlatformerMovingPlatform()
 	, b_going_towards_end(false)
 	, travel_timer(0.f)
 {
+	ADKOBJECT_BEGIN(PlatformerMovingPlatform)
+	ADKOBJECT_END()
+
 	texture_path = "Game/movingplatform24x16.png";
 	set_frame_size(24, 16);
 	set_animation_start_frame(0, 0);

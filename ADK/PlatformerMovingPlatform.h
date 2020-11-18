@@ -32,5 +32,6 @@ protected:
 	bool b_going_towards_end;
 	float travel_timer;
 	sf::Vector2f velocity_per_sec;
+
 };
 

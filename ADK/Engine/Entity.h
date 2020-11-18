@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
+#include "ADKReflection.h"
 #include "BoxCollider.h"
 
 struct FAnimation
@@ -38,7 +38,7 @@ public:
 };
 
 /* KEEP THIS BASE ENTITY CLASS LIGHTWEIGHT */
-class Entity
+class Entity : public ADKObject
 {
 public:
 	Entity();
@@ -159,10 +159,6 @@ public:
 
 public:
 
-	// Used only to display entity id in the editor
-	std::string entity_id;
-
-
 	// Contains the sprite and all visual information
 	FSpriteSheet sprite_sheet;
 
@@ -210,6 +206,7 @@ private:
 	bool b_use_origin_for_position_private;
 
 	///////////////////////////////////////////////////////////
-
+	
+	bool b_loaded_texture;
 };
 

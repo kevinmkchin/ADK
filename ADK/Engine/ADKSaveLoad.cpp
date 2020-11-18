@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include "ADKSaveLoad.h"
-#include "../ADKEditorMetaRegistry.h"
 #include "json.hpp"
+
+#include "ADKReflection.h"
 
 #define LEVELPATH "Assets\\Levels\\"
 
@@ -52,13 +53,32 @@ void ADKSaveLoad::save_entities(const std::string& savePath, EntityList el)
 	}
 
 	json final;
+	//json reflection_test;
+
+	//Entity* ent_to_reflect = el.at(0);
+	//char* ent_address = (char*) ent_to_reflect;
+	//reflection_test["var name"] = ent_to_reflect->type->fields[0].name.text;
+	//reflection_test["offset"] = ent_to_reflect->type->fields[0].offset;
+	//reflection_test["value"] = *(ent_address + ent_to_reflect->type->fields[0].offset);
+
+	//float offset_check = reflection_test["offset"];
+	//float value_check = reflection_test["value"];
+
+	//final["reflection_test"] = reflection_test;
+
+	//json reflection_test_two;
+	//Entity* ent_to_reflect = (Entity*) el.at(0);
+	//char* ent_address = (char*) ent_to_reflect;
+	//ADKClassDescription desc = ent_to_reflect->class_description;
+	
 	json ents;
 	for (int i = 0; i < el.size(); ++i)
 	{
 		Entity* e = el.at(i);
 		json item;
+
+		item[ENTITY_ID_LABEL] = e->class_description_ptr->type.name.text;
 		// Transform + Depth
-		item[ENTITY_ID_LABEL] = e->entity_id;
 		item[TEXTURE_LABEL] = e->get_texture_path();
 		item[ACTIVE_LABEL] = e->is_active();
 		item[VISIBLE_LABEL] = e->is_visible();
@@ -131,14 +151,18 @@ void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene, bool 
 		scene.level_entities.clear();
 	}
 
+	ADKClassDatabase* adkcdb = ADKClassDatabase::get_database();
 	// Load each entity
 	json entities = loaded[ENTITIES];
 	for (json::iterator it = entities.begin(); it != entities.end(); ++it)
 	{
 		// Create a new entity
 		json e = *it;
-		Entity* created = ADKEditorMetaRegistry::CreateNewEntity(e[ENTITY_ID_LABEL]);
-		
+
+		ADKName entity_name;
+		entity_name.text = e[ENTITY_ID_LABEL];
+		Entity* created = adkcdb->create_entity_of_class(entity_name);
+
 		// Load SpriteSheet data first, so that setting texture path and loading will set SpriteSheet data correctly
 		created->sprite_sheet.frame_size.x = e[FRAME_X_LABEL];
 		created->sprite_sheet.frame_size.y = e[FRAME_Y_LABEL];
@@ -158,7 +182,6 @@ void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene, bool 
 			created->sprite_sheet.animations.push_back(anim);
 		}
 		// Load the rest of the entity data
-		created->entity_id = e[ENTITY_ID_LABEL];
 		created->set_position(e[POS_X_LABEL], e[POS_Y_LABEL]);
 		created->set_rotation(e[ROT_LABEL]);
 		created->set_scale(e[SCALE_LABEL]);

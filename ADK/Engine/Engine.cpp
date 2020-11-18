@@ -1,8 +1,6 @@
 #include "Engine.h"
 #include "json.hpp"
-#include "../ADKEditorMetaRegistry.h"
 #include "ADKTextures.h"
-#include "../ADKInput.h"
 #include "ADKTimer.h"
 
 #include "Scene_Editor.h"
@@ -10,8 +8,6 @@
 
 
 #pragma region REGISTRATION
-// Register all types and their identifiers for use in editor and save/load
-REGISTER_ENTITY_TYPES
 // Define static maps for reference counting and texture pointers of ADKTexture
 DEFINE_ADK_TEXTURES
 #pragma endregion
@@ -21,6 +17,7 @@ Engine::Engine()
 	, b_update_paused(false)
 	, update_pause_timer(-1.f)
 	, game_speed(1.f)
+	, b_pending_close(false)
 {
 	//FEngineConfig default_engine;
 	//nlohmann::json item;
@@ -108,6 +105,11 @@ void Engine::run()
 			// Process player inputs in case we don't do an update tick this frame
 			process_events();
 
+			if (b_pending_close)
+			{
+				break;
+			}
+
 			// Fixed timestep
 			time_since_last_update += clock.restart();
 			while (time_since_last_update > time_per_frame) // Loop until time_since_last_update is below required time_per_frame
@@ -138,6 +140,15 @@ void Engine::run()
 	ImGui::SFML::Shutdown();
 }
 
+void Engine::cleanup()
+{
+	std::map<std::string, ADKClassDescription*> adkcdb = ADKClassDatabase::get_database()->get_all_class_descriptions();
+	for (auto& it : adkcdb)
+	{
+		delete(it.second);
+	}
+}
+
 void Engine::process_events()
 {
 	sf::Event event;
@@ -146,14 +157,16 @@ void Engine::process_events()
 		// Check if game closed (i.e. alt + f4 or close button)
 		if (event.type == sf::Event::Closed)
 		{
+			if (active_scene)
+			{ 
+				active_scene->end_scene(window);
+			}
+			b_pending_close = true;
 			window.close();
 		}
 
-		ADKInput::update_event(event);
-
 		/*
 		f1: pause update
-
 		*/
 		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F1)
 		{
@@ -312,6 +325,7 @@ int main()
 
 	Engine game;
 	game.run();
+	game.cleanup();
 
 	return 0;
 }
