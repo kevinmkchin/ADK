@@ -4,6 +4,7 @@
 #include "Engine/ADKCamera.h"
 #include "Engine/EntityList.h"
 
+ADKOBJECT(PlatformerFallingPlatform)
 PlatformerFallingPlatform::PlatformerFallingPlatform()
 	: initial_delay_seconds(0.6f)
 	, fall_acceleration(40.f)
@@ -13,6 +14,9 @@ PlatformerFallingPlatform::PlatformerFallingPlatform()
 	, max_fall_vel(260.f)
 	, b_falling_active(false)
 {
+	ADKOBJECT_BEGIN(PlatformerFallingPlatform)
+	ADKOBJECT_END()
+
 	texture_path = "Game/fallingplatform_a_24x16.png";
 	set_frame_size(24, 16);
 	set_animation_start_frame(0, 0);

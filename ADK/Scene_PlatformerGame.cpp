@@ -29,7 +29,7 @@ void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 	Scene::begin_scene(window);
 
 	initialize_gamescene();
-	switch_level("gym_platforms");
+	switch_level("newtest");
 
 	font.loadFromFile("Assets/Fonts/arial.ttf");
 	player_debug_text.setFont(font);

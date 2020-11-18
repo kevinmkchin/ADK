@@ -1,7 +1,11 @@
 #include "PlatformerTile.h"
 
+ADKOBJECT(PlatformerTile)
 PlatformerTile::PlatformerTile()
 {
+	ADKOBJECT_BEGIN(PlatformerTile)
+	ADKOBJECT_END()
+
 	set_active(false);
 
 	texture_path = "Game/sheet1.png";

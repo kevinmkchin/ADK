@@ -1,7 +1,11 @@
 #include "PlatformerFallingPlatformSmall.h"
 
+ADKOBJECT(PlatformerFallingPlatformSmall)
 PlatformerFallingPlatformSmall::PlatformerFallingPlatformSmall()
 {
+	ADKOBJECT_BEGIN(PlatformerFallingPlatformSmall)
+	ADKOBJECT_END()
+
 	initial_delay_seconds = 0.4f;
 	fall_acceleration = 80.f;
 

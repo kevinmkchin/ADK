@@ -1,8 +1,6 @@
 #include "Scene.h"
-#include "../ADKEditorMetaRegistry.h"
 #include "Engine.h"
 
-sf::View nullview;
 
 Scene::Scene()
 	: level_entities(EntityList())

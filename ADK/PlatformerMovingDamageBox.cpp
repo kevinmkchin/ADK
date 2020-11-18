@@ -1,6 +1,7 @@
 #include "PlatformerMovingDamageBox.h"
 #include "Engine/ADKMath.h"
 
+ADKOBJECT(PlatformerMovingDamageBox)
 PlatformerMovingDamageBox::PlatformerMovingDamageBox()
 	: direction(0.f)
 	, distance_to_travel(50.f)
@@ -9,6 +10,9 @@ PlatformerMovingDamageBox::PlatformerMovingDamageBox()
 	, b_going_towards_end(false)
 	, travel_timer(0.f)
 {
+	ADKOBJECT_BEGIN(PlatformerMovingDamageBox)
+	ADKOBJECT_END()
+
 	texture_path = "Game/blackhole2.png";
 	set_frame_size(16, 16);
 	set_animation_start_frame(0, 0);

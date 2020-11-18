@@ -1,7 +1,11 @@
 #include "PlatformerSpikes.h"
 
+ADKOBJECT(PlatformerSpikes)
 PlatformerSpikes::PlatformerSpikes()
 {
+	ADKOBJECT_BEGIN(PlatformerSpikes)
+	ADKOBJECT_END()
+
 	set_active(false);
 
 	texture_path = "Game/sheet2.png";

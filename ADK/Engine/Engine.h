@@ -37,6 +37,8 @@ public:
 	// Start game process
 	void run();
 
+	void cleanup();
+
 	////////////////////////////////////////////////////
 
 	// Call to pause or unpause update. pause_in_seconds is how long to pause update for before resuming.
@@ -80,4 +82,5 @@ private:
 	// Speed at which to run the game. We multiply the delta time by this value before passing the delta time into scene update.
 	float game_speed;
 
+	bool b_pending_close;
 };

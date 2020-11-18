@@ -2,10 +2,14 @@
 #include "PlatformerPlayer.h"
 #include "PlatformerFallingPlatform.h"
 
+ADKOBJECT(PlatformerTrampoline)
 PlatformerTrampoline::PlatformerTrampoline()
 	: launch_vel_y(300.f)
 	, launch_vel_x(400.f)
 {
+	ADKOBJECT_BEGIN(PlatformerTrampoline)
+	ADKOBJECT_END()
+
 	texture_path = "Game/trampoline.png";
 
 	set_frame_size(16, 16);
