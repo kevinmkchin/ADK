@@ -12,6 +12,10 @@ PlatformerMovingPlatform::PlatformerMovingPlatform()
 	, travel_timer(0.f)
 {
 	ADKOBJECT_BEGIN(PlatformerMovingPlatform)
+	ADKOBJECT_FIELD(direction)
+	ADKOBJECT_FIELD(distance_to_travel)
+	ADKOBJECT_FIELD(travel_time_in_seconds)
+	ADKOBJECT_FIELD(pause_at_turn_in_seconds)
 	ADKOBJECT_END()
 
 	texture_path = "Game/movingplatform24x16.png";

@@ -15,6 +15,10 @@ PlatformerFallingPlatform::PlatformerFallingPlatform()
 	, b_falling_active(false)
 {
 	ADKOBJECT_BEGIN(PlatformerFallingPlatform)
+	ADKOBJECT_FIELD(initial_delay_seconds)
+	ADKOBJECT_FIELD(fall_acceleration)
+	ADKOBJECT_FIELD(stop_y)
+	ADKOBJECT_FIELD(max_fall_vel)
 	ADKOBJECT_END()
 
 	texture_path = "Game/fallingplatform_a_24x16.png";

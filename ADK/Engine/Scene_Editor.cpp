@@ -895,6 +895,45 @@ void Scene_Editor::draw_entity_property_ui()
 			}
 			entity_selected_for_properties->set_active(a);
 
+			ADKClassDescription* class_desc = entity_selected_for_properties->class_description_ptr;
+			if (class_desc->fields.empty() == false)
+			{
+				ImGui::Separator();
+				std::string text1 = class_desc->type.name.text + " Properties";
+				ImGui::Text(text1.c_str());
+				ImGui::Separator();
+			}
+
+			ImGui::PushItemWidth(100.f);
+			// ENTITY FIELDS
+			std::vector<ADKFieldDescription> fields = class_desc->fields;
+			for (ADKFieldDescription field : fields)
+			{
+				std::string fieldtype = field.type.name.text;
+				if (fieldtype == typeid(int).name())
+				{
+					char* ent_address = (char*)entity_selected_for_properties;
+					int* int_address = (int*)(ent_address + field.offset);
+					ImGui::InputInt(field.name.text.c_str(), int_address);
+				}
+				else if (fieldtype == typeid(float).name())
+				{
+					char* ent_address = (char*)entity_selected_for_properties;
+					float* float_address = (float*)(ent_address + field.offset);
+					ImGui::InputFloat(field.name.text.c_str(), float_address);
+				}
+				else if (fieldtype == typeid(bool).name())
+				{
+					char* ent_address = (char*)entity_selected_for_properties;
+					bool* bool_address = (bool*)(ent_address + field.offset);
+					ImGui::Checkbox(field.name.text.c_str(), bool_address);
+				}
+				else if (fieldtype == typeid(std::string).name())
+				{
+
+				}
+			}
+
 			ImGui::Dummy(ImVec2(0, 7));
 #pragma endregion
 
@@ -1095,6 +1134,7 @@ void Scene_Editor::draw_entity_property_ui()
 				ImGui::PopID();
 				ImGui::Unindent();
 			}
+			ImGui::PopItemWidth();
 
 			ImGui::Dummy(ImVec2(0, 7));
 #pragma endregion
@@ -1104,6 +1144,7 @@ void Scene_Editor::draw_entity_property_ui()
 			ImGui::Text("Collision Properties");
 			ImGui::Separator();
 
+			ImGui::PushItemWidth(120.f);
 			ImGui::Checkbox("Match sprite bounds", &b_collision_match_sprite_bound);
 			if (ImGui::IsItemHovered())
 			{
@@ -1149,6 +1190,7 @@ void Scene_Editor::draw_entity_property_ui()
 				entity_selected_for_properties->set_collidable(bCollidable);
 
 			}
+			ImGui::PopItemWidth();
 #pragma endregion
 		}
 

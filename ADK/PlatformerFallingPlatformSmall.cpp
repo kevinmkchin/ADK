@@ -6,8 +6,8 @@ PlatformerFallingPlatformSmall::PlatformerFallingPlatformSmall()
 	ADKOBJECT_BEGIN(PlatformerFallingPlatformSmall)
 	ADKOBJECT_END()
 
-	initial_delay_seconds = 0.4f;
-	fall_acceleration = 80.f;
+	initial_delay_seconds = 0.2f;
+	fall_acceleration = 120.f;
 
 	texture_path = "Game/fallingplatform_a_8x8.png";
 	set_frame_size(8, 8);
