@@ -322,7 +322,7 @@ void Scene_Editor::process_events(sf::Event& event)
 		{
 			if (entity_selected_for_properties != nullptr)
 			{
-				Entity::copy(copied_entity, *entity_selected_for_properties);
+				copied_entity = entity_selected_for_properties;
 			}
 		}
 
@@ -356,8 +356,8 @@ void Scene_Editor::process_events(sf::Event& event)
 
 			// Create a new entity
 			
-			Entity* created = copied_entity.class_description_ptr->constructor();
-			Entity::copy(*created, copied_entity);
+			Entity* created = copied_entity->class_description_ptr->constructor();
+			Entity::copy(*created, *copied_entity);
 			created->set_position((float)posX, (float)posY);
 			created->init_collider();
 			// Add the entity to this scene/level editor's entity list
