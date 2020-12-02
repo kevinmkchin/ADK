@@ -17,9 +17,6 @@ I started this little project because I wanted two things: I wanted my own custo
 <img src="https://media3.giphy.com/media/P8blTBGB0RCX5EJLO3/giphy.gif" alt="ayax gif" width="854" height="480">
 
 If I was going to create my own custom C++ game engine, I needed it to be better than the other engines available. The goal was to make an engine that was more flexible than Unreal engine and better than Game Maker.
-## Feature currently working on! ##
-### REFLECTION!
-I'm adding some proper entity code reflection. It's gonna be awesome.
 
 ## Features
 - **Reference Counted Resource Management**
@@ -29,6 +26,8 @@ I'm adding some proper entity code reflection. It's gonna be awesome.
   - Integrated editor allows for working very close to the final product compared to using an external editor
   - Directly placing entities (which is possible because the editor is integrated) means levels aren't confined to a grid
   - Configure sprites, collisions, and animations all within the editor
+- **Code Reflection**
+  - Expose class fields to the editor. This is very useful in level creation; for example you can change the speed of certain enemies from within the editor. This means different instances of the same enemy class can have varying speeds. Reflection is very powerful.
 - **Animation System**
   - Easy to configure multiple animations from a single spritesheet
 - **Collisions**
