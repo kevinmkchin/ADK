@@ -27,6 +27,7 @@
     <ClCompile Include="PlatformerFallingPlatformMedium.cpp" />
     <ClCompile Include="PlatformerFallingPlatformSmall.cpp" />
     <ClCompile Include="PlatformerOneWayTile.cpp" />
+    <ClCompile Include="PlatformerSpawn.cpp" />
     <ClCompile Include="PlatformerTile.cpp" />
     <ClCompile Include="Engine\ADKSaveLoad.cpp" />
     <ClCompile Include="Engine\ADKTextures.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="PlatformerFallingPlatformMedium.h" />
     <ClInclude Include="PlatformerFallingPlatformSmall.h" />
     <ClInclude Include="PlatformerOneWayTile.h" />
+    <ClInclude Include="PlatformerSpawn.h" />
     <ClInclude Include="PlatformerTile.h" />
     <ClInclude Include="Engine\ADKMath.h" />
     <ClInclude Include="Engine\ADKSaveLoad.h" />

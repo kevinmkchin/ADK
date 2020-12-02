@@ -135,6 +135,7 @@
     <ClCompile Include="Engine\ADKReflection.cpp">
       <Filter>Engine\ADKUtils</Filter>
     </ClCompile>
+    <ClCompile Include="PlatformerSpawn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Scene.h">
@@ -230,5 +231,6 @@
     <ClInclude Include="Engine\ADKInput.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="PlatformerSpawn.h" />
   </ItemGroup>
 </Project>
