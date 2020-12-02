@@ -131,8 +131,7 @@ private:
 	// Texture loader file dialog
 	ImGui::FileBrowser texture_dialog;
 
-	// Local entity to store data of copied entity
-	Entity copied_entity;
+	Entity* copied_entity;
 	float default_copy_paste_timer;
 	float copy_paste_timer;
 
