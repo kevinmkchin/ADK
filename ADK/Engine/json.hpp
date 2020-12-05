@@ -68,7 +68,7 @@ SOFTWARE.
 
 // #include <nlohmann/detail/exceptions.hpp>
 
-
+#include <assert.h>
 #include <exception> // exception
 #include <stdexcept> // runtime_error
 #include <string> // to_string
