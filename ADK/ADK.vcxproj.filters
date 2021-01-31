@@ -129,9 +129,11 @@
     <ClCompile Include="Engine\ADKReflection.cpp">
       <Filter>Engine\ADKUtils</Filter>
     </ClCompile>
-    <ClCompile Include="PlatformerSpawn.cpp" />
     <ClCompile Include="Engine\ADKPrefabFactory.cpp">
       <Filter>Engine\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerSpawn.cpp">
+      <Filter>PlatformerDemo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,9 +224,11 @@
     <ClInclude Include="Engine\ADKInput.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="PlatformerSpawn.h" />
     <ClInclude Include="Engine\ADKPrefabFactory.h">
       <Filter>Engine\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerSpawn.h">
+      <Filter>PlatformerDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
