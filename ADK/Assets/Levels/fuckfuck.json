@@ -1,0 +1,3604 @@
+{
+    "entities": [
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 4.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 121.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 4.0,
+            "posy": 121.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 7.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 7.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 9.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 119.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 9.0,
+            "posy": 119.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 11.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 119.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 11.0,
+            "posy": 119.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 12.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 119.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 12.0,
+            "posy": 119.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 15.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 15.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 19.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 19.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 23.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 23.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 26.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 26.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 29.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 29.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 31.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 31.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 33.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 33.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 35.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 35.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 40.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 40.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 44.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 44.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 47.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 47.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 48.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 118.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 48.0,
+            "posy": 118.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 48.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 119.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 48.0,
+            "posy": 119.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 49.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 119.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 49.0,
+            "posy": 119.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 50.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 119.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 50.0,
+            "posy": 119.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 51.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 51.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 53.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 53.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 54.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 54.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 55.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 55.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 58.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 58.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 61.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 61.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 65.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 65.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 69.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 69.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 72.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 72.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 75.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 75.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 78.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 78.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 82.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 82.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 86.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 86.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 89.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 89.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 94.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 94.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 97.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 97.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 100.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 100.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 102.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 102.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 104.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 104.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 106.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 106.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 109.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 109.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 113.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 113.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 117.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 117.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 122.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 122.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 127.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 127.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 131.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 131.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 136.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 136.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 142.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 142.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 146.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 146.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 149.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 120.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 149.0,
+            "posy": 120.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 152.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 121.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 152.0,
+            "posy": 121.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 155.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 121.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 155.0,
+            "posy": 121.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 161.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 122.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 161.0,
+            "posy": 122.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 166.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 122.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 166.0,
+            "posy": 122.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 170.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 122.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 170.0,
+            "posy": 122.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 173.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 122.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 173.0,
+            "posy": 122.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 175.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 123.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 175.0,
+            "posy": 123.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 176.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 123.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 176.0,
+            "posy": 123.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 177.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 123.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 177.0,
+            "posy": 123.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 178.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 123.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 178.0,
+            "posy": 123.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 183.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 129.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 183.0,
+            "posy": 129.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 183.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 131.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 183.0,
+            "posy": 131.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 183.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 135.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 183.0,
+            "posy": 135.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 185.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 142.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 185.0,
+            "posy": 142.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 186.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 149.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 186.0,
+            "posy": 149.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 186.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 155.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 186.0,
+            "posy": 155.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 186.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 160.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 186.0,
+            "posy": 160.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 186.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 168.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 186.0,
+            "posy": 168.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 184.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 173.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 184.0,
+            "posy": 173.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 184.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 180.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 184.0,
+            "posy": 180.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 184.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 183.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 184.0,
+            "posy": 183.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 184.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 184.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 184.0,
+            "posy": 184.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 187.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 185.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 187.0,
+            "posy": 185.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 191.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 186.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 191.0,
+            "posy": 186.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 195.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 186.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 195.0,
+            "posy": 186.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 200.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 186.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 200.0,
+            "posy": 186.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 206.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 188.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 206.0,
+            "posy": 188.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 215.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 191.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 215.0,
+            "posy": 191.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 229.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 195.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 229.0,
+            "posy": 195.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 250.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 199.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 250.0,
+            "posy": 199.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 273.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 201.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 273.0,
+            "posy": 201.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 292.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 201.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 292.0,
+            "posy": 201.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 302.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 200.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 302.0,
+            "posy": 200.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 306.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 198.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 306.0,
+            "posy": 198.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 308.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 197.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 308.0,
+            "posy": 197.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 210.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 190.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 210.0,
+            "posy": 190.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 213.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 189.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 213.0,
+            "posy": 189.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 216.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 189.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 216.0,
+            "posy": 189.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 221.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 189.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 221.0,
+            "posy": 189.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 226.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 189.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 226.0,
+            "posy": 189.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 233.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 189.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 233.0,
+            "posy": 189.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 240.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 190.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 240.0,
+            "posy": 190.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 246.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 191.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 246.0,
+            "posy": 191.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 248.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 191.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 248.0,
+            "posy": 191.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 253.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 194.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 253.0,
+            "posy": 194.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 258.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 195.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 258.0,
+            "posy": 195.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 264.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 196.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 264.0,
+            "posy": 196.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 271.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 196.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 271.0,
+            "posy": 196.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 276.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 196.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 276.0,
+            "posy": 196.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 280.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 196.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 280.0,
+            "posy": 196.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 282.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 196.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 282.0,
+            "posy": 196.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 286.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 198.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 286.0,
+            "posy": 198.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 290.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 198.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 290.0,
+            "posy": 198.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 295.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 198.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 295.0,
+            "posy": 198.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 299.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 198.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 299.0,
+            "posy": 198.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 303.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 198.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 303.0,
+            "posy": 198.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 308.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 198.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 308.0,
+            "posy": 198.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 312.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 199.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 312.0,
+            "posy": 199.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 315.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 199.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 315.0,
+            "posy": 199.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 318.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 200.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 318.0,
+            "posy": 200.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 320.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 200.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 320.0,
+            "posy": 200.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 321.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 200.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 321.0,
+            "posy": 200.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 322.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 200.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 322.0,
+            "posy": 200.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 324.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 200.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 324.0,
+            "posy": 200.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 8.0,
+            "cle": 324.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 201.0,
+            "cwi": 8.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 8,
+            "fry": 8,
+            "pfg": "",
+            "pfi": "",
+            "posx": 324.0,
+            "posy": 201.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 1.0,
+            "tpath": "Game/sheet1.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 16.0,
+            "cle": 204.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 123.0,
+            "cwi": 16.0,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 468,
+                "type": "float",
+                "value": 80.0
+            },
+            "frx": 16,
+            "fry": 16,
+            "initial_delay_seconds": {
+                "offset": 464,
+                "type": "float",
+                "value": 0.4000000059604645
+            },
+            "max_fall_vel": {
+                "offset": 484,
+                "type": "float",
+                "value": 260.0
+            },
+            "pfg": "falling_platforms",
+            "pfi": "medium",
+            "posx": 204.0,
+            "posy": 123.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "stop_y": {
+                "offset": 472,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\Game\\fallingplatform_a_16x16.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 16.0,
+            "cle": 224.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 123.0,
+            "cwi": 16.0,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatformMedium",
+            "fall_acceleration": {
+                "offset": 468,
+                "type": "float",
+                "value": 80.0
+            },
+            "frx": 16,
+            "fry": 16,
+            "initial_delay_seconds": {
+                "offset": 464,
+                "type": "float",
+                "value": 0.4000000059604645
+            },
+            "max_fall_vel": {
+                "offset": 484,
+                "type": "float",
+                "value": 260.0
+            },
+            "pfg": "",
+            "pfi": "",
+            "posx": 224.0,
+            "posy": 123.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "stop_y": {
+                "offset": 472,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "Game/fallingplatform_a_16x16.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 16.0,
+            "cle": 245.0,
+            "cox": 0.0,
+            "coy": 0.0,
+            "cto": 123.0,
+            "cwi": 24.0,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 468,
+                "type": "float",
+                "value": 40.0
+            },
+            "frx": 24,
+            "fry": 16,
+            "initial_delay_seconds": {
+                "offset": 464,
+                "type": "float",
+                "value": 0.6000000238418579
+            },
+            "max_fall_vel": {
+                "offset": 484,
+                "type": "float",
+                "value": 260.0
+            },
+            "pfg": "",
+            "pfi": "",
+            "posx": 245.0,
+            "posy": 123.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 1.0,
+            "stop_y": {
+                "offset": 472,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "Game/fallingplatform_a_24x16.png",
+            "vis": true
+        }
+    ]
+}

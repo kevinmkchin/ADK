@@ -120,7 +120,7 @@ public:
 
 	virtual void collided(Entity* collided_entity);
 
-	// Entity copier
+	// Entity copier - Entity specific fields will only be copied if the given entities are the same type.
 	static void copy(Entity& target, const Entity& source);
 
 	///////////////////////////////////////////////////////////
@@ -161,6 +161,10 @@ public:
 
 	// Contains the sprite and all visual information
 	FSpriteSheet sprite_sheet;
+
+	//prefab
+	char prefab_group[20] = "";
+	char prefab_id[20] = "";
 
 protected:
 

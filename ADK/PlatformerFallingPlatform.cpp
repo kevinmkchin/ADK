@@ -13,12 +13,14 @@ PlatformerFallingPlatform::PlatformerFallingPlatform()
 	, curr_fall_vel(0.f)
 	, max_fall_vel(260.f)
 	, b_falling_active(false)
+	, launch_up_mult(1.0f)
 {
 	ADKOBJECT_BEGIN(PlatformerFallingPlatform)
 	ADKOBJECT_FIELD(initial_delay_seconds)
 	ADKOBJECT_FIELD(fall_acceleration)
 	ADKOBJECT_FIELD(stop_y)
 	ADKOBJECT_FIELD(max_fall_vel)
+	ADKOBJECT_FIELD(launch_up_mult)
 	ADKOBJECT_END()
 
 	texture_path = "Game/fallingplatform_a_24x16.png";
@@ -163,5 +165,5 @@ void PlatformerFallingPlatform::collided(Entity* collided_entity)
 
 void PlatformerFallingPlatform::launch_up(float yvel_up)
 {
-	curr_fall_vel = yvel_up;
+	curr_fall_vel = yvel_up * launch_up_mult;
 }

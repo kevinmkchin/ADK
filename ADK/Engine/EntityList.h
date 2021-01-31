@@ -44,6 +44,9 @@ public:
 	// Removes given entity from list if it exists and destroys the entity. Return whether removal was successful.
 	bool remove_and_destroy(Entity* entityToRemove);
 
+	// Removes all elements of this list and deletes each of them.
+	bool remove_and_destroy_all();
+
 	// Empty the list
 	void clear();
 

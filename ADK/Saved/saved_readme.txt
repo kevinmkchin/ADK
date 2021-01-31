@@ -1,0 +1,1 @@
+This is the folder that contains saved data for the editor.

@@ -97,6 +97,9 @@ private:
 	// List of available entities to create
 	EntityList entity_types;
 
+	// List of EntityList represent Groups of Prefabs
+	std::vector<EntityList*> prefab_groups;
+
 	// Editor window pointer
 	sf::RenderWindow* render_window_ptr;
 	
@@ -139,8 +142,9 @@ private:
 	bool b_show_config;
 
 	// Save & Load
+	bool b_typing_in_textbox;
+	// level
 	char level_id[30] = "";
-	bool b_typing_level_id;
 	bool b_show_load_confirm;
 	bool b_show_save_confirm;
 	std::string pending_level_path;
@@ -158,6 +162,9 @@ private:
 	// collision properties
 	bool b_debug_render;
 	bool b_collision_match_sprite_bound;
+
+	// Misc flags
+	bool b_prefab_for_creation;
 
 };
 
