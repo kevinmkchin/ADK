@@ -1,0 +1,152 @@
+{
+    "box": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 76
+            }
+        ],
+        "che": 0.0,
+        "cle": 494.0,
+        "cox": 0.0,
+        "coy": 0.0,
+        "cto": 237.0,
+        "cwi": 0.0,
+        "dep": 0,
+        "eid": "Entity",
+        "frx": 16,
+        "fry": 16,
+        "pfg": "group_test",
+        "pfi": "box",
+        "posx": 494.0,
+        "posy": 237.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 1.0,
+        "tpath": "\\Misc\\platformer-sheet.png",
+        "vis": true
+    },
+    "grass": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 8
+            }
+        ],
+        "che": 0.0,
+        "cle": 436.0,
+        "cox": 0.0,
+        "coy": 0.0,
+        "cto": 243.0,
+        "cwi": 0.0,
+        "dep": 0,
+        "eid": "Entity",
+        "frx": 16,
+        "fry": 16,
+        "pfg": "group_test",
+        "pfi": "grass",
+        "posx": 436.0,
+        "posy": 243.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 1.0,
+        "tpath": "\\Misc\\platformer-sheet.png",
+        "vis": true
+    },
+    "ladder": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 75
+            }
+        ],
+        "che": 0.0,
+        "cle": 329.0,
+        "cox": 0.0,
+        "coy": 0.0,
+        "cto": 230.0,
+        "cwi": 0.0,
+        "dep": 0,
+        "eid": "Entity",
+        "frx": 16,
+        "fry": 16,
+        "pfg": "group_test",
+        "pfi": "ladder",
+        "posx": 329.0,
+        "posy": 230.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 1.0,
+        "tpath": "\\Misc\\platformer-sheet.png",
+        "vis": true
+    },
+    "rock": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 118
+            }
+        ],
+        "che": 0.0,
+        "cle": 579.0,
+        "cox": 0.0,
+        "coy": 0.0,
+        "cto": 253.0,
+        "cwi": 0.0,
+        "dep": 0,
+        "eid": "Entity",
+        "frx": 16,
+        "fry": 16,
+        "pfg": "group_test",
+        "pfi": "rock",
+        "posx": 579.0,
+        "posy": 253.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 1.0,
+        "tpath": "\\Misc\\platformer-sheet.png",
+        "vis": true
+    },
+    "sign": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 14
+            }
+        ],
+        "che": 0.0,
+        "cle": 541.0,
+        "cox": 0.0,
+        "coy": 0.0,
+        "cto": 246.0,
+        "cwi": 0.0,
+        "dep": 0,
+        "eid": "Entity",
+        "frx": 16,
+        "fry": 16,
+        "pfg": "group_test",
+        "pfi": "sign",
+        "posx": 541.0,
+        "posy": 246.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 1.0,
+        "tpath": "\\Misc\\platformer-sheet.png",
+        "vis": true
+    }
+}
