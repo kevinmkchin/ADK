@@ -25,8 +25,6 @@
     <ClCompile Include="Engine\ADKTimer.cpp" />
     <ClCompile Include="PlatformerDamageBox.cpp" />
     <ClCompile Include="PlatformerMovingDamageBox.cpp" />
-    <ClCompile Include="PlatformerFallingPlatformMedium.cpp" />
-    <ClCompile Include="PlatformerFallingPlatformSmall.cpp" />
     <ClCompile Include="PlatformerOneWayTile.cpp" />
     <ClCompile Include="PlatformerSpawn.cpp" />
     <ClCompile Include="PlatformerTile.cpp" />
@@ -63,8 +61,6 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="PlatformerDamageBox.h" />
     <ClInclude Include="PlatformerMovingDamageBox.h" />
-    <ClInclude Include="PlatformerFallingPlatformMedium.h" />
-    <ClInclude Include="PlatformerFallingPlatformSmall.h" />
     <ClInclude Include="PlatformerOneWayTile.h" />
     <ClInclude Include="PlatformerSpawn.h" />
     <ClInclude Include="PlatformerTile.h" />
