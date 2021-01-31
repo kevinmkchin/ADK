@@ -7,7 +7,5 @@ public:
 
 	virtual void init_collider() override;
 
-	virtual void launch_up(float yvel_up) override;
-
 };
 

@@ -271,7 +271,7 @@ void Entity::collided(Entity* collided_entity)
 
 void Entity::copy(Entity& target, const Entity& source)
 {
-	target.class_description_ptr = source.class_description_ptr;
+	// Copy base entity fields
 	target.sprite_sheet = source.sprite_sheet;
 	target.set_frame_size(source.sprite_sheet.frame_size.x, source.sprite_sheet.frame_size.y);
 	target.set_texture_path_and_load(source.get_texture_path(), true);
@@ -286,42 +286,42 @@ void Entity::copy(Entity& target, const Entity& source)
 	target.get_collider().width = source.get_collider_copy().width;
 	target.get_collider().height = source.get_collider_copy().height;
 	target.set_collidable(source.is_collidable());
+	strcpy_s(target.prefab_group, source.prefab_group);
+	strcpy_s(target.prefab_id, source.prefab_id);
 
-	//void* source_address = (void*)&source;
-	//void* target_address = (void*)&target;
-	//std::vector<ADKFieldDescription> fields = source.class_description_ptr->fields;
-	//for (ADKFieldDescription field : fields)
-	//{
-	//	std::string fieldtype = field.type.name.text;
-	//	if (fieldtype == typeid(int).name())
-	//	{
-	//		int* t_int_address = (int*) target_address;
-	//		int* s_int_address = (int*) source_address;
-	//		t_int_address += field.offset;
-	//		s_int_address += field.offset;
-	//		*(t_int_address + field.offset) = *(s_int_address + field.offset);
-	//	}
-	//	else if (fieldtype == typeid(float).name())
-	//	{
-	//		float* t_int_address = (float*)target_address;
-	//		float* s_int_address = (float*)source_address;
-	//		t_int_address += field.offset;
-	//		s_int_address += field.offset;
-	//		*(t_int_address + field.offset) = *(s_int_address + field.offset);
-	//	}
-	//	else if (fieldtype == typeid(bool).name())
-	//	{
-	//		bool* t_int_address = (bool*)target_address;
-	//		bool* s_int_address = (bool*)source_address;
-	//		t_int_address += field.offset;
-	//		s_int_address += field.offset;
-	//		*(t_int_address + field.offset) = *(s_int_address + field.offset);
-	//	}
-	//	else if (fieldtype == typeid(std::string).name())
-	//	{
+	// Copy class specific fields ONLY if target is exact same type as source
+	if (target.class_description_ptr == source.class_description_ptr)
+	{
+		char* source_address = (char*)&source;
+		char* target_address = (char*)&target;
+		std::vector<ADKFieldDescription> fields = source.class_description_ptr->fields;
+		for (ADKFieldDescription field : fields)
+		{
+			std::string fieldtype = field.type.name.text;
+			if (fieldtype == typeid(int).name())
+			{
+				int* t_int_address = (int*)(target_address + field.offset);
+				int* s_int_address = (int*)(source_address + field.offset);
+				*(t_int_address) = *(s_int_address);
+			}
+			else if (fieldtype == typeid(float).name())
+			{
+				float* t_int_address = (float*)(target_address + field.offset);
+				float* s_int_address = (float*)(source_address + field.offset);
+				*(t_int_address) = *(s_int_address);
+			}
+			else if (fieldtype == typeid(bool).name())
+			{
+				bool* t_int_address = (bool*)(target_address + field.offset);
+				bool* s_int_address = (bool*)(source_address + field.offset);
+				*(t_int_address) = *(s_int_address);
+			}
+			else if (fieldtype == typeid(std::string).name())
+			{
 
-	//	}
-	//}
+			}
+		}
+	}
 
 	// TODO copy Tag data
 }

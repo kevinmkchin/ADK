@@ -32,6 +32,7 @@ Scene_Editor::Scene_Editor()
 	, b_show_save_confirm(false)
 	, b_debug_render(false)
 	, b_collision_match_sprite_bound(false)
+	, b_prefab_for_creation(false)
 {
 }
 
@@ -97,6 +98,7 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	//	// At this point, Identifiers[0] represents the id of the entity type of entity at EntityTypes.at(0)
 	//}
 
+	// Entity Types from Class Database
 	std::map<std::string, ADKClassDescription*> db = ADKClassDatabase::get_database()->get_all_class_descriptions();
 	for (auto& it : db)
 	{
@@ -104,6 +106,29 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 		Entity* created = class_desc->constructor();
 		created->load_default_texture();
 		entity_types.add(created);
+	}
+
+	// Prefabs from Prefabs Folder
+	std::string prefabs_directory = "Saved/Prefabs/";
+	namespace stdfs = std::filesystem;
+	std::vector<std::string> filenames;
+	const stdfs::directory_iterator end{};
+	for (stdfs::directory_iterator iter{ prefabs_directory }; iter != end; ++iter)
+	{
+		if (stdfs::is_regular_file(*iter))	// http://en.cppreference.com/w/cpp/experimental/fs/is_regular_file 
+		{
+			filenames.push_back(iter->path().string());
+		}
+	}
+
+	ADKSaveLoad PrefabLoader;
+	for (std::size_t i = 0; i < filenames.size(); ++i)
+	{
+		EntityList* new_group = new EntityList;
+		std::string name = filenames.at(i);
+		name = name.substr(prefabs_directory.length());
+		PrefabLoader.load_prefab_group(name.c_str(), new_group);
+		prefab_groups.push_back(new_group);
 	}
 
 	texture_dialog = ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
@@ -118,14 +143,18 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 void Scene_Editor::end_scene(sf::RenderWindow& window)
 {
 	// Deallocate entity memory
-	for (int i = entity_types.size() - 1; i != -1; --i)
+
+	for (int i = prefab_groups.size() - 1; i != -1; --i)
 	{
-		entity_types.remove_and_destroy(entity_types.at(i));
+		EntityList* to_delete = prefab_groups.at(i);
+		to_delete->remove_and_destroy_all();
+		delete to_delete;
 	}
-	for (int i = level_entities.size() - 1; i != -1; --i)
-	{
-		level_entities.remove_and_destroy(level_entities.at(i));
-	}
+	prefab_groups.clear();
+
+	entity_types.remove_and_destroy_all();
+
+	level_entities.remove_and_destroy_all();
 
 	Scene::end_scene(window);
 }
@@ -144,7 +173,7 @@ void Scene_Editor::process_events(sf::Event& event)
 	// Shortcuts
 	if (event.type == sf::Event::KeyPressed)
 	{
-		if (b_typing_level_id == false)
+		if (b_typing_in_textbox == false)
 		{
 			if (event.key.code == sf::Keyboard::F)
 			{
@@ -355,11 +384,10 @@ void Scene_Editor::process_events(sf::Event& event)
 			int posY = ((int)worldPos.y) - sY;
 
 			// Create a new entity
-			
 			Entity* created = copied_entity->class_description_ptr->constructor();
 			Entity::copy(*created, *copied_entity);
 			created->set_position((float)posX, (float)posY);
-			created->init_collider();
+
 			// Add the entity to this scene/level editor's entity list
 			level_entities.add(created);
 			level_entities.mark_depth_changed();
@@ -430,7 +458,7 @@ void Scene_Editor::process_events(sf::Event& event)
 	}
 
 	// Entity move with Arrows
-	if (entity_selected_for_properties != nullptr && b_typing_level_id == false 
+	if (entity_selected_for_properties != nullptr && b_typing_in_textbox == false 
 		&& sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) == false)
 	{
 		float xM = 0;
@@ -714,6 +742,7 @@ void Scene_Editor::render(sf::RenderWindow& window)
 		}
 		window.draw(box, 8, sf::Lines);
 
+		// Selection box is tinted
 		//sf::RectangleShape selection;
 		//selection.setRotation(EntitySelectedForProperties->GetRotation());
 		//sf::Color selectionColor = ActiveEditorConfig.SelectionColor;
@@ -782,6 +811,7 @@ void Scene_Editor::save_level_confirmation(std::string path)
 
 void Scene_Editor::draw_editor_ui()
 {
+	// Save Load popup
 	if (b_show_save_confirm)
 	{
 		ImGui::Begin("Save Confirmation");
@@ -826,6 +856,7 @@ void Scene_Editor::draw_editor_ui()
 		ImGui::End();
 	}
 
+	// Actual editor draw
 	draw_menu_and_optionsbar_ui();
 	draw_entity_property_ui();
 	draw_entity_type_ui();
@@ -839,6 +870,7 @@ void Scene_Editor::draw_entity_property_ui()
 	ImGui::SetWindowSize(sf::Vector2f((float) active_editor_config.window_size_x - active_editor_config.bot_right_pixel.x, (float) active_editor_config.window_size_y - active_editor_config.top_left_pixel.y));
 
 	ImGui::BeginTabBar("");
+	// Selected Entity Properties
 	if (ImGui::BeginTabItem("Properties"))
 	{
 		// Display properties for currently selected entity
@@ -1192,10 +1224,60 @@ void Scene_Editor::draw_entity_property_ui()
 			}
 			ImGui::PopItemWidth();
 #pragma endregion
+
+			// Save to project prefabs
+			ImGui::Separator();
+			ImGui::Text("Prefab");
+			ImGui::Separator();
+			ImGui::InputText("Group ID", entity_selected_for_properties->prefab_group, 30);
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Prefab Group ID is the name of the json file. A clever use might "
+					"be to group all similar prefabs together, so that you end up with multiple prefab "
+					"groups you can add and remove from different projects.");
+				ImGui::TextUnformatted("Save path in /Saved/Prefabs/.");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
+			if (ImGui::IsItemActive())
+			{
+				b_typing_in_textbox = true;
+			}
+			else
+			{
+				b_typing_in_textbox = false;
+			}
+			ImGui::InputText("Prefab ID", entity_selected_for_properties->prefab_id, 30);
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Prefab ID is identifier of this prefab type.");
+				ImGui::TextUnformatted("Save path in /Saved/Prefabs/.");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
+			if (ImGui::IsItemActive())
+			{
+				b_typing_in_textbox = true;
+			}
+			else
+			{
+				b_typing_in_textbox = false;
+			}
+			if (ImGui::Button("Save Prefab"))
+			{
+				ADKSaveLoad PrefabSaver;
+				PrefabSaver.save_prefab(entity_selected_for_properties->prefab_group,
+					entity_selected_for_properties->prefab_id, entity_selected_for_properties);
+			}
 		}
 
 		ImGui::EndTabItem();
 	}
+	// Entities in Level
 	if (ImGui::BeginTabItem("Entities in Level"))
 	{
 		// Two columns
@@ -1266,75 +1348,172 @@ void Scene_Editor::draw_entity_type_ui()
 	ImGui::SetWindowPos(sf::Vector2f(0.f, (float) active_editor_config.bot_right_pixel.y));
 	ImGui::SetWindowSize(sf::Vector2f((float) active_editor_config.bot_right_pixel.x, (float) active_editor_config.window_size_y - active_editor_config.bot_right_pixel.y));
 
-	// Display all available entity types
-	for (int i = 0; i < entity_types.size(); ++i)
+	ImGui::BeginTabBar("diff entity types bar id");
+	// Base Entities Tab
+	if (ImGui::BeginTabItem("Base Entities"))
 	{
-		ImGui::BeginGroup();
+		// Display all available entity types
+		for (int i = 0; i < entity_types.size(); ++i)
 		{
-			ImGui::PushID(i);
-
-			Entity* entity_type = entity_types.at(i);
-			sf::Sprite entitySprite = entity_type->get_sprite();
-			
-			// TODO ADK find texture rect for these type entities only once
-			sf::IntRect display_rect;
-			sf::Vector2i textureBounds(entitySprite.getTexture()->getSize());
-			int fsx = entity_type->sprite_sheet.frame_size.x;
-			int fsy = entity_type->sprite_sheet.frame_size.y;
-			int numFramesWide = textureBounds.x / ((fsx > 0) ? fsx : 1);
-			int numFramesTall = textureBounds.y / ((fsy > 0) ? fsy : 1);
-			int xLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame % (numFramesWide > 0 ? numFramesWide : 1)) * fsx;
-			int yLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame / (numFramesWide > 0 ? numFramesWide : 1)) * fsy;
-			display_rect.left = xLoc;
-			display_rect.top = yLoc;
-			display_rect.width = entitySprite.getTextureRect().width;
-			display_rect.height = entitySprite.getTextureRect().height;
-			entitySprite.setTextureRect(display_rect);
-
-			const char* EntityId = entity_type->class_description_ptr->type.name.text.c_str();
-			if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
-			{
-				entity_selected_for_creation = entity_types.at(i);
-				curr_tool = TOOL_PLACE;
-			}
-			ImGui::Text(EntityId);
-			ImGui::PopID();
-
-			++i;
-			if (i < entity_types.size())
+			ImGui::BeginGroup();
 			{
 				ImGui::PushID(i);
 
-				entity_type = entity_types.at(i);
-				entitySprite = entity_type->get_sprite();
+				Entity* entity_type = entity_types.at(i);
+				sf::Sprite entitySprite = entity_type->get_sprite();
 
-				display_rect;
+				// TODO ADK find texture rect for these type entities only once
+				sf::IntRect display_rect;
 				sf::Vector2i textureBounds(entitySprite.getTexture()->getSize());
-				fsx = entity_type->sprite_sheet.frame_size.x;
-				fsy = entity_type->sprite_sheet.frame_size.y;
-				numFramesWide = textureBounds.x / ((fsx > 0) ? fsx : 1);
-				numFramesTall = textureBounds.y / ((fsy > 0) ? fsy : 1);
-				xLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame % (numFramesWide > 0 ? numFramesWide : 1)) * fsx;
-				yLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame / (numFramesWide > 0 ? numFramesWide : 1)) * fsy;
+				int fsx = entity_type->sprite_sheet.frame_size.x;
+				int fsy = entity_type->sprite_sheet.frame_size.y;
+				int numFramesWide = textureBounds.x / ((fsx > 0) ? fsx : 1);
+				int numFramesTall = textureBounds.y / ((fsy > 0) ? fsy : 1);
+				int xLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame % (numFramesWide > 0 ? numFramesWide : 1)) * fsx;
+				int yLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame / (numFramesWide > 0 ? numFramesWide : 1)) * fsy;
 				display_rect.left = xLoc;
 				display_rect.top = yLoc;
 				display_rect.width = entitySprite.getTextureRect().width;
 				display_rect.height = entitySprite.getTextureRect().height;
 				entitySprite.setTextureRect(display_rect);
 
-				EntityId = entity_type->class_description_ptr->type.name.text.c_str();
+				const char* EntityId = entity_type->class_description_ptr->type.name.text.c_str();
 				if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
 				{
 					entity_selected_for_creation = entity_types.at(i);
+					b_prefab_for_creation = false;
 					curr_tool = TOOL_PLACE;
 				}
 				ImGui::Text(EntityId);
 				ImGui::PopID();
+
+				++i;
+				if (i < entity_types.size())
+				{
+					ImGui::PushID(i);
+
+					entity_type = entity_types.at(i);
+					entitySprite = entity_type->get_sprite();
+
+					display_rect;
+					sf::Vector2i textureBounds(entitySprite.getTexture()->getSize());
+					fsx = entity_type->sprite_sheet.frame_size.x;
+					fsy = entity_type->sprite_sheet.frame_size.y;
+					numFramesWide = textureBounds.x / ((fsx > 0) ? fsx : 1);
+					numFramesTall = textureBounds.y / ((fsy > 0) ? fsy : 1);
+					xLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame % (numFramesWide > 0 ? numFramesWide : 1)) * fsx;
+					yLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame / (numFramesWide > 0 ? numFramesWide : 1)) * fsy;
+					display_rect.left = xLoc;
+					display_rect.top = yLoc;
+					display_rect.width = entitySprite.getTextureRect().width;
+					display_rect.height = entitySprite.getTextureRect().height;
+					entitySprite.setTextureRect(display_rect);
+
+					EntityId = entity_type->class_description_ptr->type.name.text.c_str();
+					if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
+					{
+						entity_selected_for_creation = entity_types.at(i);
+						b_prefab_for_creation = false;
+						curr_tool = TOOL_PLACE;
+					}
+					ImGui::Text(EntityId);
+					ImGui::PopID();
+				}
+			}
+			ImGui::EndGroup();
+			ImGui::SameLine();
+		}
+
+		ImGui::EndTabItem();
+	}
+	// Prefabs Tab
+	if (ImGui::BeginTabItem("Prefabs"))
+	{
+		// Load Prefabs saved to Project Prefabs
+
+		ImGui::BeginTabBar("diff prefab groups bar id");
+
+		for (EntityList* prefabs : prefab_groups)
+		{
+			if (ImGui::BeginTabItem(prefabs->at(0)->prefab_group))
+			{
+				for (int i = 0; i < prefabs->size(); ++i)
+				{
+					ImGui::BeginGroup();
+					{
+						ImGui::PushID(i);
+
+						Entity* entity_type = prefabs->at(i);
+						sf::Sprite entitySprite = entity_type->get_sprite();
+
+						// TODO ADK find texture rect for these type entities only once
+						sf::IntRect display_rect;
+						sf::Vector2i textureBounds(entitySprite.getTexture()->getSize());
+						int fsx = entity_type->sprite_sheet.frame_size.x;
+						int fsy = entity_type->sprite_sheet.frame_size.y;
+						int numFramesWide = textureBounds.x / ((fsx > 0) ? fsx : 1);
+						int numFramesTall = textureBounds.y / ((fsy > 0) ? fsy : 1);
+						int xLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame % (numFramesWide > 0 ? numFramesWide : 1)) * fsx;
+						int yLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame / (numFramesWide > 0 ? numFramesWide : 1)) * fsy;
+						display_rect.left = xLoc;
+						display_rect.top = yLoc;
+						display_rect.width = entitySprite.getTextureRect().width;
+						display_rect.height = entitySprite.getTextureRect().height;
+						entitySprite.setTextureRect(display_rect);
+
+						if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
+						{
+							entity_selected_for_creation = prefabs->at(i);
+							b_prefab_for_creation = true;
+							curr_tool = TOOL_PLACE;
+						}
+						ImGui::Text(entity_type->prefab_id);
+						ImGui::PopID();
+
+						++i;
+						if (i < prefabs->size())
+						{
+							ImGui::PushID(i);
+
+							entity_type = prefabs->at(i);
+							entitySprite = entity_type->get_sprite();
+
+							display_rect;
+							sf::Vector2i textureBounds(entitySprite.getTexture()->getSize());
+							fsx = entity_type->sprite_sheet.frame_size.x;
+							fsy = entity_type->sprite_sheet.frame_size.y;
+							numFramesWide = textureBounds.x / ((fsx > 0) ? fsx : 1);
+							numFramesTall = textureBounds.y / ((fsy > 0) ? fsy : 1);
+							xLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame % (numFramesWide > 0 ? numFramesWide : 1)) * fsx;
+							yLoc = (entity_type->sprite_sheet.animations[entity_type->sprite_sheet.selected_animation].start_frame / (numFramesWide > 0 ? numFramesWide : 1)) * fsy;
+							display_rect.left = xLoc;
+							display_rect.top = yLoc;
+							display_rect.width = entitySprite.getTextureRect().width;
+							display_rect.height = entitySprite.getTextureRect().height;
+							entitySprite.setTextureRect(display_rect);
+
+							if (ImGui::ImageButton(entitySprite, sf::Vector2f(40.f, 40.f)))
+							{
+								entity_selected_for_creation = prefabs->at(i);
+								b_prefab_for_creation = true;
+								curr_tool = TOOL_PLACE;
+							}
+							ImGui::Text(entity_type->prefab_id);
+							ImGui::PopID();
+						}
+					}
+					ImGui::EndGroup();
+					ImGui::SameLine();
+				}
+
+				ImGui::EndTabItem();
 			}
 		}
-		ImGui::EndGroup();
-		ImGui::SameLine();
+		ImGui::EndTabBar();
+
+		ImGui::EndTabItem();
 	}
+	ImGui::EndTabBar();
 
 	ImGui::End();
 }
@@ -1358,11 +1537,11 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 	}
 	if (ImGui::IsItemActive())
 	{
-		b_typing_level_id = true;
+		b_typing_in_textbox = true;
 	}
 	else
 	{
-		b_typing_level_id = false;
+		b_typing_in_textbox = false;
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Load"))
@@ -1721,10 +1900,18 @@ void Scene_Editor::brush_place_helper()
 	
 	// Create a new entity
 	Entity* created = entity_selected_for_creation->class_description_ptr->constructor();
-	created->load_default_texture();
+	if (b_prefab_for_creation)
+	{
+		// Copy prefab entity if we are placing a prefab object
+		Entity::copy(*created, *entity_selected_for_creation);
+	}
+	else
+	{
+		// Just load default texture if we are placing a base object
+		created->load_default_texture();
+	}
 	created->set_position((float)posX, (float)posY);
-	// Initialize collider position
-	created->init_collider();
+
 	// Add the entity to this scene/level editor's entity list
 	level_entities.add(created);
 	level_entities.mark_depth_changed();

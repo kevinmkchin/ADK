@@ -29,7 +29,7 @@ void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 	Scene::begin_scene(window);
 
 	initialize_gamescene();
-	switch_level("newtest");
+	switch_level("fuckfuck");
 
 	font.loadFromFile("Assets/Fonts/arial.ttf");
 	player_debug_text.setFont(font);
@@ -165,10 +165,7 @@ void Scene_PlatformerGame::end_level()
 	}
 
 	// Delete level entities. Any entities that should persist between level loads shouldn't be in this entitylist.
-	for (int i = level_entities.size() - 1; i != -1; --i)
-	{
-		level_entities.remove_and_destroy(level_entities.at(i));
-	}
+	level_entities.remove_and_destroy_all();
 }
 
 void Scene_PlatformerGame::switch_level(std::string level_path)

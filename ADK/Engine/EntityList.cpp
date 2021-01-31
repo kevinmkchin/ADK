@@ -186,6 +186,16 @@ bool EntityList::remove_and_destroy(Entity* entityToRemove)
 	return success;
 }
 
+bool EntityList::remove_and_destroy_all()
+{
+	bool success = true;
+	for (int i = size() - 1; i != -1; --i)
+	{
+		success &= remove_and_destroy(at(i));
+	}
+	return success;
+}
+
 void EntityList::clear()
 {
 	entities.clear();
