@@ -1,0 +1,112 @@
+{
+    "medium": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.6000000238418579,
+                "nfr": 4,
+                "sfr": 0
+            }
+        ],
+        "che": 16.0,
+        "cle": 555.0,
+        "cox": 0.0,
+        "coy": 0.0,
+        "cto": 259.0,
+        "cwi": 16.0,
+        "dep": -1,
+        "eid": "PlatformerFallingPlatform",
+        "fall_acceleration": {
+            "offset": 468,
+            "type": "float",
+            "value": 80.0
+        },
+        "frx": 16,
+        "fry": 16,
+        "initial_delay_seconds": {
+            "offset": 464,
+            "type": "float",
+            "value": 0.4000000059604645
+        },
+        "launch_up_mult": {
+            "offset": 492,
+            "type": "float",
+            "value": 1.2999999523162842
+        },
+        "max_fall_vel": {
+            "offset": 484,
+            "type": "float",
+            "value": 260.0
+        },
+        "pfg": "falling_platforms",
+        "pfi": "medium",
+        "posx": 555.0,
+        "posy": 259.0,
+        "rot": 0.0,
+        "rpt": false,
+        "scl": 1.0,
+        "stop_y": {
+            "offset": 472,
+            "type": "float",
+            "value": 800.0
+        },
+        "tpath": "\\Game\\fallingplatform_a_16x16.png",
+        "vis": true
+    },
+    "small": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.6000000238418579,
+                "nfr": 4,
+                "sfr": 0
+            }
+        ],
+        "che": 8.0,
+        "cle": 583.0,
+        "cox": 0.0,
+        "coy": 0.0,
+        "cto": 259.0,
+        "cwi": 8.0,
+        "dep": -1,
+        "eid": "PlatformerFallingPlatform",
+        "fall_acceleration": {
+            "offset": 468,
+            "type": "float",
+            "value": 120.0
+        },
+        "frx": 8,
+        "fry": 8,
+        "initial_delay_seconds": {
+            "offset": 464,
+            "type": "float",
+            "value": 0.20000000298023224
+        },
+        "launch_up_mult": {
+            "offset": 492,
+            "type": "float",
+            "value": 1.600000023841858
+        },
+        "max_fall_vel": {
+            "offset": 484,
+            "type": "float",
+            "value": 260.0
+        },
+        "pfg": "falling_platforms",
+        "pfi": "small",
+        "posx": 583.0,
+        "posy": 259.0,
+        "rot": 0.0,
+        "rpt": false,
+        "scl": 1.0,
+        "stop_y": {
+            "offset": 472,
+            "type": "float",
+            "value": 800.0
+        },
+        "tpath": "\\Game\\fallingplatform_a_8x8.png",
+        "vis": true
+    }
+}
