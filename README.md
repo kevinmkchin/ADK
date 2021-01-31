@@ -19,8 +19,8 @@ I started this little project because I wanted two things: I wanted my own custo
 If I was going to create my own custom C++ game engine, I needed it to be better than the other engines available. The goal was to make an engine that was more flexible than Unreal engine and better than Game Maker.
 
 ## Features
-- **Reference Counted Resource Management**
-  - Automatic reference counting ensures resources are acquired when needed and freed when they are not
+- **Prefabs**
+  - Prefab system allows you to create, configure, and store an object complete with all its property values, animations, and collisions as a reusable Asset. The Prefab Asset acts as a template from which you can create new Prefab instances in the Scene.
 - **Sophisticated Integrated Editor**
   - Save and Load Levels
   - Integrated editor allows for working very close to the final product compared to using an external editor
@@ -38,6 +38,8 @@ If I was going to create my own custom C++ game engine, I needed it to be better
   - What do you expect? It's a game engine
 - **Entity Layers**
   - Entities can have variable depth, allowing for parallax effects and other cool tricks
+- **Reference Counted Resource Management**
+  - Automatic reference counting ensures resources are acquired when needed and freed when they are not
 
 <img src="https://i.imgur.com/Fl24SvW.png" alt="ayax screenshot 3" width="854" height="480">
 
