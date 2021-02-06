@@ -40,24 +40,24 @@ public:
 	// entities we don't collide with but still trigger by collision (includes spikes and checkpoints)
 	EntityList* trigger_boxes;
 
-	void affect_health(float delta);
+	virtual void affect_health(float delta);
 
-	void launch(float in_xvel, float in_yvel, float input_pause = 0.f);
+	virtual void launch(float in_xvel, float in_yvel, float input_pause = 0.f);
 
-	void restart_player();
+	virtual void restart_player();
 
-	void die();
+	virtual void die();
 
 protected:
 
-	void read_input(float dt);
+	virtual void read_input(float dt);
 
-	void resolve_movement(float dt);
+	virtual void resolve_movement(float dt);
 
-	void update_dust_effects(float dt);
+	virtual void update_dust_effects(float dt);
 
 	// reset memory and states like whether we jumped this frame or not
-	void reset_states();
+	virtual void reset_states();
 
 public:
 	ADKCamera* camera;

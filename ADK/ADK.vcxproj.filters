@@ -78,9 +78,6 @@
     <ClCompile Include="Engine\BoxCollider.cpp">
       <Filter>Engine\Colliders</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\EntityList.cpp">
-      <Filter>Engine\ADKUtils</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Entity.cpp">
       <Filter>Engine\Entities</Filter>
     </ClCompile>
@@ -108,12 +105,6 @@
     <ClCompile Include="PlatformerOneWayTile.cpp">
       <Filter>Platformer Module</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\ADKCamera.cpp">
-      <Filter>Engine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ADKTimer.cpp">
-      <Filter>Engine\ADKUtils</Filter>
-    </ClCompile>
     <ClCompile Include="PlatformerSpikes.cpp">
       <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClCompile>
@@ -126,17 +117,30 @@
     <ClCompile Include="PlatformerDamageBox.cpp">
       <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\ADKReflection.cpp">
-      <Filter>Engine\ADKUtils</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ADKPrefabFactory.cpp">
-      <Filter>Engine\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="PlatformerSpawn.cpp">
       <Filter>Platformer Module</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerPlayer.cpp">
       <Filter>Player Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="GrapplehookPlayer.cpp" />
+    <ClCompile Include="Engine\ADKReflection.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ADKPrefabFactory.cpp">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ADKRaycast.cpp">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ADKTimer.cpp">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ADKCamera.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\EntityList.cpp">
+      <Filter>Engine\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,9 +171,6 @@
     <ClInclude Include="Engine\BoxCollider.h">
       <Filter>Engine\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\EntityList.h">
-      <Filter>Engine\ADKUtils</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Entity.h">
       <Filter>Engine\Entities</Filter>
     </ClInclude>
@@ -197,14 +198,8 @@
     <ClInclude Include="PlatformerOneWayTile.h">
       <Filter>Platformer Module</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\ADKCamera.h">
-      <Filter>Engine\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Engine.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ADKTimer.h">
-      <Filter>Engine\ADKUtils</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerSpikes.h">
       <Filter>Platformer Module\TriggerBoxes</Filter>
@@ -218,20 +213,33 @@
     <ClInclude Include="PlatformerDamageBox.h">
       <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\ADKReflection.h">
-      <Filter>Engine\ADKUtils</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\ADKInput.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ADKPrefabFactory.h">
-      <Filter>Engine\Entities</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerSpawn.h">
       <Filter>Platformer Module</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerPlayer.h">
       <Filter>Player Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="GrapplehookPlayer.h" />
+    <ClInclude Include="Engine\ADKReflection.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKPrefabFactory.h">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKRaycast.h">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKTimer.h">
+      <Filter>Engine\ADKUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKCamera.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EntityList.h">
+      <Filter>Engine\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

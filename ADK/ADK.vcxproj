@@ -21,8 +21,10 @@
   <ItemGroup>
     <ClCompile Include="Engine\ADKCamera.cpp" />
     <ClCompile Include="Engine\ADKPrefabFactory.cpp" />
+    <ClCompile Include="Engine\ADKRaycast.cpp" />
     <ClCompile Include="Engine\ADKReflection.cpp" />
     <ClCompile Include="Engine\ADKTimer.cpp" />
+    <ClCompile Include="GrapplehookPlayer.cpp" />
     <ClCompile Include="PlatformerDamageBox.cpp" />
     <ClCompile Include="PlatformerMovingDamageBox.cpp" />
     <ClCompile Include="PlatformerOneWayTile.cpp" />
@@ -56,9 +58,11 @@
     <ClInclude Include="Engine\ADKCamera.h" />
     <ClInclude Include="Engine\ADKInput.h" />
     <ClInclude Include="Engine\ADKPrefabFactory.h" />
+    <ClInclude Include="Engine\ADKRaycast.h" />
     <ClInclude Include="Engine\ADKReflection.h" />
     <ClInclude Include="Engine\ADKTimer.h" />
     <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="GrapplehookPlayer.h" />
     <ClInclude Include="PlatformerDamageBox.h" />
     <ClInclude Include="PlatformerMovingDamageBox.h" />
     <ClInclude Include="PlatformerOneWayTile.h" />
