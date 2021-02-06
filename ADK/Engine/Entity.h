@@ -4,6 +4,19 @@
 #include "ADKReflection.h"
 #include "BoxCollider.h"
 
+//////////
+
+enum Tags : char
+{
+	PLAYER,
+	ENEMY,
+	PLATFORMTILE
+
+	// TODO add your own tags here
+};
+
+//////////
+
 class EntityList;
 
 struct FAnimation
@@ -163,6 +176,7 @@ public:
 
 	// Contains the sprite and all visual information
 	FSpriteSheet sprite_sheet;
+
 
 	// prefab
 	char prefab_group[20] = "";

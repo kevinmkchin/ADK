@@ -6,6 +6,14 @@
 
 namespace ADKMath
 {
+	// Vectors
+
+	// returns magnitude of vector
+	static float magnitude(sf::Vector2f vec)
+	{
+		return sqrt((vec.x * vec.x) + (vec.y * vec.y));
+	}
+
 	/*	get angle between two 2d vectors */
 	static float get_angle_between_vectors(sf::Vector2f vec1, sf::Vector2f vec2)
 	{
@@ -26,6 +34,22 @@ namespace ADKMath
 		out_vec.y = (sin(rad) * vec_to_rot.x) + (cos(rad) * vec_to_rot.y);
 		return out_vec;
 	}
+
+	/* returns the normalized vector of given vector (magnitude = 1) */
+	static sf::Vector2f noramlize_vector(sf::Vector2f to_normalize)
+	{
+		float magnitude = sqrt((to_normalize.x * to_normalize.x) + (to_normalize.y * to_normalize.y));
+		if (magnitude != 0)
+		{
+			return sf::Vector2f(to_normalize.x / magnitude, to_normalize.y / magnitude);
+		}
+		else
+		{
+			return to_normalize;
+		}
+	}
+
+	// RNG
 
 	/*	max inclusive
 	*/

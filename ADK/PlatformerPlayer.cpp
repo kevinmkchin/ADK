@@ -250,6 +250,7 @@ void PlatformerPlayer::read_input(float dt)
 	bool b_a_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::A) && b_input_paused == false;
 	bool b_d_pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::D) && b_input_paused == false;
 
+	// Joystick
 	//bool b_j_pressed = sf::Joystick::isButtonPressed(1, 0);//sf::Keyboard::isKeyPressed(sf::Keyboard::J);
 	//bool b_s_pressed = sf::Joystick::isButtonPressed(1, 8);//sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 	//bool b_a_pressed = false;//sf::Keyboard::isKeyPressed(sf::Keyboard::A);
