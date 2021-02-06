@@ -1,6 +1,6 @@
 {
-    "platform_cube_med1": {
-        "act": true,
+    "platform_cube_big1": {
+        "act": false,
         "aid": 0,
         "anims": [
             {
@@ -9,24 +9,84 @@
                 "sfr": 0
             }
         ],
-        "che": 310.0,
-        "cle": 323.0,
-        "cox": 20.0,
-        "coy": 10.0,
-        "cto": 209.0,
-        "cwi": 324.0,
+        "che": 288.0,
+        "cle": -472.3999938964844,
+        "cox": 9.600000381469727,
+        "coy": 6.0,
+        "cto": 33.0,
+        "cwi": 294.0,
         "dep": 0,
-        "eid": "Entity",
+        "eid": "PlatformerTile",
+        "frx": 521,
+        "fry": 502,
+        "pfg": "grapple_platforms",
+        "pfi": "platform_cube_big1",
+        "posx": -482.0,
+        "posy": 27.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 0.6000000238418579,
+        "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+        "vis": true
+    },
+    "platform_cube_med1": {
+        "act": false,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 0
+            }
+        ],
+        "che": 186.0,
+        "cle": -132.0,
+        "cox": 12.0,
+        "coy": 6.0,
+        "cto": 22.0,
+        "cwi": 194.40000915527344,
+        "dep": 0,
+        "eid": "PlatformerTile",
         "frx": 364,
         "fry": 330,
         "pfg": "grapple_platforms",
         "pfi": "platform_cube_med1",
-        "posx": 303.0,
-        "posy": 199.0,
+        "posx": -144.0,
+        "posy": 16.0,
         "rot": 0.0,
         "rpt": true,
-        "scl": 1.0,
+        "scl": 0.6000000238418579,
         "tpath": "\\GrappleHookGame\\platform_cube_medium_1.png",
+        "vis": true
+    },
+    "platform_cube_sma1": {
+        "act": false,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 0
+            }
+        ],
+        "che": 87.0,
+        "cle": 65.4000015258789,
+        "cox": 5.400000095367432,
+        "coy": 3.0,
+        "cto": 127.0,
+        "cwi": 88.80000305175781,
+        "dep": 0,
+        "eid": "PlatformerTile",
+        "frx": 169,
+        "fry": 156,
+        "pfg": "grapple_platforms",
+        "pfi": "platform_cube_sma1",
+        "posx": 59.999996185302734,
+        "posy": 124.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 0.6000000238418579,
+        "tpath": "\\GrappleHookGame\\platform_cube_small_1.png",
         "vis": true
     }
 }

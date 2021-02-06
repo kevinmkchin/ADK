@@ -1264,8 +1264,7 @@ void Scene_Editor::draw_entity_property_ui()
 					ImGui::PopTextWrapPos();
 					ImGui::EndTooltip();
 				}
-				entity_selected_for_properties->get_collider().offset_x = off[0];
-				entity_selected_for_properties->get_collider().offset_y = off[1];
+				entity_selected_for_properties->get_collider().set_offsets(off[0], off[1]);
 
 				float siz[2] = { col.width, col.height };
 				ImGui::InputFloat2("width & height", siz);

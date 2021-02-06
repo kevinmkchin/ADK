@@ -167,8 +167,7 @@ void Entity::set_scale(float newScale, bool bAffectCollider)
 
 	if (bAffectCollider)
 	{
-		collider.offset_x = (collider.offset_x / old_scale_x) * newScale;
-		collider.offset_y = (collider.offset_y / old_scale_y) * newScale;
+		collider.set_offsets((collider.offset_x / old_scale_x) * newScale, (collider.offset_y / old_scale_y) * newScale);
 		collider.width = (collider.width / old_scale_y) * newScale;
 		collider.height = (collider.height / old_scale_y) * newScale;
 	}
@@ -314,12 +313,12 @@ void Entity::copy(Entity& target, const Entity& source)
 	target.set_texture_path_and_load(source.get_texture_path(), true);
 	target.set_active(source.is_active());
 	target.set_visible(source.is_visible());
-	target.set_position(source.get_position());
 	target.set_rotation(source.get_rotation());
 	target.set_scale(source.get_scale());
 	target.set_depth(source.get_depth());
 	target.get_collider().offset_x = source.get_collider_copy().offset_x;
 	target.get_collider().offset_y = source.get_collider_copy().offset_y;
+	target.set_position(source.get_position());
 	target.get_collider().width = source.get_collider_copy().width;
 	target.get_collider().height = source.get_collider_copy().height;
 	target.set_collidable(source.is_collidable());

@@ -4,16 +4,20 @@
 
 struct BoxCollider
 {
-	float left;		// x position
-	float top;		// y position
+	float left;		// x position + x offset
+	float top;		// y position + y offset
 	float width;	// width of box
 	float height;	// height of box
-	float offset_x;	// x offset from left
-	float offset_y;	// y offset from top
+	// Use set_offsets instead of setting value directly. Otherwise left and top don't get updated until the next set_pos call.
+	float offset_x;	// x offset to an input position. Use set_offsets instead of setting value directly.
+	float offset_y;	// y offset to an input position. Use set_offsets instead of setting value directly.
 
 	// Set top-left position of box collider
 	void set_pos(float x, float y);
 	void set_pos(sf::Vector2f pos);
+
+	// Use this instead of 
+	void set_offsets(float x_offset, float y_offset);
 
 	// Move top-left position of box collider
 	void move(float x, float y);
