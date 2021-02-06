@@ -1,7 +1,8 @@
 #include "EntityList.h"
 
 EntityList::EntityList()
-	: b_depth_changed_flag(false)
+	: debug_color(sf::Color(0, 0, 255, 80))
+	, b_depth_changed_flag(false)
 {
 }
 
@@ -61,7 +62,7 @@ void EntityList::render_only(sf::RenderTarget& target, std::vector<Entity*> enti
 		}
 		else
 		{
-			entity->render_debug(target);
+			entity->render_debug(target, debug_color);
 		}
 	}
 }
@@ -83,7 +84,7 @@ void EntityList::render_only_with_depth(sf::RenderTarget& target, std::vector<En
 				}
 				else
 				{
-					entity->render_debug(target);
+					entity->render_debug(target, debug_color);
 				}
 			}
 			else

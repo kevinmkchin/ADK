@@ -90,7 +90,7 @@ void Scene::initialize_scene_view(sf::RenderWindow& window)
 {
 	sf::View view_to_set = window.getView();
 	// Initialize SceneView
-	view_to_set.setCenter(sf::Vector2f(view_config.center_x, view_config.center_y));
+	view_to_set.setCenter(sf::Vector2f(view_config.position_x, view_config.position_y));
 	view_to_set.setSize(sf::Vector2f(view_config.size_x, view_config.size_y));
 	view_to_set.setRotation(view_config.rotation);
 	view_to_set.zoom(view_config.zoom);

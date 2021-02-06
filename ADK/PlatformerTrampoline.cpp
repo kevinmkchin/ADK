@@ -10,7 +10,7 @@ PlatformerTrampoline::PlatformerTrampoline()
 	ADKOBJECT_BEGIN(PlatformerTrampoline)
 	ADKOBJECT_END()
 
-	texture_path = "Game/trampoline.png";
+	texture_path = "Misc/platformer-old/trampoline.png";
 
 	set_frame_size(16, 16);
 

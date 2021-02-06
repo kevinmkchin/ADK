@@ -13,7 +13,7 @@ PlatformerMovingDamageBox::PlatformerMovingDamageBox()
 	ADKOBJECT_BEGIN(PlatformerMovingDamageBox)
 	ADKOBJECT_END()
 
-	texture_path = "Game/blackhole2.png";
+	texture_path = "Misc/platformer-old/blackhole2.png";
 	set_frame_size(16, 16);
 	set_animation_start_frame(0, 0);
 	sprite_sheet.animations[0].anim_duration = sf::seconds(0.4f);

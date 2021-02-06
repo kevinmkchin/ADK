@@ -71,7 +71,7 @@ public:
 	virtual void render(sf::RenderTarget& target);
 
 	// Draw any debug visuals here. Only called if the console is open, but still called even if the Entity is not Visible
-	virtual void render_debug(sf::RenderTarget& target);
+	virtual void render_debug(sf::RenderTarget& target, sf::Color debug_color = sf::Color(0, 0, 255, 80));
 
 	///////////////////////////////////////////////////////////
 

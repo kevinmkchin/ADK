@@ -25,17 +25,20 @@
     <Filter Include="Engine\Entities">
       <UniqueIdentifier>{67e1a4cf-7db5-4ff1-924a-3220891d7c5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlatformerDemo">
-      <UniqueIdentifier>{de767e17-51f2-4d1b-b9b2-e64b85651954}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PlatformerDemo\ActivePlatforms">
-      <UniqueIdentifier>{02dff9d6-ae4d-4bc9-a9c6-9bbbe0c39273}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{57b4f54a-943b-4698-b879-59f9f5ce1c95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlatformerDemo\TriggerBoxes">
+    <Filter Include="Platformer Module">
+      <UniqueIdentifier>{de767e17-51f2-4d1b-b9b2-e64b85651954}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platformer Module\ActivePlatforms">
+      <UniqueIdentifier>{02dff9d6-ae4d-4bc9-a9c6-9bbbe0c39273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platformer Module\TriggerBoxes">
       <UniqueIdentifier>{626ae2b8-3fcb-4863-8a0c-c2146355749c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player Controllers">
+      <UniqueIdentifier>{a7bc39be-c34d-467d-93ec-2605fbde9649}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,29 +87,26 @@
     <ClCompile Include="Engine\TileEntity.cpp">
       <Filter>Engine\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="PlatformerPlayer.cpp">
-      <Filter>PlatformerDemo</Filter>
-    </ClCompile>
     <ClCompile Include="PlatformerActivePlatform.cpp">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+      <Filter>Platformer Module\ActivePlatforms</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerFallingPlatform.cpp">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+      <Filter>Platformer Module\ActivePlatforms</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerMovingPlatform.cpp">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+      <Filter>Platformer Module\ActivePlatforms</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerTrampoline.cpp">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+      <Filter>Platformer Module\ActivePlatforms</Filter>
     </ClCompile>
     <ClCompile Include="Scene_PlatformerGame.cpp">
-      <Filter>PlatformerDemo</Filter>
+      <Filter>Platformer Module</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerTile.cpp">
-      <Filter>PlatformerDemo</Filter>
+      <Filter>Platformer Module</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerOneWayTile.cpp">
-      <Filter>PlatformerDemo</Filter>
+      <Filter>Platformer Module</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ADKCamera.cpp">
       <Filter>Engine\Core</Filter>
@@ -115,16 +115,16 @@
       <Filter>Engine\ADKUtils</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerSpikes.cpp">
-      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+      <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerTriggerBox.cpp">
-      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+      <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerMovingDamageBox.cpp">
-      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+      <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerDamageBox.cpp">
-      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+      <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ADKReflection.cpp">
       <Filter>Engine\ADKUtils</Filter>
@@ -133,7 +133,10 @@
       <Filter>Engine\Entities</Filter>
     </ClCompile>
     <ClCompile Include="PlatformerSpawn.cpp">
-      <Filter>PlatformerDemo</Filter>
+      <Filter>Platformer Module</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformerPlayer.cpp">
+      <Filter>Player Controllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,29 +176,26 @@
     <ClInclude Include="Engine\TileEntity.h">
       <Filter>Engine\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="PlatformerPlayer.h">
-      <Filter>PlatformerDemo</Filter>
-    </ClInclude>
     <ClInclude Include="PlatformerActivePlatform.h">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+      <Filter>Platformer Module\ActivePlatforms</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerFallingPlatform.h">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+      <Filter>Platformer Module\ActivePlatforms</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerMovingPlatform.h">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+      <Filter>Platformer Module\ActivePlatforms</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerTrampoline.h">
-      <Filter>PlatformerDemo\ActivePlatforms</Filter>
+      <Filter>Platformer Module\ActivePlatforms</Filter>
     </ClInclude>
     <ClInclude Include="Scene_PlatformerGame.h">
-      <Filter>PlatformerDemo</Filter>
+      <Filter>Platformer Module</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerTile.h">
-      <Filter>PlatformerDemo</Filter>
+      <Filter>Platformer Module</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerOneWayTile.h">
-      <Filter>PlatformerDemo</Filter>
+      <Filter>Platformer Module</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ADKCamera.h">
       <Filter>Engine\Core</Filter>
@@ -207,16 +207,16 @@
       <Filter>Engine\ADKUtils</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerSpikes.h">
-      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+      <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerTriggerBox.h">
-      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+      <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerMovingDamageBox.h">
-      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+      <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerDamageBox.h">
-      <Filter>PlatformerDemo\TriggerBoxes</Filter>
+      <Filter>Platformer Module\TriggerBoxes</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ADKReflection.h">
       <Filter>Engine\ADKUtils</Filter>
@@ -228,7 +228,10 @@
       <Filter>Engine\Entities</Filter>
     </ClInclude>
     <ClInclude Include="PlatformerSpawn.h">
-      <Filter>PlatformerDemo</Filter>
+      <Filter>Platformer Module</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformerPlayer.h">
+      <Filter>Player Controllers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

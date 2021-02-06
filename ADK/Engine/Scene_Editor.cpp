@@ -5,7 +5,6 @@
 #include <imgui-SFML.h>
 #include "json.hpp"
 
-#include "MoreColors.h"
 #include "ADKMath.h"
 #include "Scene_Editor.h"
 #include "ADKSaveLoad.h"
@@ -66,16 +65,25 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	default_editor_config.big_grid_color.g = config_json["BigGridColorG"];
 	default_editor_config.big_grid_color.b = config_json["BigGridColorB"];
 	default_editor_config.big_grid_color.a = config_json["BigGridColorA"];
+	default_editor_config.collider_debug_color.r = config_json["ColliderDebugColorR"];
+	default_editor_config.collider_debug_color.g = config_json["ColliderDebugColorG"];
+	default_editor_config.collider_debug_color.b = config_json["ColliderDebugColorB"];
+	default_editor_config.collider_debug_color.a = config_json["ColliderDebugColorA"];
+	default_editor_config.editor_background_color.r = config_json["EditorBackgroundColorR"];
+	default_editor_config.editor_background_color.g = config_json["EditorBackgroundColorG"];
+	default_editor_config.editor_background_color.b = config_json["EditorBackgroundColorB"];
+	default_editor_config.editor_background_color.a = config_json["EditorBackgroundColorA"];
 	b_debug_render = config_json["bDebugRenderMode"];
-	view_config.size_x = config_json["ViewResolutionX"];
-	view_config.size_y = config_json["ViewResolutionY"];
-	view_config.center_x = config_json["ViewCenterX"];
-	view_config.center_y = config_json["ViewCenterY"];
+	view_config.size_x = config_json["DefaultViewResolutionX"];
+	view_config.size_y = config_json["DefaultViewResolutionY"];
+	view_config.position_x = config_json["DefaultViewPositionX"];
+	view_config.position_y = config_json["DefaultViewPositionY"];
 	if (default_editor_config.big_grid_x == 0 || default_editor_config.big_grid_y == 0)
 	{
 		default_editor_config.big_grid_x = (int)view_config.size_x;
 		default_editor_config.big_grid_y = (int)view_config.size_y;
 	}
+	level_entities.debug_color = active_editor_config.collider_debug_color;
 
 	// Setup window values & active editor config
 	active_editor_config = default_editor_config;
@@ -639,7 +647,7 @@ void Scene_Editor::update_post(float deltaTime)
 
 void Scene_Editor::render_pre(sf::RenderWindow& window)
 {
-
+	window.clear(active_editor_config.editor_background_color);
 }
 
 void Scene_Editor::render(sf::RenderWindow& window)
@@ -967,6 +975,8 @@ void Scene_Editor::draw_entity_property_ui()
 			ImGui::Separator();
 
 			// Choose Texture
+			std::string sinfo = "Current sprite texture: " + entity_selected_for_properties->get_texture_path();
+			ImGui::TextWrapped(sinfo.c_str());
 			if (ImGui::Button("Change Texture"))
 			{
 				texture_dialog.Open();
@@ -981,7 +991,6 @@ void Scene_Editor::draw_entity_property_ui()
 					{
 						std::string path = texture_dialog.GetSelected().string().substr(pos).substr(7);
 						entity_selected_for_properties->set_texture_path_and_load(path);
-						entity_selected_for_properties->match_framesize_to_texture();
 					}
 				}
 				texture_dialog.ClearSelected();
@@ -992,6 +1001,13 @@ void Scene_Editor::draw_entity_property_ui()
 			si[1] = entity_selected_for_properties->sprite_sheet.frame_size.y;
 
 			ImGui::InputInt2("Frame Size", si);
+			ImGui::SameLine();
+			if (ImGui::Button("Reset"))
+			{
+				entity_selected_for_properties->match_framesize_to_texture();
+				si[0] = entity_selected_for_properties->sprite_sheet.frame_size.x;
+				si[1] = entity_selected_for_properties->sprite_sheet.frame_size.y;
+			}
 			entity_selected_for_properties->sprite_sheet.frame_size.x = si[0];
 			entity_selected_for_properties->sprite_sheet.frame_size.y = si[1];
 
@@ -1256,6 +1272,11 @@ void Scene_Editor::draw_entity_property_ui()
 				ADKSaveLoad PrefabSaver;
 				PrefabSaver.save_prefab(entity_selected_for_properties->prefab_group,
 					entity_selected_for_properties->prefab_id, entity_selected_for_properties);
+			}
+			if (entity_selected_for_properties->prefab_id[0] != 0)
+			{
+				std::string pinfo = "This prefab is based on type: " + entity_selected_for_properties->class_description_ptr->type.name.text;
+				ImGui::TextWrapped(pinfo.c_str());
 			}
 		}
 
@@ -1557,12 +1578,12 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 		ImGui::Checkbox("Show Big Grid", &active_editor_config.b_show_big_grid);
 		ImGui::SameLine();
 		ImGui::PushItemWidth(130.f);
-		ImColor bigGridCol = MoreColors::sfcolor_to_imcolor(active_editor_config.big_grid_color);
-		if (ImGui::ColorEdit4("Big Grid Color", (float*)&bigGridCol, ImGuiColorEditFlags_NoInputs))
+		ImColor im_col_temp = MoreColors::sfcolor_to_imcolor(active_editor_config.big_grid_color);
+		if (ImGui::ColorEdit4("Big Grid Color", (float*)&im_col_temp, ImGuiColorEditFlags_NoInputs))
 		{
 			entity_selected_for_creation = nullptr;
 		}
-		active_editor_config.big_grid_color = MoreColors::imcolor_to_sfcolor(bigGridCol);
+		active_editor_config.big_grid_color = MoreColors::imcolor_to_sfcolor(im_col_temp);
 
 		// Background color
 		
@@ -1572,12 +1593,44 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 
 		// Misc
 		ImGui::Checkbox("Debug render mode", &b_debug_render);
+		ImGui::SameLine();
+		// Collider Debug Color
+		im_col_temp = MoreColors::sfcolor_to_imcolor(active_editor_config.collider_debug_color);
+		if (ImGui::ColorEdit4("Collider Debug Color", (float*)&im_col_temp, ImGuiColorEditFlags_NoInputs))
+		{
+			entity_selected_for_creation = nullptr;
+			level_entities.debug_color = active_editor_config.collider_debug_color;
+		}
+		active_editor_config.collider_debug_color = MoreColors::imcolor_to_sfcolor(im_col_temp);
+
+		im_col_temp = MoreColors::sfcolor_to_imcolor(active_editor_config.editor_background_color);
+		if (ImGui::ColorEdit4("Editor Background Color", (float*)&im_col_temp, ImGuiColorEditFlags_NoInputs))
+		{
+			entity_selected_for_creation = nullptr;
+		}
+		active_editor_config.editor_background_color = MoreColors::imcolor_to_sfcolor(im_col_temp);
 
 		// View
-		ImGui::InputFloat("View Resolution X", &view_config.size_x);
-		ImGui::InputFloat("View Resolution Y", &view_config.size_y);
-		ImGui::InputFloat("View Center X", &view_config.center_x);
-		ImGui::InputFloat("View Center Y", &view_config.center_y);
+		ImGui::InputFloat("Default View Resolution X", &view_config.size_x);
+		ImGui::InputFloat("Default View Resolution Y", &view_config.size_y);
+		ImGui::InputFloat("Default View Position X", &view_config.position_x);
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+			ImGui::TextUnformatted("The x position of the CENTER of the view.");
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
+		ImGui::InputFloat("Default View Position Y", &view_config.position_y);
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+			ImGui::TextUnformatted("The y position of the CENTER of the view.");
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
 
 		// Save Config
 		if (ImGui::Button("Save Editor Configs"))
@@ -1608,16 +1661,26 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 			config_json["BigGridColorG"] = active_editor_config.big_grid_color.g;
 			config_json["BigGridColorB"] = active_editor_config.big_grid_color.b;
 			config_json["BigGridColorA"] = active_editor_config.big_grid_color.a;
+			config_json["ColliderDebugColorR"] = active_editor_config.collider_debug_color.r;
+			config_json["ColliderDebugColorG"] = active_editor_config.collider_debug_color.g;
+			config_json["ColliderDebugColorB"] = active_editor_config.collider_debug_color.b;
+			config_json["ColliderDebugColorA"] = active_editor_config.collider_debug_color.a;			
+			config_json["EditorBackgroundColorR"] = active_editor_config.editor_background_color.r;
+			config_json["EditorBackgroundColorG"] = active_editor_config.editor_background_color.g;
+			config_json["EditorBackgroundColorB"] = active_editor_config.editor_background_color.b;
+			config_json["EditorBackgroundColorA"] = active_editor_config.editor_background_color.a;
 			config_json["bDebugRenderMode"] = b_debug_render;
-			config_json["ViewResolutionX"] = view_config.size_x;
-			config_json["ViewResolutionY"] = view_config.size_y;
-			config_json["ViewCenterX"] = view_config.center_x;
-			config_json["ViewCenterY"] = view_config.center_y;
+			config_json["DefaultViewResolutionX"] = view_config.size_x;
+			config_json["DefaultViewResolutionY"] = view_config.size_y;
+			config_json["DefaultViewPositionX"] = view_config.position_x;
+			config_json["DefaultViewPositionY"] = view_config.position_y;
 			// Save config
 			std::ofstream config_stream_engine;
 			config_stream_engine.open("Saved/Config/Editor.json");
 			config_stream_engine << config_json.dump(4);
 			config_stream_engine.close();
+			// Make active_editor_config the default for this session
+			default_editor_config = active_editor_config;
 		}
 
 		if (ImGui::Button("Reset Editor Configs"))
@@ -1650,16 +1713,26 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 			config_json["BigGridColorG"] = default_config.big_grid_color.g;
 			config_json["BigGridColorB"] = default_config.big_grid_color.b;
 			config_json["BigGridColorA"] = default_config.big_grid_color.a;
+			config_json["ColliderDebugColorR"] = default_config.collider_debug_color.r;
+			config_json["ColliderDebugColorG"] = default_config.collider_debug_color.g;
+			config_json["ColliderDebugColorB"] = default_config.collider_debug_color.b;
+			config_json["ColliderDebugColorA"] = default_config.collider_debug_color.a;
+			config_json["EditorBackgroundColorR"] = default_config.editor_background_color.r;
+			config_json["EditorBackgroundColorG"] = default_config.editor_background_color.g;
+			config_json["EditorBackgroundColorB"] = default_config.editor_background_color.b;
+			config_json["EditorBackgroundColorA"] = default_config.editor_background_color.a;
 			config_json["bDebugRenderMode"] = false;
-			config_json["ViewResolutionX"] = default_view.size_x;
-			config_json["ViewResolutionY"] = default_view.size_y;
-			config_json["ViewCenterX"] = default_view.center_x;
-			config_json["ViewCenterY"] = default_view.center_y;
+			view_config.size_x = config_json["DefaultViewResolutionX"];
+			view_config.size_y = config_json["DefaultViewResolutionY"];
+			view_config.position_x = config_json["DefaultViewPositionX"];
+			view_config.position_y = config_json["DefaultViewPositionY"];
 			// Save config
 			std::ofstream config_stream_engine;
 			config_stream_engine.open("Saved/Config/Editor.json");
 			config_stream_engine << config_json.dump(4);
 			config_stream_engine.close();
+			// Make default_editor_config the active one
+			active_editor_config = default_editor_config;
 		}
 
 		ImGui::End();

@@ -6,7 +6,7 @@ PlatformerOneWayTile::PlatformerOneWayTile()
 	ADKOBJECT_BEGIN(PlatformerOneWayTile)
 	ADKOBJECT_END()
 
-	texture_path = "Game/sheet2.png";
+	texture_path = "Misc/platformer-old/sheet2.png";
 
 	set_animation_start_frame(0, 6);
 

@@ -72,13 +72,15 @@ public:
 	//std::vector<Entity*> FindAllWithTags(Tag tag1, Tag tag2, Tag tag3)
 	//std::vector<Entity*> FindAllWithTags(Tag tag1, Tag tag2, Tag tag3, Tag tag4)
 
+public:
+	sf::Color debug_color;
+
 private:
 
 	/* Entities
 	In order of depth (deepest/lowest depth value) first, then within same depth, in order of addition.
 	*/
 	std::vector<Entity*> entities;
-
 
 	// Whether or not to sort this 
 	bool b_depth_changed_flag;
