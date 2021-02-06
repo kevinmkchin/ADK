@@ -4577,6 +4577,13 @@ bool ImGui::IsItemActivated()
     return false;
 }
 
+// kevinmkchin added function
+void ImGui::DeactivateActiveItem()
+{
+    ImGuiContext& g = *GImGui;
+    g.ActiveId = -1;
+}
+
 bool ImGui::IsItemDeactivated()
 {
     ImGuiContext& g = *GImGui;

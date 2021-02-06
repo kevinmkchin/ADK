@@ -395,7 +395,7 @@ void Entity::update_animations(float deltaTime)
 				else
 				{
 					// Go to next frame if we aren't on the last frame
-					if (sprite_sheet.current_frame - currAnim.start_frame < currAnim.num_frames - 1)
+					if (sprite_sheet.current_frame < currAnim.num_frames - 1)
 					{
 						++sprite_sheet.current_frame;
 					}

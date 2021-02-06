@@ -1113,6 +1113,12 @@ void Scene_Editor::draw_entity_property_ui()
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
 			}
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->sprite_sheet.current_frame
+					= entity_selected_for_properties->sprite_sheet.animations
+					[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame;
+			}
 
 			int selected = static_cast<int>(entity_selected_for_properties->sprite_sheet.selected_animation);
 			ImGui::SliderInt("Anim Index", &selected, 0, entity_selected_for_properties->sprite_sheet.animations.size() - 1);
@@ -1125,6 +1131,12 @@ void Scene_Editor::draw_entity_property_ui()
 				ImGui::TextUnformatted("Select the index of the animation you want to use.");
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
+			}
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->sprite_sheet.current_frame
+					= entity_selected_for_properties->sprite_sheet.animations
+					[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame;
 			}
 
 			ImGui::Dummy(ImVec2(0, 7));
@@ -1158,6 +1170,13 @@ void Scene_Editor::draw_entity_property_ui()
 					ImGui::EndTooltip();
 				}
 				entity_selected_for_properties->sprite_sheet.animations[i].anim_duration = sf::seconds(dur);
+				if (ImGui::IsItemDeactivatedAfterEdit())
+				{
+					entity_selected_for_properties->sprite_sheet.current_frame
+						= entity_selected_for_properties->sprite_sheet.animations
+						[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame;
+				}
+
 				int sframe = static_cast<int>(entity_selected_for_properties->sprite_sheet.animations[i].start_frame);
 				ImGui::InputInt("StartFrame", &sframe);
 				if (ImGui::IsItemHovered())
@@ -1169,6 +1188,13 @@ void Scene_Editor::draw_entity_property_ui()
 					ImGui::EndTooltip();
 				}
 				entity_selected_for_properties->sprite_sheet.animations[i].start_frame = sframe;
+				if (ImGui::IsItemDeactivatedAfterEdit())
+				{
+					entity_selected_for_properties->sprite_sheet.current_frame
+						= entity_selected_for_properties->sprite_sheet.animations
+						[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame;
+				}
+
 				int numFrames = static_cast<int>(entity_selected_for_properties->sprite_sheet.animations[i].num_frames);
 				ImGui::InputInt("# of Frames", &numFrames);				
 				if (ImGui::IsItemHovered())
@@ -1180,6 +1206,12 @@ void Scene_Editor::draw_entity_property_ui()
 					ImGui::EndTooltip();
 				}
 				entity_selected_for_properties->sprite_sheet.animations[i].num_frames = numFrames;
+				if (ImGui::IsItemDeactivatedAfterEdit())
+				{
+					entity_selected_for_properties->sprite_sheet.current_frame
+						= entity_selected_for_properties->sprite_sheet.animations
+						[entity_selected_for_properties->sprite_sheet.selected_animation].start_frame;
+				}
 
 				if (ImGui::Button("Delete this animation"))
 				{
@@ -1778,12 +1810,20 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 	if (ImGui::ColorEdit4("Grid Color", (float*)&gridCol, ImGuiColorEditFlags_NoInputs))
 	{
 		entity_selected_for_creation = nullptr;
+	}	
+	if (ImGui::IsItemActive())
+	{
+		entity_selected_for_creation = nullptr;
 	}
 	active_editor_config.grid_color = MoreColors::imcolor_to_sfcolor(gridCol);
 	ImGui::SameLine();
 
 	ImColor selCol = MoreColors::sfcolor_to_imcolor(active_editor_config.selection_color);
 	if (ImGui::ColorEdit4("Select Color", (float*)&selCol, ImGuiColorEditFlags_NoInputs))
+	{
+		entity_selected_for_creation = nullptr;
+	}
+	if (ImGui::IsItemActive())
 	{
 		entity_selected_for_creation = nullptr;
 	}
@@ -1899,18 +1939,9 @@ void Scene_Editor::initialize_scene_view(sf::RenderWindow& window)
 
 void Scene_Editor::set_entity_selected_for_properties(Entity* newSelection)
 {
-	// Clear the modified sprite color of the last entity
-	if (entity_selected_for_properties != nullptr)
-	{
-		entity_selected_for_properties->get_sprite().setColor(sf::Color::White);
-	}
 	// Set new entity
+	ImGui::DeactivateActiveItem();
 	entity_selected_for_properties = newSelection;
-	// Modify sprite color of new entity
-	if (entity_selected_for_properties != nullptr)
-	{
-		entity_selected_for_properties->get_sprite().setColor(sf::Color::White); // set to whatever modified color u want
-	}
 }
 
 void Scene_Editor::update_editor_config_with_window(sf::RenderWindow& window)
