@@ -14,10 +14,14 @@ PlatformerTrampoline::PlatformerTrampoline()
 
 	set_frame_size(16, 16);
 
-	sprite_sheet.animations[0].anim_duration = sf::seconds(1.f);
-	sprite_sheet.animations[0].num_frames = 16;
+	// animation setup
+	sprite_sheet.animations[0].anim_duration = sf::seconds(0.f);
+	sprite_sheet.animations[0].start_frame = 0;
+	sprite_sheet.animations.push_back(FAnimation());
+	sprite_sheet.animations[1].anim_duration = sf::seconds(1.f);
+	sprite_sheet.animations[1].num_frames = 16;
+	sprite_sheet.animations[1].start_frame = 0;
 	sprite_sheet.b_repeat = false;
-	b_anim_paused = true;
 
 	init_collider();
 }
@@ -89,7 +93,7 @@ void PlatformerTrampoline::collided(Entity* collided_entity)
 		falling_platform->launch_up(-(launch_vel_y / 4.f));
 	}
 
-	b_anim_paused = false;
+	sprite_sheet.selected_animation = 1;
 	sprite_sheet.current_frame = 0;
 	sprite_sheet.elapsed_time = sf::seconds(0.f);
 }
