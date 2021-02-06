@@ -1,0 +1,32 @@
+{
+    "platform_cube_med1": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 0
+            }
+        ],
+        "che": 310.0,
+        "cle": 323.0,
+        "cox": 20.0,
+        "coy": 10.0,
+        "cto": 209.0,
+        "cwi": 324.0,
+        "dep": 0,
+        "eid": "Entity",
+        "frx": 364,
+        "fry": 330,
+        "pfg": "grapple_platforms",
+        "pfi": "platform_cube_med1",
+        "posx": 303.0,
+        "posy": 199.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 1.0,
+        "tpath": "\\GrappleHookGame\\platform_cube_medium_1.png",
+        "vis": true
+    }
+}

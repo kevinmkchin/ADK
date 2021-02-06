@@ -10,10 +10,10 @@
             }
         ],
         "che": 16.0,
-        "cle": 555.0,
+        "cle": 346.0,
         "cox": 0.0,
         "coy": 0.0,
-        "cto": 259.0,
+        "cto": 400.0,
         "cwi": 16.0,
         "dep": -1,
         "eid": "PlatformerFallingPlatform",
@@ -41,8 +41,8 @@
         },
         "pfg": "falling_platforms",
         "pfi": "medium",
-        "posx": 555.0,
-        "posy": 259.0,
+        "posx": 346.0,
+        "posy": 400.0,
         "rot": 0.0,
         "rpt": false,
         "scl": 1.0,
@@ -51,7 +51,7 @@
             "type": "float",
             "value": 800.0
         },
-        "tpath": "\\Game\\fallingplatform_a_16x16.png",
+        "tpath": "\\Misc\\platformer-old\\fallingplatform_a_16x16.png",
         "vis": true
     },
     "small": {
@@ -65,10 +65,10 @@
             }
         ],
         "che": 8.0,
-        "cle": 583.0,
+        "cle": 376.0,
         "cox": 0.0,
         "coy": 0.0,
-        "cto": 259.0,
+        "cto": 413.0,
         "cwi": 8.0,
         "dep": -1,
         "eid": "PlatformerFallingPlatform",
@@ -96,8 +96,8 @@
         },
         "pfg": "falling_platforms",
         "pfi": "small",
-        "posx": 583.0,
-        "posy": 259.0,
+        "posx": 376.0,
+        "posy": 413.0,
         "rot": 0.0,
         "rpt": false,
         "scl": 1.0,
@@ -106,7 +106,7 @@
             "type": "float",
             "value": 800.0
         },
-        "tpath": "\\Game\\fallingplatform_a_8x8.png",
+        "tpath": "\\Misc\\platformer-old\\fallingplatform_a_8x8.png",
         "vis": true
     }
 }

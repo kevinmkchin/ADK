@@ -10,7 +10,7 @@ PlatformerSpawn::PlatformerSpawn()
 	ADKOBJECT_FIELD(spawn_id)
 	ADKOBJECT_END()
 
-	//texture_path = "Game/sheet2.png";
+	//texture_path = "Misc/platformer-old/sheet2.png";
 	//set_frame_size(8, 8);
 	//set_animation_start_frame(0, 5);
 	//sprite_sheet.animations[0].anim_duration = sf::seconds(0.f);

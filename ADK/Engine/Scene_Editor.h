@@ -3,6 +3,7 @@
 #include <imfilebrowser.h>
 
 #include "Scene.h"
+#include "MoreColors.h"
 
 enum ToolMode
 {
@@ -36,6 +37,11 @@ public:
 
 	int depth_filter_lowerbound = -10;
 	int depth_filter_upperbound = 10;
+
+	sf::Color collider_debug_color = sf::Color(0, 0, 255, 80);
+
+	sf::Color editor_background_color = MC_CORNFLOWERBLUE;
+
 	// Tag filter?
 };
 

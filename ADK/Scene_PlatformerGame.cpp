@@ -20,8 +20,8 @@ Scene_PlatformerGame::Scene_PlatformerGame()
 {
 	view_config.size_x = 320.f;
 	view_config.size_y = 180.f;
-	view_config.center_x = 160.f;
-	view_config.center_y = 90.f;
+	view_config.position_x = 160.f;
+	view_config.position_y = 90.f;
 }
 
 void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)

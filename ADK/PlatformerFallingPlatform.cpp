@@ -23,7 +23,7 @@ PlatformerFallingPlatform::PlatformerFallingPlatform()
 	ADKOBJECT_FIELD(launch_up_mult)
 	ADKOBJECT_END()
 
-	texture_path = "Game/fallingplatform_a_24x16.png";
+	texture_path = "Misc/platformer-old/fallingplatform_a_24x16.png";
 	set_frame_size(24, 16);
 	set_animation_start_frame(0, 0);
 	sprite_sheet.animations[0].anim_duration = sf::seconds(initial_delay_seconds);

@@ -88,13 +88,13 @@ void Entity::render(sf::RenderTarget& target)
 	}
 }
 
-void Entity::render_debug(sf::RenderTarget& target)
+void Entity::render_debug(sf::RenderTarget& target, sf::Color debug_color)
 {
 	// Debug collider
 	sf::RectangleShape col;
 	col.setPosition(collider.left, collider.top);
 	col.setSize(sf::Vector2f(collider.width, collider.height));
-	col.setFillColor(sf::Color(0,0,255,80));
+	col.setFillColor(debug_color);
 	target.draw(col);
 }
 

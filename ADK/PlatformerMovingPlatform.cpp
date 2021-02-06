@@ -18,7 +18,7 @@ PlatformerMovingPlatform::PlatformerMovingPlatform()
 	ADKOBJECT_FIELD(pause_at_turn_in_seconds)
 	ADKOBJECT_END()
 
-	texture_path = "Game/movingplatform24x16.png";
+	texture_path = "Misc/platformer-old/movingplatform24x16.png";
 	set_frame_size(24, 16);
 	set_animation_start_frame(0, 0);
 	sprite_sheet.animations[0].anim_duration = sf::seconds(0.2f);

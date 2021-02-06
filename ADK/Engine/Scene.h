@@ -11,12 +11,12 @@ class Engine;
 // Struct for Scene View properties
 struct FViewConfig
 {
-	float center_x = 640.f;
-	float center_y = 360.f;
-	float size_x = 1280.f;
-	float size_y = 720.f;
-	float rotation = 0.f;
-	float zoom = 1.f;
+	float position_x = 640.f; // sfml view center x
+	float position_y = 360.f; // sfml view center y
+	float size_x = 1280.f;    // sfml view size x
+	float size_y = 720.f;     // sfml view size y
+	float rotation = 0.f;     // sfml view rotation
+	float zoom = 1.f;         // sfml view zoom
 };
 
 class Scene
