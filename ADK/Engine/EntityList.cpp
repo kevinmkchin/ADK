@@ -20,12 +20,7 @@ void EntityList::update(float deltaTime)
 		}
 	}
 
-	// Sort the entities by depth only if MarkDepthChanged
-	if (b_depth_changed_flag)
-	{
-		std::sort(entities.begin(), entities.end(), DepthComparator());
-		b_depth_changed_flag = false;
-	}
+	sortby_render_depth();
 }
 
 void EntityList::update_animation_only(float deltaTime)
@@ -35,61 +30,22 @@ void EntityList::update_animation_only(float deltaTime)
 	{
 		entity->update_animations(deltaTime);
 	}
+
+	sortby_render_depth();
 }
 
 void EntityList::render(sf::RenderTarget& target, bool bDebug /*= false*/)
 {
 	// Assume sorted
 	// Render the entities	
-	for (auto& entity : entities)
-	{
-		if (bDebug == false)
-		{
-			if (entity->is_visible())
-			{
-				entity->render(target);
-			}
-		}
-		else
-		{
-			entity->render_debug(target);
-		}
-	}
+	render_only(target, entities, bDebug);
 }
 
 void EntityList::render_with_depth(sf::RenderTarget& target, int lower, int upper, bool bDebug /*= false*/)
 {
 	// Assume sorted
 	// Render the entities	
-	for (auto& entity : entities)
-	{
-		if (entity->get_depth() >= lower)
-		{
-			if (entity->get_depth() <= upper)
-			{
-				if (bDebug == false)
-				{
-					if (entity->is_visible())
-					{
-						entity->render(target);
-					}
-				}
-				else
-				{
-					entity->render_debug(target);
-				}
-			}
-			else
-			{
-				// Don't go through the rest of the list
-				return;
-			}
-		}
-		else
-		{
-			continue;
-		}
-	}
+	render_only_with_depth(target, entities, lower, upper, bDebug);
 }
 
 void EntityList::render_only(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, bool bDebug /*= false*/)
@@ -145,6 +101,17 @@ void EntityList::render_only_with_depth(sf::RenderTarget& target, std::vector<En
 void EntityList::mark_depth_changed()
 {
 	b_depth_changed_flag = true;
+}
+
+void EntityList::sortby_render_depth()
+{
+	// Sort the entities by depth only if MarkDepthChanged
+	if (b_depth_changed_flag)
+	{
+		// TODO make sure this sort is fast as fuck
+		std::sort(entities.begin(), entities.end(), DepthComparator());
+		b_depth_changed_flag = false;
+	}
 }
 
 bool EntityList::add(Entity* newEntity, bool bCheckUnique)

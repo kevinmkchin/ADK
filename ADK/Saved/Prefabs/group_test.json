@@ -29,6 +29,36 @@
         "tpath": "\\Misc\\platformer-sheet.png",
         "vis": true
     },
+    "flower": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.0,
+                "nfr": 1,
+                "sfr": 116
+            }
+        ],
+        "che": 0.0,
+        "cle": 262.0,
+        "cox": 0.0,
+        "coy": 0.0,
+        "cto": 393.0,
+        "cwi": 0.0,
+        "dep": -5,
+        "eid": "Entity",
+        "frx": 16,
+        "fry": 16,
+        "pfg": "group_test",
+        "pfi": "flower",
+        "posx": 262.0,
+        "posy": 393.0,
+        "rot": 0.0,
+        "rpt": true,
+        "scl": 1.0,
+        "tpath": "\\Misc\\platformer-sheet.png",
+        "vis": true
+    },
     "grass": {
         "act": true,
         "aid": 0,
