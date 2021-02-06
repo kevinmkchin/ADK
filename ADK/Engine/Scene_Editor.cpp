@@ -626,7 +626,7 @@ void Scene_Editor::update(float deltaTime)
 		float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
 		float scale = ((len * (mousefromEnt > ogfromEnt ? 1 : -1)) + 280.f) / 280.f;
 
-		entity_selected_for_properties->set_scale(og_scale * scale, b_collision_match_sprite_bound);
+		entity_selected_for_properties->set_scale(og_scale * scale, true);
 	}
 
 	// Decrement copy paste timer
@@ -884,24 +884,41 @@ void Scene_Editor::draw_entity_property_ui()
 			int x = (int) entity_selected_for_properties->get_position().x;
 			int y = (int) entity_selected_for_properties->get_position().y;
 			ImGui::InputInt("X Position", &x);
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->set_position((float)x, (float)y);
+			}
 			ImGui::InputInt("Y Position", &y);
-			entity_selected_for_properties->set_position((float) x, (float) y);
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->set_position((float)x, (float)y);
+			}
 
 			float angle = entity_selected_for_properties->get_rotation();
 			ImGui::InputFloat("Rotation", &angle);
-			entity_selected_for_properties->set_rotation(angle, b_collision_match_sprite_bound);
+			if (ImGui::IsItemActive())
+			{
+				entity_selected_for_properties->set_rotation(angle, b_collision_match_sprite_bound);
+			}
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->set_rotation(angle, b_collision_match_sprite_bound);
+			}
 
-			float scale = entity_selected_for_properties->get_scale();
+			float scale_og = entity_selected_for_properties->get_scale();
+			float scale = scale_og;
 			ImGui::InputFloat("Scale", &scale);
-			entity_selected_for_properties->set_scale(scale, b_collision_match_sprite_bound);
+			if (ImGui::IsItemDeactivated() && scale != scale_og)
+			{
+				entity_selected_for_properties->set_scale(scale, true);
+			}
 
 			int depth = entity_selected_for_properties->get_depth();
 			ImGui::InputInt("Depth", &depth);
-			if (entity_selected_for_properties->get_depth() != depth)
+			if (ImGui::IsItemDeactivatedAfterEdit())
 			{
-				level_entities.mark_depth_changed();
+				entity_selected_for_properties->set_depth(depth);
 			}
-			entity_selected_for_properties->set_depth(depth);
 
 			bool v = entity_selected_for_properties->is_visible();
 			ImGui::Checkbox("Visible", &v);
@@ -913,7 +930,10 @@ void Scene_Editor::draw_entity_property_ui()
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
 			}
-			entity_selected_for_properties->set_visible(v);
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->set_visible(v);
+			}
 
 			bool a = entity_selected_for_properties->is_active();
 			ImGui::Checkbox("Active", &a);
@@ -925,7 +945,10 @@ void Scene_Editor::draw_entity_property_ui()
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
 			}
-			entity_selected_for_properties->set_active(a);
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->set_active(a);
+			}
 
 			ADKClassDescription* class_desc = entity_selected_for_properties->class_description_ptr;
 			if (class_desc->fields.empty() == false)

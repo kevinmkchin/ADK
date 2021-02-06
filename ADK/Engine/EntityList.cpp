@@ -127,6 +127,8 @@ bool EntityList::add(Entity* newEntity, bool bCheckUnique)
 	}
 	// Add at the end
 	entities.push_back(newEntity);
+	// Add this entity list to entity's array of entity lists
+	newEntity->add_entity_list(this);
 	// Mark depth changed
 	mark_depth_changed();
 	return true;
@@ -143,6 +145,10 @@ bool EntityList::remove(Entity* entityToRemove)
 	}
 	// Erase
 	entities.erase(toRemove);
+	
+	// Remove this EntityList from entity's list of entitylists
+	entityToRemove->remove_entity_list(this);
+
 	return true;
 }
 
