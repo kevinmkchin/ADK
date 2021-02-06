@@ -28,6 +28,7 @@ Scene_Editor::Scene_Editor()
 	, default_copy_paste_timer(0.35f)
 	, copy_paste_timer(default_copy_paste_timer)
 	, b_show_config(false)
+	, b_typing_in_textbox(false)
 	, b_show_load_confirm(false)
 	, b_show_save_confirm(false)
 	, b_debug_render(false)
@@ -70,14 +71,14 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	view_config.size_y = config_json["ViewResolutionY"];
 	view_config.center_x = config_json["ViewCenterX"];
 	view_config.center_y = config_json["ViewCenterY"];
-
 	if (default_editor_config.big_grid_x == 0 || default_editor_config.big_grid_y == 0)
 	{
 		default_editor_config.big_grid_x = (int)view_config.size_x;
 		default_editor_config.big_grid_y = (int)view_config.size_y;
 	}
 
-	// Setup window values
+	// Setup window values & active editor config
+	active_editor_config = default_editor_config;
 	update_editor_config_with_window(window);
 
 	// Load button textures
@@ -87,16 +88,6 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 	picker_button.loadFromFile("Assets/adk/button_picker.png");
 
 	render_window_ptr = &window;
-
-	// Make entity of every type to display to editor
-	//for (auto iter = ADKEditorMetaRegistry::Identifiers.begin(); iter != ADKEditorMetaRegistry::Identifiers.end(); ++iter)
-	//{
-	//	Entity* created = ADKEditorMetaRegistry::CreateNewEntity(*iter);
-	//	created->load_default_texture();
-	//	created->entity_id = *iter;
-	//	entity_types.add(created);
-	//	// At this point, Identifiers[0] represents the id of the entity type of entity at EntityTypes.at(0)
-	//}
 
 	// Entity Types from Class Database
 	std::map<std::string, ADKClassDescription*> db = ADKClassDatabase::get_database()->get_all_class_descriptions();
@@ -120,7 +111,6 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 			filenames.push_back(iter->path().string());
 		}
 	}
-
 	ADKSaveLoad PrefabLoader;
 	for (std::size_t i = 0; i < filenames.size(); ++i)
 	{
@@ -131,6 +121,7 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 		prefab_groups.push_back(new_group);
 	}
 
+	// Initialize texture load file dialog
 	texture_dialog = ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
 	texture_dialog.SetTitle("Choose a texture to use");
 	texture_dialog.SetTypeFilters({ ".png", ".jpg" });
@@ -636,6 +627,7 @@ void Scene_Editor::update(float deltaTime)
 		copy_paste_timer -= deltaTime;
 	}
 
+	b_typing_in_textbox = false;
 	// Setup ImGui to draw
 	draw_editor_ui();
 }
@@ -1245,10 +1237,6 @@ void Scene_Editor::draw_entity_property_ui()
 			{
 				b_typing_in_textbox = true;
 			}
-			else
-			{
-				b_typing_in_textbox = false;
-			}
 			ImGui::InputText("Prefab ID", entity_selected_for_properties->prefab_id, 30);
 			if (ImGui::IsItemHovered())
 			{
@@ -1262,10 +1250,6 @@ void Scene_Editor::draw_entity_property_ui()
 			if (ImGui::IsItemActive())
 			{
 				b_typing_in_textbox = true;
-			}
-			else
-			{
-				b_typing_in_textbox = false;
 			}
 			if (ImGui::Button("Save Prefab"))
 			{
@@ -1538,10 +1522,6 @@ void Scene_Editor::draw_menu_and_optionsbar_ui()
 	if (ImGui::IsItemActive())
 	{
 		b_typing_in_textbox = true;
-	}
-	else
-	{
-		b_typing_in_textbox = false;
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Load"))
@@ -1839,13 +1819,19 @@ void Scene_Editor::set_entity_selected_for_properties(Entity* newSelection)
 
 void Scene_Editor::update_editor_config_with_window(sf::RenderWindow& window)
 {
+	// Change default editor config window size
 	default_editor_config.window_size_x = window.getSize().x;
 	default_editor_config.window_size_y = window.getSize().y;
 	default_editor_config.top_left_pixel.x = (int)(0.03f * window.getSize().x);
 	default_editor_config.top_left_pixel.y = (int)(0.04f * window.getSize().y);
 	default_editor_config.bot_right_pixel.x = (int)(0.78f * window.getSize().x + default_editor_config.top_left_pixel.x);
 	default_editor_config.bot_right_pixel.y = (int)(0.738f * window.getSize().y + default_editor_config.top_left_pixel.y);
-	active_editor_config = default_editor_config;
+	// Change active editor config window size
+	active_editor_config.window_size_x = default_editor_config.window_size_x;
+	active_editor_config.window_size_y = default_editor_config.window_size_y;
+	active_editor_config.top_left_pixel = default_editor_config.top_left_pixel;
+	active_editor_config.bot_right_pixel = default_editor_config.bot_right_pixel;
+	// Change editor bg rect size
 	bg_rect = sf::FloatRect((float)active_editor_config.top_left_pixel.x, (float)active_editor_config.top_left_pixel.y,
 		(float)active_editor_config.bot_right_pixel.x - active_editor_config.top_left_pixel.x, (float)active_editor_config.bot_right_pixel.y - active_editor_config.top_left_pixel.y);
 

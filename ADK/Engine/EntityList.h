@@ -18,10 +18,12 @@ public:
 
 	void update_animation_only(float deltaTime);
 
+	// Render the entities of this EntityList
 	void render(sf::RenderTarget& target, bool bDebug = false);
 
 	void render_with_depth(sf::RenderTarget& target, int lower, int upper, bool bDebug = false);
 
+	// Render only the vector of entities given in entitiesToRender
 	void render_only(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, bool bDebug = false);
 
 	void render_only_with_depth(sf::RenderTarget& target, std::vector<Entity*> entitiesToRender, int lower, int upper, bool bDebug = false);
@@ -29,8 +31,12 @@ public:
 	// Sets the depth changed flag to be true which guarantees the list will be sorted (by depth) at the end of the next update tick (or current update tick if this is called during entity update).
 	void mark_depth_changed();
 
+protected:
+	// Call after depth of an entity has changed (and mark_depth_changed) to sort entities by depth
+	void sortby_render_depth();
 	///////////////////////////////////////////////////////////
-
+	
+public:
 
 	///////////////////////////////////////////////////////////
 	// --- ARRAY ---
