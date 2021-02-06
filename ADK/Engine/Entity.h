@@ -4,6 +4,8 @@
 #include "ADKReflection.h"
 #include "BoxCollider.h"
 
+class EntityList;
+
 struct FAnimation
 {
 public:
@@ -162,11 +164,22 @@ public:
 	// Contains the sprite and all visual information
 	FSpriteSheet sprite_sheet;
 
-	//prefab
+	// prefab
 	char prefab_group[20] = "";
 	char prefab_id[20] = "";
 
+
+public:
+	std::vector<EntityList*> get_entity_lists() { return entitylists; }
+
+	// WARNING: This does not add this entity to the given EntityList
+	bool add_entity_list(EntityList* new_list);
+
+	bool remove_entity_list(EntityList* list_to_remove);
+
 protected:
+	// EntityLists that this entity belongs to.
+	std::vector<EntityList*> entitylists;
 
 	/* Texture filepath within Assets folder (e.g. "adk/t_missing.png")
 	TODO remember to set the correct texture path

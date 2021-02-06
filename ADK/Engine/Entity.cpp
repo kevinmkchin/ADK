@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "EntityList.h"
 #include "ADKAssets.h"
 
 
@@ -159,20 +160,28 @@ float Entity::get_scale() const
 }
 void Entity::set_scale(float newScale, bool bAffectCollider)
 {
+	float old_scale_x = sprite_sheet.sprite.getScale().x;
+	float old_scale_y = sprite_sheet.sprite.getScale().y;
+
 	sprite_sheet.sprite.setScale(newScale, newScale);
 
 	if (bAffectCollider)
 	{
-		sf::FloatRect bounds = sprite_sheet.sprite.getGlobalBounds();
-		collider.set_pos(bounds.left, bounds.top);
-		collider.width = bounds.width;
-		collider.height = bounds.height;
+		collider.offset_x = (collider.offset_x / old_scale_x) * newScale;
+		collider.offset_y = (collider.offset_y / old_scale_y) * newScale;
+		collider.width = (collider.width / old_scale_y) * newScale;
+		collider.height = (collider.height / old_scale_y) * newScale;
 	}
 }
 void Entity::set_depth(int newDepth)
 {
 	depth = newDepth;
-	// TODO MARK ENTITY LIST DEPTH CHANGED
+
+	// MARK ENTITY LIST DEPTH CHANGED for each EntityList that this entity belongs to
+	for (EntityList* el : entitylists)
+	{
+		el->mark_depth_changed();
+	}
 }
 
 void Entity::load_default_texture()
@@ -241,6 +250,34 @@ void Entity::set_origin(sf::Vector2f in_origin)
 void Entity::use_origin_for_position(bool b_use)
 {
 	b_use_origin_for_position_private = b_use;
+}
+
+bool Entity::add_entity_list(EntityList* new_list)
+{
+	// Check new_list isn't already added
+	for (EntityList* el : entitylists)
+	{
+		if (el == new_list)
+		{
+			return false;
+		}
+	}
+	// Keep track of new EntityList
+	entitylists.push_back(new_list);
+	return true;
+}
+
+bool Entity::remove_entity_list(EntityList* list_to_remove)
+{
+	std::vector<EntityList*>::iterator to_remove = std::find(entitylists.begin(), entitylists.end(), list_to_remove);
+	int removal_index = std::distance(entitylists.begin(), to_remove);
+	if (removal_index == entitylists.size())
+	{
+		return false;
+	}
+	// Erase entitylist
+	entitylists.erase(to_remove);
+	return true;
 }
 
 void Entity::set_frame_size(int x, int y)
