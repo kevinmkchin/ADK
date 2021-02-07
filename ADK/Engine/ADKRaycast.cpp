@@ -30,8 +30,11 @@ sf::Vector2f ADKRaycast::raycast2d(sf::Vector2f from, sf::Vector2f to, float len
 	{
 		Entity* e = entities->at(i);
 
-		// TODO Check tag of e, if not tag_check, then skip e
-
+		// Check tag of e, if not tag_check, then skip e
+		if (e->has_tag(&tag_check) == false)
+		{
+			continue;
+		}
 
 		BoxCollider col = e->get_collider_copy();
 		float left = col.left;
