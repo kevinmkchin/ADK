@@ -6,11 +6,14 @@
 
 //////////
 
+// Tags to classify different game objects. Maximum 255 diff tags (0 is reserved).
+
 enum Tags : char
 {
-	PLAYER,
-	ENEMY,
-	PLATFORMTILE
+	TAG_DEFAULT = 0,
+	TAG_PLAYER,
+	TAG_ENEMY,
+	TAG_PLATFORMTILE
 
 	// TODO add your own tags here
 };
@@ -177,12 +180,12 @@ public:
 	// Contains the sprite and all visual information
 	FSpriteSheet sprite_sheet;
 
-
-	// prefab
+	// Prefab
 	char prefab_group[20] = "";
 	char prefab_id[20] = "";
 
 
+	// ENTITY LISTS //
 public:
 	std::vector<EntityList*> get_entity_lists() { return entitylists; }
 
@@ -195,6 +198,28 @@ protected:
 	// EntityLists that this entity belongs to.
 	std::vector<EntityList*> entitylists;
 
+	/////////////////
+
+	// TAGS // 
+public:
+	// Assigns the given
+	void assign_tag(Tags tag[], int size = 1);
+
+	void remove_tag(Tags tag[], int size = 1);
+
+	// Checks if this Entity has any of the tags passed as the parameter. 
+	// Can pass size of tag array as well. e.g. size is 3 if we are checking for 3 tags.
+	bool has_tag(Tags tag[], int size = 1);
+
+	// Pass the array that you want populated with the assigned tags of this entity.
+	void get_tags(Tags tag[], int size = 8);
+
+protected:
+	// Keeps track of assigned tags
+	Tags tags[8] = { TAG_DEFAULT, TAG_DEFAULT, TAG_DEFAULT, TAG_DEFAULT, TAG_DEFAULT, TAG_DEFAULT, TAG_DEFAULT, TAG_DEFAULT };
+
+	/////////////////
+
 	/* Texture filepath within Assets folder (e.g. "adk/t_missing.png")
 	TODO remember to set the correct texture path
 	You could also do SetTexturePathAndLoad, but be sure all other essential logic from InitialSpriteSheet will still get done.
@@ -202,9 +227,6 @@ protected:
 	std::string texture_path = "adk/t_missing.png";
 
 	BoxCollider collider;	// Collider
-
-	// TAGS
-
 
 	bool b_begun_play = false;
 

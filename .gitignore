@@ -5,6 +5,9 @@ bin/
 # Uncomment this if you want to ignore the game specific classes
 # Game/
 
+line-count.bat
+line-counter.exe
+
 # VS User-specific files
 *.rsuser
 *.suo

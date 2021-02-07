@@ -279,6 +279,58 @@ bool Entity::remove_entity_list(EntityList* list_to_remove)
 	return true;
 }
 
+void Entity::assign_tag(Tags tag[], int size = 1)
+{
+	for (int i, j = 0; i < 8; ++i)
+	{
+		if (tags[i] == TAG_DEFAULT)
+		{
+			tags[i] = tag[j];
+			++j;
+			if (j >= size)
+			{
+				break;
+			}
+		}
+	}
+}
+
+void Entity::remove_tag(Tags tag[], int size = 1)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			if (tag[i] == tags[j])
+			{
+				tags[j] = TAG_DEFAULT;
+			}
+		}
+	}
+}
+
+bool Entity::has_tag(Tags tag[], int size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			if (tag[i] == tags[j])
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void Entity::get_tags(Tags tag[], int size)
+{
+	char* to = (char*) tag;
+	const char* from = (char*) tags;
+	strncpy(to, from, 8);
+}
+
 void Entity::set_frame_size(int x, int y)
 {
 	sprite_sheet.frame_size.x = x;
