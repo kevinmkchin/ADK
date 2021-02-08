@@ -3,7 +3,8 @@
 #include "Entity.h"
 #include "ADKMath.h"
 
-sf::Vector2f ADKRaycast::raycast2d(sf::Vector2f from, sf::Vector2f to, float len, EntityList* entities, Tags tag_check, Entity*& entity_hit_ptr)
+sf::Vector2f ADKRaycast::raycast2d(sf::Vector2f from, sf::Vector2f to, float len,
+	EntityList* entities, Entity*& entity_hit_ptr, Tags tag_check[], int tag_check_size)
 {
 	// normalized direction
 	sf::Vector2f dir = ADKMath::noramlize_vector(to - from);
@@ -31,7 +32,7 @@ sf::Vector2f ADKRaycast::raycast2d(sf::Vector2f from, sf::Vector2f to, float len
 		Entity* e = entities->at(i);
 
 		// Check tag of e, if not tag_check, then skip e
-		if (e->has_tag(&tag_check) == false)
+		if (e->has_tag(tag_check) == false)
 		{
 			continue;
 		}

@@ -35,7 +35,7 @@ protected:
 	void initialize_gamescene();
 
 	// Init everything only relevant to this level. Called to parse entity list, create player, camera, etc.
-	void initialize_level(sf::RenderWindow& window);
+	void initialize_level();
 
 	// Clean up level, delete dynamically allocated entities, etc.
 	void end_level();

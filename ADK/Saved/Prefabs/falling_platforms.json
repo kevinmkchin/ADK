@@ -1,4 +1,178 @@
 {
+    "gp_big": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.6000000238418579,
+                "nfr": 4,
+                "sfr": 0
+            }
+        ],
+        "che": 119.99999237060547,
+        "cle": -608.0,
+        "cox": 4.0,
+        "coy": 4.0,
+        "cto": -300.0,
+        "cwi": 188.0,
+        "dep": -1,
+        "eid": "PlatformerFallingPlatform",
+        "fall_acceleration": {
+            "offset": 492,
+            "type": "float",
+            "value": 40.0
+        },
+        "frx": 326,
+        "fry": 216,
+        "initial_delay_seconds": {
+            "offset": 488,
+            "type": "float",
+            "value": 0.6000000238418579
+        },
+        "launch_up_mult": {
+            "offset": 516,
+            "type": "float",
+            "value": 1.0
+        },
+        "max_fall_vel": {
+            "offset": 508,
+            "type": "float",
+            "value": 260.0
+        },
+        "ogfp": false,
+        "ogx": 0.0,
+        "ogy": 0.0,
+        "pfg": "falling_platforms",
+        "pfi": "gp_big",
+        "posx": -612.0,
+        "posy": -304.0,
+        "rot": 0.0,
+        "rpt": false,
+        "scl": 0.6000000238418579,
+        "stop_y": {
+            "offset": 496,
+            "type": "float",
+            "value": 800.0
+        },
+        "tpath": "\\GrappleHookGame\\falling_platform_big.png",
+        "vis": true
+    },
+    "gp_med": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.6000000238418579,
+                "nfr": 4,
+                "sfr": 0
+            }
+        ],
+        "che": 85.80000305175781,
+        "cle": -606.2000122070313,
+        "cox": 4.800000190734863,
+        "coy": 3.6000001430511475,
+        "cto": -135.39999389648438,
+        "cwi": 101.4000015258789,
+        "dep": -1,
+        "eid": "PlatformerFallingPlatform",
+        "fall_acceleration": {
+            "offset": 492,
+            "type": "float",
+            "value": 80.0
+        },
+        "frx": 185,
+        "fry": 159,
+        "initial_delay_seconds": {
+            "offset": 488,
+            "type": "float",
+            "value": 0.4000000059604645
+        },
+        "launch_up_mult": {
+            "offset": 516,
+            "type": "float",
+            "value": 1.2999999523162842
+        },
+        "max_fall_vel": {
+            "offset": 508,
+            "type": "float",
+            "value": 260.0
+        },
+        "ogfp": false,
+        "ogx": 0.0,
+        "ogy": 0.0,
+        "pfg": "falling_platforms",
+        "pfi": "gp_med",
+        "posx": -611.0,
+        "posy": -139.0,
+        "rot": 0.0,
+        "rpt": false,
+        "scl": 0.6000000238418579,
+        "stop_y": {
+            "offset": 496,
+            "type": "float",
+            "value": 800.0
+        },
+        "tpath": "\\GrappleHookGame\\falling_platform_med.png",
+        "vis": true
+    },
+    "gp_small": {
+        "act": true,
+        "aid": 0,
+        "anims": [
+            {
+                "adr": 0.6000000238418579,
+                "nfr": 4,
+                "sfr": 0
+            }
+        ],
+        "che": 54.000003814697266,
+        "cle": -599.0,
+        "cox": 3.0,
+        "coy": 3.0,
+        "cto": 3.0,
+        "cwi": 52.20000076293945,
+        "dep": -1,
+        "eid": "PlatformerFallingPlatform",
+        "fall_acceleration": {
+            "offset": 492,
+            "type": "float",
+            "value": 120.0
+        },
+        "frx": 97,
+        "fry": 102,
+        "initial_delay_seconds": {
+            "offset": 488,
+            "type": "float",
+            "value": 0.20000000298023224
+        },
+        "launch_up_mult": {
+            "offset": 516,
+            "type": "float",
+            "value": 1.600000023841858
+        },
+        "max_fall_vel": {
+            "offset": 508,
+            "type": "float",
+            "value": 260.0
+        },
+        "ogfp": false,
+        "ogx": 0.0,
+        "ogy": 0.0,
+        "pfg": "falling_platforms",
+        "pfi": "gp_small",
+        "posx": -602.0,
+        "posy": 0.0,
+        "rot": 0.0,
+        "rpt": false,
+        "scl": 0.6000000238418579,
+        "stop_y": {
+            "offset": 496,
+            "type": "float",
+            "value": 800.0
+        },
+        "tpath": "\\GrappleHookGame\\falling_platform_small.png",
+        "vis": true
+    },
     "medium": {
         "act": true,
         "aid": 0,
@@ -10,44 +184,47 @@
             }
         ],
         "che": 16.0,
-        "cle": 346.0,
+        "cle": -410.0,
         "cox": 0.0,
         "coy": 0.0,
-        "cto": 400.0,
+        "cto": -77.0,
         "cwi": 16.0,
         "dep": -1,
         "eid": "PlatformerFallingPlatform",
         "fall_acceleration": {
-            "offset": 468,
+            "offset": 492,
             "type": "float",
             "value": 80.0
         },
         "frx": 16,
         "fry": 16,
         "initial_delay_seconds": {
-            "offset": 464,
+            "offset": 488,
             "type": "float",
             "value": 0.4000000059604645
         },
         "launch_up_mult": {
-            "offset": 492,
+            "offset": 516,
             "type": "float",
             "value": 1.2999999523162842
         },
         "max_fall_vel": {
-            "offset": 484,
+            "offset": 508,
             "type": "float",
             "value": 260.0
         },
+        "ogfp": false,
+        "ogx": 8.0,
+        "ogy": 8.0,
         "pfg": "falling_platforms",
         "pfi": "medium",
-        "posx": 346.0,
-        "posy": 400.0,
+        "posx": -410.0,
+        "posy": -77.0,
         "rot": 0.0,
         "rpt": false,
         "scl": 1.0,
         "stop_y": {
-            "offset": 472,
+            "offset": 496,
             "type": "float",
             "value": 800.0
         },
@@ -65,44 +242,47 @@
             }
         ],
         "che": 8.0,
-        "cle": 376.0,
+        "cle": -404.0,
         "cox": 0.0,
         "coy": 0.0,
-        "cto": 413.0,
+        "cto": 0.0,
         "cwi": 8.0,
         "dep": -1,
         "eid": "PlatformerFallingPlatform",
         "fall_acceleration": {
-            "offset": 468,
+            "offset": 492,
             "type": "float",
             "value": 120.0
         },
         "frx": 8,
         "fry": 8,
         "initial_delay_seconds": {
-            "offset": 464,
+            "offset": 488,
             "type": "float",
             "value": 0.20000000298023224
         },
         "launch_up_mult": {
-            "offset": 492,
+            "offset": 516,
             "type": "float",
             "value": 1.600000023841858
         },
         "max_fall_vel": {
-            "offset": 484,
+            "offset": 508,
             "type": "float",
             "value": 260.0
         },
+        "ogfp": false,
+        "ogx": 4.0,
+        "ogy": 4.0,
         "pfg": "falling_platforms",
         "pfi": "small",
-        "posx": 376.0,
-        "posy": 413.0,
+        "posx": -404.0,
+        "posy": 0.0,
         "rot": 0.0,
         "rpt": false,
         "scl": 1.0,
         "stop_y": {
-            "offset": 472,
+            "offset": 496,
             "type": "float",
             "value": 800.0
         },

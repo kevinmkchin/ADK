@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\ADKCamera.cpp" />
+    <ClCompile Include="Engine\ADKGameStatics.cpp" />
     <ClCompile Include="Engine\ADKPrefabFactory.cpp" />
     <ClCompile Include="Engine\ADKRaycast.cpp" />
     <ClCompile Include="Engine\ADKReflection.cpp" />
@@ -56,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ADKCamera.h" />
+    <ClInclude Include="Engine\ADKGameStatics.h" />
     <ClInclude Include="Engine\ADKInput.h" />
     <ClInclude Include="Engine\ADKPrefabFactory.h" />
     <ClInclude Include="Engine\ADKRaycast.h" />

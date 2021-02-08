@@ -16,6 +16,9 @@ struct BoxCollider
 	void set_pos(float x, float y);
 	void set_pos(sf::Vector2f pos);
 
+	// Rotate box collider by by around the origin. Can only rotate angles multiple of 90.
+	void rotate(float by, sf::Vector2f origin);
+
 	// Use this instead of 
 	void set_offsets(float x_offset, float y_offset);
 

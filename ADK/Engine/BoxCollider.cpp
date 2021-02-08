@@ -44,6 +44,11 @@ void BoxCollider::set_pos(sf::Vector2f pos)
 	top = offset_y + pos.y;
 }
 
+void BoxCollider::rotate(float by, sf::Vector2f origin)
+{
+	// TODO
+}
+
 void BoxCollider::set_offsets(float x_offset, float y_offset)
 {
 	offset_x = x_offset - offset_x;

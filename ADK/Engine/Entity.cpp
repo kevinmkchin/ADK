@@ -130,7 +130,7 @@ void Entity::set_position(sf::Vector2f newPos)
 	if (b_use_origin_for_position_private)
 	{
 		sprite_sheet.sprite.setPosition(newPos);
-		collider.set_pos(newPos);
+		collider.set_pos(newPos - (origin_private * get_scale()));
 	}
 	else
 	{
@@ -236,12 +236,13 @@ void Entity::set_animation_start_frame(int anim_index, int start_frame)
 
 void Entity::set_origin(float x, float y)
 {
-	origin_private = sf::Vector2f(x, y);
-	get_sprite().setOrigin(origin_private);
+	set_origin(sf::Vector2f(x, y));
 }
 
 void Entity::set_origin(sf::Vector2f in_origin)
 {
+	sf::Vector2f diff = in_origin - origin_private;
+	collider.move(-diff * get_scale());
 	origin_private = in_origin;
 	get_sprite().setOrigin(origin_private);
 }
@@ -279,9 +280,10 @@ bool Entity::remove_entity_list(EntityList* list_to_remove)
 	return true;
 }
 
-void Entity::assign_tag(Tags tag[], int size = 1)
+void Entity::assign_tag(Tags tag[], int size)
 {
-	for (int i, j = 0; i < 8; ++i)
+	int j = 0;
+	for (int i = 0; i < 8; ++i)
 	{
 		if (tags[i] == TAG_DEFAULT)
 		{
@@ -295,7 +297,7 @@ void Entity::assign_tag(Tags tag[], int size = 1)
 	}
 }
 
-void Entity::remove_tag(Tags tag[], int size = 1)
+void Entity::remove_tag(Tags tag[], int size)
 {
 	for (int i = 0; i < size; ++i)
 	{
@@ -326,9 +328,14 @@ bool Entity::has_tag(Tags tag[], int size)
 
 void Entity::get_tags(Tags tag[], int size)
 {
-	char* to = (char*) tag;
-	const char* from = (char*) tags;
-	strncpy(to, from, 8);
+	if (size > 8)
+	{
+		size = 8;
+	}
+	for (int i = 0; i < size; ++i)
+	{
+		tag[i] = tags[i];
+	}
 }
 
 void Entity::set_frame_size(int x, int y)
@@ -359,14 +366,19 @@ void Entity::collided(Entity* collided_entity)
 
 void Entity::copy(Entity& target, const Entity& source)
 {
+	// TODO if you add any properties to the base entity that gets saved and loaded, you probably want to add it here as well
+	// otherwise when you place entities in the editor, they won't copy that property from the prefab
+
 	// Copy base entity fields
 	target.sprite_sheet = source.sprite_sheet;
 	target.set_frame_size(source.sprite_sheet.frame_size.x, source.sprite_sheet.frame_size.y);
 	target.set_texture_path_and_load(source.get_texture_path(), true);
 	target.set_active(source.is_active());
 	target.set_visible(source.is_visible());
-	target.set_rotation(source.get_rotation());
+	target.use_origin_for_position(source.is_using_origin_for_position());
+	target.set_origin(source.get_origin());
 	target.set_scale(source.get_scale());
+	target.set_rotation(source.get_rotation());
 	target.set_depth(source.get_depth());
 	target.get_collider().offset_x = source.get_collider_copy().offset_x;
 	target.get_collider().offset_y = source.get_collider_copy().offset_y;

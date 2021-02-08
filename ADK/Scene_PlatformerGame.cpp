@@ -35,6 +35,8 @@ void Scene_PlatformerGame::begin_scene(sf::RenderWindow& window)
 	player_debug_text.setFont(font);
 	player_debug_text.setCharacterSize(13);
 	player_debug_text.setString("debug");
+
+	// window.setMouseCursorGrabbed(true);
 }
 
 void Scene_PlatformerGame::end_scene(sf::RenderWindow& window)
@@ -114,19 +116,18 @@ void Scene_PlatformerGame::initialize_gamescene()
 
 }
 
-void Scene_PlatformerGame::initialize_level(sf::RenderWindow& window)
+void Scene_PlatformerGame::initialize_level()
 {
 	// Init Player
 	player = new GrapplehookPlayer;
 	player->set_position(50.f, 5.f);
 	player->owning_scene = this;
-	player->render_window_ptr = render_window_ptr;
 
 	// Init Camera
-	camera = new ADKCamera(window);
+	camera = new ADKCamera();
 	camera->set_follow_target(player);
 	camera->set_follow_x(true);
-	camera->set_follow_y(false);
+	camera->set_follow_y(true);
 	player->camera = camera;
 
 	// Add player to level entities list
@@ -174,7 +175,7 @@ void Scene_PlatformerGame::switch_level(std::string level_path)
 	Loader.load_to_scene(level_path, *this); // load new level but don't empty entities
 	active_level_path = level_path;
 
-	initialize_level(*render_window_ptr);
+	initialize_level();
 }
 
 void Scene_PlatformerGame::restart_level()

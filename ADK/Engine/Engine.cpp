@@ -2,6 +2,7 @@
 #include "json.hpp"
 #include "ADKTextures.h"
 #include "ADKTimer.h"
+#include "ADKGameStatics.h"
 
 #include "Scene_Editor.h"
 #include "../Scene_PlatformerGame.h"
@@ -54,12 +55,6 @@ Engine::Engine()
 
 void Engine::run()
 {
-	if (sf::Joystick::isConnected(1))
-	{
-		printf("Joystick is connected.\n");
-		printf("Joystick has %d.\n", sf::Joystick::getButtonCount(1));
-	}
-
 	// Initialize ImGui::SFML process
 	ImGui::SFML::Init(window);
 
@@ -86,6 +81,12 @@ void Engine::run()
 	style->Colors[ImGuiCol_ButtonActive] = ImVec4(0.2f, 0.251f, 0.267f, 1.00f);
 #pragma endregion
 
+	// Init core utils
+	ADKTimer* adk_timer = ADKTimer::get_timer();	// Init ADK Timer singleton
+	ADKGameStatics::engine = this;
+	ADKGameStatics::timer = adk_timer;
+	ADKGameStatics::game_window_static = &window;	// Set game_window in ADKGameStatics
+
 	// Initialize framerate and update times
 	sf::Clock clock;
 	sf::Time time_since_last_update = sf::Time::Zero;
@@ -93,9 +94,6 @@ void Engine::run()
 
 	// Choose the scene
 	switch_active_scene<Scene_Editor>();
-
-	// Init core utils
-	ADKTimer* adk_timer = ADKTimer::get_timer();
 
 	// Game process loop
 	while (window.isOpen())
@@ -188,7 +186,7 @@ void Engine::switch_active_scene(bool b_end_scene /*= false*/)
 	}
 
 	active_scene = new Scene;
-	active_scene->set_engine_instance(this);
+	ADKGameStatics::active_scene = active_scene;
 	active_scene->begin_scene(window);
 }
 

@@ -1,10 +1,12 @@
 #include <iostream>
+#include <iostream>
 #include <fstream>
 #include <filesystem>
 #include <imgui.h>
 #include <imgui-SFML.h>
 #include "json.hpp"
 
+#include "ADKGameStatics.h"
 #include "ADKMath.h"
 #include "Scene_Editor.h"
 #include "ADKSaveLoad.h"
@@ -13,7 +15,7 @@
 Scene_Editor::Scene_Editor()
 	: default_editor_config(FEditorConfig())
 	, active_editor_config(default_editor_config)
-	, render_window_ptr(nullptr)
+	, render_window_ptr(ADKGameStatics::game_window_static)
 	, entity_selected_for_creation(nullptr)
 	, entity_selected_for_properties(nullptr)
 	, bg_rect(sf::FloatRect(0.03f * 1600, 0.04f * 900, 0.78f * 1600, 0.738f * 900))
@@ -218,31 +220,65 @@ void Scene_Editor::process_events(sf::Event& event)
 		{
 			sf::IntRect viewWindow(active_editor_config.top_left_pixel.x, active_editor_config.top_left_pixel.y,
 				active_editor_config.bot_right_pixel.x - active_editor_config.top_left_pixel.x, active_editor_config.bot_right_pixel.y - active_editor_config.top_left_pixel.y);
-			for (int i = level_entities.size() - 1; i > -1; --i)
+			sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
+			if (viewWindow.contains(pixelPos))
 			{
-				Entity* at = level_entities.at(i);
-				sf::IntRect spr = at->get_sprite().getTextureRect();
-
-				sf::FloatRect mouseCol = at->get_sprite().getGlobalBounds();
-				sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
 				sf::Vector2f worldPos = (*render_window_ptr).mapPixelToCoords(pixelPos);
-				if (mouseCol.contains(worldPos) 
-					&& at->get_depth() >= active_editor_config.depth_filter_lowerbound 
-					&& at->get_depth() <= active_editor_config.depth_filter_upperbound 
-					&& viewWindow.contains(pixelPos))
+				int depth_of_selected = INT_MAX;
+				if (entity_selected_for_properties)
 				{
-					set_entity_selected_for_properties(at);
-					if (entity_selected_for_properties == at) // This entity is already clicked on
+					depth_of_selected = entity_selected_for_properties->get_depth();
+				}
+
+				std::vector<Entity*> entities_under_mouse;
+				for (int i = level_entities.size() - 1; i > -1; --i)
+				{
+					Entity* at = level_entities.at(i);
+					sf::IntRect spr = at->get_sprite().getTextureRect();
+
+					sf::FloatRect mouseCol = at->get_sprite().getGlobalBounds();
+					if (mouseCol.contains(worldPos)
+						&& at->get_depth() >= active_editor_config.depth_filter_lowerbound
+						&& at->get_depth() <= active_editor_config.depth_filter_upperbound)
 					{
-						b_entity_drag = true;
-						sf::Vector2i pixelPos = sf::Mouse::getPosition(*render_window_ptr);
-						sf::Vector2f worldPos = (*render_window_ptr).mapPixelToCoords(pixelPos);
-						sf::Vector2f entPos = entity_selected_for_properties->get_position();
-						entity_drag_offset = worldPos - entPos;
-						return;
-						//continue; // see if theres anything under it that we are trying to select
+						entities_under_mouse.push_back(at);
 					}
-					return; // don't do the rest of the inputs
+				}
+
+				Entity* e_selected = nullptr;
+				if (entities_under_mouse.size() > 0)
+				{
+					if (entity_selected_for_properties)
+					{
+						std::vector<Entity*>::iterator it_selected
+							= std::find(entities_under_mouse.begin(), entities_under_mouse.end(), entity_selected_for_properties);
+						if (it_selected != entities_under_mouse.end())
+						{
+							int index = it_selected - entities_under_mouse.begin();
+							++index;
+							index %= entities_under_mouse.size();
+							e_selected = entities_under_mouse[index];
+						}
+						else
+						{
+							e_selected = entities_under_mouse[0];
+						}
+					}
+					else
+					{
+						e_selected = entities_under_mouse[0];
+					}
+				}
+
+				if (entity_selected_for_properties != e_selected)
+				{
+					set_entity_selected_for_properties(e_selected);
+				}
+				if (e_selected)
+				{
+					sf::Vector2f entPos = entity_selected_for_properties->get_position();
+					entity_drag_offset = worldPos - entPos;
+					b_entity_drag = true;
 				}
 			}
 		}
@@ -892,6 +928,37 @@ void Scene_Editor::draw_entity_property_ui()
 			if (ImGui::IsItemDeactivatedAfterEdit())
 			{
 				entity_selected_for_properties->set_position((float)x, (float)y);
+			}
+
+			int origin[2];
+			origin[0] = (int)entity_selected_for_properties->get_origin().x;
+			origin[1] = (int)entity_selected_for_properties->get_origin().y;
+			ImGui::InputInt2("Origin", origin);
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Local origin of the entity. The origin is the pivot point for rotations.");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->set_origin((float)origin[0], (float)origin[1]);
+			}
+			bool b_use_o_for_p = entity_selected_for_properties->is_using_origin_for_position();
+			ImGui::Checkbox("Use Origin For Position", &b_use_o_for_p);
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.f);
+				ImGui::TextUnformatted("Does this entity use it's origin for it's position? Otherwise, position refers to the top left point of the sprite.");
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
+			if (ImGui::IsItemDeactivatedAfterEdit())
+			{
+				entity_selected_for_properties->use_origin_for_position(b_use_o_for_p);
 			}
 
 			float angle = entity_selected_for_properties->get_rotation();
@@ -1938,8 +2005,13 @@ void Scene_Editor::initialize_scene_view(sf::RenderWindow& window)
 
 void Scene_Editor::set_entity_selected_for_properties(Entity* newSelection)
 {
+	// Deactivate imgui being edited
+	if (newSelection)
+	{
+		ImGui::DeactivateActiveItem();
+	}
+
 	// Set new entity
-	ImGui::DeactivateActiveItem();
 	entity_selected_for_properties = newSelection;
 }
 

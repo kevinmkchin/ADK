@@ -350,7 +350,7 @@ void PlatformerPlayer::read_input(float dt)
 		}
 
 		// curr_xvel is hella small, just set it to 0
-		if (abs(curr_xvel) <= dec_ground_xvel * dt)
+		if (abs(curr_xvel) <= (b_jumping ? dec_air_xvel : dec_air_xvel) * dt)
 		{
 			curr_xvel = 0.f;
 		}

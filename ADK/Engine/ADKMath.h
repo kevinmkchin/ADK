@@ -49,6 +49,11 @@ namespace ADKMath
 		}
 	}
 
+	// Transformations 
+
+	/* returns the point rotated by theta */
+	
+
 	// RNG
 
 	/*	max inclusive

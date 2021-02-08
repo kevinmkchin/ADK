@@ -50,8 +50,6 @@ public:
 	// Called after rendering.
 	virtual void render_post(sf::RenderWindow& window);
 
-	void set_engine_instance(Engine* in_engine);
-
 	// Call to pause or unpause update. pause_in_seconds is how long to pause update for before resuming.
 	void pause_update(bool b_pause, float in_pause_in_seconds = -1.f);
 	bool is_update_paused() const;
@@ -75,8 +73,5 @@ protected:
 
 	// Reference to engine instance
 	Engine* engine_ptr;
-
-	// Reference to render window
-	sf::RenderWindow* render_window_ptr;
 
 };
