@@ -109,27 +109,7 @@ void Scene_Editor::begin_scene(sf::RenderWindow& window)
 		entity_types.add(created);
 	}
 
-	// Prefabs from Prefabs Folder
-	std::string prefabs_directory = "Saved/Prefabs/";
-	namespace stdfs = std::filesystem;
-	std::vector<std::string> filenames;
-	const stdfs::directory_iterator end{};
-	for (stdfs::directory_iterator iter{ prefabs_directory }; iter != end; ++iter)
-	{
-		if (stdfs::is_regular_file(*iter))	// http://en.cppreference.com/w/cpp/experimental/fs/is_regular_file 
-		{
-			filenames.push_back(iter->path().string());
-		}
-	}
-	ADKSaveLoad PrefabLoader;
-	for (std::size_t i = 0; i < filenames.size(); ++i)
-	{
-		EntityList* new_group = new EntityList;
-		std::string name = filenames.at(i);
-		name = name.substr(prefabs_directory.length());
-		PrefabLoader.load_prefab_group(name.c_str(), new_group);
-		prefab_groups.push_back(new_group);
-	}
+	load_prefabs();
 
 	// Initialize texture load file dialog
 	texture_dialog = ImGui::FileBrowser(ImGuiFileBrowserFlags_SelectDirectory);
@@ -1393,6 +1373,7 @@ void Scene_Editor::draw_entity_property_ui()
 				ADKSaveLoad PrefabSaver;
 				PrefabSaver.save_prefab(entity_selected_for_properties->prefab_group,
 					entity_selected_for_properties->prefab_id, entity_selected_for_properties);
+				load_prefabs();
 			}
 			if (entity_selected_for_properties->prefab_id[0] != 0)
 			{
@@ -2103,4 +2084,37 @@ void Scene_Editor::brush_place_helper()
 	set_entity_selected_for_properties(created);
 
 	//std::cout << "Placed " << created->EntityId << " at x: " << worldPos.x << "  y: " << worldPos.y << std::endl;
+}
+
+void Scene_Editor::load_prefabs()
+{
+	for (int i = prefab_groups.size() - 1; i != -1; --i)
+	{
+		EntityList* to_delete = prefab_groups.at(i);
+		to_delete->remove_and_destroy_all();
+		delete to_delete;
+	}
+	prefab_groups.clear();
+
+	// Prefabs from Prefabs Folder
+	std::string prefabs_directory = "Saved/Prefabs/";
+	namespace stdfs = std::filesystem;
+	std::vector<std::string> filenames;
+	const stdfs::directory_iterator end{};
+	for (stdfs::directory_iterator iter{ prefabs_directory }; iter != end; ++iter)
+	{
+		if (stdfs::is_regular_file(*iter))	// http://en.cppreference.com/w/cpp/experimental/fs/is_regular_file 
+		{
+			filenames.push_back(iter->path().string());
+		}
+	}
+	ADKSaveLoad PrefabLoader;
+	for (std::size_t i = 0; i < filenames.size(); ++i)
+	{
+		EntityList* new_group = new EntityList;
+		std::string name = filenames.at(i);
+		name = name.substr(prefabs_directory.length());
+		PrefabLoader.load_prefab_group(name.c_str(), new_group);
+		prefab_groups.push_back(new_group);
+	}
 }
