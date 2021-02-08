@@ -1,17 +1,15 @@
 #include "Scene.h"
 #include "Engine.h"
-
+#include "ADKGameStatics.h"
 
 Scene::Scene()
 	: level_entities(EntityList())
-	, engine_ptr(nullptr)
+	, engine_ptr(ADKGameStatics::engine)
 {
 }
 
 void Scene::begin_scene(sf::RenderWindow& window)
 {
-	// Keep reference to game window
-	render_window_ptr = &window;
 	// Initialize scene view based on view config
 	initialize_scene_view(window);
 	// Set key presses to poll repeatedly
@@ -57,11 +55,6 @@ void Scene::render(sf::RenderWindow& window)
 void Scene::render_post(sf::RenderWindow& window)
 {
 
-}
-
-void Scene::set_engine_instance(Engine* in_engine)
-{
-	engine_ptr = in_engine;
 }
 
 void Scene::pause_update(bool b_pause, float in_pause_in_seconds)

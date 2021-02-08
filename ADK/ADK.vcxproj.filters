@@ -123,7 +123,6 @@
     <ClCompile Include="PlatformerPlayer.cpp">
       <Filter>Player Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="GrapplehookPlayer.cpp" />
     <ClCompile Include="Engine\ADKReflection.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
@@ -141,6 +140,12 @@
     </ClCompile>
     <ClCompile Include="Engine\EntityList.cpp">
       <Filter>Engine\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GrapplehookPlayer.cpp">
+      <Filter>Player Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ADKGameStatics.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,7 +227,6 @@
     <ClInclude Include="PlatformerPlayer.h">
       <Filter>Player Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="GrapplehookPlayer.h" />
     <ClInclude Include="Engine\ADKReflection.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
@@ -240,6 +244,12 @@
     </ClInclude>
     <ClInclude Include="Engine\EntityList.h">
       <Filter>Engine\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GrapplehookPlayer.h">
+      <Filter>Player Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKGameStatics.h">
+      <Filter>Engine\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

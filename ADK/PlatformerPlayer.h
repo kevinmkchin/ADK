@@ -134,7 +134,7 @@ protected:
 
 #pragma region DUSTEFFECT
 
-private:
+protected:
 
 	float dust_tick_interval_seconds;		// specifies tick interval for dusts
 	int dust_dissipation_chance;			// chance to dissipate on dust tick. out of 100

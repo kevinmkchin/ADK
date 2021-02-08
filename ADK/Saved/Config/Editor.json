@@ -1,8 +1,8 @@
 {
     "BigGridColorA": 255,
-    "BigGridColorB": 0,
-    "BigGridColorG": 0,
-    "BigGridColorR": 255,
+    "BigGridColorB": 122,
+    "BigGridColorG": 88,
+    "BigGridColorR": 64,
     "BigGridSizeX": 1920,
     "BigGridSizeY": 1080,
     "ColliderDebugColorA": 80,
@@ -34,7 +34,7 @@
     "ViewResolutionX": 1280.0,
     "ViewResolutionY": 720.0,
     "bDebugRenderMode": false,
-    "bShowBigGrid": false,
-    "bShowGrid": false,
+    "bShowBigGrid": true,
+    "bShowGrid": true,
     "bSnapGrid": false
 }

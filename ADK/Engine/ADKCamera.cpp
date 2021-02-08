@@ -1,6 +1,7 @@
 #include "ADKCamera.h"
 #include "ADKMath.h"
 #include "Entity.h"
+#include "ADKGameStatics.h"
 
 ADKCamera::ADKCamera()
 	: render_window_ptr(nullptr)
@@ -18,7 +19,7 @@ ADKCamera::ADKCamera()
 	, x_intensity_curr(0.f)
 	, y_intensity_curr(0.f)
 {
-
+	set_window(*ADKGameStatics::game_window_static);
 }
 
 ADKCamera::ADKCamera(sf::RenderWindow& window)

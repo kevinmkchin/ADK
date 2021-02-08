@@ -9,8 +9,5 @@ class TileEntity : public Entity
 public:
 	TileEntity();
 
-protected:
-	virtual void set_frame_size(int x, int y) override;
-
 };
 

@@ -136,7 +136,7 @@ void PlatformerFallingPlatform::update_falling_active()
 	{
 		b_falling_active = false;
 	}
-	else
+	else if (entity_to_collide)
 	{
 		if (collider.will_touch_top(entity_to_collide->get_collider(), 0.01f))
 		{

@@ -14,6 +14,9 @@
 #define VISIBLE_LABEL "vis"
 #define POS_X_LABEL "posx"
 #define POS_Y_LABEL "posy"
+#define ORIGIN_X "ogx"
+#define ORIGIN_Y "ogy"
+#define B_ORIGIN_FOR_POS "ogfp"
 #define ROT_LABEL "rot"
 #define SCALE_LABEL "scl"
 #define DEPTH_LABEL "dep"
@@ -149,6 +152,8 @@ json ADKSaveLoad::jsonify_entity(Entity* const entity)
 	Entity* const e = entity;
 	json item;
 
+	// TODO Save load TAGS
+
 	item[ENTITY_ID_LABEL] = e->class_description_ptr->type.name.text;
 	// Transform + Depth
 	item[TEXTURE_LABEL] = e->get_texture_path();
@@ -156,6 +161,9 @@ json ADKSaveLoad::jsonify_entity(Entity* const entity)
 	item[VISIBLE_LABEL] = e->is_visible();
 	item[POS_X_LABEL] = e->get_position().x;
 	item[POS_Y_LABEL] = e->get_position().y;
+	item[ORIGIN_X] = e->get_origin().x;
+	item[ORIGIN_Y] = e->get_origin().y;
+	item[B_ORIGIN_FOR_POS] = e->is_using_origin_for_position();
 	item[ROT_LABEL] = e->get_rotation();
 	item[SCALE_LABEL] = e->get_scale();
 	item[DEPTH_LABEL] = e->get_depth();
@@ -282,10 +290,16 @@ void ADKSaveLoad::load_entities_from_json(json& entities_json, EntityList* list_
 
 			created->sprite_sheet.animations.push_back(anim);
 		}
+
+		// ORDER HERE IS IMPORTANT!!!*************
+
+		// Scale and origin first
+		created->set_scale(e[SCALE_LABEL]);
+		created->use_origin_for_position(e[B_ORIGIN_FOR_POS]);
+		created->set_origin(sf::Vector2f(e[ORIGIN_X], e[ORIGIN_Y]));
 		// Load the rest of the entity data
 		created->set_position(e[POS_X_LABEL], e[POS_Y_LABEL]);
 		created->set_rotation(e[ROT_LABEL]);
-		created->set_scale(e[SCALE_LABEL]);
 		created->set_depth(e[DEPTH_LABEL]);
 		created->set_active(e[ACTIVE_LABEL]);
 		created->set_visible(e[VISIBLE_LABEL]);

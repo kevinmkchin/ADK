@@ -159,10 +159,6 @@ public:
 
 	void set_animation_start_frame(int anim_index, int start_frame);
 
-	sf::Vector2f get_origin() const { return origin_private; }
-
-	bool is_using_origin_for_position() const { return b_use_origin_for_position_private; }
-
 	// Should call from constructor of derived classes.
 	virtual void set_frame_size(int x, int y);
 
@@ -172,8 +168,12 @@ public:
 	// Should call from constructor of derived classes.
 	void set_origin(sf::Vector2f in_origin);
 
+	sf::Vector2f get_origin() const { return origin_private; }
+
 	// Should call from constructor of derived classes.
 	void use_origin_for_position(bool b_use);
+
+	bool is_using_origin_for_position() const { return b_use_origin_for_position_private; }
 
 public:
 
