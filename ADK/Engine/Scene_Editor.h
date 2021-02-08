@@ -95,6 +95,9 @@ private:
 	// Create and place a new entity at the brush location
 	void brush_place_helper();
 
+	// Load prefab files in /Saved/Prefabs/
+	void load_prefabs();
+
 private:
 	// Editor Configurations
 	FEditorConfig default_editor_config;
