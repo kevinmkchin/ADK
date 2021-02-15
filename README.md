@@ -2,7 +2,9 @@
 
 ### "Hey, good luck on your engine." - [Noel Berry](https://twitter.com/NoelFB) Aug 14, 2020 at a bouldering gym
 
-<img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">*Greek mythological hero, Ajax the Great*
+<img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">
+
+*Greek mythological hero, Ajax the Great*
 
 
 # [Features Overview Video](https://www.youtube.com/watch?-d6XYUhZG78v=&ab_channel=KevinChin) #
