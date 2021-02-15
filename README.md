@@ -4,6 +4,8 @@
 
 <img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">*Greek mythological hero, Ajax the Great*
 
+[![Features Overview Video](https://img.youtube.com/vi/-d6XYUhZG78/0.jpg)](https://www.youtube.com/watch?v=-d6XYUhZG78)
+
 ## Purpose
 Ayax Development Kit is a collection of tools and resources that one would want in order to create a 2D video game. In essence, ADK is an easy-to-use C++ game engine for building modern 2D games, but it includes several useful game systems such as character controllers, cameras, and common game objects such as trigger boxes. ADK also includes a demo platformer game to study. Whether you take one of the example/demo games and expand upon it or decide to create a new game using the integrated editor, ADK provides the features you need.
 
