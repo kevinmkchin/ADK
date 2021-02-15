@@ -5,9 +5,9 @@
 <img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">*Greek mythological hero, Ajax the Great*
 
 
-## Features Overview Video ##
+# Features Overview Video #
 
-[Watch on YouTube](https://www.youtube.com/watch?-d6XYUhZG78v=&ab_channel=KevinChin)
+# [Watch on YouTube](https://www.youtube.com/watch?-d6XYUhZG78v=&ab_channel=KevinChin) #
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=-d6XYUhZG78" target="_blank"><img src="http://img.youtube.com/vi/-d6XYUhZG78/0.jpg" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
