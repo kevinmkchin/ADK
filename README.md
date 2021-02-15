@@ -4,11 +4,8 @@
 
 <img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">*Greek mythological hero, Ajax the Great*
 
-## Usage
-Just fork the repo and get started. Everything this engine needs is included within this repository. I'm working on ADK using Visual Studio 2019. If you want to compile ADK, you should consider using this IDE. This project only targets Windows. The VS project files are configured to compile with all the dependencies. The first time you build the project, the program will abort due to missing .dlls. You simply need to copy the .dlls from /Dependencies/SFML/bin/ into the executable output directory (which might be something like: /bin/Win32/Debug/). You will notice for each SFML library, there are two versions: sfml\-\*-2.dll and sfml\-\*-d-2.dll. The *-d-2.dll libraries are the ones you need when compiling in Debug configuration, and *-2.dll libraries are the ones you need when compiling in Release.
-
 ## Purpose
-ADK is a few things. ADK is a C++ game engine providing tools for building modern 2D games. ADK is a collection of useful game systems such as pathfinding, inventory, and character controllers. ADK is the open source repository for several games that I'm working on. Essentially, I'm trying to provide all the resources and tools that one would want in order to create a 2D video game. Whether you take one of the example/demo games and expand upon it or decide to create a new game using the integrated editor, ADK provides the features you need.
+Ayax Development Kit is a collection of tools and resources that one would want in order to create a 2D video game. In essence, ADK is an easy-to-use C++ game engine for building modern 2D games, but it includes several useful game systems such as character controllers, cameras, and common game objects such as trigger boxes. ADK also includes a demo platformer game to study. Whether you take one of the example/demo games and expand upon it or decide to create a new game using the integrated editor, ADK provides the features you need.
 
 <img src="https://i.imgur.com/HRosCqM.png" alt="ayax screenshot 1" width="854" height="480">
 
@@ -40,21 +37,22 @@ If I was going to create my own custom C++ game engine, I needed it to be better
   - Entities can have variable depth, allowing for parallax effects and other cool tricks
 - **Reference Counted Resource Management**
   - Automatic reference counting ensures resources are acquired when needed and freed when they are not
+- **Tags**
+  - Tags help you identify game objects during runtime. Without knowing the type of the object, we can simply check the object's tags and know whether or not that object can or cannot do certain things or has or doesn't have certain properties. A Tag is a reference word which you can assign to one or more game objects.
 
 <img src="https://i.imgur.com/Fl24SvW.png" alt="ayax screenshot 3" width="854" height="480">
 
 ## Planned Features
-- TAGS!!!
-- Timelines/Coroutines (https://docs.unity3d.com/Manual/Coroutines.html)
+- Coroutines (https://docs.unity3d.com/Manual/Coroutines.html)
 - Input Manager (to handle multiple keybinds)
-- GameInstance class for objects that persist throughout the entire game
 - Sound FX & Music system
 - Particle system
 - Sample GLSL shaders
-- Editor improvements
 
+## Usage
+Just fork the repo and get started. Everything this engine needs is included within this repository. I'm working on ADK using Visual Studio 2019. If you want to compile ADK, you should consider using this IDE. This project only targets Windows. The VS project files are configured to compile with all the dependencies. The first time you build the project, the program will abort due to missing .dlls. You simply need to copy the .dlls from /Dependencies/SFML/bin/ into the executable output directory (which might be something like: /bin/Win32/Debug/). You will notice for each SFML library, there are two versions: sfml\-\*-2.dll and sfml\-\*-d-2.dll. The *-d-2.dll libraries are the ones you need when compiling in Debug configuration, and *-2.dll libraries are the ones you need when compiling in Release.
 
-## PrOGress
+## Progress
 ### Dev Logs
 [dev log 1](https://www.youtube.com/watch?v=1ZRrF1_dG0k)
 
