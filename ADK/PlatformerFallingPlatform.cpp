@@ -1,6 +1,6 @@
 #include "PlatformerFallingPlatform.h"
 #include "PlatformerOneWayTile.h"
-#include "PlatformerPlayer.h"
+#include "GrapplehookPlayer.h"
 #include "Engine/ADKCamera.h"
 #include "Engine/EntityList.h"
 
@@ -22,6 +22,8 @@ PlatformerFallingPlatform::PlatformerFallingPlatform()
 	ADKOBJECT_FIELD(max_fall_vel)
 	ADKOBJECT_FIELD(launch_up_mult)
 	ADKOBJECT_END()
+
+	tags[0] = TAG_PLATFORMTILE;
 
 	texture_path = "Misc/platformer-old/fallingplatform_a_24x16.png";
 	set_frame_size(24, 16);
@@ -116,6 +118,9 @@ void PlatformerFallingPlatform::update(float deltaTime)
 				{
 					entity_to_collide->move(0.f, curr_fall_vel * deltaTime);
 				}
+
+				// move grapple hook
+				entity_to_collide->move_hook(sf::Vector2f(0.f, curr_fall_vel * deltaTime), this);
 			}
 
 			// move block

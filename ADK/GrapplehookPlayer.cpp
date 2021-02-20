@@ -64,6 +64,7 @@ GrapplehookPlayer::GrapplehookPlayer()
 	set_frame_size(64, 64);
 
 	b_left_mouse_down = false;
+	hooked_entity = nullptr;
 	// GrappleHookPlayer
 	hook_start_offset = sf::Vector2f((float)(sprite_sheet.frame_size.x / 2), (float)(sprite_sheet.frame_size.x / 2));
 	hook_max_len = 3000.f;
@@ -123,6 +124,14 @@ void GrapplehookPlayer::render(sf::RenderTarget& target)
 	}
 }
 
+void GrapplehookPlayer::move_hook(sf::Vector2f move, Entity* calledby)
+{
+	if (b_hook_active && calledby == hooked_entity)
+	{
+		hook_pos += move;
+	}
+}
+
 void GrapplehookPlayer::read_input(float dt)
 {
 	// input pause
@@ -174,6 +183,7 @@ void GrapplehookPlayer::read_input(float dt)
 			Entity* hitguy = nullptr;
 			Tags tile_tag = TAG_PLATFORMTILE;
 			hook_pos = ADKRaycast::raycast2d(get_position() + hook_start_offset, world_pos, hook_max_len, collidable_platforms, hitguy, &tile_tag);
+			hooked_entity = hitguy;
 
 			b_hook_active = hitguy != nullptr;
 		}

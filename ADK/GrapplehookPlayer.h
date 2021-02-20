@@ -14,6 +14,8 @@ public:
 
 	virtual void render(sf::RenderTarget& target) override;
 
+	void move_hook(sf::Vector2f move, Entity* calledby);
+
 protected:
 
 	virtual void read_input(float dt) override; // also updates velocities etc
@@ -27,6 +29,7 @@ private:
 
 	bool b_left_mouse_down;
 
+	Entity* hooked_entity;
 	sf::Vector2f hook_start_offset;		// offset to player position for hook start
 	float hook_max_len;					// max length grapple hook can reach before having to retract
 	sf::Vector2f hook_pos;				// world position of hook "tip". This is the pivot for our grapple hook.

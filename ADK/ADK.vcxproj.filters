@@ -40,6 +40,9 @@
     <Filter Include="Player Controllers">
       <UniqueIdentifier>{a7bc39be-c34d-467d-93ec-2605fbde9649}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\MenuUI">
+      <UniqueIdentifier>{9f1435e3-402e-4970-96b3-17ea6f65f8bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -147,6 +150,15 @@
     <ClCompile Include="Engine\ADKGameStatics.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Scene_MainMenu.cpp">
+      <Filter>Platformer Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Options.cpp">
+      <Filter>Platformer Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ADKMenu.cpp">
+      <Filter>Engine\MenuUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Scene.h">
@@ -250,6 +262,15 @@
     </ClInclude>
     <ClInclude Include="Engine\ADKGameStatics.h">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_MainMenu.h">
+      <Filter>Platformer Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Options.h">
+      <Filter>Platformer Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ADKMenu.h">
+      <Filter>Engine\MenuUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
