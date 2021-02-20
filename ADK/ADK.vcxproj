@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\ADKCamera.cpp" />
     <ClCompile Include="Engine\ADKGameStatics.cpp" />
+    <ClCompile Include="Engine\ADKMenu.cpp" />
     <ClCompile Include="Engine\ADKPrefabFactory.cpp" />
     <ClCompile Include="Engine\ADKRaycast.cpp" />
     <ClCompile Include="Engine\ADKReflection.cpp" />
@@ -53,12 +54,15 @@
     <ClCompile Include="PlatformerSpikes.cpp" />
     <ClCompile Include="PlatformerTrampoline.cpp" />
     <ClCompile Include="PlatformerTriggerBox.cpp" />
+    <ClCompile Include="Scene_MainMenu.cpp" />
+    <ClCompile Include="Scene_Options.cpp" />
     <ClCompile Include="Scene_PlatformerGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ADKCamera.h" />
     <ClInclude Include="Engine\ADKGameStatics.h" />
     <ClInclude Include="Engine\ADKInput.h" />
+    <ClInclude Include="Engine\ADKMenu.h" />
     <ClInclude Include="Engine\ADKPrefabFactory.h" />
     <ClInclude Include="Engine\ADKRaycast.h" />
     <ClInclude Include="Engine\ADKReflection.h" />
@@ -89,6 +93,8 @@
     <ClInclude Include="PlatformerSpikes.h" />
     <ClInclude Include="PlatformerTrampoline.h" />
     <ClInclude Include="PlatformerTriggerBox.h" />
+    <ClInclude Include="Scene_MainMenu.h" />
+    <ClInclude Include="Scene_Options.h" />
     <ClInclude Include="Scene_PlatformerGame.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

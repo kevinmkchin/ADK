@@ -1,5 +1,5 @@
 #include "PlatformerMovingPlatform.h"
-#include "PlatformerPlayer.h"
+#include "GrapplehookPlayer.h"
 #include "Engine/ADKMath.h"
 
 ADKOBJECT(PlatformerMovingPlatform)
