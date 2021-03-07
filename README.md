@@ -1,10 +1,8 @@
 # ADK (Ayax Development Kit)
 
+<img src="https://github.com/kevinmkchin/kevinmkchin.github.io/blob/master/thumbnails/adk-levelcreation.gif" alt="level creation gif" width="600" height="338">
+
 ### "Hey, good luck on your engine." - [Noel Berry](https://twitter.com/NoelFB) Aug 14, 2020 at a bouldering gym
-
-<img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">
-
-*Greek mythological hero, Ajax the Great*
 
 # Features Overview Video #
 [Watch on YouTube](https://www.youtube.com/watch?v=-d6XYUhZG78&ab_channel=KevinChin)
@@ -48,6 +46,10 @@ If I was going to create my own custom C++ game engine, I needed it to be better
   - Tags help you identify game objects during runtime. Without knowing the type of the object, we can simply check the object's tags and know whether or not that object can or cannot do certain things or has or doesn't have certain properties. A Tag is a reference word which you can assign to one or more game objects.
 
 <img src="https://i.imgur.com/Fl24SvW.png" alt="ayax screenshot 3" width="854" height="480">
+
+<img src="https://i.imgur.com/4ze1jne.png" alt="ayax logo" width="200" height="200">
+
+*Greek mythological hero, Ajax the Great*
 
 ## Planned Features
 - Coroutines (https://docs.unity3d.com/Manual/Coroutines.html)
