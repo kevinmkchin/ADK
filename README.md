@@ -28,7 +28,7 @@ If I was going to create my own custom C++ game engine, I needed it to be better
   - Integrated editor allows for working very close to the final product compared to using an external editor
   - Directly placing entities (which is possible because the editor is integrated) means levels aren't confined to a grid
   - Configure sprites, collisions, and animations all within the editor
-- **Code Reflection**
+- **Code Reflection / Metaprogramming**
   - Expose class fields to the editor. This is very useful in level creation; for example you can change the speed of certain enemies from within the editor. This means different instances of the same enemy class can have varying speeds. Reflection is very powerful.
 - **Animation System**
   - Easy to configure multiple animations from a single spritesheet
