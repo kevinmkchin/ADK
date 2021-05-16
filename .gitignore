@@ -1,6 +1,9 @@
 Debug/
 Release/
 bin/
+build/
+.idea
+cmake-build-debug/
 
 # Uncomment this if you want to ignore the game specific classes
 # Game/
