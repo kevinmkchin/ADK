@@ -4,10 +4,19 @@
 
 ### "Hey, good luck on your engine." - [Noel Berry](https://twitter.com/NoelFB) Aug 14, 2020 at a bouldering gym
 
-# Features Overview Video #
+## Features Overview Trailer
 [Watch on YouTube](https://www.youtube.com/watch?v=-d6XYUhZG78&ab_channel=KevinChin)
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=-d6XYUhZG78" target="_blank"><img src="http://img.youtube.com/vi/-d6XYUhZG78/0.jpg" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+## How to Build and Run
+Everything that ADK needs is included in this repository.
+### Windows
+- Run build-win32-cmake.bat (requires [CMake](https://cmake.org/))
+- Run run.bat (with argument "vs" if you want to launch Visual Studio to debug)
+- That's it
+
+If you want to use an IDE like CLion or Visual Studio, make sure to [set the "Working Directory"](https://stackoverflow.com/questions/25834878/how-do-i-change-the-working-directory-for-my-program) to the */data* directory at the root of this repo.
 
 ## Purpose
 Ayax Development Kit is a collection of tools and resources that one would want in order to create a 2D video game. In essence, ADK is an easy-to-use C++ game engine for building modern 2D games, but it includes several useful game systems such as character controllers, cameras, and common game objects such as trigger boxes. ADK also includes a demo platformer game to study. Whether you take one of the example/demo games and expand upon it or decide to create a new game using the integrated editor, ADK provides the features you need.
@@ -56,10 +65,6 @@ If I was going to create my own custom C++ game engine, I needed it to be better
 - Input Manager (to handle multiple keybinds)
 - Sound FX & Music system
 - Particle system
-- Sample GLSL shaders
-
-## Usage
-Just fork the repo and get started. Everything this engine needs is included within this repository. I'm working on ADK using Visual Studio 2019. If you want to compile ADK, you should consider using this IDE. This project only targets Windows. The VS project files are configured to compile with all the dependencies. The first time you build the project, the program will abort due to missing .dlls. You simply need to copy the .dlls from /Dependencies/SFML/bin/ into the executable output directory (which might be something like: /bin/Win32/Debug/). You will notice for each SFML library, there are two versions: sfml\-\*-2.dll and sfml\-\*-d-2.dll. The *-d-2.dll libraries are the ones you need when compiling in Debug configuration, and *-2.dll libraries are the ones you need when compiling in Release.
 
 ## Progress
 ### Dev Logs
@@ -72,5 +77,3 @@ Just fork the repo and get started. Everything this engine needs is included wit
 [dev log 4 - platformer showcase](https://www.youtube.com/watch?v=YY4cDHtUP5A)
 
 [dev log 5 - Improved Engine Workflow, Platformer Game Progress, Camera Class](https://youtu.be/AYnVYH03Bl0)
-
-### Screenshots
