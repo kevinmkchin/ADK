@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
 #include "PlatformerPlayer.h"
-#include "Engine/EntityList.h"
-#include "Engine/ADKCamera.h"
+#include "../Engine/EntityList.h"
+#include "../Engine/ADKCamera.h"
 #include "Scene_PlatformerGame.h"
 
 #include "PlatformerOneWayTile.h"

@@ -1,13 +1,12 @@
 #include <vector>
-#include <cstdlib>
-#include <time.h>
+#include <ctime>
 #include <filesystem>
 #include "Scene_PlatformerGame.h"
-#include "Engine/ADKSaveLoad.h"
-#include "Engine/MoreColors.h"
-#include "Engine/ADKCamera.h"
-#include "Engine/ADKMath.h"
-#include "Engine/ADKTimer.h"
+#include "../Engine/ADKSaveLoad.h"
+#include "../Engine/MoreColors.h"
+#include "../Engine/ADKCamera.h"
+#include "../Engine/ADKMath.h"
+#include "../Engine/ADKTimer.h"
 
 #include "GrapplehookPlayer.h"
 #include "PlatformerTriggerBox.h"
