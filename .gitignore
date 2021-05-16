@@ -4,6 +4,7 @@ bin/
 build/
 .idea
 cmake-build-*
+backups/
 
 # Uncomment this if you want to ignore the game specific classes
 # Game/
