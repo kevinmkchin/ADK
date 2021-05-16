@@ -5,7 +5,7 @@
 #include "Scene.h"
 #include "ADKReflection.h"
 
-#define LEVELPATH "Assets\\Levels\\"
+#define LEVELPATH "Assets/Levels/"
 
 #define ENTITIES "entities"
 #define ENTITY_ID_LABEL "eid"

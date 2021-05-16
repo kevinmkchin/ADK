@@ -1,0 +1,1194 @@
+{
+    "entities": [
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 119.99999237060547,
+            "cle": -371.0,
+            "cox": 4.0,
+            "coy": 4.0,
+            "cto": 198.0,
+            "cwi": 188.0,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 492,
+                "type": "float",
+                "value": 40.0
+            },
+            "frx": 326,
+            "fry": 216,
+            "initial_delay_seconds": {
+                "offset": 488,
+                "type": "float",
+                "value": 0.6000000238418579
+            },
+            "launch_up_mult": {
+                "offset": 516,
+                "type": "float",
+                "value": 1.0
+            },
+            "max_fall_vel": {
+                "offset": 508,
+                "type": "float",
+                "value": 260.0
+            },
+            "ogfp": false,
+            "ogx": 0.0,
+            "ogy": 0.0,
+            "pfg": "falling_platforms",
+            "pfi": "gp_big",
+            "posx": -375.0,
+            "posy": 194.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 0.6000000238418579,
+            "stop_y": {
+                "offset": 496,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\GrappleHookGame\\falling_platform_big.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 119.99999237060547,
+            "cle": -691.0,
+            "cox": 4.0,
+            "coy": 4.0,
+            "cto": 309.0,
+            "cwi": 188.0,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 492,
+                "type": "float",
+                "value": 40.0
+            },
+            "frx": 326,
+            "fry": 216,
+            "initial_delay_seconds": {
+                "offset": 488,
+                "type": "float",
+                "value": 0.6000000238418579
+            },
+            "launch_up_mult": {
+                "offset": 516,
+                "type": "float",
+                "value": 1.0
+            },
+            "max_fall_vel": {
+                "offset": 508,
+                "type": "float",
+                "value": 260.0
+            },
+            "ogfp": false,
+            "ogx": 0.0,
+            "ogy": 0.0,
+            "pfg": "falling_platforms",
+            "pfi": "gp_big",
+            "posx": -695.0,
+            "posy": 305.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 0.6000000238418579,
+            "stop_y": {
+                "offset": 496,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\GrappleHookGame\\falling_platform_big.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 119.99999237060547,
+            "cle": 838.0,
+            "cox": 4.0,
+            "coy": 4.0,
+            "cto": 327.0,
+            "cwi": 188.0,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 492,
+                "type": "float",
+                "value": 40.0
+            },
+            "frx": 326,
+            "fry": 216,
+            "initial_delay_seconds": {
+                "offset": 488,
+                "type": "float",
+                "value": 0.6000000238418579
+            },
+            "launch_up_mult": {
+                "offset": 516,
+                "type": "float",
+                "value": 1.0
+            },
+            "max_fall_vel": {
+                "offset": 508,
+                "type": "float",
+                "value": 260.0
+            },
+            "ogfp": false,
+            "ogx": 0.0,
+            "ogy": 0.0,
+            "pfg": "falling_platforms",
+            "pfi": "gp_big",
+            "posx": 834.0,
+            "posy": 323.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 0.6000000238418579,
+            "stop_y": {
+                "offset": 496,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\GrappleHookGame\\falling_platform_big.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 399.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 356.0,
+            "cwi": 7.0,
+            "dep": -1,
+            "eid": "PlatformerSpikes",
+            "frx": 93,
+            "fry": 56,
+            "ogfp": false,
+            "ogx": 46.0,
+            "ogy": 28.0,
+            "pfg": "grapple_platforms",
+            "pfi": "spikes",
+            "posx": 399.0,
+            "posy": 352.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\spikes.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 441.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 357.0,
+            "cwi": 7.0,
+            "dep": -1,
+            "eid": "PlatformerSpikes",
+            "frx": 93,
+            "fry": 56,
+            "ogfp": false,
+            "ogx": 46.0,
+            "ogy": 28.0,
+            "pfg": "grapple_platforms",
+            "pfi": "spikes",
+            "posx": 441.0,
+            "posy": 353.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\spikes.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 307.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 355.0,
+            "cwi": 7.0,
+            "dep": -1,
+            "eid": "PlatformerSpikes",
+            "frx": 93,
+            "fry": 56,
+            "ogfp": false,
+            "ogx": 46.0,
+            "ogy": 28.0,
+            "pfg": "grapple_platforms",
+            "pfi": "spikes",
+            "posx": 307.0,
+            "posy": 351.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\spikes.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 4.0,
+            "cle": 355.5,
+            "cox": 0.5,
+            "coy": 4.0,
+            "cto": 356.0,
+            "cwi": 7.0,
+            "dep": -1,
+            "eid": "PlatformerSpikes",
+            "frx": 93,
+            "fry": 56,
+            "ogfp": false,
+            "ogx": 46.0,
+            "ogy": 28.0,
+            "pfg": "grapple_platforms",
+            "pfi": "spikes",
+            "posx": 355.0,
+            "posy": 352.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\spikes.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 119.99999237060547,
+            "cle": 1265.0,
+            "cox": 4.0,
+            "coy": 4.0,
+            "cto": 323.0,
+            "cwi": 188.0,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 492,
+                "type": "float",
+                "value": 40.0
+            },
+            "frx": 326,
+            "fry": 216,
+            "initial_delay_seconds": {
+                "offset": 488,
+                "type": "float",
+                "value": 0.6000000238418579
+            },
+            "launch_up_mult": {
+                "offset": 516,
+                "type": "float",
+                "value": 1.0
+            },
+            "max_fall_vel": {
+                "offset": 508,
+                "type": "float",
+                "value": 260.0
+            },
+            "ogfp": false,
+            "ogx": 0.0,
+            "ogy": 0.0,
+            "pfg": "falling_platforms",
+            "pfi": "gp_big",
+            "posx": 1261.0,
+            "posy": 319.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 0.6000000238418579,
+            "stop_y": {
+                "offset": 496,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\GrappleHookGame\\falling_platform_big.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 85.80000305175781,
+            "cle": 1563.800048828125,
+            "cox": 4.800000190734863,
+            "coy": 3.6000001430511475,
+            "cto": -10.399999618530273,
+            "cwi": 101.4000015258789,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 492,
+                "type": "float",
+                "value": 80.0
+            },
+            "frx": 185,
+            "fry": 159,
+            "initial_delay_seconds": {
+                "offset": 488,
+                "type": "float",
+                "value": 0.4000000059604645
+            },
+            "launch_up_mult": {
+                "offset": 516,
+                "type": "float",
+                "value": 1.2999999523162842
+            },
+            "max_fall_vel": {
+                "offset": 508,
+                "type": "float",
+                "value": 260.0
+            },
+            "ogfp": false,
+            "ogx": 0.0,
+            "ogy": 0.0,
+            "pfg": "falling_platforms",
+            "pfi": "gp_med",
+            "posx": 1559.0,
+            "posy": -14.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 0.6000000238418579,
+            "stop_y": {
+                "offset": 496,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\GrappleHookGame\\falling_platform_med.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 85.80000305175781,
+            "cle": 1840.800048828125,
+            "cox": 4.800000190734863,
+            "coy": 3.6000001430511475,
+            "cto": -179.39999389648438,
+            "cwi": 101.4000015258789,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 492,
+                "type": "float",
+                "value": 80.0
+            },
+            "frx": 185,
+            "fry": 159,
+            "initial_delay_seconds": {
+                "offset": 488,
+                "type": "float",
+                "value": 0.4000000059604645
+            },
+            "launch_up_mult": {
+                "offset": 516,
+                "type": "float",
+                "value": 1.2999999523162842
+            },
+            "max_fall_vel": {
+                "offset": 508,
+                "type": "float",
+                "value": 260.0
+            },
+            "ogfp": false,
+            "ogx": 0.0,
+            "ogy": 0.0,
+            "pfg": "falling_platforms",
+            "pfi": "gp_med",
+            "posx": 1836.0,
+            "posy": -183.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 0.6000000238418579,
+            "stop_y": {
+                "offset": 496,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\GrappleHookGame\\falling_platform_med.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 54.000003814697266,
+            "cle": 557.0,
+            "cox": 3.0,
+            "coy": 3.0,
+            "cto": 391.0,
+            "cwi": 52.20000076293945,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 492,
+                "type": "float",
+                "value": 120.0
+            },
+            "frx": 97,
+            "fry": 102,
+            "initial_delay_seconds": {
+                "offset": 488,
+                "type": "float",
+                "value": 0.20000000298023224
+            },
+            "launch_up_mult": {
+                "offset": 516,
+                "type": "float",
+                "value": 1.600000023841858
+            },
+            "max_fall_vel": {
+                "offset": 508,
+                "type": "float",
+                "value": 260.0
+            },
+            "ogfp": false,
+            "ogx": 0.0,
+            "ogy": 0.0,
+            "pfg": "falling_platforms",
+            "pfi": "gp_small",
+            "posx": 554.0,
+            "posy": 388.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 0.6000000238418579,
+            "stop_y": {
+                "offset": 496,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\GrappleHookGame\\falling_platform_small.png",
+            "vis": true
+        },
+        {
+            "act": true,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.6000000238418579,
+                    "nfr": 4,
+                    "sfr": 0
+                }
+            ],
+            "che": 54.000003814697266,
+            "cle": 629.0,
+            "cox": 3.0,
+            "coy": 3.0,
+            "cto": 389.0,
+            "cwi": 52.20000076293945,
+            "dep": -1,
+            "eid": "PlatformerFallingPlatform",
+            "fall_acceleration": {
+                "offset": 492,
+                "type": "float",
+                "value": 120.0
+            },
+            "frx": 97,
+            "fry": 102,
+            "initial_delay_seconds": {
+                "offset": 488,
+                "type": "float",
+                "value": 0.20000000298023224
+            },
+            "launch_up_mult": {
+                "offset": 516,
+                "type": "float",
+                "value": 1.600000023841858
+            },
+            "max_fall_vel": {
+                "offset": 508,
+                "type": "float",
+                "value": 260.0
+            },
+            "ogfp": false,
+            "ogx": 0.0,
+            "ogy": 0.0,
+            "pfg": "falling_platforms",
+            "pfi": "gp_small",
+            "posx": 626.0,
+            "posy": 386.0,
+            "rot": 0.0,
+            "rpt": false,
+            "scl": 0.6000000238418579,
+            "stop_y": {
+                "offset": 496,
+                "type": "float",
+                "value": 800.0
+            },
+            "tpath": "\\GrappleHookGame\\falling_platform_small.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": -153.39999389648438,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": 197.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": -163.0,
+            "posy": 191.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": 242.60000610351563,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": 385.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": 233.0,
+            "posy": 378.9999694824219,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": -842.4000244140625,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": 763.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": -852.0,
+            "posy": 757.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": -1174.4000244140625,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": -45.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": -1184.0,
+            "posy": -51.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 87.0,
+            "cle": -442.6000061035156,
+            "cox": 5.400000095367432,
+            "coy": 3.0,
+            "cto": 37.0,
+            "cwi": 88.80000305175781,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 169,
+            "fry": 156,
+            "ogfp": false,
+            "ogx": 84.0,
+            "ogy": 78.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_sma1",
+            "posx": -448.0,
+            "posy": 34.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_small_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 87.0,
+            "cle": 693.4000244140625,
+            "cox": 5.400000095367432,
+            "coy": 3.0,
+            "cto": 31.0,
+            "cwi": 88.80000305175781,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 169,
+            "fry": 156,
+            "ogfp": false,
+            "ogx": 84.0,
+            "ogy": 78.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_sma1",
+            "posx": 688.0,
+            "posy": 28.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_small_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 186.0,
+            "cle": -813.0,
+            "cox": 12.0,
+            "coy": 6.0,
+            "cto": -639.0,
+            "cwi": 194.40000915527344,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 364,
+            "fry": 330,
+            "ogfp": false,
+            "ogx": 182.0,
+            "ogy": 165.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_med1",
+            "posx": -825.0,
+            "posy": -645.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_medium_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 186.0,
+            "cle": -1269.0,
+            "cox": 12.0,
+            "coy": 6.0,
+            "cto": -648.0,
+            "cwi": 194.40000915527344,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 364,
+            "fry": 330,
+            "ogfp": false,
+            "ogx": 182.0,
+            "ogy": 165.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_med1",
+            "posx": -1281.0,
+            "posy": -654.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_medium_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 186.0,
+            "cle": -181.0,
+            "cox": 12.0,
+            "coy": 6.0,
+            "cto": -1126.0,
+            "cwi": 194.40000915527344,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 364,
+            "fry": 330,
+            "ogfp": false,
+            "ogx": 182.0,
+            "ogy": 165.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_med1",
+            "posx": -193.0,
+            "posy": -1132.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_medium_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": 9.600000381469727,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": -1121.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": 0.0,
+            "posy": -1127.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": 294.6000061035156,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": -926.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": 285.0,
+            "posy": -932.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": 579.5999755859375,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": -685.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": 570.0,
+            "posy": -691.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": 1159.5999755859375,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": -792.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": 1150.0,
+            "posy": -798.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": 1659.5999755859375,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": -1075.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": 1650.0,
+            "posy": -1081.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 288.0,
+            "cle": 1955.5999755859375,
+            "cox": 9.600000381469727,
+            "coy": 6.0,
+            "cto": 425.0,
+            "cwi": 294.0,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 521,
+            "fry": 502,
+            "ogfp": false,
+            "ogx": 260.0,
+            "ogy": 251.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_big1",
+            "posx": 1946.0,
+            "posy": 418.9999694824219,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_big_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 186.0,
+            "cle": 2262.0,
+            "cox": 12.0,
+            "coy": 6.0,
+            "cto": 414.0,
+            "cwi": 194.40000915527344,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 364,
+            "fry": 330,
+            "ogfp": false,
+            "ogx": 182.0,
+            "ogy": 165.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_med1",
+            "posx": 2250.0,
+            "posy": 408.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_medium_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 186.0,
+            "cle": 2763.0,
+            "cox": 12.0,
+            "coy": 6.0,
+            "cto": 80.0,
+            "cwi": 194.40000915527344,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 364,
+            "fry": 330,
+            "ogfp": false,
+            "ogx": 182.0,
+            "ogy": 165.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_med1",
+            "posx": 2751.0,
+            "posy": 73.99999237060547,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_medium_1.png",
+            "vis": true
+        },
+        {
+            "act": false,
+            "aid": 0,
+            "anims": [
+                {
+                    "adr": 0.0,
+                    "nfr": 1,
+                    "sfr": 0
+                }
+            ],
+            "che": 186.0,
+            "cle": 2409.0,
+            "cox": 12.0,
+            "coy": 6.0,
+            "cto": -374.0,
+            "cwi": 194.40000915527344,
+            "dep": 0,
+            "eid": "PlatformerTile",
+            "frx": 364,
+            "fry": 330,
+            "ogfp": false,
+            "ogx": 182.0,
+            "ogy": 165.0,
+            "pfg": "grapple_platforms",
+            "pfi": "platform_cube_med1",
+            "posx": 2397.0,
+            "posy": -380.0,
+            "rot": 0.0,
+            "rpt": true,
+            "scl": 0.6000000238418579,
+            "tpath": "\\GrappleHookGame\\platform_cube_medium_1.png",
+            "vis": true
+        }
+    ]
+}
