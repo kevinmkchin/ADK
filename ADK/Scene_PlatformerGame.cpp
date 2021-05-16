@@ -146,7 +146,7 @@ void Scene_PlatformerGame::initialize_level()
 		// Give player reference to active platforms
 		if (PlatformerActivePlatform* moving_platform = dynamic_cast<PlatformerActivePlatform*>(level_entities.at(i)))
 		{
-			moving_platform->entity_to_collide = player;
+			moving_platform->entity_to_collide = (GrapplehookPlayer*)player;
 		}
 
 		// Add entities to collidable platforms

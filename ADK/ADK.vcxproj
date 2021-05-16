@@ -54,8 +54,6 @@
     <ClCompile Include="PlatformerSpikes.cpp" />
     <ClCompile Include="PlatformerTrampoline.cpp" />
     <ClCompile Include="PlatformerTriggerBox.cpp" />
-    <ClCompile Include="Scene_MainMenu.cpp" />
-    <ClCompile Include="Scene_Options.cpp" />
     <ClCompile Include="Scene_PlatformerGame.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -93,8 +91,6 @@
     <ClInclude Include="PlatformerSpikes.h" />
     <ClInclude Include="PlatformerTrampoline.h" />
     <ClInclude Include="PlatformerTriggerBox.h" />
-    <ClInclude Include="Scene_MainMenu.h" />
-    <ClInclude Include="Scene_Options.h" />
     <ClInclude Include="Scene_PlatformerGame.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -168,8 +164,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\imgui_sfml\lib;$(SolutionDir)Dependencies\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-network-d.lib;sfml-main-d.lib;opengl32.lib;ImGui-SFML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-network-d.lib;sfml-main-d.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
