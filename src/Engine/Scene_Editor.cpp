@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iostream>
 #include <fstream>
 #include <filesystem>
 #include <imgui.h>
@@ -32,6 +31,8 @@ Scene_Editor::Scene_Editor()
 	, b_typing_in_textbox(false)
 	, b_show_load_confirm(false)
 	, b_show_save_confirm(false)
+	, b_alt_rotate(false)
+	, b_shift_scale(false)
 	, b_debug_render(false)
 	, b_collision_match_sprite_bound(false)
 	, b_prefab_for_creation(false)
