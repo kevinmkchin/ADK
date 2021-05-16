@@ -5,7 +5,7 @@
 #include "ADKGameStatics.h"
 
 #include "Scene_Editor.h"
-#include "../Scene_PlatformerGame.h"
+#include "../PlatformerPackage/Scene_PlatformerGame.h"
 
 
 #pragma region REGISTRATION

@@ -1,8 +1,8 @@
 #include "PlatformerFallingPlatform.h"
 #include "PlatformerOneWayTile.h"
 #include "GrapplehookPlayer.h"
-#include "Engine/ADKCamera.h"
-#include "Engine/EntityList.h"
+#include "../Engine/ADKCamera.h"
+#include "../Engine/EntityList.h"
 
 ADKOBJECT(PlatformerFallingPlatform)
 PlatformerFallingPlatform::PlatformerFallingPlatform()
