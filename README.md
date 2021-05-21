@@ -18,6 +18,9 @@ Everything that ADK needs is included in this repository.
 
 If you want to use an IDE like CLion or Visual Studio, make sure to [set the "Working Directory"](https://stackoverflow.com/questions/25834878/how-do-i-change-the-working-directory-for-my-program) to the */data* directory at the root of this repo.
 
+## How to Get Started
+https://github.com/kevinmkchin/ADK/wiki
+
 ## Purpose
 Ayax Development Kit is a collection of tools and resources that one would want in order to create a 2D video game. In essence, ADK is an easy-to-use C++ game engine for building modern 2D games, but it includes several useful game systems such as character controllers, cameras, and common game objects such as trigger boxes. ADK also includes a demo platformer game to study. Whether you take one of the example/demo games and expand upon it or decide to create a new game using the integrated editor, ADK provides the features you need.
 
