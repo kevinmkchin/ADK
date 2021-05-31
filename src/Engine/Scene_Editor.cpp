@@ -5,6 +5,7 @@
 #include <imgui-SFML.h>
 #include "json.hpp"
 
+#include "ADKGlobalDefines.h"
 #include "ADKGameStatics.h"
 #include "ADKMath.h"
 #include "Scene_Editor.h"
@@ -780,7 +781,7 @@ void Scene_Editor::show_scene_debugui()
 {
 	ImGui::Text("Editor: Load Level");
 
-	std::string levels_directory = "Assets/Levels/";
+	std::string levels_directory = ADKLEVELPATH;
 	namespace stdfs = std::filesystem;
 	std::vector<std::string> filenames;
 	const stdfs::directory_iterator end{};

@@ -1,11 +1,9 @@
-#include <iostream>
 #include <fstream>
 #include "ADKSaveLoad.h"
 
-#include "Scene.h"
+#include "ADKGlobalDefines.h"
 #include "ADKReflection.h"
-
-#define LEVELPATH "Assets/Levels/"
+#include "Scene.h"
 
 #define ENTITIES "entities"
 #define ENTITY_ID_LABEL "eid"
@@ -71,9 +69,9 @@ void ADKSaveLoad::save_entities(const std::string& savePath, EntityList el)
 	std::string serialized = final.dump(4);
 	std::ofstream save;	
 
-	bool has_levelpath = savePath.find(LEVELPATH) == 0;
+	bool has_levelpath = savePath.find(ADKLEVELPATH) == 0;
 	bool has_json = (savePath.length() > 5) && (savePath.substr(savePath.length() - 5) == ".json");
-	std::string path_to_save = (has_levelpath ? "" : LEVELPATH) + savePath + (has_json ? "" : ".json");
+	std::string path_to_save = (has_levelpath ? "" : ADKLEVELPATH) + savePath + (has_json ? "" : ".json");
 
 	save.open(path_to_save);
 	save << serialized;
@@ -93,9 +91,9 @@ void ADKSaveLoad::load_to_scene(const std::string& savePath, Scene& scene, bool 
 		scene.level_entities.remove_and_destroy_all();
 	}
 
-	bool has_levelpath = savePath.find(LEVELPATH) == 0;
+	bool has_levelpath = savePath.find(ADKLEVELPATH) == 0;
 	bool has_json = (savePath.length() > 5) && (savePath.substr(savePath.length() - 5) == ".json");
-	std::string path_to_load = (has_levelpath ? "" : LEVELPATH) + savePath + (has_json ? "" : ".json");
+	std::string path_to_load = (has_levelpath ? "" : ADKLEVELPATH) + savePath + (has_json ? "" : ".json");
 
 	// Load json
 	std::ifstream load(path_to_load);
@@ -246,7 +244,7 @@ void ADKSaveLoad::load_entities_from_json(json& entities_json, EntityList* list_
 		// offset in json not being used, just getting the fields that class description knows about
 		// type in json not being used
 		char* ent_address = (char*)created;
-		for (ADKFieldDescription field : created->class_description_ptr->fields)
+		for (const ADKFieldDescription field : created->class_description_ptr->fields)
 		{
 			// TODO edit this so if json doesn't have a newly added class field, we can just not do anything and use default value from constructor
 			int offset = field.offset;
