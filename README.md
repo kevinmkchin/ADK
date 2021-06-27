@@ -7,7 +7,7 @@
 ## Features Overview Trailer
 [Watch on YouTube](https://www.youtube.com/watch?v=-d6XYUhZG78&ab_channel=KevinChin)
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=-d6XYUhZG78" target="_blank"><img src="http://img.youtube.com/vi/-d6XYUhZG78/0.jpg" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=-d6XYUhZG78" target="_blank"><img src="http://img.youtube.com/vi/-d6XYUhZG78/0.jpg" alt="IMAGE ALT TEXT HERE" width="854" height="480" border="10" /></a>
 
 ## How to Build and Run
 Everything that ADK needs is included in this repository.
