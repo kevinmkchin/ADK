@@ -7,6 +7,7 @@
 #include "../Engine/ADKCamera.h"
 #include "../Engine/ADKMath.h"
 #include "../Engine/ADKTimer.h"
+#include "../Engine/ADKGlobalDefines.h"
 
 #include "GrapplehookPlayer.h"
 #include "PlatformerTriggerBox.h"
@@ -221,7 +222,7 @@ void Scene_PlatformerGame::show_scene_debugui()
 {
 	ImGui::Text("PlatformerGame: Load Level");
 
-	std::string levels_directory = "Assets/Levels/";
+	std::string levels_directory = ADKLEVELPATH;
 	namespace stdfs = std::filesystem;
 	std::vector<std::string> filenames;
 	const stdfs::directory_iterator end{};
